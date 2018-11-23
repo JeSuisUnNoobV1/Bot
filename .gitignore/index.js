@@ -10,7 +10,7 @@ client.on('ready', () => {
 client.on('message', msg => {
   if (msg.content === 'nb') {
     msg.channel.send("NoobUtility"),
-    msg.channel.send("Version : Alpha 0.3.1 "),
+    msg.channel.send("Version : Alpha 0.4 "),
     msg.channel.send("Développé par : legameur6810"),
     msg.channel.send("Langue : Français");
   }
@@ -57,4 +57,17 @@ client.on('message', msg => {
     }
 });
 
-client.login(process.env.TOKEN)
+// CHANGELOGS
+
+client.on('message', msg => {
+    if (msg.content === 'nb/change') {
+        msg.reply("Voir les nouveauté ici : http://textup.fr/297591Hz")
+    }
+});
+client.on('message', msg => {
+    if (msg.content === 'nb/changelogs') {
+        msg.reply("Voir les nouveauté ici : http://textup.fr/297591Hz")
+    }
+});
+
+client.login(process.env.TOKEN);
