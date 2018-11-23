@@ -9,10 +9,9 @@ client.on('ready', () => {
 // NB
 client.on('message', msg => {
   if (msg.content === 'nb') {
-    msg.channel.send("NoobUtility"),
+    msg.channel.send("NoobBot"),
     msg.channel.send("Version : Alpha 0.4 "),
-    msg.channel.send("Développé par : legameur6810"),
-    msg.channel.send("Langue : Français");
+    msg.channel.send("Développé par : legameur6810");
   }
 });
 
@@ -69,5 +68,28 @@ client.on('message', msg => {
         msg.reply("Voir les nouveauté ici : http://textup.fr/297591Hz")
     }
 });
+
+// Regle
+client.on('message', msg => {
+    if (msg.content === 'nb/regles') {
+        msg.reply('Voici les règles de la team : http://textup.fr/297606fw')
+    }
+});
+client.on('message', msg => {
+    if (msg.content === 'nb/regle') {
+        msg.reply('Voici les règles de la team : http://textup.fr/297606fw')
+    }
+});
+client.on('message', msg => {
+    if (msg.content === 'nb/rule') {
+        msg.reply('Voici les règles de la team : http://textup.fr/297606fw')
+    }
+});
+client.on('message', msg => {
+    if (msg.content === 'nb/règle') {
+        msg.reply('Voici les règles de la team : http://textup.fr/297606fw')
+    }
+});
+
 
 client.login(process.env.TOKEN);
