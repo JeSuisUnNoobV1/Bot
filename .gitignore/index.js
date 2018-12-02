@@ -12,7 +12,7 @@ client.on("guildMemberAdd", member => {
 
 client.on('message', msg => {
   if (msg.content === '$info') {
-    msg.channel.send("```Makerdown\nNoobBot \nVersion : Beta 1.8\nCréateur : legameur6810#4488 \nSortie le : 20s/11/2018```");
+    msg.channel.send("```Makerdown\nNoobBot \nVersion : Beta 1.8\nCréateur : legameur6810#4488 \nSortie le : 20/11/2018```");
   }
 });
 
