@@ -9,7 +9,7 @@ client.on('ready', () => {
     }, 1 * 1000); 
     var interval = setInterval (function () {
       client.user.setActivity('La Beta 1.9.3 est sortie !', [0]);
-    }, 1 * 2050); 
+    }, 1 * 1000); 
 });
 
 
