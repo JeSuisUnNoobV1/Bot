@@ -28,16 +28,13 @@ client.on('message', msg => {
 // HELP
 client.on('message', msg => {
   if(msg.content === "$help") {
-    msg.reply("Regarde des messages privé");
-    msg.createDM().then(channel => {
-      return channel.send({embed: {
-        color: 3447003,
-        description: "                  NoobBot\nVoici les commandes disponible :\n`$help` Donne toutes les commandes disponible\n`$aide` Donne toutes les commandes disponible\n`$info`  Donne des infos sur le bot"
-      }});
-    });
+    msg.reply(({embed: {
+      color: 3447003,
+      description: "                  NoobBot\nVoici les commandes disponible :\n`$help` Donne toutes les commandes disponible\n`$aide` Donne toutes les commandes disponible\n`$info`  Donne des infos sur le bot"
+    }}))
   }
 });
 
 
-// Login
+// LOGINn
 client.login(process.env.TOKEN);
