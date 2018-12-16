@@ -11,13 +11,6 @@ client.on("guildMemberAdd", members => {
     members.createDM().then(channel => {
       return channel.send('Bienvenue *' + members.displayName+ "*,\n Tu as maintenant accès au serveur de la NoobIse !\n \n _JeSuisUnNoobV1_")
     });
-    let role = members.guild.roles.find('name', 'BOT');
-    if(members.member.roles.find('name', 'BOT')) {
-      members.member.removeRole(role)
-    }
-    else {
-      members.member.addRole(role)
-    }
   });
 
 client.on('message', msg => {
