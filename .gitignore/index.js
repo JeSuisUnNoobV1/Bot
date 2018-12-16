@@ -5,14 +5,23 @@ const client = new Discord.Client();
 client.on('ready', () => {
     console.log('Le bot a été charger avec succès !');
     var interval = setInterval (function () {
-      client.user.setActivity('Minecraft - Rinaorc', [0]);
-    }, 1 * 1000); 
-    var interval = setInterval (function () {
-      client.user.setActivity('La Beta 1.9.3 est sortie !', [0]);
-    }, 1 * 2050);
-    var interval = setInterval (function () {
-      client.user.setActivity('$aide est a votre disposition !', [0]);
-    }, 1 * 3075); 
+      function entierAleatoire(min, max)
+        {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        var entier = entierAleatoire(1, 3);
+    }, 1 * 1000);
+
+    if(entier === 1) {
+      client.user.setActivity('Minecraft - Rinaorc', [0]); 
+    }
+    if(entier === 2) {
+      client.user.setActivity('La beta 1.9.3 est sortie', [0]);
+    }
+    if(entier === 3) {
+      client.user.setActivity('$aide est a votre disposition !', [0]); 
+    }
 });
 
 
