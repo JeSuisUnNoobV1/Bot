@@ -7,12 +7,12 @@ client.on('ready', () => {
 });
 
 client.on("guildMemberAdd", member => {
-    member.guild.channels.find("name", "bienvenue").send("Bienvenue à toi sur le serveur de la NoobIse !");
+    member.guild.channels.find("name", "bienvenue").send("Bienvenue à " + member.displayName +" sur le serveur de la NoobIse !");
 });
 
 client.on('message', msg => {
   if (msg.content === '$info') {
-    msg.channel.send("```Makerdown\nNoobBot \nVersion : Beta 1.8\nCréateur : legameur6810#4488 \nSortie le : 20/11/2018```");
+    msg.channel.send("```Makerdown\nNoobBot \nVersion : Beta 1.9\nCréateur : legameur6810#4488 \nSortie le : 20s/11/2018```");
   }
 });
 
