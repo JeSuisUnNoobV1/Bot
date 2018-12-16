@@ -29,8 +29,8 @@ client.on('ready', () => {
       client.user.setActivity(activities_list[index]);
   }, 2500);
   setInterval(() => {
-    const index = Math.floor(Math.random() * (username_list.length - 1) + 1); 
-    client.user.setUsername("NEWNAMEHERE")(username_list[index]);
+    const index2 = Math.floor(Math.random() * (username_list.length - 1) + 1); 
+    client.user.setUsername("NEWNAMEHERE")(username_list[index2]);
 }, 150);
 });
 
