@@ -9,10 +9,10 @@ client.on('ready', () => {
     }, 1 * 1000); 
     var interval = setInterval (function () {
       client.user.setActivity('La Beta 1.9.3 est sortie !', [0]);
-    }, 1 * 2000);
+    }, 1 * 2050);
     var interval = setInterval (function () {
       client.user.setActivity('$aide est a votre disposition !', [0]);
-    }, 1 * 3000); 
+    }, 1 * 3075); 
 });
 
 
