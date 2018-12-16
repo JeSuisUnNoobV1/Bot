@@ -20,7 +20,10 @@ client.on("guildMemberAdd", members => {
 // $INFO
 client.on('message', msg => {
   if (msg.content === '$info') {
-    msg.channel.send("```Makerdown\nNoobBot \nVersion : Beta 1.9\nCréateur : legameur6810#4488 \nSortie le : 20/11/2018```");
+    msg.channel.send(({embed: {
+      color : 12745742,
+      description: "```Makerdown\nNoobBot \nVersion : Beta 1.9\nCréateur : legameur6810#4488 \nSortie le : 20/11/2018```"
+    }}))
   }
 });
 
@@ -29,12 +32,12 @@ client.on('message', msg => {
 client.on('message', msg => {
   if(msg.content === "$help") {
     msg.reply(({embed: {
-      color: 3447003,
+      color: 12745742,
       description: "                  NoobBot\nVoici les commandes disponible :\n`$help` Donne toutes les commandes disponible\n`$aide` Donne toutes les commandes disponible\n`$info`  Donne des infos sur le bot"
     }}))
   }
 });
 
 
-// LOGINn
+// Login
 client.login(process.env.TOKEN);
