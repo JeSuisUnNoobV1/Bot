@@ -22,7 +22,7 @@ client.on('message', msg => {
   if (msg.content === '$info') {
     msg.channel.send(({embed: {
       color : 12745742,
-      description: "```Makerdown\nNoobBot \nVersion : Beta 1.9\nCréateur : legameur6810#4488 \nSortie le : 20/11/2018```"
+      description: "Version : Beta 1.9.3\nCréateur : legameur6810#4488 \nSortie le : 20/11/2018"
     }}))
   }
 });
@@ -33,7 +33,15 @@ client.on('message', msg => {
   if(msg.content === "$help") {
     msg.reply(({embed: {
       color: 12745742,
-      description: "                  NoobBot\nVoici les commandes disponible :\n`$help` Donne toutes les commandes disponible\n`$aide` Donne toutes les commandes disponible\n`$info`  Donne des infos sur le bot"
+      description: "Voici les commandes disponible :\n`$help` Donne toutes les commandes disponible\n`$aide` Donne toutes les commandes disponible\n`$info`  Donne des infos sur le bot"
+    }}))
+  }
+});
+client.on('message', msg => {
+  if(msg.content === "$aide") {
+    msg.reply(({embed: {
+      color: 12745742,
+      description: "Voici les commandes disponible :\n`$help` Donne toutes les commandes disponible\n`$aide` Donne toutes les commandes disponible\n`$info`  Donne des infos sur le bot"
     }}))
   }
 });
