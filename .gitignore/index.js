@@ -3,8 +3,13 @@ const client = new Discord.Client();
 
 // START
 client.on('ready', () => {
-    client.user.setActivity('Minecraft - Rinaorc', [0]);
     console.log('Le bot a été charger avec succès !');
+    var interval = setInterval (function () {
+      client.user.setActivity('Minecraft - Rinaorc', [0]);
+    }, 1 * 1000); 
+    var interval = setInterval (function () {
+      client.user.setActivity('La Beta 1.9.3 est sortie !', [0]);
+    }, 1 * 2050); 
 });
 
 
