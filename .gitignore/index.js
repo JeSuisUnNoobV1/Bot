@@ -4,25 +4,36 @@ const client = new Discord.Client();
 // START
 client.on('ready', () => {
     console.log('Le bot a été charger avec succès !');
-    var interval = setInterval (function () {
-      function entierAleatoire(min, max)
-        {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-        }
-
-        var entier = entierAleatoire(1, 3);
-    }, 1 * 1000);
-
-    if(entier === 1) {
-      client.user.setActivity('Minecraft - Rinaorc', [0]); 
-    }
-    if(entier === 2) {
-      client.user.setActivity('La beta 1.9.3 est sortie', [0]);
-    }
-    if(entier === 3) {
-      client.user.setActivity('$aide est a votre disposition !', [0]); 
-    }
 });
+
+
+
+// Generateur de nombre entre 1 et 3
+function entierAleatoire(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+
+// Fait la demande toute les miutes
+var interval = setInterval (function () {
+  var entier = entierAleatoire(1, 3);
+}, 1 * 1000); 
+
+
+// Si c'est egale a 1
+if(entier === 1) {
+  client.user.setActivity('Minecraft - Rinaorc', [0]); 
+}
+
+// Si c'est egale a 2
+if(entier === 2) {
+  client.user.setActivity('La beta 1.9.3 est sortie', [0]);
+}
+
+// Si c'est egale a 3
+if(entier === 3) {
+  client.user.setActivity('$aide est a votre disposition !', [0]); 
+}
 
 
 // Nouveaux utilisateur
