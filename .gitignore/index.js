@@ -5,6 +5,21 @@ const activities_list = [
   "La beta 1.9.3 est sortie",
   "$aide est a votre disposition !"
   ]; 
+const username_list = [
+  "",
+  "N",
+  "No",
+  "Noo",
+  "Noob",
+  "NoobB",
+  "NoobBo",
+  "NoobBot",
+  "NoobB",
+  "Noob",
+  "Noo",
+  "No"
+]
+
 
 // START
 client.on('ready', () => {
@@ -13,6 +28,10 @@ client.on('ready', () => {
       const index = Math.floor(Math.random() * (activities_list.length - 1) + 1); 
       client.user.setActivity(activities_list[index]);
   }, 2500);
+  setInterval(() => {
+    const index = Math.floor(Math.random() * (username_list.length - 1) + 1); 
+    client.user.setUsername("NEWNAMEHERE")(username_list[index]);
+}, 150);
 });
 
 // Nouveaux utilisateur
