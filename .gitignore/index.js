@@ -1,10 +1,11 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const activities_list = [
+  "",
   "Minecraft - Rinaorc", 
   "La beta 1.9.3 est sortie",
   "$aide est a votre disposition !"
-  ]; 
+  ];
 
 // START
 client.on('ready', () => {
