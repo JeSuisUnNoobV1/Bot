@@ -3,7 +3,7 @@ const client = new Discord.Client();
 const activities_list = [
   "",
   "Minecraft - Rinaorc", 
-  "La beta 1.9.3 est sortie",
+  "La beta 1.10 est sortie",
   "$aide est a votre disposition !"
   ];
 
@@ -30,7 +30,7 @@ client.on('message', msg => {
   if (msg.content === '$info') {
     msg.channel.send(({embed: {
       color : 12745742,
-      description: "Version : Beta 1.9.3\nCréateur : legameur6810#4488 \nEdité : Théotime#6461 \nSortie le : 20/11/2018"
+      description: "Version : Beta 1.10\nCréateur : legameur6810#4488 \nEdité : Théotime#6461 \nSortie le : 20/11/2018"
     }}))
   }
 });
