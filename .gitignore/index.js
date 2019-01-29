@@ -2,9 +2,10 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 const activities_list = [
   "",
-  "Minecraft - Rinaorc", 
-  "La beta 1.10 est sortie",
-  "$aide est a votre disposition !"
+  "Des questions ?", 
+  "Un projet ?",
+  "Un site internet ?",
+  "Roboto est à votre disposition"
   ];
 
 // START
