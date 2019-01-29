@@ -14,6 +14,7 @@ client.on('ready', () => {
     setInterval(() => {
       const index = Math.floor(Math.random() * (activities_list.length - 1) + 1); 
       client.user.setActivity(activities_list[index]);
+      client.user.setActivityType("WATCHING");
   }, 2500);
 });
 
@@ -25,27 +26,6 @@ client.on("guildMemberAdd", members => {
    });
 });
 
-
-// $INFO
-client.on('message', msg => {
-  if (msg.content === '$info') {
-    msg.channel.send(({embed: {
-      color : 12745742,
-      description: "Version : Beta 1.10\nCréateur : legameur6810#4488 \nEdité : Théotime#6461 \nSortie le : 20/11/2018"
-    }}))
-  }
-});
-
-
-// HELP
-client.on('message', msg => {
-  if(msg.content === "$help") {
-    msg.reply(({embed: {
-      color: 12745742,
-      description: "Voici les commandes disponible :\n`$help` Donne toutes les commandes disponible\n`$aide` Donne toutes les commandes disponible\n`$info`  Donne des infos sur le bot"
-    }}))
-  }
-});
 client.on('message', msg => {
   if(msg.content === "$aide") {
     msg.reply(({embed: {
