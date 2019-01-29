@@ -27,7 +27,9 @@ client.on("guildMemberAdd", members => {
 });
 
 client.on('message', msg => {
-  if(msg.content === "Abruti") {
+	m = msg.content.toLowerCase();
+
+	if(m === "Abruti") {
     msg.reply(({embed: {
       color: 12745742,
       description: "Bah ça va les insultes !"
@@ -36,7 +38,7 @@ client.on('message', msg => {
     // We can create embeds using the MessageEmbed constructor
     // Read more about all that you can do with the constructor
     // over at https://discord.js.org/#/docs/main/stable/class/RichEmbed
-    const embed = new RichEmbed()
+    const embed = new Discord.RichEmbed()
       // Set the title of the field
       .setTitle('A slick little embed')
       // Set the color of the embed
@@ -47,7 +49,7 @@ client.on('message', msg => {
     message.channel.send(embed);
   }
 
-  switch (msg) {
+  switch (msg.content) {
     case "Roboto help": case "Roboto -h":
     	msg.reply(({embed: {
 			color: 12745742,
