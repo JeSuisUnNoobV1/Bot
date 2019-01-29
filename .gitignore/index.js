@@ -20,7 +20,7 @@ client.on('ready', () => {
 
 // Nouveaux utilisateur
 client.on("guildMemberAdd", members => {
-    members.guild.channels.find("name", "bienvenue").send("Bienvenue à **" + members.displayName +"** sur le serveur de la NoobIse !");
+    members.guild.channels.find("name", "bienvenue").send("Bienvenue à **" + members.displayName +"**, tu es maintenant connecté au serveur discord !");
     members.createDM().then(channel => {
       return channel.send('Bienvenue **' + members.displayName+ "**,\n Tu as maintenant accès au serveur de la NoobIse !\n \n _JeSuisUnNoobV1_")
    });
