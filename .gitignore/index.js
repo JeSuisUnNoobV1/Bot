@@ -13,7 +13,7 @@ client.on('ready', () => {
     console.log('Le bot a été charger avec succès !');
     setInterval(() => {
       const index = Math.floor(Math.random() * (activities_list.length - 1) + 1); 
-      client.user.setActivity(activities_list[index], "WATCHING");
+      client.user.setActivity(activities_list[index]);
   }, 2500);
 });
 
