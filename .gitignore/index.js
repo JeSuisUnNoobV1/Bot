@@ -31,6 +31,11 @@ client.on('message', msg => {
       color: 12745742,
       description: "Voici les commandes disponible :\n`$help` Donne toutes les commandes disponible\n`$aide` Donne toutes les commandes disponible\n`$info`  Donne des infos sur le bot"
     }}))
+  } else if(msg.content === "Abruti") {
+    msg.reply(({embed: {
+      color: 12745742,
+      description: "Bah ça va les insultes !"
+    }}))
   }
 });
 
