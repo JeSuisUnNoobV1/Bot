@@ -37,7 +37,7 @@ client.on('message', msg => {
       color: 12745742,
       description: "Bah ça va les insultes !"
     }}));
-  } else if (message.content === 'how to embed') {
+  } else if (msg.content === 'how to embed') {
     // We can create embeds using the MessageEmbed constructor
     // Read more about all that you can do with the constructor
     // over at https://discord.js.org/#/docs/main/stable/class/RichEmbed
@@ -50,6 +50,12 @@ client.on('message', msg => {
       .setDescription('Hello, this is a slick embed!');
     // Send the embed to the same channel as the message
     message.channel.send(embed);
+  }
+
+  switch (msg) {
+    case "Roboto help": case "Roboto -h":
+      
+    break;
   }
 });
 
