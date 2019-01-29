@@ -20,9 +20,9 @@ client.on('ready', () => {
 
 // Nouveaux utilisateur
 client.on("guildMemberAdd", members => {
-    members.guild.channels.find("name", "bienvenue").send("Bienvenue à **" + members.displayName +"**, tu es maintenant connecté au serveur discord !");
+    members.guild.channels.find("name", "bienvenue").send("Bienvenue à **" + members.displayName +"**, tu es maintenant connecté au serveur discord !\n Pour avoir accès accès à tout le serveur discord, merci de suivre les instructions disponible à l'url suivant : https://modulobot.xyz/verify/539738715707408385");
     members.createDM().then(channel => {
-      return channel.send('Bienvenue **' + members.displayName+ "**,\n Tu as maintenant accès au serveur de la NoobIse !\n \n _JeSuisUnNoobV1_")
+      return channel.send('Bienvenue **' + members.displayName+ "**,\n Tu as maintenant accès au serveur de Théotime ! \n\n _Cordialement, le staff_")
    });
 });
 
