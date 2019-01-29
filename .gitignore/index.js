@@ -29,7 +29,7 @@ client.on("guildMemberAdd", members => {
 client.on('message', msg => {
 	m = msg.content.toLowerCase();
 
-	if(m === "Abruti") {
+	if(m === "abruti") {
     msg.reply(({embed: {
       color: 12745742,
       description: "Bah ça va les insultes !"
