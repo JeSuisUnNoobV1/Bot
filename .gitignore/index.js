@@ -9,6 +9,15 @@ const activities_list = [
   "à votre disposition"
   ];
 
+function checkArr(arr, str){
+    for (var i = 0; i<arr.length; i++){
+	if (arr[i] === str) {
+	    break;
+	    return true;
+	}
+    }
+}
+
 // START
 client.on('ready', () => {
     console.log('Roboto ready');
@@ -30,7 +39,7 @@ client.on("guildMemberAdd", members => {
 client.on('message', msg => {
 	m = msg.content.toLowerCase();
 
-	if(m === ("tg" || "fdp" || "abruti")) {
+	if(m == "tg" || m == "abruti") {
     msg.reply(({embed: {
       color: 12745742,
       description: "Bah ça va les insultes !"
