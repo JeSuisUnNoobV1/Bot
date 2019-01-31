@@ -9,7 +9,13 @@ const activities_list = [
   "à votre disposition"
   ];
 
-function checkArr(arr, str){
+function isInsult(str){
+   var arr = [
+       "fdp",
+       "batard",
+       "abruti"
+   ];
+	
     for (var i = 0; i<arr.length; i++){
 	if (arr[i] === str) {
 	    break;
@@ -39,24 +45,11 @@ client.on("guildMemberAdd", members => {
 client.on('message', msg => {
 	m = msg.content.toLowerCase();
 
-	if(m == "tg" || m == "abruti") {
+if(isInsult(m)) {
     msg.reply(({embed: {
       color: 12745742,
       description: "Bah ça va les insultes !"
     }}));
-  } else if (m === 'how to embed') {
-    // We can create embeds using the MessageEmbed constructor
-    // Read more about all that you can do with the constructor
-    // over at https://discord.js.org/#/docs/main/stable/class/RichEmbed
-    const embed = new Discord.RichEmbed()
-      // Set the title of the field
-      .setTitle('A slick little embed')
-      // Set the color of the embed
-      .setColor(0xFF0000)
-      // Set the main content of the embed
-      .setDescription('Hello, this is a slick embed!');
-    // Send the embed to the same channel as the message
-    message.channel.send(embed);
   }
 });
 
