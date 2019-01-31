@@ -12,6 +12,7 @@ const activities_list = [
 // START
 client.on('ready', () => {
     console.log('Roboto ready');
+	client.user.setActivity("Bot reload");
     setInterval(() => {
       const index = Math.floor(Math.random() * (activities_list.length - 1) + 1); 
       client.user.setActivity(activities_list[index]);
