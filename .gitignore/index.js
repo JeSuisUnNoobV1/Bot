@@ -33,7 +33,7 @@ client.on('message', msg => {
 if(m=="abruti"||m=="con"||m=="connard"||m=="fdp"||m=="batard"||m=="pute" || m=="bese" || m=="beze") {
     msg.channel.send({embed: {
   color: 16057630,
-  description: "Mais, c'est pas très gentils !"
+  description: "Mais, c'est pas très très gentils !!"
 }});
 msg.delete()
   .then(msg => console.log(`Deleted message from ${msg.author.username}`))
