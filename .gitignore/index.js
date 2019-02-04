@@ -49,13 +49,13 @@ if (m == "roboto") {
   questionName = true;
 }
 
-if (questionName == true) {
+if (questionName == true && m != "roboto") {
   msg.channel.send("D'accord "+m.replace(/je suis |mon nom est |moi c'est |je m'appelle /, '')+", maintenant, que voulez-vous ?");
   questionName = false;
   questionWish = true;
 }
 
-if (questionWish == true) {
+if (questionWish == true && m != "roboto") {
   if (m=="l'aide"||"de l'aide"||"j'ai besoin d'aide"||"aide"||"help"||"je veux de l'aide"||"aide moi"||"aide-moi") {
     msg.react(":wink:");
     msg.reply("Très bien, je t'ai tout envoyé en privé.");
