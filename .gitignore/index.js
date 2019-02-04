@@ -32,7 +32,7 @@ client.on('message', msg => {
 
 if(m=="abruti"||m=="con"||m=="connard"||m=="fdp"||m=="batard"||m=="pute") {
     msg.channel.send({embed: {
-  color: 3447003,
+  color: 16057630,
   description: "A very simple Embed!"
 }});
 msg.delete()
