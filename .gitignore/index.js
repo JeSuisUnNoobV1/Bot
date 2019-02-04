@@ -35,6 +35,9 @@ if(m=="abruti"||m=="con"||m=="connard"||m=="fdp"||m=="batard"||m=="pute") {
       color: 12745742,
       description: "Bah ça va les insultes !"
     }}));
+msg.delete()
+  .then(msg => console.log(`Deleted message from ${msg.author.username}`))
+  .catch(console.error);
   }
 });
 
