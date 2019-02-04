@@ -31,7 +31,7 @@ client.on('message', msg => {
 	m = msg.content.toLowerCase();
 
 if(m=="abruti"||m=="con"||m=="connard"||m=="fdp"||m=="batard"||m=="pute") {
-    msg.reply(({embed: {
+    msg.send(({embed: {
       color: 12745742,
       description: "Bah ça va les insultes !"
     }}));
