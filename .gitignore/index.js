@@ -14,7 +14,7 @@ var questionName = false;
 // START
 client.on('ready', () => {
     console.log('Roboto ready');
-	client.user.setActivity("Bot reload");
+	client.user.setActivity("CRASH");
     setInterval(() => {
       const index = Math.floor(Math.random() * (activities_list.length - 1) + 1); 
       client.user.setActivity(activities_list[index]);
@@ -33,15 +33,15 @@ client.on('message', msg => {
 	m = msg.content.toLowerCase();
 
 if(m.indexOf("abruti") != undefined ||m.indexOf("con") != undefined||m.indexOf("connard") != undefined||m.indexOf("fdp") != undefined||m.indexOf("batard") != undefined||m.indexOf("pute") != undefined || m.indexOf("bese") != undefined || m.indexOf("beze") != undefined || m.indexOf("ntm") != undefined || m.indexOf("nique")) {
-    msg.channel.send({embed: {
-  color: 16057630,
-  description: "Hop Hop Hop, évitez les insultes s'il vous plait."
-}});
 msg.delete()
   .then(msg => console.log(`Deleted message from ${msg.author.username}`))
   .catch(console.error);
+  msg.channel.send({embed: {
+    color: 16057630,
+    description: "Hop Hop Hop, évitez les insultes s'il vous plait."
+  }});
 }
-
+/*
 if (m == "roboto") {
   msg.channel.send("Oui ? c'est moi. \n Je peux vous aidez si vous en avez besoin. \n Mais avant de commencer, qui êtes-vous ?");
   questionName = true;
@@ -50,7 +50,7 @@ if (m == "roboto") {
 if (m.indexOf('je suis') === 0 && questionName == true) {
   msg.channel.send("D'accord "+m.replace('je suis ', '')+", maintenant, que voulez-vous ?");
   questionName = false;
-}
+}*/
 });
 
 
