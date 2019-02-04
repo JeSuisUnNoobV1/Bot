@@ -32,20 +32,8 @@ client.on("guildMemberAdd", members => {
 client.on('message', msg => {
 	var m = msg.content.toLowerCase();
 
-function isInsult(msg){
-  var arr = [
-    "batard"
-  ];
 
-  for (var i = 0; i<arr.length; i++) {
-    if (msg.indexOf(arr[i]) != undefined) {
-      return true;
-    }
-  }
-  return false;
-}
-
-/*if(isInsult(m)) {
+if(m=="fdp"||m=="merde"||m=="beze"||m=="bese"||m=="bz"||m=="salope"||m=="salop"||m=="pute"||m=="con"||m=="connard"||m=="putain"||m=="batard") {
 msg.delete()
   .then(msg => console.log(`Deleted message from ${msg.author.username}`))
   .catch(console.error);
@@ -54,7 +42,7 @@ msg.delete()
     description: "Hop Hop Hop, évitez les insultes s'il vous plait."
   }});
 }
-/*
+
 if (m == "roboto") {
   msg.channel.send("Oui ? c'est moi. \n Je peux vous aidez si vous en avez besoin. \n Mais avant de commencer, qui êtes-vous ?");
   questionName = true;
@@ -63,7 +51,7 @@ if (m == "roboto") {
 if (m.indexOf('je suis') === 0 && questionName == true) {
   msg.channel.send("D'accord "+m.replace('je suis ', '')+", maintenant, que voulez-vous ?");
   questionName = false;
-}*/
+}
 });
 
 
