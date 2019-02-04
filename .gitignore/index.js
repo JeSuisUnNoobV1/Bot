@@ -9,7 +9,8 @@ const activities_list = [
   "votre disposition"
   ];
 
-var questionName = false;
+var questionName = false,
+    questionWish = false;
 
 // START
 client.on('ready', () => {
