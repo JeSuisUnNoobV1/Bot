@@ -30,7 +30,7 @@ client.on("guildMemberAdd", members => {
 });
 
 client.on('message', msg => {
-	m = msg.content.toLowerCase();
+	var m = msg.content.toLowerCase();
 
 function isInsult(msg){
   var arr = [
@@ -42,9 +42,10 @@ function isInsult(msg){
       return true;
     }
   }
+  return false;
 }
 
-if(isInsult(m)) {
+/*if(isInsult(m)) {
 msg.delete()
   .then(msg => console.log(`Deleted message from ${msg.author.username}`))
   .catch(console.error);
