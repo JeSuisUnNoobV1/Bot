@@ -6,7 +6,7 @@ const activities_list = [
   "Un projet ?",
   "Un site internet ?",
   "De l'aide automatique",
-  "à votre disposition"
+  "votre disposition"
   ];
 
 // START
@@ -33,7 +33,7 @@ client.on('message', msg => {
 if(m=="abruti"||m=="con"||m=="connard"||m=="fdp"||m=="batard"||m=="pute") {
     msg.channel.send({embed: {
   color: 16057630,
-  description: "Mais, " + msg.displayName + "C'est pas très gentils !"
+  description: "Mais, c'est pas très gentils !"
 }});
 msg.delete()
   .then(msg => console.log(`Deleted message from ${msg.author.username}`))
