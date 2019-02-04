@@ -30,7 +30,7 @@ client.on("guildMemberAdd", members => {
 client.on('message', msg => {
 	m = msg.content.toLowerCase();
 
-if(m=="abruti"||m=="con"||m=="connard"||m=="fdp"||m=="batard"||m=="pute" || m=="bese" || m=="beze" || m=="ntm" || m=="nique") {
+if(m.content("abruti") ||m=="con"||m=="connard"||m=="fdp"||m=="batard"||m=="pute" || m=="bese" || m=="beze" || m=="ntm" || m=="nique") {
     msg.channel.send({embed: {
   color: 16057630,
   description: "Mais, c'est pas très très gentils !!"
