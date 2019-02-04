@@ -32,7 +32,19 @@ client.on("guildMemberAdd", members => {
 client.on('message', msg => {
 	m = msg.content.toLowerCase();
 
-if(m.indexOf("abruti") != undefined ||m.indexOf("con") != undefined||m.indexOf("connard") != undefined||m.indexOf("fdp") != undefined||m.indexOf("batard") != undefined||m.indexOf("pute") != undefined || m.indexOf("bese") != undefined || m.indexOf("beze") != undefined || m.indexOf("ntm") != undefined || m.indexOf("nique")) {
+function isInsult(msg){
+  var arr = [
+    "batard"
+  ];
+
+  for (var i = 0; i<arr.length; i++) {
+    if (msg.indexOf(arr[i]) != undefined) {
+      return true;
+    }
+  }
+}
+
+if(isInsult(m)) {
 msg.delete()
   .then(msg => console.log(`Deleted message from ${msg.author.username}`))
   .catch(console.error);
