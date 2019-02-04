@@ -58,7 +58,7 @@ client.on('message', msg => {
 	m = msg.content.toLowerCase();
 
 if(m=="abruti"||m=="con"||m=="connard"||m=="fdp"||m=="batard"||m=="pute") {
-    msg.channel.send({embed});
+    msg.channel.send({embedInsulte});
 msg.delete()
   .then(msg => console.log(`Deleted message from ${msg.author.username}`))
   .catch(console.error);
