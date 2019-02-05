@@ -7,7 +7,7 @@ const activities_list = [
   "Un site internet ?",
   "De l'aide automatique",
   "votre disposition",
-  "Théotime est un imposteur !
+  "Théotime est un imposteur !"
   ];
 
 var questionName = false;
