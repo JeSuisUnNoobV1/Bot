@@ -46,21 +46,9 @@ msg.delete()
 
 if (m == "roboto") {
   msg.channel.send("Oui ? c'est moi. \n Je peux vous aidez si vous en avez besoin. \n Mais avant de commencer, qui êtes-vous ?");
-  questionName = true;
-}
-
-if (questionName == true && m != "roboto") {
-  msg.channel.send("D'accord "+m.replace(/je suis |mon nom est |moi c'est |je m'appelle /, '')+", maintenant, que voulez-vous ?");
-  questionName = false;
-  questionWish = true;
-}
-
-if (questionWish == true && m != "roboto") {
-  if (m=="l'aide"||"de l'aide"||"j'ai besoin d'aide"||"aide"||"help"||"je veux de l'aide"||"aide moi"||"aide-moi") {
-    msg.react(":wink:");
-    msg.reply("Très bien, je t'ai tout envoyé en privé.");
-    questionWish = false;
-  }
+  client.on('message', msg => {
+	    msg.channel.send("D'accord "+m.replace(/je suis |mon nom est |moi c'est |je m'appelle /, '')+", maintenant, que voulez-vous ?");
+  });
 }
 });
 
