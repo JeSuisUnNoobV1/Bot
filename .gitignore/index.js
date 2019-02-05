@@ -6,8 +6,7 @@ const activities_list = [
   "Un projet ?",
   "Un site internet ?",
   "De l'aide automatique",
-  "votre disposition",
-  "Théotime est un imposteur !"
+  "votre disposition"
   ];
 
 var questionName = false;
@@ -65,6 +64,14 @@ if (questionWish == true && m != "roboto") {
 }
 });
 
+// WTF
+ client.on('message', msg => {
+	var wtfff = msg.content.toLowerCase();
+	
+	if(wtfff=="wtf") {
+	msg.channel.send('coucou');
+	}
+ });
 
 // Login
 client.login(process.env.TOKEN);
