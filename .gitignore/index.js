@@ -42,7 +42,6 @@ msg.delete()
     color: 16057630,
     description: "Hop Hop Hop, évitez les insultes s'il vous plait."
   }});
-msg.channels.ind('id', '540245120855834627').send("Le message de : ${msg.author.username} à bien été supprimer");
 }
 
 	// WTF
