@@ -36,13 +36,13 @@ client.on('message', msg => {
 
 if(m=="fdp"||m=="merde"||m=="beze"||m=="bese"||m=="bz"||m=="salope"||m=="salop"||m=="pute"||m=="con"||m=="connard"||m=="putain"||m=="batard") {
 msg.delete()
-  msg.channels.find('id', '540245120855834627').send("Le message de : ${msg.author.username} à bien été supprimer")
   .then(msg => console.log(`Deleted message from ${msg.author.username}`))
   .catch(console.error);
   msg.channel.send({embed: {
     color: 16057630,
     description: "Hop Hop Hop, évitez les insultes s'il vous plait."
   }});
+msg.channels.ind('id', '540245120855834627').send("Le message de : ${msg.author.username} à bien été supprimer");
 }
 
 	// WTF
