@@ -59,7 +59,7 @@ if (m=="roboto"){
 }
 
 if (m=="roboto joke") {
-  let i = Math.floor(Math.random() * (jokes.length - 1) + 1); 
+  var i = Math.floor(Math.random() * (jokes.length - 1) + 1); 
   msg.channel.send(jokes[i]);
 }
 	
