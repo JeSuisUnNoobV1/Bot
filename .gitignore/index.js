@@ -8,6 +8,10 @@ const activities_list = [
   "De l'aide automatique",
   "votre disposition"
   ];
+const jokes = [
+  "Qu'est ce qui est jaune et qui attend ?",
+  ""
+]
 
 var questionName = false;
 var questionWish = false;
@@ -52,6 +56,11 @@ if (m=="wtf"||m=="what the fuck"){
 	// Roboto
 if (m=="roboto"){
   msg.channel.send("Oui, c'est moi ! \n Je peux vous aidez si vous tapez \"roboto help\", \n mais je peux aussi vous raconter des blagues avec \n roboto joke.");
+}
+
+if (m=="roboto joke") {
+  let i = Math.floor(Math.random() * (jokes.length - 1) + 1); 
+  msg.channel.send(jokes[i]);
 }
 	
 });
