@@ -31,10 +31,11 @@ client.on("guildMemberAdd", members => {
 });
 
 client.on('message', msg => {
-	var m = msg.content.toLowerCase();
+  var m = msg.content.toLowerCase();
+  var b = Buffer.from(msg.content.toLowerCase());
 
 
-if(m=="fdp"||m=="merde"||m=="beze"||m=="bese"||m=="bz"||m=="salope"||m=="salop"||m=="pute"||m=="con"||m=="connard"||m=="putain"||m=="batard") {
+if(b.indexOf("fdp")!=undefined) {
 msg.delete()
   .then(msg => console.log(`Deleted message from ${msg.author.username}`))
   .catch(console.error);
