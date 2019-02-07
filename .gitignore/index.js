@@ -11,7 +11,11 @@ const activities_list = [
 const jokes = [
   "",
   "Qu'est ce qui est jaune et qui attend ?",
-  ""
+  "Blague 1",
+  "Blague 2",
+  "Blague 3",
+  "Blague 4",
+  "Blague 5",
 ];
 
 var questionName = false;
@@ -61,7 +65,7 @@ if (m=="roboto"){
 
 if (m=="roboto joke") {
   const blagues = Math.floor(Math.random() * (jokes.length - 1) + 1);
-  msg.channel.send(blagues);
+  msg.channel.send(jokes[blagues]);
 }
 
 	
