@@ -15,7 +15,7 @@ const jokes = [
   "Blague 2",
   "Blague 3",
   "Blague 4",
-  "Blague 5",
+  "Blague 5"
 ];
 
 var questionName = false;
@@ -63,7 +63,7 @@ if (m=="roboto"){
   msg.channel.send("Oui, c'est moi ! \n Je peux vous aidez si vous tapez \"roboto help\", \n mais je peux aussi vous raconter des blagues avec \n roboto joke.");
 }
 
-if (m=="roboto joke") {
+if (m=="roboto joke"||m=="roboto blague"||m=="roboto jokes"||m=="roboto blagues"){
   const blagues = Math.floor(Math.random() * (jokes.length - 1) + 1);
   msg.channel.send(jokes[blagues]);
 }
@@ -78,6 +78,7 @@ if (m=="roboto help"||m=="roboto aide"||m=="roboto aides"||m=="roboto infos"||m=
 	});	
 }
 });
+
 
 // Login
 client.login(process.env.TOKEN);
