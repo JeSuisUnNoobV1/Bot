@@ -12,7 +12,7 @@ const jokes = [
   "",
   "Qu'est ce qui est jaune et qui attend ?",
   ""
-]
+];
 
 var questionName = false;
 var questionWish = false;
@@ -60,8 +60,8 @@ if (m=="roboto"){
 }
 
 if (m=="roboto joke") {
-  var i = Math.floor(Math.random() * (jokes.length - 1) + 1); 
-  msg.channel.send(jokes[i]);
+  const blagues = Math.floor(Math.random() * (jokes.length - 1) + 1);
+  msg.channel.send(blagues);
 }
 
 	
@@ -74,7 +74,6 @@ if (m=="roboto help"||m=="roboto aide"||m=="roboto aides"||m=="roboto infos"||m=
 	});	
 }
 });
-
 
 // Login
 client.login(process.env.TOKEN);
