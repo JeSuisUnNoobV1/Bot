@@ -9,6 +9,7 @@ const activities_list = [
   "votre disposition"
   ];
 const jokes = [
+  "",
   "Qu'est ce qui est jaune et qui attend ?",
   ""
 ]
@@ -38,7 +39,7 @@ client.on('message', msg => {
 	var m = msg.content.toLowerCase();
 
 
-if(m=="fdp"||m=="merde"||m=="beze"||m=="bese"||m=="bz"||m=="salope"||m=="salop"||m=="pute"||m=="con"||m=="connard"||m=="putain"||m=="batard") {
+if(m=="fdp"||m=="beze"||m=="bese"||m=="bz"||m=="salope"||m=="salop"||m=="pute"||m=="con"||m=="connard"||m=="tg"||m=="batard") {
 msg.delete()
   .then(msg => console.log(`Deleted message from ${msg.author.username}`))
   .catch(console.error);
