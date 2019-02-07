@@ -10,12 +10,13 @@ const activities_list = [
   ];
 const jokes = [
   "",
-  "Qu'est ce qui est jaune et qui attend ?",
-  "Blague 1",
-  "Blague 2",
-  "Blague 3",
-  "Blague 4",
-  "Blague 5"
+  "Qu'est ce qui est jaune et qui attend ? \n \n ||Jonathan||",
+  "Comment fait-on pour empêcher le lait de tourner ? \n \n ||En le mettant dans une casserole carrée.||",
+  "Que fait une vache quand elle a les yeux fermés ? \n \n ||Elle fabrique du lait concentré !||",
+  "Qu'est-ce qui a 23 dents pointues et qui mesure 23 mètres ? \n \n ||Je sais pas mais court !!||",
+  "Pourquoi Napoléon n'a-t-il jamais déménagé ? \n \n ||Parce qu'il avait un bon appart.||",
+  "Quel est le comble pour un dragon ? \n \n ||De déclarer sa flamme.||",
+  "Quel est le comble pour un boucher ? \n \n ||D'être végétarien.||"
 ];
 
 var questionName = false;
