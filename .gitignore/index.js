@@ -97,7 +97,7 @@ if (m=="roboto date"||m=="roboto time"||m=="roboto heure"){
   msg.channel.send({"embed":{
 		"title":"Temps actuel",
 		"description": "Nous sommes le "+_d+"/"+m+"/"+y+" et il est "+h+":"+_m+".",
-    "color": 65290
+    "color": 16777215
   }
 	});	
 }
