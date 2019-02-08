@@ -119,15 +119,15 @@ if (m=="roboto invite"||m=="invite"||m=="invitation"){
   	msg.channel.send("Oki, voilà une invitation, juste pour vous ^^\n https://discord.gg/PuU3BSJ");	
 }
 
-if (m=="roboto say"||m=="say"){
+if (m.startsWith("roboto say")||m.startsWith("say")){
 	if (msg.author.id === "483335511159865347" || msg.author.id === "467630539898224661") {
 		msg.channel.send(m.replace(/roboto say |say /, ''));
+	} else {
+		msg.channel.send({embed: {
+			color: 16057630,
+			description: "Non, tu n'est pas admin et n'a donc, par conséquent pas les permissions requises pour effectuer cette commande."
+		}});
 	}
-} else {
-	msg.channel.send({embed: {
-		color: 16057630,
-		description: "Non, tu n'est pas admin et n'a donc, par conséquent pas les permissions requises pour effectuer cette commande."
-	}});
 }
 
 });
