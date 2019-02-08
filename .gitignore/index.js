@@ -112,7 +112,11 @@ if (m=="roboto admins"||m=="roboto admin"||m=="roboto gérants"){
 }
 
 if (m=="roboto channel"){
-  msg.channel.send("Vous êtes sur le salon "+msg.channel.name);	
+  msg.channel.send("Vous êtes sur le salon `"+msg.channel.name+"`");	
+}
+
+if (m=="roboto invite"||m=="invite"||m=="invitation"){
+  msg.channel.send("Oki, voilà une invitation, juste pour vous ^^\n https://discord.gg/PuU3BSJ");	
 }
 
 });
