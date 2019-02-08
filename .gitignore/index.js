@@ -86,6 +86,22 @@ if (m=="roboto help"||m=="roboto aide"||m=="roboto aides"||m=="roboto infos"||m=
 		"color":65290}
 	});	
 }
+
+if (m=="roboto date"||m=="roboto time"||m=="roboto heure"){
+  const d = new Date();
+  const _d = d.getDate();
+  const m = d.getMonth();
+  const y = d.getFullYear();
+  const h = d.getHours();
+  const _m = d.getMinutes();
+  msg.channel.send({"embed":{
+		"title":"Temps actuel",
+		"description": "Nous sommes le "+_d+"/"+m+"/"+y+" et il est "+h+":"+_m+".",
+    "color": 65290
+  }
+	});	
+}
+
 });
 
 
