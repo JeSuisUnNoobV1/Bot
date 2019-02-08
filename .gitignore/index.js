@@ -89,11 +89,11 @@ if (m=="roboto help"||m=="roboto aide"||m=="roboto aides"||m=="roboto infos"||m=
 
 if (m=="roboto date"||m=="roboto time"||m=="roboto heure"){
   const d = new Date();
-  const _d = d.getDate();
-  const m = d.getMonth();
+  const _d = d.getDate() < 10 ? "0"+d.getDate() : d.getDate();
+  const m = d.getMonth() +1 < 10 ? "0"+(d.getMonth() +1) : d.getMonth() +1;
   const y = d.getFullYear();
-  const h = d.getHours();
-  const _m = d.getMinutes();
+  const h = d.getHours() +1 < 10 ? "0"+(d.getHours() +1) : d.getHours() +1;
+  const _m = d.getMinutes() < 10 ? "0"+d.getMinutes() : d.getMinutes();
   msg.channel.send({"embed":{
 		"title":"Temps actuel",
 		"description": "Nous sommes le "+_d+"/"+m+"/"+y+" et il est "+h+":"+_m+".",
