@@ -87,7 +87,7 @@ if (m=="roboto help"||m=="roboto aide"||m=="roboto aides"||m=="roboto infos"||m=
 	});	
 }
 
-if (m=="roboto date"||m=="roboto time"||m=="roboto heure"){
+if (m=="roboto date"||m=="roboto time"||m=="roboto heure"||m=="quelle heure est-il ?"||m=="heure"||m=="quel jour sommes-nous ?"||m=="date"||m=="jour"){
   const d = new Date();
   const _d = d.getDate() < 10 ? "0"+d.getDate() : d.getDate();
   const m = d.getMonth() +1 < 10 ? "0"+(d.getMonth() +1) : d.getMonth() +1;
