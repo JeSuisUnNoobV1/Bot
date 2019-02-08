@@ -112,11 +112,17 @@ if (m=="roboto admins"||m=="roboto admin"||m=="roboto gérants"){
 }
 
 if (m=="roboto channel"){
-  msg.channel.send("Vous êtes sur le salon `"+msg.channel.name+"`");	
+	msg.channel.send("Vous êtes sur le salon `"+msg.channel.name+"`");	
 }
 
 if (m=="roboto invite"||m=="invite"||m=="invitation"){
-  msg.channel.send("Oki, voilà une invitation, juste pour vous ^^\n https://discord.gg/PuU3BSJ");	
+  	msg.channel.send("Oki, voilà une invitation, juste pour vous ^^\n https://discord.gg/PuU3BSJ");	
+}
+
+if (m=="roboto say"||m=="say"){
+	if (msg.author.id === 483335511159865347 || msg.author.id === 467630539898224661) {
+		msg.channel.send(m.replace(/roboto say |say /, ''));
+	}
 }
 
 });
