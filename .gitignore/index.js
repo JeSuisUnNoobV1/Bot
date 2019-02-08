@@ -15,8 +15,16 @@ const jokes = [
   "Que fait une vache quand elle a les yeux fermés ? \n \n ||Elle fabrique du lait concentré !||",
   "Qu'est-ce qui a 23 dents pointues et qui mesure 23 mètres ? \n \n ||Je sais pas mais court !!||",
   "Pourquoi Napoléon n'a-t-il jamais déménagé ? \n \n ||Parce qu'il avait un bon appart.||",
-  "Quel est le comble pour un dragon ? \n \n ||De déclarer sa flamme.||",
-  "Quel est le comble pour un boucher ? \n \n ||D'être végétarien.||"
+  "Qu'est ce que du ciment dans un pot ?  \n \n ||De la confiture de mur !||",
+  "Qu'est ce qui réfléchit sans réfléchir ? \n \n ||Un miroir. ||",
+  "Quel est le mode de transport préféré des vampires ? \n \n ||Le vaisseau sanguin.||",
+  "Combien font 3 et 3 ? \n \n ||Match nul !||",
+  "Qui se lève sans faire de bruit ? \n \n ||Le jour.||",
+  "Qu'est-ce qui a deux aiguilles mais qui ne pique pas ? \n \n ||Une montre.||",
+  "Quelle est l'expression que les vampires répètent souvent ? \n \n ||Bon sang !!!||",
+  "qu'est ce qui a 2 branches mais pas de feuille ? \n \n ||Des lunettes.||",
+  "C'est le fils de ma mère mais c'est pas mon frère, qui est-ce ? \n \n ||C'est moi.||",
+  "Qu'est-ce qu'un cochon qui rit ? \n \n ||Un porc tout gai !||"
 ];
 
 var questionName = false;
