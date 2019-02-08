@@ -120,9 +120,14 @@ if (m=="roboto invite"||m=="invite"||m=="invitation"){
 }
 
 if (m=="roboto say"||m=="say"){
-	if (msg.author.id === 483335511159865347 || msg.author.id === 467630539898224661) {
+	if (msg.author.id === "483335511159865347" || msg.author.id === "467630539898224661") {
 		msg.channel.send(m.replace(/roboto say |say /, ''));
 	}
+} else {
+	msg.channel.send({embed: {
+		color: 16057630,
+		description: "Non, tu n'est pas admin et n'a donc, par conséquent pas les permissions requises pour effectuer cette commande."
+	}});
 }
 
 });
