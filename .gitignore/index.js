@@ -84,8 +84,8 @@ if (m=="roboto help"||m=="roboto aide"||m=="roboto aides"||m=="roboto infos"||m=
 		"title":"Aide du serveur",
 		"description":"    ***Commandes disponible***\n\n     🎡 **Fun** 🎡\n`Roboto Joke` : Roboto vous raconte une blague\n`wtf`: Roboto vous raconte une histoire\n`Roboto date` : Roboto vous donne la date\n`Roboto admins` : Affiche les admins du serveur\n\n\n\n    ***Information complémentaire***\n\n     🛡️ **Modération automatique** 🛡️\n\n-Toute insulte sera supprimée automatiquement\n-Si vous contourner, vous serez `ban permanent`.\n-Si vous avez pris un `warn`, c'est pour une bonne raison.\n-`10 Warn` = `ban permanant` !\n\n\n     🗒️ **Information** 🗒️\n\nVersion : `INSERER VERSION`\nCréé par : `legameur6810#4488` et `Théotime#6461`",
 		"color":16777215}
-	});	
-}
+  });	
+  }
 
 if (m=="roboto date"||m=="roboto time"||m=="roboto heure"||m=="quelle heure est-il ?"||m=="heure"||m=="quel jour sommes-nous ?"||m=="date"||m=="jour"){
   const d = new Date();
@@ -111,7 +111,12 @@ if (m=="roboto admins"||m=="roboto admin"||m=="roboto gérants"){
 	});	
 }
 
+if (m=="roboto channel"){
+  msg.channel.send("Vous êtes sur le salon "+msg.channel.name);	
+}
+
 });
+
 
 
 // Login
