@@ -139,10 +139,7 @@ if (m.startsWith("roboto me")||m=="me"){
 }
 
 if (m.startsWith("roboto dog")||m.startsWith("roboto chien")||m=="dessine-moi un chien"){
-    msg.channel.send({embed: {
-      color: 16777215,
-      image: "https://images.ecosia.org/BZRRnI_1_BIZ8zKOhwqoEGrSD58=/0x390/smart/https%3A%2F%2Fwww.pets4homes.co.uk%2Fimages%2Farticles%2F2687%2Flarge%2Fsamoyed-dog-hereditary-health-and-health-testing-55015cbf8f82c.jpg"
-    }});
+    msg.channel.send("https://images.ecosia.org/BZRRnI_1_BIZ8zKOhwqoEGrSD58=/0x390/smart/https%3A%2F%2Fwww.pets4homes.co.uk%2Fimages%2Farticles%2F2687%2Flarge%2Fsamoyed-dog-hereditary-health-and-health-testing-55015cbf8f82c.jpg");
 }
 
 });
