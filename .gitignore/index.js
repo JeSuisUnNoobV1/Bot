@@ -131,10 +131,10 @@ if (m.startsWith("roboto say")||m.startsWith("say")){
 }
 
 if (m.startsWith("roboto me")||m=="me"){
-  const grade = msg.guild;
+  const grade = client.guilds;
 		msg.channel.send({embed: {
 			color: 16777215,
-			description: "Tu es "+msg.author.username+msg.author.tag+", "+grade
+			description: "Tu es @"+msg.author.tag+", "+grade
 		}});
 }
 
