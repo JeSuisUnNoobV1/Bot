@@ -30,7 +30,7 @@ const jokes = [
 // START
 client.on('ready', () => {
     console.log('Roboto ready');
-    client.channels.find("id", "539847850666885131").send("Roboto ready");
+    client.channels.find("id", "539847850666885131").send("Hey, je suis prêt à faire feu !");
     client.user.setAvatar('https://theotime.me/logo.png');
 	client.user.setActivity("Reload ...");
     setInterval(() => {
@@ -128,6 +128,14 @@ if (m.startsWith("roboto say")||m.startsWith("say")){
 			description: "Non, tu n'est pas admin et n'a donc, par conséquent pas les permissions requises pour effectuer cette commande."
 		}});
 	}
+}
+
+if (m.startsWith("roboto me")||m=="me"){
+  const grade = msg.guild;
+		msg.channel.send({embed: {
+			color: 16777215,
+			description: "Tu es "+msg.author.username+msg.author.tag+", "+grade;
+		}});
 }
 
 });
