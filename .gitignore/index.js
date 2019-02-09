@@ -134,7 +134,7 @@ if (m.startsWith("roboto me")||m=="me"){
   const grade = msg.guild;
 		msg.channel.send({embed: {
 			color: 16777215,
-			description: "Tu es "+msg.author.username+msg.author.tag+", "+grade;
+			description: "Tu es "+msg.author.username+msg.author.tag+", "+grade
 		}});
 }
 
