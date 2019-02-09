@@ -52,7 +52,7 @@ client.on('message', msg => {
 	var m = msg.content.toLowerCase();
 
 
-if(m=="fdp"||m=="beze"||m=="bese"||m=="bz"||m=="salope"||m=="salop"||m=="pute"||m=="con"||m=="connard"||m=="tg"||m=="batard") {
+if(m.includes("fdp")||m.includes("beze")||m.includes("bese")||m.includes("bz")||m.includes("salope")||m.includes("salop")||m.includes("pute")||m.includes("con")||m.includes("connard")||m.includes("tg")||m.includes("batard")||m.includes("putain")||m.includes("tes morts")||m.includes("merde")||m.includes("merd")||m.includes("couilles")) {
 msg.delete()
   .then(msg => console.log(`Deleted message from ${msg.author.username}`))
   .catch(console.error);
