@@ -127,7 +127,7 @@ if (m=="roboto invite"||m=="invite"||m=="invitation"){
 if (m.startsWith("roboto say")||m.startsWith("say")){
 	msg.delete();
 	if (msg.author.id === "483335511159865347" || msg.author.id === "467630539898224661") {
-		msg.channel.send(m.replace(/roboto say |say /, ''));
+		msg.channel.send(msg.content.replace(/roboto say |say |Say |sAy |saY |Roboto say |Roboto Say |roboto Say/, ''));
 	} else {
 		msg.channel.send({embed: {
 			color: 16057630,
