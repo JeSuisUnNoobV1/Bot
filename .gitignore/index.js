@@ -50,15 +50,9 @@ client.on("guildMemberAdd", members => {
 client.on('message', msg => {
 	var m = msg.content.toLowerCase();
 
-if (msg.author.id == 483335511159865347) {
-	msg.channel.send("number");
-} else if (msg.author.id == "483335511159865347") {
-	msg.channel.send("string");
-}
-
 if(m.includes("fdp")||m.includes("beze")||m.includes("bese")||m.includes("bz")||m.includes("salope")||m.includes("salop")||m.includes("pute")||m.includes(" con")||m === "con"||m.includes("connard")||m.includes("tg")||m.includes("batard")||m.includes("putain")||m.includes("tes morts")||m.includes("merde")||m.includes("merd")||m.includes("couilles")||m.includes("abruti")||m.includes("nique")) {
 if (!msg.author.bot) {
-  if (msg.author.id == "483335511159865347" || msg.author.id == "467630539898224661") {
+  if (msg.author.id != 483335511159865347 || msg.author.id != 467630539898224661) {
     msg.delete()
     .then(msg => console.log(`Deleted message from ${msg.author.username}`))
     .catch(console.error);
@@ -131,7 +125,7 @@ if (m=="roboto invite"||m=="invite"||m=="invitation"){
 
 if (m.startsWith("roboto say")||m.startsWith("say")){
 	msg.delete();
-	if (msg.author.id === "483335511159865347" || msg.author.id === "467630539898224661") {
+	if (msg.author.id == 483335511159865347 || msg.author.id == 467630539898224661) {
 		msg.channel.send(msg.content.replace(/roboto say |say |Say |sAy |saY |Roboto say |Roboto Say |roboto Say/, ''));
 	} else {
 		msg.channel.send({embed: {
