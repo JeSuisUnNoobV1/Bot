@@ -136,8 +136,6 @@ if (m.startsWith("roboto me")||m=="me"){
 			color: 16777215,
 			description: "Tu es <@"+msg.author.id+"> et tu "+dispo+". Pour les developpeurs, ton id est "+msg.author.id
     }});
-    
-    msg.author.
 }
 
 });
