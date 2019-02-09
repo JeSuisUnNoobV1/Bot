@@ -107,10 +107,10 @@ if (m=="roboto date"||m=="roboto time"||m=="roboto heure"||m=="quelle heure est-
 	});	
 }
 
-if (m=="roboto admins"||m=="roboto admin"||m=="roboto gérants"){
+if (m=="roboto admins"||m=="roboto admin"||m=="roboto gérants"||m=="admins"||m=="admin"){
   msg.channel.send({"embed":{
 		"title":"Administrateurs du serveur",
-		"description": "Super admin: **@legameur6810#4488** \n Admin: **@Théotime#6461** \n Ces deux personnes gèrent le serveur et sont mes uniques responsables et développeurs.",
+		"description": "Super admin: <@467630539898224661> \n Admin: <@483335511159865347> \n Ces deux personnes gèrent le serveur et sont mes uniques responsables et développeurs.",
     "color": 3356828
   }
 	});	
