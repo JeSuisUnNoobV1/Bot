@@ -52,13 +52,15 @@ client.on('message', msg => {
 
 
 if(m.includes("fdp")||m.includes("beze")||m.includes("bese")||m.includes("bz")||m.includes("salope")||m.includes("salop")||m.includes("pute")||m.includes("con")||m.includes("connard")||m.includes("tg")||m.includes("batard")||m.includes("putain")||m.includes("tes morts")||m.includes("merde")||m.includes("merd")||m.includes("couilles")||m.includes("abruti")||m.includes("nique")) {
-msg.delete()
+if (!msg.author.bot) {
+  msg.delete()
   .then(msg => console.log(`Deleted message from ${msg.author.username}`))
   .catch(console.error);
   msg.channel.send({embed: {
     color: 16057630,
     description: "Hop Hop Hop, évitez les insultes s'il vous plait."
   }});
+}
 }
 
 	// WTF
