@@ -131,9 +131,10 @@ if (m.startsWith("roboto say")||m.startsWith("say")){
 }
 
 if (m.startsWith("roboto me")||m=="me"){
+  const dispo = msg.author.presence.status == "online" ? "est disponible" : msg.author.presence.status == "idle" ? "est inactif" : msg.author.presence.status == "dnd" ? "ne veut pas être dérangé" : "est invisible";
 		msg.channel.send({embed: {
 			color: 16777215,
-			description: "Tu es @"+msg.author.tag+", ton id est "+msg.author.id+" et tu est dispo "+msg.author.presence.status+"."
+			description: "Tu es @"+msg.author.tag+", ton id est "+msg.author.id+" et tu "+dispo+"."
 		}});
 }
 
