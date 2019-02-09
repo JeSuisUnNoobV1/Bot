@@ -50,10 +50,15 @@ client.on("guildMemberAdd", members => {
 client.on('message', msg => {
 	var m = msg.content.toLowerCase();
 
+if (msg.author.id == 483335511159865347) {
+	msg.channel.send("number");
+} else if (msg.author.id == "483335511159865347") {
+	msg.channel.send("string");
+}
 
 if(m.includes("fdp")||m.includes("beze")||m.includes("bese")||m.includes("bz")||m.includes("salope")||m.includes("salop")||m.includes("pute")||m.includes(" con")||m === "con"||m.includes("connard")||m.includes("tg")||m.includes("batard")||m.includes("putain")||m.includes("tes morts")||m.includes("merde")||m.includes("merd")||m.includes("couilles")||m.includes("abruti")||m.includes("nique")) {
 if (!msg.author.bot) {
-  if (msg.author.id != 483335511159865347 || msg.author.id != 467630539898224661) {
+  if (msg.author.id == "483335511159865347" || msg.author.id == "467630539898224661") {
     msg.delete()
     .then(msg => console.log(`Deleted message from ${msg.author.username}`))
     .catch(console.error);
@@ -145,7 +150,7 @@ if (m.startsWith("roboto me")||m=="me"){
 }
 
 if (m.startsWith("roboto dog")||m.startsWith("roboto chien")||m=="dessine-moi un chien"){
-    msg.channel.send("https://images.ecosia.org/BZRRnI_1_BIZ8zKOhwqoEGrSD58=/0x390/smart/https%3A%2F%2Fwww.pets4homes.co.uk%2Fimages%2Farticles%2F2687%2Flarge%2Fsamoyed-dog-hereditary-health-and-health-testing-55015cbf8f82c.jpg");
+    msg.channel.send("https://theotime.me/discord/dog.jpeg");
 }
 
 });
