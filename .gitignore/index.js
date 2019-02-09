@@ -27,13 +27,12 @@ const jokes = [
   "Qu'est-ce qu'un cochon qui rit ? \n \n ||Un porc tout gai !||"
 ];
 
-var questionName = false;
-var questionWish = false;
-
 // START
 client.on('ready', () => {
     console.log('Roboto ready');
-	client.user.setActivity("CRASH");
+    client.channels.find("id", "539847850666885131").send("Roboto ready");
+    client.user.setAvatar('https://theotime.me/logo.png');
+	client.user.setActivity("Reload ...");
     setInterval(() => {
       const index = Math.floor(Math.random() * (activities_list.length - 1) + 1); 
       client.user.setActivity(activities_list[index]);
@@ -72,7 +71,7 @@ if (m=="roboto"){
   msg.channel.send("Oui, c'est moi ! \n Je peux vous aidez si vous tapez \"roboto help\", \n mais je peux aussi vous raconter des blagues avec \n roboto joke.");
 }
 
-if (m=="roboto joke"||m=="roboto blague"||m=="roboto jokes"||m=="roboto blagues"){
+if (m=="roboto joke"||m=="roboto blague"||m=="roboto jokes"||m=="roboto blagues"||m=="raconte-moi une blague"||m=="blague"||m=="joke"){
   const blagues = Math.floor(Math.random() * (jokes.length - 1) + 1);
   msg.channel.send(jokes[blagues]);
 }
