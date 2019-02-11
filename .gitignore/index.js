@@ -152,7 +152,7 @@ if (m.startsWith("flip")||m.startsWith("roboto flip")){
 		if (m == "roboto flip" || m == "flip") {
 			send(Math.floor(Math.random() * 2));
 		} else {
-			send(parseInt(m.replace(/roboto flip |flip /, "")));
+			send(parseInt(m.replace(/roboto flip |flip /, "")) == NaN ? m.replace(/roboto flip |flip /, "") == "pile" ? 0 : 1 : parseInt(m.replace(/roboto flip |flip /, "")));
 		}
 	} else {
 		send(Math.floor(Math.random() * 2));
