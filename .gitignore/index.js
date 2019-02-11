@@ -149,18 +149,23 @@ if (m.startsWith("roboto dog")||m.startsWith("roboto chien")||m=="dessine-moi un
 
 if (m.startsWith("flip")||m.startsWith("roboto flip")){
 	if (msg.author.id == 483335511159865347 || msg.author.id == 467630539898224661) {
-		const theIndexRandomOfFlipCommand = m.replace(/roboto flip |flip /, "");
+		if (m == "roboto flip" || m == "flip") {
+			send(Math.floor(Math.random() * 2));
+		} else {
+			send(parseInt(m.replace(/roboto flip |flip /, "")));
+		}
 	} else {
-		const theIndexRandomOfFlipCommand =  Math.floor(Math.random() * 2);
+		send(Math.floor(Math.random() * 2));
 	}
 
-	const a = theIndexRandomOfFlipCommand == 0 ? "pile" : "face";
-
+function send(index){
 	msg.channel.send({embed: {
 		title: "Pile ou face ?",
 		color: 16777215,
-		description: "Ah ah ! c'est "+a+" !\nCe n'est pas moi qui le dit, c'est le hasard."
+		description: "Ah ah ! c'est "+(index == 0 ? "pile" : "face")+" !\nCe n'est pas moi qui le dit, c'est le hasard."
 	}});
+}
+
 }
 
 });
