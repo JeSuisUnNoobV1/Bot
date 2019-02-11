@@ -42,7 +42,7 @@ client.on('ready', () => {
 // Nouveaux utilisateur
 client.on("guildMemberAdd", members => {
     members.createDM().then(channel => {
-      return channel.send('Bienvenue **' + members.displayName+ "**,\n Tu as maintenant accès au serveur de Théotime !\nOn y parle de développement, partageons nos habitudes de développeurs, sans poublier de partager du code source pour qu'il profite à tous. Ainsi chacun pourra parler de ses projets pour les faire évoluer. Si vous souhaitez inviter quelqu'un, utilisez ce lien: https://theotime.me/discord \n\n Amicalement, Roboto.");
+      return channel.send('Bienvenue **' + members.displayName+ "**,\n Tu as maintenant accès au serveur de Théotime !\nOn y parle de développement, partageons nos habitudes de développeurs, sans poublier de partager du code source pour qu'il profite à tous. Ainsi chacun pourra parler de ses projets pour les faire évoluer. Si vous souhaitez inviter quelqu'un, utilisez ce lien: https://discord.gg/PuU3BSJ \n\n Amicalement, Roboto.");
    });
 });
 
