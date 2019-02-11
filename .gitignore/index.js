@@ -119,7 +119,7 @@ if (m=="roboto channel"){
 	msg.channel.send("Vous êtes sur le salon `"+msg.channel.name+"`");	
 }
 
-if (m=="roboto invite"||m=="invite"||m=="invitation"){
+if (m=="roboto invite"||m=="invite"||m.startsWith("invitation")){
   	msg.channel.send("Oki, voilà une invitation, juste pour vous ^^\n https://discord.gg/PuU3BSJ");	
 }
 
@@ -140,11 +140,27 @@ if (m.startsWith("roboto me")||m=="me"){
 		msg.channel.send({embed: {
 			color: 16777215,
 			description: "Tu es <@"+msg.author.id+"> et tu "+dispo+". Pour les developpeurs, ton id est `"+msg.author.id+"`"
-    }});
+    	}});
 }
 
 if (m.startsWith("roboto dog")||m.startsWith("roboto chien")||m=="dessine-moi un chien"){
     msg.channel.send("https://theotime.me/discord/dog.jpeg");
+}
+
+if (m.startsWith("flip")||m.startsWith("roboto flip")){
+	if (msg.author.id == 483335511159865347 || msg.author.id == 467630539898224661) {
+		const theIndexRandomOfFlipCommand = m.replace(/roboto flip |flip /, "");
+	} else {
+		const theIndexRandomOfFlipCommand =  Math.floor(Math.random() * 2);
+	}
+
+	const a = theIndexRandomOfFlipCommand == 0 ? "pile" : "face";
+
+	msg.channel.send({embed: {
+		title: "Pile ou face ?",
+		color: 16777215,
+		description: "Ah ah ! c'est "+a+" !\nCe n'est pas moi qui le dit, c'est le hasard."
+	}});
 }
 
 });
