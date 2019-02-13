@@ -27,6 +27,15 @@ const jokes = [
   "Qu'est-ce qu'un cochon qui rit ? \n \n ||Un porc tout gai !||"
 ];
 
+const salutations = [
+	"",
+	"Salut USERNAME, ça va ou quoi ?",
+	"Wsh USERNAME bien ou bien ?",
+	"Hey USERNAME !",
+	"Bienvenue USERNAME !",
+	"Hello, ça va ou quoi ?"
+];
+
 // START
 client.on('ready', () => {
     console.log('Roboto ready');
@@ -171,6 +180,17 @@ function send(index){
 
 }
 
+if (m.startsWith('bonjour') || m.startsWith('salut') || m.startsWith('hey') || m.startsWith('hello') || m.startsWith('wesh') || m.startsWith('wsh')) {
+	const destinataire = msg.content.replace(/[A-z]| /, "");
+	var	username = msg.author;
+
+	if (destinataire != "") {
+		username = destinataire;
+	}
+
+	msg.channel.send(salutations[Math.floor(Math.random() * (jokes.length - 1) + 1)].replace("USERNAME", username));
+}
+
 if (m.startsWith('upgrade') && (msg.channel.type === "dm" || msg.channel.id == 544811429467914241)) {
 	msg.delete();
 	var qr = m.replace(/upgrade |upgrade/, "");
@@ -206,14 +226,16 @@ if (m.startsWith('upgrade') && (msg.channel.type === "dm" || msg.channel.id == 5
 
 };
 
+var q;
+
 
 	switch (qr) {
-		case 1: qr = "Développeur"; questions.q1; break;
-		case 2: qr = "Ultra dev"; questions.q2; break;
-		case 3: qr = "Minecraft"; questions.q3; break;
-		case 4: qr = "DJ"; questions.q4; break;
-		case 5: qr = "Modérateur"; questions.q5; break;
-		case 6: qr = "Admin"; questions.q6; break;
+		case 1: qr = "Développeur"; q = questions.q1; break;
+		case 2: qr = "Ultra dev"; q = questions.q2; break;
+		case 3: qr = "Minecraft"; q = questions.q3; break;
+		case 4: qr = "DJ"; q = questions.q4; break;
+		case 5: qr = "Modérateur"; q = questions.q5; break;
+		case 6: qr = "Admin"; q = questions.q6; break;
 	}
 
 
