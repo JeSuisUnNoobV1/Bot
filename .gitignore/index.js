@@ -178,10 +178,33 @@ if (m.startsWith('upgrade') && (msg.channel.type === "dm" || msg.channel.id == 5
 		qr = parseInt(qr);
 	}
 
-	const q1 = [
-		"",
-		"Comment colorer un élément ?\n **1**: Attribut bg-color\n **2**: En CSS background-color"
-	];
+	const questions = {
+		q1: [
+			"",
+			"Comment colorer un élément ?\n **1**: Attribut bg-color\n **2**: En CSS background-color"
+		],
+
+		q2: [
+
+		],
+
+		q3: [
+
+		],
+
+		q4: [
+
+		],
+
+		q5: [
+
+		],
+
+		q6: [
+
+		]
+
+};
 
 
 	switch (qr) {
