@@ -53,7 +53,7 @@ if(m.includes("fdp")||m.includes("beze")||m.includes("bese")||m.includes("bz")||
 if (!msg.author.bot) {
   if (msg.author.id != 483335511159865347 || msg.author.id != 467630539898224661) {
 	msg.delete().then(msg => {
-		client.channels.find("id", 545230202914078720).send({embed: {
+		client.channels.find("id", "545230202914078720").send({embed: {
 			title: "Insulte",
 			color: 16777215,
 			description: msg.author+"a insulté dans le channel "+msg.channel+" en disant ```"+msg.content+"```"
