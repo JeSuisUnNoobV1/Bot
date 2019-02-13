@@ -151,7 +151,7 @@ if (m.startsWith("flip")||m.startsWith("roboto flip")){
 		if (m == "roboto flip" || m == "flip") {
 			send(Math.floor(Math.random() * 2));
 		} else {
-			send(parseInt(m.replace(/roboto flip |flip /, "")) == NaN ? m.replace(/roboto flip |flip /, "") == "pile" ? 0 : 1 : parseInt(m.replace(/roboto flip |flip /, "")));
+			send(isNaN(parseInt(m.replace(/roboto flip |flip /, ""))) ? m.replace(/roboto flip |flip /, "") == "pile" ? 0 : 1 : parseInt(m.replace(/roboto flip |flip /, "")));
 		}
 	} else {
 		send(Math.floor(Math.random() * 2));
@@ -169,9 +169,9 @@ function send(index){
 
 if (m.startsWith('upgrade') && (msg.channel.type === "dm" || msg.channel.id == 544811429467914241)) {
 	msg.delete();
-	var questionnaryRequest = m.replace(/upgrade |upgrade/, "");
-	if (!isNaN(parseInt(questionnaryRequest))){
-		questionnaryRequest = parseInt(questionnaryRequest);
+	var qr = m.replace(/upgrade |upgrade/, "");
+	if (!isNaN(parseInt(qr))){
+		qr = parseInt(qr);
 	}
 
 	const q1 = [
@@ -179,15 +179,14 @@ if (m.startsWith('upgrade') && (msg.channel.type === "dm" || msg.channel.id == 5
 		"Comment colorer un élément ?\n **1**: Attribut bg-color\n **2**: En CSS background-color"
 	];
 
-	questions = window["q"+questionnaryRequest];
 
-	switch (questionnaryRequest) {
-		case 1: questionnaryRequest = "Développeur"; break;
-		case 2: questionnaryRequest = "Ultra dev"; break;
-		case 3: questionnaryRequest = "Minecraft"; break;
-		case 4: questionnaryRequest = "DJ"; break;
-		case 5: questionnaryRequest = "Modérateur"; break;
-		case 6: questionnaryRequest = "Admin"; break;
+	switch (qr) {
+		case 1: qr = "Développeur"; questions.q1; break;
+		case 2: qr = "Ultra dev"; questions.q2; break;
+		case 3: qr = "Minecraft"; questions.q3; break;
+		case 4: qr = "DJ"; questions.q4; break;
+		case 5: qr = "Modérateur"; questions.q5; break;
+		case 6: qr = "Admin"; questions.q6; break;
 	}
 
 
