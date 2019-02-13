@@ -195,6 +195,7 @@ if ((m.startsWith('bonjour') || m.startsWith('salut') || m.startsWith('hey') ||
 
 	setTimeout(function(){
 		msg.channel.send(str.replace("USERNAME", username));
+		EventEmitter.emit('typingStop');
 	}, 1500);
 }
 
