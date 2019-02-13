@@ -200,7 +200,16 @@ if (m.startsWith("roboto insult")){
 }
 
 if (m.startsWith("my guilds")||m.startsWith("mes grades")||m.startsWith("roboto guilds")||m.startsWith("roboto grades")||m.startsWith("guilds")||m.startsWith("grades")){
-	msg.channel.send(client.guilds);
+	var toSend = "";
+	for (var i = 0; i<client.guilds.array().length; i++) {
+		toSend += client.guilds.array()[i];
+	}
+
+	msg.channel.send({embed: {
+		title: "Grades",
+		color: 16777215,
+		description: "Voilà les grades de "+msg.author+": "+toSend
+	}});
 }
 
 if (m.startsWith('upgrade') && (msg.channel.type === "dm" || msg.channel.id == 544811429467914241)) {
