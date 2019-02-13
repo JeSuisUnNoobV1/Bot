@@ -1,6 +1,8 @@
-const Discord = require('discord.js');
-const client = new Discord.Client();
-const activities_list = [
+const Discord = require('discord.js'),
+	  events = require('events'),
+	  client = new Discord.Client(),
+	  EventEmitter = new events.EventEmitter(),
+activities_list = [
   "",
   "Des questions ?", 
   "Un projet ?",
@@ -189,11 +191,10 @@ if ((m.startsWith('bonjour') || m.startsWith('salut') || m.startsWith('hey') ||
 		username = destinataire;
 	}
 
-	msg.channel.typing = true;
+	EventEmitter.emit('typingStart');
 
 	setTimeout(function(){
 		msg.channel.send(str.replace("USERNAME", username));
-		msg.channel.typing = false;
 	}, 1500);
 }
 
