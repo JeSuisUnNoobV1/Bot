@@ -1,7 +1,5 @@
 const Discord = require('discord.js'),
-	  events = require('events'),
 	  client = new Discord.Client(),
-	  EventEmitter = new events.EventEmitter(),
 activities_list = [
   "",
   "Des questions ?", 
@@ -182,8 +180,8 @@ function send(index){
 
 }
 
-if ((m.startsWith('bonjour') || m.startsWith('salut') || m.startsWith('hey') || m.startsWith('hello') || m.startsWith('wesh') || m.startsWith('wsh') || m.startsWith('bjr') || m.startsWith('slt')) && msg.author.id != "512326722352578560") {
-	const destinataire = msg.content.replace(/bonjour|salut|hey|hello|wesh|wsh|bjr|slt| /, ""),
+if ((m.startsWith('bonjour') || m.startsWith('salut') || m.startsWith('hey') || m.startsWith('hello') || m.startsWith('wesh') || m.startsWith('wsh') || m.startsWith('bjr') || m.startsWith('slt') || m.startsWith('coucou') || m.startsWith('cc')) && msg.author.id != "512326722352578560") {
+	const destinataire = msg.content.replace(/bonjour|salut|hey|hello|wesh|wsh|bjr|slt|coucou|cc| /, ""),
 		  str = salutations[Math.floor(Math.random() * (salutations.length - 1) + 1)];
 	 var  username = msg.author;
 
@@ -191,12 +189,18 @@ if ((m.startsWith('bonjour') || m.startsWith('salut') || m.startsWith('hey') ||
 		username = destinataire;
 	}
 
-	EventEmitter.emit('typingStart');
 
 	setTimeout(function(){
 		msg.channel.send(str.replace("USERNAME", username));
-		EventEmitter.emit('typingStop');
-	}, 1500);
+	}, 1800);
+}
+
+if (m.startsWith("roboto insult")){
+	msg.channel.send("Pffff... T'as cru quoi ? Je vais pas me mute moi-même. Par contre toi tu vas y avoir droit :smile:");
+}
+
+if (m.startsWith("my guilds")||m.startsWith("mes grades")||m.startsWith("roboto guilds")||m.startsWith("roboto grades")||m.startsWith("guilds")||m.startsWith("grades")){
+	msg.channel.send(client.guilds);
 }
 
 if (m.startsWith('upgrade') && (msg.channel.type === "dm" || msg.channel.id == 544811429467914241)) {
