@@ -167,6 +167,16 @@ function send(index){
 
 }
 
+if (m.startsWith('upgrade') && msg.channel.type === "dm") {
+	var questionnaryRequest = m.replace(/upgrade |upgrade/, "");
+	if (!isNaN(parseInt(questionnaryRequest))){
+		questionnaryRequest = parseInt(questionnaryRequest);
+	}
+	msg.author.createDM().then(channel => {
+		return channel.send("OK, je vais t'envoyer un **questionnaire** pour que tu obtienne le grade **"+questionnaryRequest+"**, "+msg.author+". Tu devras y répondre correctement. Je te laisse le droit de faire **3 erreurs**");
+	});
+}
+
 });
 
 
