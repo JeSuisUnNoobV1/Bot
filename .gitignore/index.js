@@ -181,7 +181,7 @@ function send(index){
 }
 
 if ((m.startsWith('bonjour') || m.startsWith('salut') || m.startsWith('hey') || m.startsWith('hello') || m.startsWith('wesh') || m.startsWith('wsh')) && msg.author.id != "512326722352578560") {
-	const destinataire = msg.content.replace(/[A-z]| /, ""),
+	const destinataire = msg.content.replace(/[A-z]| /g, ""),
 		  str = salutations[Math.floor(Math.random() * (salutations.length - 1) + 1)];
 	 var  username = msg.author;
 
