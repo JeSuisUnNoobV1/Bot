@@ -52,15 +52,19 @@ client.on('message', msg => {
 if(m.includes("fdp")||m.includes("beze")||m.includes("bese")||m.includes("bz")||m.includes("salope")||m.includes("salop")||m.includes("pute")||m.includes(" con")||m === "con"||m.includes("connard")||m.includes("tg")||m.includes("batard")||m.includes("putain")||m.includes("tes morts")||m.includes("merde")||m.includes("merd")||m.includes("couilles")||m.includes("abruti")||m.includes("nique")) {
 if (!msg.author.bot) {
   if (msg.author.id != 483335511159865347 || msg.author.id != 467630539898224661) {
-    msg.delete()
-    .then(msg => console.log(`Deleted message from ${msg.author.username}`))
-    .catch(console.error);
+	msg.delete().then(msg => {
+		client.channels.find("id", 545230202914078720).send({embed: {
+			title: "Insulte",
+			color: 16777215,
+			description: msg.author+"a insulté dans le channel "+msg.channel+" en disant ```"+msg.content+"```"
+		}});
+	});
     msg.channel.send({embed: {
       color: 16057630,
       description: "Hop Hop Hop, évitez les insultes s'il vous plait."
     }});
   } else {
-	client.channels.find("id", "539847850666885131").send("Bon, tu es admin donc tu peux dire ce que tu veux, même des gros mots !");
+	client.channels.find("id", 539847850666885131).send("Bon, tu es admin donc tu peux dire ce que tu veux, même des gros mots !");
   }
 }
 }
