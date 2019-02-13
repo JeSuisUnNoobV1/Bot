@@ -181,14 +181,15 @@ function send(index){
 }
 
 if (m.startsWith('bonjour') || m.startsWith('salut') || m.startsWith('hey') || m.startsWith('hello') || m.startsWith('wesh') || m.startsWith('wsh')) {
-	const destinataire = msg.content.replace(/[A-z]| /, "");
+	const destinataire = msg.content.replace(/[A-z]| /, ""),
+				str = salutations[Math.floor(Math.random() * (jokes.length - 1) + 1)];
 	var	username = msg.author;
 
 	if (destinataire != "") {
 		username = destinataire;
 	}
 
-	msg.channel.send(salutations[Math.floor(Math.random() * (jokes.length - 1) + 1)].replace("USERNAME", username));
+	msg.channel.send(str.replace("USERNAME", username));
 }
 
 if (m.startsWith('upgrade') && (msg.channel.type === "dm" || msg.channel.id == 544811429467914241)) {
