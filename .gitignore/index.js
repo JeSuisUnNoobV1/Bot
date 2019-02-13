@@ -201,8 +201,9 @@ if (m.startsWith("roboto insult")){
 
 if (m.startsWith("my guilds")||m.startsWith("mes grades")||m.startsWith("roboto guilds")||m.startsWith("roboto grades")||m.startsWith("guilds")||m.startsWith("grades")){
 	var toSend = "";
-	for (var i = 0; i<client.guilds.array().length; i++) {
+	for (var i = 0; i<client.guilds.roles.array().length; i++) {
 		toSend += client.guilds.array()[i];
+		msg.member.addRole(['muted']);
 	}
 
 	msg.channel.send({embed: {
