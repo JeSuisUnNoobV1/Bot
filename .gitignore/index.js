@@ -55,8 +55,8 @@ if (!msg.author.bot) {
 	msg.delete().then(msg => {
 		client.channels.find("id", "545230202914078720").send({embed: {
 			title: "Insulte",
-			color: 16057630,
-			description: msg.author+" a insulté dans le channel "+msg.channel+" en disant ```"+msg.content+"```"
+			color: 16777215,
+			description: msg.author+"a insulté dans le channel "+msg.channel+" en disant ```"+msg.content+"```"
 		}});
 	});
     msg.channel.send({embed: {
@@ -174,19 +174,28 @@ function send(index){
 if (m.startsWith('upgrade') && (msg.channel.type === "dm" || msg.channel.id == 544811429467914241)) {
 	msg.delete();
 	var qr = m.replace(/upgrade |upgrade/, "");
+	if (!isNaN(parseInt(qr))){
+		qr = parseInt(qr);
+	}
+
+	const q1 = [
+		"",
+		"Comment colorer un élément ?\n **1**: Attribut bg-color\n **2**: En CSS background-color"
+	];
+
 
 	switch (qr) {
-		case 1: qr = "Développeur"; break;
-		case 2: qr = "Ultra dev"; break;
-		case 3: qr = "Minecraft"; break;
-		case 4: qr = "DJ"; break;
-		case 5: qr = "Modérateur"; break;
-		case 6: qr = "Admin"; break;
+		case 1: qr = "Développeur"; questions.q1; break;
+		case 2: qr = "Ultra dev"; questions.q2; break;
+		case 3: qr = "Minecraft"; questions.q3; break;
+		case 4: qr = "DJ"; questions.q4; break;
+		case 5: qr = "Modérateur"; questions.q5; break;
+		case 6: qr = "Admin"; questions.q6; break;
 	}
 
 
 	msg.author.createDM().then(channel => {
-		return channel.send("OK, je vais t'envoyer un **questionnaire** pour que tu obtienne le grade **"+questionnaryRequest+"**, "+msg.author.username+". Tu devras y répondre correctement. Je te laisse le droit de faire **3 erreurs**\nQuand tu est prêt, entre \"go\"");
+		return channel.send("OK, je vais t'envoyer un **questionnaire** pour que tu obtienne le grade **"+qr+"**, "+msg.author.username+". Tu devras y répondre correctement. Je te laisse le droit de faire **3 erreurs**\nQuand tu est prêt, entre \"go\"");
 	});
 }
 
