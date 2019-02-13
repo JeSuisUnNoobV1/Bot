@@ -189,7 +189,12 @@ if ((m.startsWith('bonjour') || m.startsWith('salut') || m.startsWith('hey') ||
 		username = destinataire;
 	}
 
-	msg.channel.send(str.replace("USERNAME", username));
+	msg.channel.typing = true;
+
+	setTimeout(function(){
+		msg.channel.send(str.replace("USERNAME", username));
+		msg.channel.typing = false;
+	}, 1500);
 }
 
 if (m.startsWith('upgrade') && (msg.channel.type === "dm" || msg.channel.id == 544811429467914241)) {
