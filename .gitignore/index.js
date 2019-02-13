@@ -167,11 +167,19 @@ function send(index){
 
 }
 
-if (m.startsWith('upgrade') && msg.channel.type === "dm") {
+if (m.startsWith('upgrade') && (msg.channel.type === "dm" || msg.channel.id == 544811429467914241)) {
+	msg.delete();
 	var questionnaryRequest = m.replace(/upgrade |upgrade/, "");
 	if (!isNaN(parseInt(questionnaryRequest))){
 		questionnaryRequest = parseInt(questionnaryRequest);
 	}
+
+	const q1 = [
+		"",
+		"Comment colorer un élément ?\n **1**: Attribut bg-color\n **2**: En CSS background-color"
+	];
+
+	questions = window["q"+questionnaryRequest];
 
 	switch (questionnaryRequest) {
 		case 1: questionnaryRequest = "Développeur"; break;
@@ -182,8 +190,12 @@ if (m.startsWith('upgrade') && msg.channel.type === "dm") {
 		case 6: questionnaryRequest = "Admin"; break;
 	}
 
+
 	msg.author.createDM().then(channel => {
-		return channel.send("OK, je vais t'envoyer un **questionnaire** pour que tu obtienne le grade **"+questionnaryRequest+"**, "+msg.author.username+". Tu devras y répondre correctement. Je te laisse le droit de faire **3 erreurs**");
+		channel.on('message', () => {
+			return channel.send("Allons-y.\n**1ère** question: "+questions[1]);
+		});
+		return channel.send("OK, je vais t'envoyer un **questionnaire** pour que tu obtienne le grade **"+questionnaryRequest+"**, "+msg.author.username+". Tu devras y répondre correctement. Je te laisse le droit de faire **3 erreurs**\nQuand tu est prêt, entre \"go\"");
 	});
 }
 
