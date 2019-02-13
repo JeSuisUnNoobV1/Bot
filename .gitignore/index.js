@@ -180,9 +180,9 @@ function send(index){
 
 }
 
-if (m.startsWith('bonjour') || m.startsWith('salut') || m.startsWith('hey') || m.startsWith('hello') || m.startsWith('wesh') || m.startsWith('wsh')) {
+if (m.startsWith('bonjour') || m.startsWith('salut') || m.startsWith('hey') || m.startsWith('hello') || m.startsWith('wesh') || m.startsWith('wsh') && msg.author.id != 512326722352578560) {
 	const destinataire = msg.content.replace(/[A-z]| /, ""),
-				str = salutations[Math.floor(Math.random() * (jokes.length - 1) + 1)];
+				str = salutations[Math.floor(Math.random() * (salutations.length - 1) + 1)];
 	var	username = msg.author;
 
 	if (destinataire != "") {
