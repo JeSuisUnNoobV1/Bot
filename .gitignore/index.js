@@ -172,6 +172,16 @@ if (m.startsWith('upgrade') && msg.channel.type === "dm") {
 	if (!isNaN(parseInt(questionnaryRequest))){
 		questionnaryRequest = parseInt(questionnaryRequest);
 	}
+
+	switch (questionnaryRequest) {
+		case 1: questionnaryRequest = "Développeur"; break;
+		case 2: questionnaryRequest = "Ultra dev"; break;
+		case 3: questionnaryRequest = "Minecraft"; break;
+		case 4: questionnaryRequest = "DJ"; break;
+		case 5: questionnaryRequest = "Modérateur"; break;
+		case 6: questionnaryRequest = "Admin"; break;
+	}
+
 	msg.author.createDM().then(channel => {
 		return channel.send("OK, je vais t'envoyer un **questionnaire** pour que tu obtienne le grade **"+questionnaryRequest+"**, "+msg.author.username+". Tu devras y répondre correctement. Je te laisse le droit de faire **3 erreurs**");
 	});
