@@ -195,9 +195,6 @@ if (m.startsWith('upgrade') && (msg.channel.type === "dm" || msg.channel.id == 5
 
 
 	msg.author.createDM().then(channel => {
-		channel.on('message', () => {
-			return channel.send("Allons-y.\n**1ère** question: "+questions[1]);
-		});
 		return channel.send("OK, je vais t'envoyer un **questionnaire** pour que tu obtienne le grade **"+questionnaryRequest+"**, "+msg.author.username+". Tu devras y répondre correctement. Je te laisse le droit de faire **3 erreurs**\nQuand tu est prêt, entre \"go\"");
 	});
 }
