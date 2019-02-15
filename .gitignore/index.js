@@ -213,9 +213,42 @@ if (m.startsWith("my guilds")||m.startsWith("mes grades")||m.startsWith("roboto 
 	}});
 }
 
+bot.on('message', message => {
+
+if (m.startsWith('play')) {
+    // On récupère le premier channel audio du serveur
+    let voiceChannel = message.guild.channels
+      .filter(function (channel) { return channel.type === 'voice' })
+      .first()
+    // On récupère les arguments de la commande 
+    // il faudrait utiliser une expression régulière pour valider le lien youtube
+    let args = message.content.split(' ')
+    // On rejoint le channel audio
+    voiceChannel
+      .join()
+      .then(function (connection) {
+        // On démarre un stream à partir de la vidéo youtube
+        let stream = YoutubeStream(args[1])
+        stream.on('error', function () {
+          message.reply("Je n'ai pas réussi à lire cette vidéo :(")
+          connection.disconnect()
+        })
+        // On envoie le stream au channel audio
+        // Il faudrait ici éviter les superpositions (envoie de plusieurs vidéo en même temps)
+        connection
+          .playStream(stream)
+          .on('end', function () {
+            connection.disconnect()
+          })
+      })
+  }
+
+})
+
 if (m.startsWith('upgrade') && (msg.channel.type === "dm" || msg.channel.id == 544811429467914241)) {
 	msg.delete();
 	var qr = m.replace(/upgrade |upgrade/, "");
+
 	if (!isNaN(parseInt(qr))){
 		qr = parseInt(qr);
 	}
@@ -262,7 +295,7 @@ var q;
 
 
 	msg.author.createDM().then(channel => {
-		return channel.send("OK, je vais t'envoyer un **questionnaire** pour que tu obtienne le grade **"+qr+"**, "+msg.author.username+". Tu devras y répondre correctement. Je te laisse le droit de faire **3 erreurs**\nQuand tu est prêt, entre \"go\"");
+		return channel.send("OK, je vais t'envoyer un **questionnaire** pour que tu obtienne le grade **"+qr+"**, "+msg.author.username+". Tu devras y répondre correctement. Je te laisse le droit de faire **3 erreurs**\nQuand tu est prêt, entre \"upgrade go\"");
 	});
 }
 
