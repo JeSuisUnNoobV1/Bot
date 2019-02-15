@@ -1,5 +1,9 @@
 const Discord = require('discord.js'),
-	  client = new Discord.Client(),
+		  client = new Discord.Client(),
+		  ytdl = require('ytdl-core'),
+			streamOptions = { seek: 0, volume: 1 },
+			broadcast = client.createVoiceBroadcast(),
+
 activities_list = [
   "",
   "Des questions ?", 
@@ -220,23 +224,15 @@ if (m.startsWith('play')) {
       .first();
     // On récupère les arguments de la commande 
     // il faudrait utiliser une expression régulière pour valider le lien youtube
-    let args = msg.content.split(' ');
-    // On rejoint le channel audio
-    voiceChannel
-      .join()
-      .then(function (connection) {
-        // On démarre un stream à partir de la vidéo youtube
-        let stream = YoutubeStream(args[1]);
-        stream.on('error', function () {
-          msg.reply("Je n'ai pas réussi à lire cette vidéo :(");
-          connection.disconnect();
-        });
-        // On envoie le stream au channel audio
-        // Il faudrait ici éviter les superpositions (envoie de plusieurs vidéo en même temps)
-        connection.playStream(stream).on('end', function () {
-            connection.disconnect();
-        });
-      });
+		let args = msg.content.split(' ');
+
+		voiceChannel.join()
+		.then(connection => {
+			const stream = ytdl(args[1], { filter : 'audioonly' });
+			broadcast.playStream(stream);
+			const dispatcher = connection.playBroadcast(broadcast);
+		})
+		.catch(console.error);
   }
 
 if (m.startsWith('upgrade') && (msg.channel.type === "dm" || msg.channel.id == 544811429467914241)) {
