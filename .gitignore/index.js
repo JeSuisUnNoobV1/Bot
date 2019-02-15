@@ -213,8 +213,6 @@ if (m.startsWith("my guilds")||m.startsWith("mes grades")||m.startsWith("roboto 
 	}});
 }
 
-bot.on('message', message => {
-
 if (m.startsWith('play')) {
     // On récupère le premier channel audio du serveur
     let voiceChannel = message.guild.channels
@@ -231,19 +229,15 @@ if (m.startsWith('play')) {
         let stream = YoutubeStream(args[1])
         stream.on('error', function () {
           message.reply("Je n'ai pas réussi à lire cette vidéo :(")
-          connection.disconnect()
+          connection.disconnect();
         })
         // On envoie le stream au channel audio
         // Il faudrait ici éviter les superpositions (envoie de plusieurs vidéo en même temps)
-        connection
-          .playStream(stream)
-          .on('end', function () {
-            connection.disconnect()
-          })
-      })
+        connection.playStream(stream).on('end', function () {
+            connection.disconnect();
+        });
+      });
   }
-
-})
 
 if (m.startsWith('upgrade') && (msg.channel.type === "dm" || msg.channel.id == 544811429467914241)) {
 	msg.delete();
