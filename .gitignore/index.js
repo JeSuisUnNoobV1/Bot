@@ -215,7 +215,7 @@ if (m.startsWith("my guilds")||m.startsWith("mes grades")||m.startsWith("roboto 
 
 if (m.startsWith('play')) {
     // On récupère le premier channel audio du serveur
-    let voiceChannel = message.guild.channels
+    let voiceChannel = msg.guild.channels
       .filter(function (channel) { return channel.type === 'voice' })
       .first()
     // On récupère les arguments de la commande 
@@ -226,9 +226,9 @@ if (m.startsWith('play')) {
       .join()
       .then(function (connection) {
         // On démarre un stream à partir de la vidéo youtube
-        let stream = YoutubeStream(args[1])
+        let stream = YoutubeStream(args[1]);
         stream.on('error', function () {
-          message.reply("Je n'ai pas réussi à lire cette vidéo :(")
+          msg.reply("Je n'ai pas réussi à lire cette vidéo :(");
           connection.disconnect();
         })
         // On envoie le stream au channel audio
