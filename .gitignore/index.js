@@ -1,9 +1,10 @@
-const Discord = require('discord.js');
-const client = new Discord.Client();
-const ytdl = require('ytdl-core');
-const streamOptions = { seek: 0, volume: 1 };
-const broadcast = client.createVoiceBroadcast();
-const activities_list = [
+const Discord = require('discord.js'),
+		  client = new Discord.Client(),
+		  ytdl = require('ytdl-core'),
+			streamOptions = { seek: 0, volume: 1 },
+			broadcast = client.createVoiceBroadcast(),
+
+activities_list = [
   "",
   "Des questions ?", 
   "Un projet ?",
@@ -215,24 +216,6 @@ if (m.startsWith("my guilds")||m.startsWith("mes grades")||m.startsWith("roboto 
 		description: "Voilà les grades de "+msg.author+": "+toSend
 	}});
 }
-
-if (m.startsWith('play')) {
-    // On récupère le premier channel audio du serveur
-    let voiceChannel = msg.guild.channels
-      .filter(function (channel) { return channel.type === 'voice'; })
-      .first();
-    // On récupère les arguments de la commande 
-    // il faudrait utiliser une expression régulière pour valider le lien youtube
-		let args = msg.content.split(' ');
-
-		voiceChannel.join()
-		.then(connection => {
-			const stream = ytdl(args[1], { filter : 'audioonly' });
-			broadcast.playStream(stream);
-			const dispatcher = connection.playBroadcast(broadcast);
-		})
-		.catch(console.error);
-  }
 
 if (m.startsWith('upgrade') && (msg.channel.type === "dm" || msg.channel.id == 544811429467914241)) {
 	msg.delete();
