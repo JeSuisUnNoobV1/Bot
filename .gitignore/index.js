@@ -1,10 +1,9 @@
-const Discord = require('discord.js'),
-		  client = new Discord.Client(),
-		  ytdl = require('ytdl-core'),
-			streamOptions = { seek: 0, volume: 1 },
-			broadcast = client.createVoiceBroadcast(),
-
-activities_list = [
+const Discord = require('discord.js');
+const client = new Discord.Client();
+const ytdl = require('ytdl-core');
+const streamOptions = { seek: 0, volume: 1 };
+const broadcast = client.createVoiceBroadcast();
+const activities_list = [
   "",
   "Des questions ?", 
   "Un projet ?",
