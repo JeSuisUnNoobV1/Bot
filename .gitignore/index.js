@@ -1,8 +1,5 @@
 const Discord = require('discord.js'),
 		  client = new Discord.Client(),
-		  ytdl = require('ytdl-core'),
-			streamOptions = { seek: 0, volume: 1 },
-			broadcast = client.createVoiceBroadcast(),
 
 activities_list = [
   "",
