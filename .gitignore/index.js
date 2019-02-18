@@ -299,7 +299,83 @@ if (m.startsWith('set go')) {
 		let lk = m.replace(/set go /, ""),
 			cd = goCodes.length < 1000 ? goCodes.length < 100 ? goCodes.length < 10 ? "000"+goCodes.length : "00"+goCodes.length : "0"+goCodes.length : goCodes.length;
 
-			goCodes.push({lk: lk}); // Ajoute dans l'array
+
+			I am trying to write JSON file using node from loop data eg
+
+			var jsonfile = require('jsonfile');
+			for (i=0; i <11 ; i++){
+			   jsonfile.writeFile('loop.json', "id :" + i + " square :" + i*i);
+			}
+			
+			outPut in loop.json is
+			
+			id :1 square : 1
+			
+			but I want output file like this (below) and also if I run that code again it should add that new output as elements in same existing JSON file
+			
+			{
+			  "table": [
+				{
+				  "Id ": 1,
+				  "square ": 1
+				},
+				{
+				  "Id ": 2,
+				  "square ": 3
+				},
+				{
+				  "Id ": 3,
+				  "square ": 9
+				},
+				{
+				  "Id ": 4,
+				  "square ": 16
+				},
+				{
+				  "Id ": 5,
+				  "square ": 25
+				},
+				{
+				  "Id ": 6,
+				  "square ": 36
+				},
+				{
+				  "Id ": 7,
+				  "square ": 49
+				},
+				{
+				  "Id ": 8,
+				  "square ": 64
+				},
+				{
+				  "Id ": 9,
+				  "square ": 81
+				},
+				{
+				  "Id ": 10,
+				  "square ": 100
+				}
+			  ]
+			}
+			
+			I want to use same file that I created 1st time but whenever I run that code new elements should add in that same file
+			
+			var fs = require('fs');
+			
+			var obj = {
+			   table: []
+			};
+			
+
+			fs.readFile('./codes.json', function readFileCallback(err, data){
+					if (err){
+						console.log(err);
+					} else {
+					obj = JSON.parse(data); 
+					obj.push({lk: lk});
+					var json = JSON.stringify(obj); 
+					fs.writeFile('./codes.json', json); 
+			}});
 
 			msg.channel.send({embed: {
 				title: "GO code ajouté",
@@ -307,7 +383,6 @@ if (m.startsWith('set go')) {
 				description: "Voici le code de votre lien: ```go "+cd+"```"
 			}});
 
-			fs.writeFileSync("./codes.json", JSON.stringify(goCodes));
 	} else {
 		msg.channel.send({embed: {
 			color: 16057630,
