@@ -1,6 +1,7 @@
-const Discord = require('discord.js'),
-	goCodes = require('./codes.json'),
-	client = new Discord.Client(),
+const 	Discord = require('discord.js'),
+		fs = require('fs');
+		goCodes = require('./codes.json'),
+		client = new Discord.Client(),
 
 activities_list = [
   "",
@@ -283,7 +284,7 @@ var q;
 
 if (m.startsWith('go')||m.startsWith('!g')||m.startsWith('@')) {
 	let nb = parseInt(m.replace(/[^0-9]/g, ""));
-		if (!isNaN(nb)) {
+		if (!isNaN(nb) && goCodes[nb] != undefined) {
 			let link = goCodes[nb].lk;
 			msg.channel.send({embed: {
 				title: "GO code",
@@ -305,6 +306,10 @@ if (m.startsWith('set go')) {
 				color: 16777215,
 				description: "Voici le code de votre lien: ```go "+cd+"```"
 			}});
+
+			fs.writeFile("./codes.json", JSON.stringify(goCodes), function (err) {
+				if (err) return console.log(err);
+			});
 	} else {
 		msg.channel.send({embed: {
 			color: 16057630,
