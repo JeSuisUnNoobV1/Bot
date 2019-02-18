@@ -301,14 +301,14 @@ if (m.startsWith('set go')) {
 
 			goCodes.push({lk: lk});
 				
-			var json = JSON.stringify(goCodes); 
-			fs.writeFileSync('./codes.json', json); 
-
-			msg.channel.send({embed: {
-				title: "GO code ajouté",
-				color: 16777215,
-				description: "Voici le code de votre lien: ```go "+cd+"```"
-			}});
+			fs.writeFile('./codes.json', goCodes, (err) => {  
+				if (err) throw err;
+				msg.channel.send({embed: {
+					title: "GO code ajouté",
+					color: 16777215,
+					description: "Voici le code de votre lien: ```go "+cd+"```"
+				}});
+			});
 
 	} else {
 		msg.channel.send({embed: {
