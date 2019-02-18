@@ -218,7 +218,7 @@ if (m.startsWith('purge')||m.startsWith('!purge')) {
       msg.channel.send({embed: {
 		title: "Purge error",
 		color: 16057630,
-		description: "Veuillez préciser un nombre entre 0 et mille.\n_ex: \"purge 12\""
+		description: "Veuillez préciser un nombre entre 0 et mille.\n_ex: \"purge 12\"_"
 	  }});
 	} else {
 		msg.channel.fetchMessages({ limit: nb +1 })
