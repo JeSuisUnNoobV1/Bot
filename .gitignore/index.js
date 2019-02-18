@@ -209,6 +209,15 @@ if ((m.startsWith('bonjour') || m.startsWith('salut') || m.startsWith('hey') ||
 	}, 1800);
 }
 
+if (m.startsWith('purge')) {
+	if (msg.author.id == "483335511159865347" || msg.author.id == "467630539898224661") {
+		let nb = parseInt(m.replace('purge ', ""));
+		for (let i = 0; i<nb; i++){
+			msg.channel.lastMessage.delete();
+		}
+	}
+}
+
 if (m.startsWith("roboto insult")){
 	msg.channel.send("Pffff... T'as cru quoi ? Je vais pas me mute moi-même. Par contre toi tu vas y avoir droit :smile:");
 }
