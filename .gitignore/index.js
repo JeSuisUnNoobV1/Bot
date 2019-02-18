@@ -270,19 +270,13 @@ var q;
 }
 
 if (m.startsWith('go')||m.startsWith('!g')||m.startsWith('@')) {
-	let nb = parseInt(m.replace(/[^0-9]/, ""));
+	let nb = parseInt(m.replace(/[^0-9]/g, ""));
 		if (!isNaN(nb)) {
 			let link = goCodes[nb].lk;
 			msg.channel.send({embed: {
 				title: "GO code",
 				color: 16777215,
 				description: "Voici le lien: "+link
-			}});
-		} else {
-			msg.channel.send({embed: {
-				title: "TEST",
-				color: 16777215,
-				description: "EH bah non c un NaN: "+nb+", "+isNaN(nb)+", '"+m.replace(/[^0-9]/, "")+"'"
 			}});
 		}
 }
