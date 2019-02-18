@@ -282,6 +282,7 @@ var q;
 }
 
 if (m.startsWith('go')||m.startsWith('!g')||m.startsWith('@')) {
+	msg.delete();
 	let nb = parseInt(m.replace(/[^0-9]/g, "")),
 		msgSend;
 		if (!isNaN(nb) && goCodes[nb] != undefined) {
