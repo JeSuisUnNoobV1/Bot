@@ -60,7 +60,7 @@ client.on("guildMemberAdd", members => {
 client.on('message', msg => {
 	var m = msg.content.toLowerCase();
 
-if(m.includes("fdp")||m.includes("beze")||m.includes("bese")||m.includes("bz")||m.includes("salope")||m.includes("salop")||m.includes("pute")||m.includes(" con")||m === "con"||m.includes("connard")||m.includes("tg")||m.includes("batard")||m.includes("putain")||m.includes("tes morts")||m.includes("merde")||m.includes("merd")||m.includes("couilles")||m.includes("abruti")||m.includes("nique") && (msg.author.id != "512326722352578560" && msg.channel.id != "547042040068833300" && msg.channel.id != "547044092878520330" && msg.channel.id != "547044109261471744")) {
+if(m.includes("fdp")||m.includes("beze")||m.includes("bese")||m.includes("bz")||m.includes("salope")||m.includes("salop")||m.includes("pute")||m === "con"||m.includes("connard")||m.includes("tg")||m.includes("batard")||m.includes("putain")||m.includes("tes morts")||m.includes("merde")||m.includes("merd")||m.includes("couilles")||m.includes("abruti")||m.includes("nique") && (msg.author.id != "512326722352578560" && msg.channel.id != "547042040068833300" && msg.channel.id != "547044092878520330" && msg.channel.id != "547044109261471744")) {
 if (!msg.author.bot) {
   if (msg.author.id != 483335511159865347 || msg.author.id != 467630539898224661) {
 	msg.delete().then(msg => {
@@ -141,6 +141,18 @@ if (m.startsWith("roboto say")||m.startsWith("say")){
 	msg.delete();
 	if (msg.author.id == 483335511159865347 || msg.author.id == 467630539898224661) {
 		msg.channel.send(msg.content.replace(/roboto say |say |Say |sAy |saY |Roboto say |Roboto Say |roboto Say/, ''));
+	} else {
+		msg.channel.send({embed: {
+			color: 16057630,
+			description: "Non, tu n'est pas admin et n'a donc, par conséquent pas les permissions requises pour effectuer cette commande."
+		}});
+	}
+}
+
+if (m.startsWith("code")){
+	msg.delete();
+	if (msg.author.id == 483335511159865347 || msg.author.id == 467630539898224661) {
+		msg.channel.send("```"+msg.content.replace("code ", '')+"```");
 	} else {
 		msg.channel.send({embed: {
 			color: 16057630,
@@ -279,6 +291,29 @@ if (m.startsWith('go')||m.startsWith('!g')||m.startsWith('@')) {
 				description: "Voici le lien: "+link
 			}});
 		}
+}
+
+if (m.startsWith('set go')) {
+	if (msg.author.id == 483335511159865347 || msg.author.id == 467630539898224661) {
+		let lk = parseInt(m.replace(/[^0-9]/g, ""));
+		if (!isNaN(nb)) {
+
+			goCodes.push({lk: lk});
+
+			let cd = goCodes.length -1;
+
+			msg.channel.send({embed: {
+				title: "GO code ajouté",
+				color: 16777215,
+				description: "Voici le code de votre lien"+cd
+			}});
+		}
+	} else {
+		msg.channel.send({embed: {
+			color: 16057630,
+			description: "Non, tu n'est pas admin et n'a donc, par conséquent pas les permissions requises pour effectuer cette commande."
+		}});
+	}
 }
 
 if (msg.channel.id == "547042040068833300") {
