@@ -212,10 +212,22 @@ if ((m.startsWith('bonjour') || m.startsWith('salut') || m.startsWith('hey') ||
 if (m.startsWith('purge')) {
 	if (msg.author.id == "483335511159865347" || msg.author.id == "467630539898224661") {
 		let nb = parseInt(m.replace('purge ', ""));
-		for (let i = 0; i<nb; i++){
-			msg.channel.lastMessage.delete();
-		}
+    
+    // Ooooh nice, combined conditions. <3
+    if(!nb || nb < 1 || nb > 100 || isNaN(nb)) {
+      msg.channel.send({embed: {
+		title: "Purge error",
+		color: 16057630,
+		description: "Veuillez préciser un nombre entre 0 et mille.\n_ex: \"purge 12\""
+	  }});
+	} else {
+    
+    // So we get our messages, and delete them. Simple enough, right?
+    var fetched = message.channel.fetchMessages({limit: nb}).then(
+			message.channel.bulkDelete(fetched)
+		);
 	}
+}
 }
 
 if (m.startsWith("roboto insult")){
