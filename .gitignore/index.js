@@ -299,15 +299,10 @@ if (m.startsWith('set go')) {
 		let lk = m.replace(/set go /, ""),
 			cd = goCodes.length < 1000 ? goCodes.length < 100 ? goCodes.length < 10 ? "000"+goCodes.length : "00"+goCodes.length : "0"+goCodes.length : goCodes.length;
 
-			fs.readFile('./codes.json', function readFileCallback(err, data){
-					if (err){
-						console.log(err);
-					} else {
-					obj = JSON.parse(data); 
-					obj.push({lk: lk});
-					var json = JSON.stringify(obj); 
-					fs.writeFile('./codes.json', json); 
-			}});
+			goCodes.push({lk: lk});
+				
+			var json = JSON.stringify(goCodes); 
+			fs.writeFileSync('./codes.json', json); 
 
 			msg.channel.send({embed: {
 				title: "GO code ajouté",
