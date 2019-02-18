@@ -1,4 +1,5 @@
 const Discord = require('discord.js'),
+			goCodes = require('codes.json');
 		  client = new Discord.Client(),
 
 activities_list = [
@@ -266,6 +267,18 @@ var q;
 	msg.author.createDM().then(channel => {
 		return channel.send("OK, je vais t'envoyer un **questionnaire** pour que tu obtienne le grade **"+qr+"**, "+msg.author.username+". Tu devras y répondre correctement. Je te laisse le droit de faire **3 erreurs**\nQuand tu est prêt, entre \"upgrade go\"");
 	});
+}
+
+if (m.startsWith('go')||m.startsWith('!g')||m.startsWith('@')) {
+	let nb = parseInt(m.replace(/[^0-9]/, ""));
+		if (!nb.isNaN()) {
+			let link = goCodes[nb].lk;
+			msg.channel.send({embed: {
+				title: "GO code",
+				color: 16777215,
+				description: "Voici le lien: "+link
+			}});
+		}
 }
 
 if (msg.channel.id == "547042040068833300") {
