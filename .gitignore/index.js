@@ -221,11 +221,9 @@ if (m.startsWith('purge')) {
 		description: "Veuillez préciser un nombre entre 0 et mille.\n_ex: \"purge 12\""
 	  }});
 	} else {
-    
-    // So we get our messages, and delete them. Simple enough, right?
-    var fetched = message.channel.fetchMessages({limit: nb}).then(
-			message.channel.bulkDelete(fetched)
-		);
+		for (let i = 0; i<nb; i++) {
+			msg.channel.lastMessage.delete();
+		}
 	}
 }
 }
