@@ -306,7 +306,7 @@ if (m.startsWith('go')||m.startsWith('!g')||m.startsWith('@')) {
 		}
 
 		setTimeout(function(){
-			msgSend.delete();
+			msg.channel.lastMessage.delete();
 		}, 5000);
 }
 
