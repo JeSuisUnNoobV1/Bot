@@ -1,6 +1,6 @@
 const Discord = require('discord.js'),
-			goCodes = require('codes.json');
-		  client = new Discord.Client(),
+	goCodes = require('codes.json'),
+	client = new Discord.Client(),
 
 activities_list = [
   "",
