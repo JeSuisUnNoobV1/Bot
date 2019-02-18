@@ -75,7 +75,7 @@ if (!msg.author.bot) {
       description: "Hop Hop Hop, évitez les insultes s'il vous plait."
     }});
   } else {
-	client.channels.find("id", 539847850666885131).send("Bon, tu es admin donc tu peux dire ce que tu veux, même des gros mots !");
+	client.channels.find("id", "539847850666885131").send("Bon, tu es admin donc tu peux dire ce que tu veux, même des gros mots !");
   }
 }
 }
