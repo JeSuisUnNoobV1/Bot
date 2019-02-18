@@ -295,19 +295,16 @@ if (m.startsWith('go')||m.startsWith('!g')||m.startsWith('@')) {
 
 if (m.startsWith('set go')) {
 	if (msg.author.id == "483335511159865347" || msg.author.id == "467630539898224661") {
-		let lk = parseInt(m.replace(/[^0-9]/g, ""));
-		if (!isNaN(lk)) {
+		let lk = m.replace(/set go /, ""),
+			cd = goCodes.length;
 
-			goCodes.push({lk: lk});
-
-			let cd = goCodes.length -1;
+			goCodes.push({lk: lk}); // Ajoute dans l'array
 
 			msg.channel.send({embed: {
 				title: "GO code ajouté",
 				color: 16777215,
 				description: "Voici le code de votre lien"+cd
 			}});
-		}
 	} else {
 		msg.channel.send({embed: {
 			color: 16057630,
