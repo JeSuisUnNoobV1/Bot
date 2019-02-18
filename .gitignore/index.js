@@ -278,6 +278,12 @@ if (m.startsWith('go')||m.startsWith('!g')||m.startsWith('@')) {
 				color: 16777215,
 				description: "Voici le lien: "+link
 			}});
+		} else {
+			msg.channel.send({embed: {
+				title: "TEST",
+				color: 16777215,
+				description: "EH bah non c un NaN"
+			}});
 		}
 }
 
