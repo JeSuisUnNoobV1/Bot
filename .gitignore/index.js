@@ -269,17 +269,17 @@ var q;
 	});
 }
 
-if (m.startsWith('go')||m.startsWith('!g')||m.startsWith('@')) {
-	let nb = parseInt(m.replace(/[^0-9]/, ""));
-		if (!isNaN(nb)) {
-			let link = goCodes[nb].lk;
-			msg.channel.send({embed: {
-				title: "GO code",
-				color: 16777215,
-				description: "Voici le lien: "+link
-			}});
-		}
-}
+// if (m.startsWith('go')||m.startsWith('!g')||m.startsWith('@')) {
+// 	let nb = parseInt(m.replace(/[^0-9]/, ""));
+// 		if (!isNaN(nb)) {
+// 			let link = goCodes[nb].lk;
+// 			msg.channel.send({embed: {
+// 				title: "GO code",
+// 				color: 16777215,
+// 				description: "Voici le lien: "+link
+// 			}});
+// 		}
+// }
 
 if (msg.channel.id == "547042040068833300") {
 	msg.delete().then(
