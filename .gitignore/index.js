@@ -214,11 +214,11 @@ if (m.startsWith('purge')||m.startsWith('!purge')) {
 		let nb = parseInt(m.replace(/[^0-9]/g, ""));
     
     // Ooooh nice, combined conditions. <3
-    if(!nb || nb < 1 || nb > 100 || isNaN(nb)) {
+    if(!nb || nb < 1 || nb > 1000 || isNaN(nb)) {
       msg.channel.send({embed: {
 		title: "Purge error",
 		color: 16057630,
-		description: "Veuillez préciser un nombre entre 0 et mille.\n_ex: \"purge 12\"_"
+		description: "Veuillez préciser un nombre entre 0 et 1000.\n_ex: \"purge 12\"_"
 	  }});
 	} else {
 		msg.channel.fetchMessages({ limit: nb +1 })
