@@ -221,7 +221,7 @@ if (m.startsWith('purge')||m.startsWith('!purge')) {
 		description: "Veuillez préciser un nombre entre 0 et mille.\n_ex: \"purge 12\""
 	  }});
 	} else {
-		msg.channel.fetchMessages({ limit: nb })
+		msg.channel.fetchMessages({ limit: nb +1 })
 			.then(messages => msg.channel.bulkDelete(messages));
 	}
 }
