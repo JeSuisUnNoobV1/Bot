@@ -282,7 +282,7 @@ if (m.startsWith('go')||m.startsWith('!g')||m.startsWith('@')) {
 			msg.channel.send({embed: {
 				title: "TEST",
 				color: 16777215,
-				description: "EH bah non c un NaN"
+				description: "EH bah non c un NaN: "+nb+", "+isNaN(nb)
 			}});
 		}
 }
