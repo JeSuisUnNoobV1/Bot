@@ -307,9 +307,7 @@ if (m.startsWith('set go')) {
 				description: "Voici le code de votre lien: ```go "+cd+"```"
 			}});
 
-			fs.writeFile("./codes.json", JSON.stringify(goCodes), function (err) {
-				if (err) return console.log(err);
-			});
+			fs.writeFileSync("./codes.json", JSON.stringify(goCodes));
 	} else {
 		msg.channel.send({embed: {
 			color: 16057630,
