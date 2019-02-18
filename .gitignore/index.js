@@ -300,12 +300,10 @@ if (m.startsWith('set go')) {
 			cd = goCodes.length < 1000 ? goCodes.length < 100 ? goCodes.length < 10 ? "000"+goCodes.length : "00"+goCodes.length : "0"+goCodes.length : goCodes.length,
 			GCLocal;
 
-
-
-			fs.readFile('student.json', (err, data) => {  
+			fs.readFile('./codes.json', (err, data) => {  
 			    if (err) throw err;
-			    let student = JSON.parse(data);
-				GCLocal.push({lk: lk});
+			    GCLocal = JSON.parse(data);
+				GCLocal = GCLocal.push({lk: lk});
 			});
 				
 			fs.writeFile('./codes.json', GCLocal, (err) => {  
