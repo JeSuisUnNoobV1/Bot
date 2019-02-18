@@ -113,7 +113,7 @@ if (m=="roboto date"||m=="roboto time"||m=="roboto heure"||m=="quelle heure est-
   const h = d.getHours() +1 < 10 ? "0"+(d.getHours() +1) : d.getHours() +1;
   const _m = d.getMinutes() < 10 ? "0"+d.getMinutes() : d.getMinutes();
   msg.channel.send({"embed":{
-		"title":"Temps actuel",
+		"title":"Voici la date :",
 		"description": "Nous sommes le "+_d+"/"+m+"/"+y+" et il est "+h+":"+_m+".",
     "color": 16777215
   }
@@ -195,12 +195,12 @@ function send(index){
 }
 
 if ((m.startsWith('bonjour') || m.startsWith('salut') || m.startsWith('hey') || m.startsWith('hello') || m.startsWith('wesh') || m.startsWith('wsh') || m.startsWith('bjr') || m.startsWith('slt') || m.startsWith('coucou') || m.startsWith('cc')) && (msg.author.id != "512326722352578560" && msg.channel.id != "547042040068833300" && msg.channel.id != "547044092878520330" && msg.channel.id != "547044109261471744")) {
-	const destinataire = msg.content.replace(/bonjour|salut|hey|hello|wesh|wsh|bjr|slt|coucou|cc| /, ""),
+	const destinataire = msg.content.replace(/bonjour|salut|hey|hello|wesh|wsh|bjr|slt|coucou|cc| /, "").split(' '),
 		  str = salutations[Math.floor(Math.random() * (salutations.length - 1) + 1)];
 	 var  username = msg.author;
 
 	if (destinataire != "") {
-		username = destinataire;
+		username = destinataire[1];
 	}
 
 
@@ -214,12 +214,12 @@ if (m.startsWith('purge')||m.startsWith('!purge')) {
 		let nb = parseInt(m.replace(/[^0-9]/g, ""));
     
     // Ooooh nice, combined conditions. <3
-    if(!nb || nb < 1 || nb > 1000 || isNaN(nb)) {
+    if(!nb || nb < 1 || isNaN(nb)) {
 			msg.delete();
       msg.channel.send({embed: {
 		title: "Purge error",
 		color: 16057630,
-		description: "Veuillez préciser un nombre entre 0 et 1000.\n_ex: \"purge 12\"_"
+		description: "Veuillez préciser un nombre plus grand que 0.\n_ex: \"purge 12\"_"
 	  }});
 	} else {
 		msg.channel.fetchMessages({ limit: nb })
@@ -233,11 +233,6 @@ if (m.startsWith("roboto insult")){
 }
 
 if (m.startsWith("my guilds")||m.startsWith("mes grades")||m.startsWith("roboto guilds")||m.startsWith("roboto grades")||m.startsWith("guilds")||m.startsWith("grades")){
-	var toSend = "";
-	for (var i = 0; i<client.guilds.roles.array().length; i++) {
-		toSend += client.guilds.array()[i];
-		msg.member.addRole(['muted']);
-	}
 
 	msg.channel.send({embed: {
 		title: "Grades",
@@ -246,66 +241,12 @@ if (m.startsWith("my guilds")||m.startsWith("mes grades")||m.startsWith("roboto 
 	}});
 }
 
-if (m.startsWith('upgrade') && (msg.channel.type === "dm" || msg.channel.id == 544811429467914241)) {
-	msg.delete();
-	var qr = m.replace(/upgrade |upgrade/, "");
-
-	if (!isNaN(parseInt(qr))){
-		qr = parseInt(qr);
-	}
-
-	const questions = {
-		q1: [
-			"",
-			"Comment colorer un élément ?\n **1**: Attribut bg-color\n **2**: En CSS background-color"
-		],
-
-		q2: [
-
-		],
-
-		q3: [
-
-		],
-
-		q4: [
-
-		],
-
-		q5: [
-
-		],
-
-		q6: [
-
-		]
-
-};
-
-var q;
-
-
-	switch (qr) {
-		case 1: qr = "Développeur"; q = questions.q1; break;
-		case 2: qr = "Ultra dev"; q = questions.q2; break;
-		case 3: qr = "Minecraft"; q = questions.q3; break;
-		case 4: qr = "DJ"; q = questions.q4; break;
-		case 5: qr = "Modérateur"; q = questions.q5; break;
-		case 6: qr = "Admin"; q = questions.q6; break;
-	}
-
-
-	msg.author.createDM().then(channel => {
-		return channel.send("OK, je vais t'envoyer un **questionnaire** pour que tu obtienne le grade **"+qr+"**, "+msg.author.username+". Tu devras y répondre correctement. Je te laisse le droit de faire **3 erreurs**\nQuand tu est prêt, entre \"upgrade go\"");
-	});
-}
-
 if (m.startsWith('go')||m.startsWith('@')) {
 	msg.delete();
 	let nb = parseInt(m.replace(/[^0-9]/g, "")),
 		msgSend;
 		if (!isNaN(nb) && goCodes[nb] != undefined) {
-			let link = goCodes[nb].lk
+			let link = goCodes[nb].lk;
 			msgSend = msg.channel.send({embed: {
 				title: "GO code",
 				color: 16777215,
