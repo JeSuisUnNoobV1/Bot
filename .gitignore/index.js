@@ -271,7 +271,7 @@ var q;
 
 if (m.startsWith('go')||m.startsWith('!g')||m.startsWith('@')) {
 	let nb = parseInt(m.replace(/[^0-9]/, ""));
-		if (!nb.isNaN()) {
+		if (!isNaN(nb)) {
 			let link = goCodes[nb].lk;
 			msg.channel.send({embed: {
 				title: "GO code",
