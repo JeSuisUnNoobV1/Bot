@@ -222,7 +222,7 @@ if (m.startsWith('purge')) {
 	  }});
 	} else {
 		msg.channel.fetchMessages({ limit: nb })
-			.then(messages => message.channel.bulkDelete(messages));
+			.then(messages => msg.channel.bulkDelete(messages));
 	}
 }
 }
