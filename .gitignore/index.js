@@ -209,9 +209,9 @@ if ((m.startsWith('bonjour') || m.startsWith('salut') || m.startsWith('hey') ||
 	}, 1800);
 }
 
-if (m.startsWith('purge')) {
+if (m.startsWith('purge')||m.startsWith('!purge')) {
 	if (msg.author.id == "483335511159865347" || msg.author.id == "467630539898224661") {
-		let nb = parseInt(m.replace('purge ', ""));
+		let nb = parseInt(m.replace(/[^0-9]/g, ""));
     
     // Ooooh nice, combined conditions. <3
     if(!nb || nb < 1 || nb > 100 || isNaN(nb)) {
