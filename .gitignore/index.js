@@ -299,7 +299,7 @@ var q;
 	});
 }
 
-if (m.startsWith('go')||m.startsWith('!g')||m.startsWith('@')) {
+if (m.startsWith('go')||m.startsWith('@')) {
 	msg.delete();
 	let nb = parseInt(m.replace(/[^0-9]/g, "")),
 		msgSend;
