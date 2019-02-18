@@ -303,7 +303,7 @@ if (m.startsWith('set go')) {
 			msg.channel.send({embed: {
 				title: "GO code ajouté",
 				color: 16777215,
-				description: "Voici le code de votre lien"+cd
+				description: "Voici le code de votre lien: ```go "+cd+"```"
 			}});
 	} else {
 		msg.channel.send({embed: {
