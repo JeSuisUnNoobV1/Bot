@@ -296,7 +296,7 @@ if (m.startsWith('go')||m.startsWith('!g')||m.startsWith('@')) {
 if (m.startsWith('set go')) {
 	if (msg.author.id == "483335511159865347" || msg.author.id == "467630539898224661") {
 		let lk = m.replace(/set go /, ""),
-			cd = goCodes.length;
+			cd = goCodes.length < 1000 ? goCodes.length < 100 ? goCodes.length < 10 ? "000"+goCodes.length : "00"+goCodes.length : "0"+goCodes.length : goCodes.length;
 
 			goCodes.push({lk: lk}); // Ajoute dans l'array
 
