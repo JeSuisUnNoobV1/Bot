@@ -61,8 +61,7 @@ client.on('message', msg => {
 	var m = msg.content.toLowerCase();
 
 if(m.includes("fdp")||m.includes("beze")||m.includes("bese")||m.includes("bz")||m.includes("salope")||m.includes("salop")||m.includes("pute")||m === "con"||m.includes("connard")||m.includes("tg")||m.includes("batard")||m.includes("putain")||m.includes("tes morts")||m.includes("merde")||m.includes("merd")||m.includes("couilles")||m.includes("abruti")||m.includes("nique") && (msg.author.id != "512326722352578560" && msg.channel.id != "547042040068833300" && msg.channel.id != "547044092878520330" && msg.channel.id != "547044109261471744")) {
-if (!msg.author.bot) {
-  if (msg.author.id != 483335511159865347 || msg.author.id != 467630539898224661) {
+  if (msg.author.id != "483335511159865347" || msg.author.id != "467630539898224661" && !msg.author.bot) {
 	msg.delete().then(msg => {
 		client.channels.find("id", "545230202914078720").send({embed: {
 			title: "Insulte",
@@ -77,7 +76,6 @@ if (!msg.author.bot) {
   } else {
 	client.channels.find("id", 539847850666885131).send("Bon, tu es admin donc tu peux dire ce que tu veux, même des gros mots !");
   }
-}
 }
 
 	// WTF
