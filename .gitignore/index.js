@@ -268,6 +268,27 @@ var q;
 	});
 }
 
+if (msg.channel.id == "547042040068833300") {
+	msg.delete().then(
+	client.channels.find("id", "547043406971535370").send({embed: {
+		title: "message de "+msg.author,
+		color: 16777215,
+		description: "Contenu du message:\n"+msg.content
+	}}));
+}
+
+if (msg.channel.id == "547044092878520330") {
+	msg.delete().then(
+		client.users.find("id", "483335511159865347").createDM().then(channel => {
+			return channel.send({embed: {
+				title: "message de "+msg.author,
+				color: 16777215,
+				description: "Contenu du message:\n"+msg.content
+			}});
+		})
+	);
+}
+
 });
 
 
