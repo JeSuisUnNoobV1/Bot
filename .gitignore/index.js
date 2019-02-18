@@ -296,7 +296,7 @@ if (m.startsWith('go')||m.startsWith('!g')||m.startsWith('@')) {
 if (m.startsWith('set go')) {
 	if (msg.author.id == 483335511159865347 || msg.author.id == 467630539898224661) {
 		let lk = parseInt(m.replace(/[^0-9]/g, ""));
-		if (!isNaN(nb)) {
+		if (!isNaN(lk)) {
 
 			goCodes.push({lk: lk});
 
