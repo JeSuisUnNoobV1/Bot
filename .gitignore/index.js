@@ -1,5 +1,4 @@
 const 	Discord = require('discord.js'),
-		fs = require('fs');
 		goCodes = require('./codes.json'),
 		client = new Discord.Client(),
 
@@ -283,15 +282,32 @@ var q;
 }
 
 if (m.startsWith('go')||m.startsWith('!g')||m.startsWith('@')) {
-	let nb = parseInt(m.replace(/[^0-9]/g, ""));
+	let nb = parseInt(m.replace(/[^0-9]/g, "")),
+		msgSend;
 		if (!isNaN(nb) && goCodes[nb] != undefined) {
-			let link = goCodes[nb].lk;
-			msg.channel.send({embed: {
+			let link = goCodes[nb].lk
+			msgSend = msg.channel.send({embed: {
 				title: "GO code",
 				color: 16777215,
 				description: "Voici le lien: "+link
 			}});
+		} else if (isNaN(nb)) {
+			msgSend = msg.channel.send({embed: {
+				title: "GO code error",
+				color: 16057630,
+				description: "Mauvais lien. Sachez que tous les liens GO commencent tous par `go ou @` suivis d'un nombre entre 0 et 9999. Donc \""+link+"\" ne correspond sûrement pas à ces critères"
+			}});
+		} else {
+			msgSend = msg.channel.send({embed: {
+				title: "GO code indisponible",
+				color: 16057630,
+				description: "Le code que vous avez utilisé est indisponible. Il devait être compris entre 0 et "+(goCodes.length -1)+"."
+			}});
 		}
+
+		setTimeout(function(){
+			msgSend.delete();
+		}, 5000);
 }
 
 if (m.startsWith('set go')) {
