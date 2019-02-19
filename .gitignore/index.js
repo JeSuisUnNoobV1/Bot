@@ -421,7 +421,7 @@ if (isAdmin()){
 
 	// Roboto get money
 	if (m.startsWith('roboto get money')||m.startsWith('get money')) {
-		let somme = parseInt(m.replace(/[^0-9]/g, ""));
+		let somme = isNaN(parseInt(m.replace(/[^0-9]/g, ""))) ? 0 : parseInt(m.replace(/[^0-9]/g, ""));
 		console.log(somme);
 		for (let i = 0; i<users.length; i++) {
 			if (users[i].id == msg.author.id){
@@ -433,7 +433,7 @@ if (isAdmin()){
 
 		// Roboto get money
 		if (m.startsWith('roboto get xp')||m.startsWith('get xp')) {
-			let xp = parseInt(m.replace(/[^0-9]/g, ""));
+			let xp = isNaN(parseInt(m.replace(/[^0-9]/g, ""))) ? 0 : parseInt(m.replace(/[^0-9]/g, ""));
 	
 			for (let i = 0; i<users.length; i++) {
 				if (users[i].id == msg.author.id){
