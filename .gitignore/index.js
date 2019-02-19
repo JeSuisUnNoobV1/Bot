@@ -199,7 +199,6 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 	// Roboto timeout
 	if (m.startsWith("roboto timeout")||m.startsWith("timeout")){
 		let time = m.replace(/roboto timeout |timeout /g, "");
-		msg.channel.send(time);
 		if (time == "reset") {
 			if (globalInterval != false) {
 				msg.channel.send({embed: {
@@ -216,7 +215,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 				}});
 			}
 
-		} else if (parseInt(time) <= 0) {
+		} else if (!isNaN(parseInt(time)*1000) && parseInt(time)*1000 >= 0) {
 			time = parseInt(time) * 1000;
 		msg.channel.send({embed: {
 			title: "Compte à rebours",
