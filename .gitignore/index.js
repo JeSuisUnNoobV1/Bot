@@ -119,7 +119,7 @@ client.on('message', msg => {
 	}
 
 if (m!="roboto rank"||m!="rank"||m!="xp"||m!="levels"||m!="money") {
-	db('users').find({id: msg.author.id }).xp += 20;
+	db.get('users').find({id: msg.author.id }).xp += 20;
 	db.save();
 }
 
