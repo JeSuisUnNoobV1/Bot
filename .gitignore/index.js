@@ -427,8 +427,25 @@ if (isAdmin()){
 	if (m.startsWith('roboto get money')||m.startsWith('get money')) {
 		let somme = parseInt(m.replace(/[^0-9]/, ""));
 
-		users[{id: msg.author}].money += somme;
+		for (let i = 0; i<users.length; i++) {
+			if (users[i].id == member.id){
+				users[i].money += somme;
+				break;
+			}
+		}
 	}
+
+		// Roboto get money
+		if (m.startsWith('roboto get xp')||m.startsWith('get xp')) {
+			let xp = parseInt(m.replace(/[^0-9]/, ""));
+	
+			for (let i = 0; i<users.length; i++) {
+				if (users[i].id == member.id){
+					users[i].money += xp;
+					break;
+				}
+			}
+		}
 
 	// Roboto get db
 	if (m=="get db"||m=="roboto get db") {
