@@ -114,7 +114,7 @@ client.on('message', msg => {
 		return false;
 	}
 
-if (m!="roboto rank"||m!="rank"||m!="xp"||m!="levels"||m!="money") {
+if (m!="roboto rank"&&m!="rank"&m!="xp"&&m!="levels"&&m!="money") {
 	for (let i = 0; i<users.length; i++) {
 		if (users[i].id == msg.author.id){
 			users[i].xp += 20;
@@ -192,7 +192,6 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 	// Roboto rank
 	if (m.startsWith("roboto rank")||m.startsWith("rank")||m.startsWith("xp")||m.startsWith("levels")||m.startsWith("money")){
 		let xp, money, member = msg.mentions.members.first() || msg.author;
-		console.log(member);
 		for (let i = 0; i<users.length; i++) {
 			if (users[i].id == member.id){
 				xp = users[i].xp;
