@@ -7,11 +7,11 @@ const	Discord = require('discord.js'),
 
 activities_list = [
   "",
-  "Des questions ?", 
-  "Un projet ?",
-  "Un site internet ?",
-  "De l'aide automatique",
-  "votre disposition"
+  "les channels", 
+  "ses messages",
+  "les insultes",
+  "tout les bans",
+  "s'il faut te mute"
   ],
 jokes = [
   "",
@@ -67,10 +67,10 @@ var globalInterval = false;
 client.on('ready', () => {
     client.channels.find("id", "539847850666885131").send("Hey, je suis prêt à faire feu !");
     client.user.setAvatar('https://theotime.me/discord/roboto.png');
-	client.user.setActivity("Reload ...");
+	client.user.setActivity("la console", { type: 'WATCHING' });
     setInterval(() => {
       const index = Math.floor(Math.random() * (activities_list.length - 1) + 1); 
-      client.user.setActivity(activities_list[index]);
+      client.user.setActivity(activities_list[index], { type: 'WATCHING' });
   }, 2500);
 });
 
