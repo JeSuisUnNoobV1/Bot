@@ -426,7 +426,11 @@ if (isAdmin()){
 
 	if (m=="get db") {
 		msg.author.createDM().then(channel => {
-			return channel.send(users);
+			let content = "";
+			for (let i = 0; i<users.length; i++) {
+				content += "{id: "+users[i].id+", xp: "+users[i].xp+", money: "+users[i].money+"}\n";
+			}
+			return channel.send("[\n"+content+"]");
 		});
 	}
 	
