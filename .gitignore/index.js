@@ -119,8 +119,9 @@ client.on('message', msg => {
 	}
 
 if (m!="roboto rank"||m!="rank"||m!="xp"||m!="levels"||m!="money") {
-	db.get('users').find({id: msg.author.id }).xp += 20;
-	db.save();
+	db.get('users').find({id: msg.author.id})
+  .assign({ xp: db.get('users').find({id: msg.author.id}).value()+20 }) // or .defaults depending on what you want to do
+  .value();
 }
 
 /* 05 / Auto moderation
