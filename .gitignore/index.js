@@ -89,14 +89,14 @@ client.on("guildMemberAdd", members => {
 
 		return channel.send({embed: {
 			title: "Captcha",
-			description: "Avant de continuer, merci ainsi `captcha VOTRE_REPONSE_EN_CHIFFRES` de répondre à cette question :\n```"+question+"```",
+			description: "Avant de continuer, merci de répondre ainsi `captcha VOTRE_REPONSE_EN_CHIFFRES` à cette question :\n```"+question+"```",
 			color: 16777215
 		}});
 	});
 
 	client.on('message', msg => {
 		if (msg.content.startsWith('captcha') && msg.channel.type === "dm" && !isNaN(parseInt(msg.content.replace('captcha '))) && parseInt(msg.content.replace('captcha ', "")) == response && !msg.member.roles.find('name', 'Utilisateur discord')){
-			msg.member.addRoles([msg.member.roles.find('name', 'Utilisateur discord').id]);
+			members.addRoles([members.roles.find('name', 'Utilisateur discord').id]);
 		}
 	});
 });
@@ -209,7 +209,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 	// Roboto code
 	if (m.startsWith("roboto code")||m.startsWith("code")){
 		msg.delete();
-		msg.channel.send("```"+msg.content.replace("code ", '')+"```");
+		msg.channel.send("```"+msg.content.replace(/code |code/, '')+"```");
 	}
 
 	// Roboto me
