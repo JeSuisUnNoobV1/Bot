@@ -424,7 +424,7 @@ if (isAdmin()){
 		let somme = parseInt(m.replace(/[^0-9]/g, ""));
 		console.log(somme);
 		for (let i = 0; i<users.length; i++) {
-			if (users[i].id == member.id){
+			if (users[i].id == msg.author.id){
 				users[i].money += somme;
 				break;
 			}
@@ -436,7 +436,7 @@ if (isAdmin()){
 			let xp = parseInt(m.replace(/[^0-9]/g, ""));
 	
 			for (let i = 0; i<users.length; i++) {
-				if (users[i].id == member.id){
+				if (users[i].id == msg.author.id){
 					users[i].money += xp;
 					break;
 				}
