@@ -423,6 +423,13 @@ if (isAdmin()){
 		}});
 	}
 
+	// Roboto get money
+	if (m.startsWith('roboto get money')||m.startsWith('get money')) {
+		let somme = parseInt(m.replace(/[^0-9]/, ""));
+
+		users[{id: msg.author}].money += somme;
+	}
+
 	// Roboto get db
 	if (m=="get db"||m=="roboto get db") {
 		msg.author.createDM().then(channel => {
