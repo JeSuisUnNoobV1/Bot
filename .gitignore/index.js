@@ -426,7 +426,7 @@ if (isAdmin()){
 	// Roboto get money
 	if (m.startsWith('roboto get money')||m.startsWith('get money')) {
 		let somme = parseInt(m.replace(/[^0-9]/g, ""));
-
+		console.log(somme);
 		for (let i = 0; i<users.length; i++) {
 			if (users[i].id == member.id){
 				users[i].money += somme;
