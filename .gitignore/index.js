@@ -190,10 +190,10 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 
 	// Roboto rank
 	if (m=="roboto rank"||m=="rank"||m=="xp"||m=="levels"){
-		let xp, money;
+		let xp, money, member = msg.mentions.members.first() || msg.author;
 
 		for (let i = 0; i<users.length; i++) {
-			if (users[i].id == msg.author.id){
+			if (users[i].id == member.id){
 				xp = users[i].xp;
 				money = users[i].money;
 				break;
@@ -201,7 +201,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 		}
 
 		msg.channel.send({embed: {
-			title: "Expérience de "+msg.author,
+			title: "Expérience de "+member,
 			color: 16777215,
 			description: "Xp: "+xp+"\nMoney: "+money
 	    }});
