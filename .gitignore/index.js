@@ -4,7 +4,11 @@
 const	Discord = require('discord.js'),
 		goCodes = require('./codes.json'),
 		users = require('./users.json'),
-		client = new Discord.Client();
+		low = require('lowdb'),
+		FileSync = require('lowdb/adapters/FileSync'),
+		adapter = new FileSync('./users.json'),
+		db = low(adapter),
+		client = new Discord.Client(),
 
 activities_list = [
   "",
@@ -71,16 +75,16 @@ client.on('ready', () => {
 /* 03 / new user
 ==================== */
 client.on("guildMemberAdd", members => {
-	let index = Math.floor(Math.random() * (captcha_questions.length - 1) + 1),
-		full = captcha_questions[index],
-		arr = full.split('|'),
-		question = arr[0];
-
     members.createDM().then(channel => {
     	channel.send('Bienvenue **' + members.displayName+ "**,\n Tu as maintenant accès au serveur discord \"Théotime.me\" !\nOn y parle de développement, de graphisme, d'ilustration et bien d'autres activités ! Ainsi chacun pourra parler de ses projets pour les faire évoluer. Si vous souhaitez inviter quelqu'un, utilisez ce lien: https://discord.gg/PuU3BSJ \n\n Amicalement, Roboto.");
 	});
+
+	users.push({id: members.id, xp: 0, money: 0});
 });
 
+client.on('guildMemberRemove', members => {
+
+});
 
 client.on('message', msg => {
 	var m = msg.content.toLowerCase();
@@ -115,12 +119,8 @@ client.on('message', msg => {
 	}
 
 if (m!="roboto rank"||m!="rank"||m!="xp"||m!="levels"||m!="money") {
-	for (let i = 0; i<users.length; i++) {
-		if (users[i].id == msg.author.id){
-			users[i].xp += 20;
-			break;
-		}
-	}
+	db('users').find({id: msg.author.id }).xp += 20;
+	db.save();
 }
 
 /* 05 / Auto moderation
@@ -202,7 +202,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 		}
 
 		msg.channel.send({embed: {
-			title: "Expérience de "+member.tag,
+			title: "Expérience de "+member.username,
 			color: 16777215,
 			description: "Xp: "+xp+"\nMoney: "+money
 	    }});
