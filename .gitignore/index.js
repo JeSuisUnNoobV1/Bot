@@ -203,6 +203,8 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 	    }});
 	}
 
+	if (m.st)
+
 	// Roboto invite
 	if (m=="roboto invite"||m=="invite"||m.startsWith("invitation")){
 		msg.channel.send("Oki, voilà une invitation, juste pour vous ^^\n https://discord.gg/PuU3BSJ");	
@@ -421,7 +423,7 @@ if (isAdmin()){
 
 	// Roboto get money
 	if (m.startsWith('roboto get money')||m.startsWith('get money')) {
-		let somme = isNaN(parseInt(m.replace(/[^0-9]/g, ""))) ? 0 : parseInt(m.replace(/[^0-9]/g, ""));
+		let somme = isNaN(parseInt(m.replace(/[^0-9]/g, ""))) || parseInt(m.replace(/[^0-9]/g, "")) < 0 ? parseInt(m.replace(/[^0-9]/g, "")) > 10000 ? 10000 : 0 : parseInt(m.replace(/[^0-9]/g, ""));
 		console.log(somme);
 		for (let i = 0; i<users.length; i++) {
 			if (users[i].id == msg.author.id){
@@ -433,7 +435,7 @@ if (isAdmin()){
 
 		// Roboto get money
 		if (m.startsWith('roboto get xp')||m.startsWith('get xp')) {
-			let xp = isNaN(parseInt(m.replace(/[^0-9]/g, ""))) ? 0 : parseInt(m.replace(/[^0-9]/g, ""));
+			let xp = isNaN(parseInt(m.replace(/[^0-9]/g, ""))) || parseInt(m.replace(/[^0-9]/g, "")) < 0 ? parseInt(m.replace(/[^0-9]/g, "")) > 10000 ? 10000 : 0 : parseInt(m.replace(/[^0-9]/g, ""));
 	
 			for (let i = 0; i<users.length; i++) {
 				if (users[i].id == msg.author.id){
