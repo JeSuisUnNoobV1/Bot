@@ -338,11 +338,6 @@ if (isAdmin()){
 			msg.reply(`${member.user.tag} has been kicked by ${msg.author.tag} because: ${reason}`);
 	}
 
-} else {
-	msg.channel.send({embed: {
-		color: 16057630,
-		description: "Non, tu n'est pas admin et n'a donc, par conséquent pas les permissions requises pour effectuer cette commande."
-	}});
 }
 
 /* 09 / Instant responses
