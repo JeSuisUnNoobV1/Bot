@@ -92,8 +92,7 @@ client.on('message', msg => {
 			return false;
 		}
 	}
-	
-if (isNotAuth()) return false;
+
 if (isMuted()){
 	msg.author.createDM().then(channel => {
 		return channel.send('Désolé, vous avez été mute (rendus muets) car vous n\'avez pas respecté les <#540256081293606915>');
@@ -101,8 +100,14 @@ if (isMuted()){
 	return false;
 }
 
-if(m.includes("fdp")||m.includes("beze")||m.includes("bese")||m.includes("bz")||m.includes("salope")||m.includes("salop")||m.includes("pute")||m === "con"||m.includes("connard")||m.includes("tg")||m.includes("batard")||m.includes("putain")||m.includes("tes morts")||m.includes("merde")||m.includes("merd")||m.includes("couilles")||m.includes("abruti")||m.includes("nique") && (msg.author.id != "512326722352578560" && msg.channel.id != "547042040068833300" && msg.channel.id != "547044092878520330" && msg.channel.id != "547044109261471744")) {
-if (!isBot() && !isAdmin(msg.author)) {
+if (isNotAuth()){
+	msg.author.createDM().then(channel => {
+		return channel.send('Vous n\'êtes pas en mesure d\'utiliser les bots car vous avez enfreint les <#540256081293606915>');
+ 	});
+	return false;
+}
+
+if(m.includes("fdp")||m.includes("beze")||m.includes("bese")||m.includes("bz")||m.includes("salop")||m.includes("pute")||m === "con"||m.includes("connard")||m.includes("tg")||m.includes("batard")||m.includes("putain")||m.includes("tes morts")||m.includes("merde")||m.includes("merd")||m.includes("couilles")||m.includes("abruti")||m.startsWith("nique ")||m===("nique") && !isAdmin()) {
 	msg.delete().then(msg => {
 		client.channels.find("id", "545230202914078720").send({embed: {
 			title: "Insulte",
@@ -114,9 +119,6 @@ if (!isBot() && !isAdmin(msg.author)) {
       color: 16057630,
       description: "Hop Hop Hop, évitez les insultes s'il vous plait."
     }});
-  } else {
-	client.channels.find("id", "539847850666885131").send("Bon, tu es admin donc tu peux dire ce que tu veux, même des gros mots !");
-  }
 }
 
 	// WTF
