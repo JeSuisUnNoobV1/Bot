@@ -84,27 +84,9 @@ client.on("guildMemberAdd", members => {
 
     members.createDM().then(channel => {
     	channel.send('Bienvenue **' + members.displayName+ "**,\n Tu as maintenant accès au serveur discord \"Théotime.me\" !\nOn y parle de développement, de graphisme, d'ilustration et bien d'autres activités ! Ainsi chacun pourra parler de ses projets pour les faire évoluer. Si vous souhaitez inviter quelqu'un, utilisez ce lien: https://discord.gg/PuU3BSJ \n\n Amicalement, Roboto.");
-
-		channel.send({embed: {
-			title: "Captcha",
-			description: "écrivez "+question+" dans le channel captcha-"+index,
-			color: 16777215
-		}});
-
-		client.on('messageReactionAdd', (reaction) => {
-			if(reaction.emoji.name === ":six:") {
-				client.on('messageReactionAdd', (reaction) => {
-					if(reaction.emoji.name === ":two:") {
-						client.on('messageReactionAdd', (reaction) => {
-							if(reaction.emoji.name === ":eight:") {
-								channel.send('ok c bon');
-							}
-						});
-					}
-				});
-			}
-		});
+	});
 });
+
 
 client.on('message', msg => {
 	var m = msg.content.toLowerCase();
