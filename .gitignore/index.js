@@ -216,7 +216,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 				}});
 			}
 
-		} else if (!isNaN(parseInt(time)) && parseInt(time) <= 0) {
+		} else if (parseInt(time) <= 0) {
 			time = parseInt(time) * 1000;
 		msg.channel.send({embed: {
 			title: "Compte à rebours",
