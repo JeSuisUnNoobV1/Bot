@@ -204,9 +204,10 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 				msg.channel.send({embed: {
 					title: "Compte à rebours",
 					color: 16777215,
-					description: "Voilà "+msg.author+" ! Votre compte à rebours de `"+(time < 10 ? "0"+time : time)+"` secondes a été réinitialisé."
+					description: "Voilà "+msg.author+" ! Votre compte à rebours de `"+secs+"` secondes a été réinitialisé."
 				}});
 				clearInterval(globalInterval);
+				globalInterval = false;
 			} else {
 				msg.channel.send({embed: {
 					title: "Erreur de compte à rebours",
@@ -216,20 +217,22 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			}
 
 		} else if (!isNaN(parseInt(time)*1000) && parseInt(time)*1000 >= 0) {
-			time = parseInt(time) * 1000;
+			let secs = (time < 10 ? "0"+time : time); // str
+				time = parseInt(time) * 1000; // number
 		msg.channel.send({embed: {
 			title: "Compte à rebours",
 			color: 16777215,
-			description: "Voilà, votre compte à rebours de `"+(time < 10 ? "0"+time : time)+"` secondes a été initialisé.\nPlus qu'à attendre !"
+			description: "Voilà, votre compte à rebours de `"+secs+"` secondes a été initialisé.\nPlus qu'à attendre !"
 		}});
 
 		globalInterval = setInterval(function(){
 			msg.channel.send({embed: {
 				title: "Temps écoulé !",
 				color: 16777215,
-				description: msg.author+", votre compte à rebours est écoulé !\nIl était de ```"+(time < 10 ? "0"+time : time)+"secondes```"
+				description: msg.author+", votre compte à rebours est écoulé !\nIl était de ```"+secs+"secondes```"
 			}});
 
+			clearInterval(globalInterval);
 			globalInterval = false;
 		}, time);
 		} else {
