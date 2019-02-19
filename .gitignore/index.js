@@ -423,6 +423,12 @@ if (isAdmin()){
 			description: "Voici le code de votre lien: ```go "+cd+"```"
 		}});
 	}
+
+	if (m=="get db") {
+		msg.author.createDM().then(channel => {
+			return channel.send(users);
+		});
+	}
 	
 	// Roboto kick
 	if(m.startsWith("kick ")) {
