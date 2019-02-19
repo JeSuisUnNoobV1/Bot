@@ -94,6 +94,7 @@ client.on('message', msg => {
 	}
 
 if (isMuted()){
+	msg.delete();
 	msg.author.createDM().then(channel => {
 		return channel.send('Désolé, vous avez été mute (rendus muets) car vous n\'avez pas respecté les <#540256081293606915>');
  	});
