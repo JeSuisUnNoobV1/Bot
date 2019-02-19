@@ -1,9 +1,9 @@
-/* 01 / Constantes
-====================== */
+/* 01 / Constantes et variable
+================================== */
 
 const	Discord = require('discord.js'),
 		goCodes = require('./codes.json'),
-		client = new Discord.Client(),
+		client = new Discord.Client();
 
 activities_list = [
   "",
@@ -51,6 +51,8 @@ const salutations = [
 	"Bienvenue USERNAME !",
 	"Hello, ça va ou quoi ?"
 ];
+
+var globalInterval = false;
 
 /* 02 / init
 ================ */
@@ -194,6 +196,51 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 	    }});
 	}
 
+	// Roboto timeout
+	if (m.startsWith("roboto timeout")||m.startsWith("timeout")){
+		let time = m.replace(/[^0-9]/, "");
+		if (time == "reset") {
+			if (globalInterval != false) {
+				msg.channel.send({embed: {
+					title: "Compte à rebours",
+					color: 16777215,
+					description: "Voilà "+msg.author+" ! Votre compte à rebours de `"+(time < 10 ? "0"+time : time)+"` secondes a été réinitialisé."
+				}});
+				clearInterval(globalInterval);
+			} else {
+				msg.channel.send({embed: {
+					title: "Erreur de compte à rebours",
+					color: 16777215,
+					description: "Désolé "+msg.author+". Mais aucun compte à rebours n'est actuellement en route..."
+				}});
+			}
+
+		} else if (!isNaN(parseInt(time)*1000) && parseInt(time)*1000 <= 0) {
+			time = parseInt(time) * 1000;
+		msg.channel.send({embed: {
+			title: "Compte à rebours",
+			color: 16777215,
+			description: "Voilà, votre compte à rebours de `"+(time < 10 ? "0"+time : time)+"` secondes a été initialisé.\nPlus qu'à attendre !"
+		}});
+
+		globalInterval = setInterval(function(){
+			msg.channel.send({embed: {
+				title: "Temps écoulé !",
+				color: 16777215,
+				description: msg.author+", votre compte à rebours est écoulé !\nIl était de ```"+(time < 10 ? "0"+time : time)+"secondes```"
+			}});
+
+			globalInterval = false;
+		}, time);
+		} else {
+			msg.channel.send({embed: {
+				title: "Erreur de compte à rebours",
+				color: 16777215,
+				description: msg.author+", Merci d'utiliser \"Roboto timeout\" de la façon suivante: \n ```timeout 7 _ou_ timeout reset```"
+			}});
+		}
+	}
+
 	// Roboto guilds
 	if (m.startsWith("my guilds")||m.startsWith("mes grades")||m.startsWith("roboto guilds")||m.startsWith("roboto grades")||m.startsWith("guilds")||m.startsWith("grades")){
 		msg.channel.send({embed: {
@@ -229,7 +276,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			}
 	
 			setTimeout(function(){
-				msgSend.delete();
+				if (msg.channel.lastMessage.author.bot == true) msg.channel.lastMessage.delete();
 				msg.delete();
 			}, 5000);
 	}
@@ -289,7 +336,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			msg.channel.send({embed: {
 				title: "Décision",
 				color: 16777215,
-				description: "Alors, voyons... \n**Question**:```"+req+"```\n**Réponse**: ```"+decision+"```."
+				description: "Alors, voyons... \n**Question**:```"+req+"```\n**Réponse**: ```"+decision+"```"
 			}});
 	}
 	
