@@ -191,7 +191,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 
 	// Roboto rank
 	if (m=="roboto rank"||m=="rank"||m=="xp"||m=="levels"||m=="money"){
-		let xp, money, member = m.replace(/roboto rank|rank|xp|levels|money| /g, "") != "" ? m.replace(/roboto rank|rank|xp|levels|money| /g, "") : msg.author;
+		let xp, money, member = m.replace(/roboto rank/, "").split(" ")[1] != "" ? m.replace(/roboto rank|rank|xp|levels|money| /g, "") : msg.author;
 
 		for (let i = 0; i<users.length; i++) {
 			if (users[i].id == member.id){
@@ -204,7 +204,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 		msg.channel.send({embed: {
 			title: "Expérience de "+member.username,
 			color: 16777215,
-			description: "Xp: "+xp+"\nMoney: "+money
+			description: "Xp: "+xp+"\nMoney :moneybag:: "+money
 	    }});
 	}
 
