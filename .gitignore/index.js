@@ -80,10 +80,10 @@ client.on('ready', () => {
 ==================== */
 client.on("guildMemberAdd", members => {
     members.createDM().then(channel => {
-      return channel.send('Bienvenue **' + members.displayName+ "**,\n Tu as maintenant accès au serveur discord \"Théotime.me\" !\nOn y parle de développement, de graphisme, d'ilustration et bien d'autres activités ! Ainsi chacun pourra parler de ses projets pour les faire évoluer. Si vous souhaitez inviter quelqu'un, utilisez ce lien: https://discord.gg/PuU3BSJ \n\n Amicalement, Roboto.");
-   });
+    	return channel.send('Bienvenue **' + members.displayName+ "**,\n Tu as maintenant accès au serveur discord \"Théotime.me\" !\nOn y parle de développement, de graphisme, d'ilustration et bien d'autres activités ! Ainsi chacun pourra parler de ses projets pour les faire évoluer. Si vous souhaitez inviter quelqu'un, utilisez ce lien: https://discord.gg/PuU3BSJ \n\n Amicalement, Roboto.");
+	});
 
-	msg.author.createDM().then(channel => {
+	members.createDM().then(channel => {
 		let full = captcha_questions[Math.floor(Math.random() * (captcha_questions.length - 1) + 1)],
 			arr = full.split('|'),
 			question = arr[0],
