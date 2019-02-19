@@ -45,7 +45,6 @@ const salutations = [
 ================ */
 
 client.on('ready', () => {
-    console.log('Roboto ready');
     client.channels.find("id", "539847850666885131").send("Hey, je suis prêt à faire feu !");
     client.user.setAvatar('https://theotime.me/discord/roboto.png');
 	client.user.setActivity("Reload ...");
@@ -276,10 +275,6 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 		msg.channel.send("Pffff... T'as cru quoi ? Je vais pas me mute moi-même. Par contre toi tu vas y avoir droit :smile:");
 	}
 
-} else {
-	return msg.author.createDM().then(channel => {
-		return channel.send('Vous n\'êtes pas en mesure d\'utiliser les bots car vous avez enfreint les <#540256081293606915>');
-	});
 }
 
 /* 08 / Admins
