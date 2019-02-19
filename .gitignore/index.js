@@ -3,6 +3,7 @@
 
 const	Discord = require('discord.js'),
 		goCodes = require('./codes.json'),
+		users = require('./users.json'),
 		client = new Discord.Client();
 
 activities_list = [
@@ -11,7 +12,7 @@ activities_list = [
   "ses messages",
   "les insultes",
   "tout les bans",
-  "s'il faut te mute"
+  "si il faut te mute"
   ],
 jokes = [
   "",
@@ -50,13 +51,6 @@ const salutations = [
 	"Hey USERNAME !",
 	"Bienvenue USERNAME !",
 	"Hello, ça va ou quoi ?"
-],
-
-captcha_questions = [
-	"",
-	"Douze",
-	"Sept",
-	"Quarante-huit",
 ];
 
 var globalInterval = false;
@@ -71,7 +65,7 @@ client.on('ready', () => {
     setInterval(() => {
       const index = Math.floor(Math.random() * (activities_list.length - 1) + 1); 
       client.user.setActivity(activities_list[index], { type: 'WATCHING' });
-  }, 2500);
+  }, 4500);
 });
 
 /* 03 / new user
@@ -118,6 +112,13 @@ client.on('message', msg => {
 			return channel.send('Désolé, vous avez été mute car vous n\'avez pas respecté les <#540256081293606915>');
 	 	});
 		return false;
+	}
+
+	for (let i = 0; i<users.length; i++) {
+		if (users[i].id == msg.author.id){
+			users[i].xp += 20;
+			break;
+		}
 	}
 
 
@@ -185,6 +186,25 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 	// Roboto channel
 	if (m=="roboto channel"||m=="channel"){
 		msg.channel.send("Vous êtes sur le salon `"+msg.channel.name+"`");	
+	}
+
+	// Roboto rank
+	if (m=="roboto rank"||m=="rank"||m=="xp"||m=="levels"){
+		let xp, money;
+
+		for (let i = 0; i<users.length; i++) {
+			if (users[i].id == msg.author.id){
+				xp = users[i].xp;
+				money = users[i].money;
+				break;
+			}
+		}
+
+		msg.channel.send({embed: {
+			title: "Expérience de "+msg.author,
+			color: 16777215,
+			description: "Xp: "+xp+"\nMoney: "+money
+	    }});
 	}
 
 	// Roboto invite
