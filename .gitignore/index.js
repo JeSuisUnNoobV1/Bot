@@ -78,10 +78,6 @@ client.on("guildMemberAdd", members => {
 	users.push({id: members.id, xp: 0, money: 0});
 });
 
-client.on('guildMemberRemove', members => {
-
-});
-
 client.on('message', msg => {
 	var m = msg.content.toLowerCase();
 
