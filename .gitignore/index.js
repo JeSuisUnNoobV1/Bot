@@ -54,11 +54,9 @@ const salutations = [
 
 captcha_questions = [
 	"",
-	"Combien de lettres y a t-il dans l'alphabet ?|26",
-	"Combien de pieds a la tour Eiffel ?|4",
-	"Si je suis dernier d'une course ayant 18 participants dont moi. Quelle est ma position ?|18",
-	"Combien un hand-spinner a t-il de roulements en comptant celui du millieu ?|4",
-	"Une voiture a combien de roues ?|4"
+	"Douze",
+	"Sept",
+	"Quarante-huit",
 ];
 
 var globalInterval = false;
@@ -79,17 +77,17 @@ client.on('ready', () => {
 /* 03 / new user
 ==================== */
 client.on("guildMemberAdd", members => {
-	let full = captcha_questions[Math.floor(Math.random() * (captcha_questions.length - 1) + 1)],
-	arr = full.split('|'),
-	question = arr[0],
-	response = parseInt(arr[1]);
+	let index = Math.floor(Math.random() * (captcha_questions.length - 1) + 1),
+		full = captcha_questions[index],
+		arr = full.split('|'),
+		question = arr[0];
 
     members.createDM().then(channel => {
     	channel.send('Bienvenue **' + members.displayName+ "**,\n Tu as maintenant accès au serveur discord \"Théotime.me\" !\nOn y parle de développement, de graphisme, d'ilustration et bien d'autres activités ! Ainsi chacun pourra parler de ses projets pour les faire évoluer. Si vous souhaitez inviter quelqu'un, utilisez ce lien: https://discord.gg/PuU3BSJ \n\n Amicalement, Roboto.");
 
 		channel.send({embed: {
 			title: "Captcha",
-			description: "écrivez 628 avec des émojis (:zero::five par exemple)",
+			description: "écrivez "+question+" dans le channel captcha-"+index,
 			color: 16777215
 		}});
 
