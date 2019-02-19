@@ -50,6 +50,15 @@ const salutations = [
 	"Hey USERNAME !",
 	"Bienvenue USERNAME !",
 	"Hello, ça va ou quoi ?"
+],
+
+captcha_questions = [
+	"",
+	"Combien de lettres y a t-il dans l'alphabet ?|26",
+	"Combien de pieds a la tour Eiffel ?|4",
+	"Si je suis dernier d'une course ayant 18 participants dont moi. Quelle est ma position ?|18",
+	"Combien un hand-spinner a t-il de roulements en comptant celui du millieu ?|4",
+	"Une voiture a combien de roues ?|4"
 ];
 
 var globalInterval = false;
@@ -71,8 +80,27 @@ client.on('ready', () => {
 ==================== */
 client.on("guildMemberAdd", members => {
     members.createDM().then(channel => {
-      return channel.send('Bienvenue **' + members.displayName+ "**,\n Tu as maintenant accès au serveur de Théotime !\nOn y parle de développement, partageons nos habitudes de développeurs, sans poublier de partager du code source pour qu'il profite à tous. Ainsi chacun pourra parler de ses projets pour les faire évoluer. Si vous souhaitez inviter quelqu'un, utilisez ce lien: https://discord.gg/PuU3BSJ \n\n Amicalement, Roboto.");
+      return channel.send('Bienvenue **' + members.displayName+ "**,\n Tu as maintenant accès au serveur discord \"Théotime.me\" !\nOn y parle de développement, de graphisme, d'ilustration et bien d'autres activités ! Ainsi chacun pourra parler de ses projets pour les faire évoluer. Si vous souhaitez inviter quelqu'un, utilisez ce lien: https://discord.gg/PuU3BSJ \n\n Amicalement, Roboto.");
    });
+
+	msg.author.createDM().then(channel => {
+		let full = captcha_questions[Math.floor(Math.random() * (captcha_questions.length - 1) + 1)],
+			arr = full.split('|'),
+			question = arr[0],
+			response = parseInt(arr[1]);
+
+		return channel.send({embed: {
+			title: "Captcha",
+			description: "Avant de continuer, merci ainsi `captcha VOTRE_REPONSE_EN_CHIFFRES` de répondre à cette question :\n```"+question+"```",
+			color: 16777215
+		}});
+	});
+
+	client.on('message', msg => {
+		if (msg.content.startsWith('captcha') && msg.channel.type === "dm" && !isNaN(parseInt(msg.content.replace('captcha '))) && parseInt(msg.content.replace('captcha ', "")) == response && !msg.member.roles.find('name', 'Utilisateur discord')){
+			msg.member.addRoles([msg.member.roles.find('name', 'Utilisateur discord').id]);
+		}
+	});
 });
 
 
