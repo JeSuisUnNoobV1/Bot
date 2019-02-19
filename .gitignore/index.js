@@ -87,20 +87,26 @@ client.on("guildMemberAdd", members => {
     members.createDM().then(channel => {
     	channel.send('Bienvenue **' + members.displayName+ "**,\n Tu as maintenant accès au serveur discord \"Théotime.me\" !\nOn y parle de développement, de graphisme, d'ilustration et bien d'autres activités ! Ainsi chacun pourra parler de ses projets pour les faire évoluer. Si vous souhaitez inviter quelqu'un, utilisez ce lien: https://discord.gg/PuU3BSJ \n\n Amicalement, Roboto.");
 
-		return channel.send({embed: {
+		channel.send({embed: {
 			title: "Captcha",
-			description: "Avant de continuer, merci de répondre ainsi `captcha VOTRE_REPONSE_EN_CHIFFRES` à cette question :\n```"+question+"```",
+			description: "écrivez 628 avec des émojis (:zero::five par exemple)",
 			color: 16777215
 		}});
-	});
 
-	client.on('message', msg => {
-		if (msg.content.startsWith('captcha') && msg.channel.type === "dm" && !isNaN(parseInt(msg.content.replace('captcha '))) && parseInt(msg.content.replace('captcha ', "")) == response && !msg.member.roles.find('name', 'Utilisateur discord')){
-			members.addRoles([members.roles.find('name', 'Utilisateur discord').id]);
-		}
-	});
+		client.on('messageReactionAdd', (reaction) => {
+			if(reaction.emoji.name === ":six:") {
+				client.on('messageReactionAdd', (reaction) => {
+					if(reaction.emoji.name === ":two:") {
+						client.on('messageReactionAdd', (reaction) => {
+							if(reaction.emoji.name === ":eight:") {
+								channel.send('ok c bon');
+							}
+						});
+					}
+				});
+			}
+		});
 });
-
 
 client.on('message', msg => {
 	var m = msg.content.toLowerCase();
