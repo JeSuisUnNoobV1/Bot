@@ -63,14 +63,7 @@ client.on('message', msg => {
 
 	function isAdmin(){
 		if (msg.author.id == "483335511159865347" && msg.author.id == "467630539898224661"){
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	function isBot(){
-		if (msg.author.bot){
+			console.log('UR admin');
 			return true;
 		} else {
 			return false;
@@ -79,6 +72,7 @@ client.on('message', msg => {
 	
 	function isNotAuth(){ // use msg.author
 		if (msg.member.roles.find('name', 'noBot')){
+			console.log('noBot');
 			return true;
 		} else {
 			return false;
@@ -87,11 +81,14 @@ client.on('message', msg => {
 	
 	function isMuted(){ // use msg.author
 		if (msg.member.roles.find('name', 'Muted')){
+			console.log('muted');
 			return true;
 		} else {
 			return false;
 		}
 	}
+
+	if (msg.author.bot) return false;
 
 if (isMuted()){
 	msg.delete();
@@ -108,6 +105,7 @@ if (isNotAuth()){
 	return false;
 }
 
+/* Commands */
 if(m.includes("fdp")||m.includes("beze")||m.includes("bese")||m.includes("bz")||m.includes("salop")||m.includes("pute")||m === "con"||m.includes("connard")||m.includes("tg")||m.includes("batard")||m.includes("putain")||m.includes("tes morts")||m.includes("merde")||m.includes("merd")||m.includes("couilles")||m.includes("abruti")||m.startsWith("nique ")||m===("nique") && !isAdmin()) {
 	msg.delete().then(msg => {
 		client.channels.find("id", "545230202914078720").send({embed: {
