@@ -70,7 +70,7 @@ client.on('message', msg => {
 /* 04 / Check functions
 =========================== */
 	function isAdmin(){
-		if (msg.author.id == "483335511159865347" && msg.author.id == "467630539898224661"){
+		if (msg.author.id == "483335511159865347" || msg.author.id == "467630539898224661"){
 			return true;
 		} else {
 			return false;
