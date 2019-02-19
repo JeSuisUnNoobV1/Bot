@@ -71,6 +71,9 @@ client.on('message', msg => {
 	
 	function isAuth(){ // use msg.author
 		if (msg.member.roles.find('name', 'noBot')){
+			msg.author.createDM().then(channel => {
+				return channel.send('Vous n\'êtes pas en mesure d\'utiliser les bots car vous avez enfreint les <#540256081293606915>');
+			 });
 			return false;
 		} else {
 			return true;
@@ -91,13 +94,6 @@ if (isMuted()){
 	msg.delete();
 	msg.author.createDM().then(channel => {
 		return channel.send('Désolé, vous avez été mute (rendus muets) car vous n\'avez pas respecté les <#540256081293606915>');
- 	});
-	return false;
-}
-
-if (!isAuth()){
-	msg.author.createDM().then(channel => {
-		return channel.send('Vous n\'êtes pas en mesure d\'utiliser les bots car vous avez enfreint les <#540256081293606915>');
  	});
 	return false;
 }
