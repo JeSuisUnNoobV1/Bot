@@ -229,7 +229,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			msg.channel.send({embed: {
 				title: "Temps écoulé !",
 				color: 16777215,
-				description: msg.author+", votre compte à rebours est écoulé !\nIl était de ```"+secs+"secondes```"
+				description: msg.author+", votre compte à rebours est écoulé !\nIl était de ```"+secs+" secondes```"
 			}});
 
 			clearInterval(globalInterval);
