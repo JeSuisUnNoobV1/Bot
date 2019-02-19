@@ -42,7 +42,7 @@ const salutations = [
 client.on('ready', () => {
     console.log('Roboto ready');
     client.channels.find("id", "539847850666885131").send("Hey, je suis prêt à faire feu !");
-    client.user.setAvatar('https://theotime.me/logo.png');
+    client.user.setAvatar('https://theotime.me/discord/roboto.png');
 	client.user.setActivity("Reload ...");
     setInterval(() => {
       const index = Math.floor(Math.random() * (activities_list.length - 1) + 1); 
@@ -169,8 +169,12 @@ if (m.startsWith("roboto me")||m=="me"){
     	}});
 }
 
-if (m.startsWith("roboto dog")||m.startsWith("roboto chien")||m=="dessine-moi un chien"){
+if (m.startsWith("roboto dog")||m.startsWith("roboto chien")||m=="dessine-moi un chien"||m=="dog"){
     msg.channel.send("https://theotime.me/discord/dog.jpeg");
+}
+
+if (m.startsWith("roboto cat")||m.startsWith("roboto chat")||m=="dessine-moi un chat"||m=="cat"){
+    msg.channel.send("https://theotime.me/discord/cat.jpg");
 }
 
 if (m.startsWith("flip")||m.startsWith("roboto flip")){
