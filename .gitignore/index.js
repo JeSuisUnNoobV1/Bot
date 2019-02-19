@@ -204,7 +204,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 				msg.channel.send({embed: {
 					title: "Compte à rebours",
 					color: 16777215,
-					description: "Voilà "+msg.author+" ! Votre compte à rebours de `"+secs+"` secondes a été réinitialisé."
+					description: "Voilà "+msg.author+" ! Votre compte à rebours a été réinitialisé."
 				}});
 				clearInterval(globalInterval);
 				globalInterval = false;
