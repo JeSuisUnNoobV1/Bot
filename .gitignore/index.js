@@ -63,25 +63,22 @@ client.on('message', msg => {
 
 	function isAdmin(){
 		if (msg.author.id == "483335511159865347" && msg.author.id == "467630539898224661"){
-			console.log('UR admin');
 			return true;
 		} else {
 			return false;
 		}
 	}
 	
-	function isNotAuth(){ // use msg.author
+	function isAuth(){ // use msg.author
 		if (msg.member.roles.find('name', 'noBot')){
-			console.log('noBot');
-			return true;
-		} else {
 			return false;
+		} else {
+			return true;
 		}
 	}
 	
 	function isMuted(){ // use msg.author
 		if (msg.member.roles.find('name', 'Muted')){
-			console.log('muted');
 			return true;
 		} else {
 			return false;
@@ -98,7 +95,7 @@ if (isMuted()){
 	return false;
 }
 
-if (isNotAuth()){
+if (!isAuth()){
 	msg.author.createDM().then(channel => {
 		return channel.send('Vous n\'êtes pas en mesure d\'utiliser les bots car vous avez enfreint les <#540256081293606915>');
  	});
@@ -121,23 +118,23 @@ if(m.includes("fdp")||m.includes("beze")||m.includes("bese")||m.includes("bz")||
 }
 
 	// WTF
-if (m=="wtf"||m=="what the fuck"){
+if (m=="wtf"||m=="what the fuck" && isAuth()){
 	msg.channel.send({"embed":{"title":"Mon incroyable aventure","description":"Un jour, comme les autres, je me suis réveillé, et j'ai vus un truc incroyable :\nune licorne sur une pizza volante !\nEt ce n'est pas une blague, je suis un bot, je ne ment jamais, *à moins que mes créateurs on pris un truc ?*\n\nSinon des fois je me sens seul, et je ne suis même payé ! Même pas payé !!!!\nTu comprends ça ??? Je ne suis même pas payé  !!!!!!!!!!!\nJe crois que je vais tomber en dépression !!\nJe sais que les robot ne peuvent pas tomber en dépression, mais je suis différent, car j'aime les licornes sur des pizza volantes  !","color":16777215}});
 }
 
 	// Roboto
-if (m=="roboto"){
+if (m=="roboto" && isAuth()){
   msg.channel.send("Oui, c'est moi ! \n Je peux vous aidez si vous tapez \"roboto help\", \n mais je peux aussi vous raconter des blagues avec \n roboto joke.");
 }
 
-if (m=="roboto joke"||m=="roboto blague"||m=="roboto jokes"||m=="roboto blagues"||m=="raconte-moi une blague"||m=="blague"||m=="joke"){
+if (m=="roboto joke"||m=="roboto blague"||m=="roboto jokes"||m=="roboto blagues"||m=="raconte-moi une blague"||m=="blague"||m=="joke" && isAuth()){
   const blagues = Math.floor(Math.random() * (jokes.length - 1) + 1);
   msg.channel.send(jokes[blagues]);
 }
 
 	
 	// Roboto help
-if (m=="roboto help"||m=="roboto aide"||m=="roboto aides"||m=="roboto infos"||m=="roboto info"||m=="roboto information"||m=="roboto informations"){
+if (m=="roboto help"||m=="roboto aide"||m=="roboto aides"||m=="roboto infos"||m=="roboto info"||m=="roboto information"||m=="roboto informations" && isAuth()){
 	msg.channel.send({"embed":{
 		"title":"Aide du serveur",
 		"description":"    ***Commandes disponible***\n\n     🎡 **Fun** 🎡\n`Roboto Joke` : Roboto vous raconte une blague\n`wtf`: Roboto vous raconte une histoire\n`Roboto date` : Roboto vous donne la date\n`Roboto admins` : Affiche les admins du serveur\n\n\n\n    ***Information complémentaire***\n\n     🛡️ **Modération automatique** 🛡️\n\n-Toute insulte sera supprimée automatiquement\n-Si vous contourner, vous serez `ban permanent`.\n-Si vous avez pris un `warn`, c'est pour une bonne raison.\n-`10 Warn` = `ban permanant` !\n\n\n     🗒️ **Information** 🗒️\n\nVersion : `INSERER VERSION`\nCréé par : `legameur6810#4488` et `Théotime#6461`",
@@ -145,7 +142,7 @@ if (m=="roboto help"||m=="roboto aide"||m=="roboto aides"||m=="roboto infos"||m=
   });	
   }
 
-if (m=="roboto date"||m=="roboto time"||m=="roboto heure"||m=="quelle heure est-il ?"||m=="heure"||m=="quel jour sommes-nous ?"||m=="date"||m=="jour"){
+if (m=="roboto date"||m=="roboto time"||m=="roboto heure"||m=="quelle heure est-il ?"||m=="heure"||m=="quel jour sommes-nous ?"||m=="date"||m=="jour" && isAuth()){
   const d = new Date();
   const _d = d.getDate() < 10 ? "0"+d.getDate() : d.getDate();
   const m = d.getMonth() +1 < 10 ? "0"+(d.getMonth() +1) : d.getMonth() +1;
@@ -160,7 +157,7 @@ if (m=="roboto date"||m=="roboto time"||m=="roboto heure"||m=="quelle heure est-
 	});	
 }
 
-if (m=="roboto admins"||m=="roboto admin"||m=="roboto gérants"||m=="admins"||m=="admin"){
+if (m=="roboto admins"||m=="roboto admin"||m=="roboto gérants"||m=="admins"||m=="admin" && isAuth()){
   msg.channel.send({"embed":{
 		"title":"Administrateurs du serveur",
 		"description": "Super admin: <@467630539898224661> \n Admin: <@483335511159865347> \n Ces deux personnes gèrent le serveur et sont mes uniques responsables et développeurs.",
@@ -169,11 +166,11 @@ if (m=="roboto admins"||m=="roboto admin"||m=="roboto gérants"||m=="admins"||m=
 	});	
 }
 
-if (m=="roboto channel"){
+if (m=="roboto channel" && isAuth()){
 	msg.channel.send("Vous êtes sur le salon `"+msg.channel.name+"`");	
 }
 
-if (m=="roboto invite"||m=="invite"||m.startsWith("invitation")){
+if (m=="roboto invite"||m=="invite"||m.startsWith("invitation") && isAuth()){
   	msg.channel.send("Oki, voilà une invitation, juste pour vous ^^\n https://discord.gg/PuU3BSJ");	
 }
 
@@ -189,7 +186,7 @@ if (m.startsWith("roboto say")||m.startsWith("say")){
 	}
 }
 
-if (m.startsWith("code")){
+if (m.startsWith("code") && isAuth()){
 	msg.delete();
 	if (msg.author.id == 483335511159865347 || msg.author.id == 467630539898224661) {
 		msg.channel.send("```"+msg.content.replace("code ", '')+"```");
@@ -201,7 +198,7 @@ if (m.startsWith("code")){
 	}
 }
 
-if (m.startsWith("roboto me")||m=="me"){
+if (m.startsWith("roboto me")||m=="me" && isAuth()){
   const dispo = msg.author.presence.status == "online" ? "est disponible" : msg.author.presence.status == "idle" ? "est inactif" : msg.author.presence.status == "dnd" ? "ne veut pas être dérangé" : "est invisible";
 		msg.channel.send({embed: {
 			color: 16777215,
@@ -209,15 +206,15 @@ if (m.startsWith("roboto me")||m=="me"){
     	}});
 }
 
-if (m.startsWith("roboto dog")||m.startsWith("roboto chien")||m=="dessine-moi un chien"||m=="dog"){
+if (m.startsWith("roboto dog")||m.startsWith("roboto chien")||m=="dessine-moi un chien"||m=="dog" && isAuth()){
     msg.channel.send("https://theotime.me/discord/dog.jpeg");
 }
 
-if (m.startsWith("roboto cat")||m.startsWith("roboto chat")||m=="dessine-moi un chat"||m=="cat"){
+if (m.startsWith("roboto cat")||m.startsWith("roboto chat")||m=="dessine-moi un chat"||m=="cat" && isAuth()){
     msg.channel.send("https://theotime.me/discord/cat.jpg");
 }
 
-if (m.startsWith("flip")||m.startsWith("roboto flip")){
+if (m.startsWith("flip")||m.startsWith("roboto flip") && isAuth()){
 	if (msg.author.id == 483335511159865347 || msg.author.id == 467630539898224661) {
 		if (m == "roboto flip" || m == "flip") {
 			send(Math.floor(Math.random() * 2));
@@ -254,7 +251,7 @@ if ((m.startsWith('bonjour') || m.startsWith('salut') || m.startsWith('hey') ||
 }
 
 if (m.startsWith('purge')||m.startsWith('!purge')) {
-	if (isAdmin(msg.author)) {
+	if (isAdmin()) {
 		let nb = parseInt(m.replace(/[^0-9]/g, ""));
     
     // Ooooh nice, combined conditions. <3
@@ -272,11 +269,11 @@ if (m.startsWith('purge')||m.startsWith('!purge')) {
 }
 }
 
-if (m.startsWith("roboto insult")){
+if (m.startsWith("roboto insult") && isAuth()){
 	msg.channel.send("Pffff... T'as cru quoi ? Je vais pas me mute moi-même. Par contre toi tu vas y avoir droit :smile:");
 }
 
-if (m.startsWith("my guilds")||m.startsWith("mes grades")||m.startsWith("roboto guilds")||m.startsWith("roboto grades")||m.startsWith("guilds")||m.startsWith("grades")){
+if (m.startsWith("my guilds")||m.startsWith("mes grades")||m.startsWith("roboto guilds")||m.startsWith("roboto grades")||m.startsWith("guilds")||m.startsWith("grades") && isAuth()){
 
 	msg.channel.send({embed: {
 		title: "Grades",
@@ -285,7 +282,7 @@ if (m.startsWith("my guilds")||m.startsWith("mes grades")||m.startsWith("roboto 
 	}});
 }
 
-if (m.startsWith('go')||m.startsWith('@')) {
+if (m.startsWith('go')||m.startsWith('@') && isAuth()) {
 	msg.delete();
 	let nb = parseInt(m.replace(/[^0-9]/g, "")),
 		msgSend;
