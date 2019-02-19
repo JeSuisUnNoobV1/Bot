@@ -12,8 +12,8 @@ activities_list = [
   "Un site internet ?",
   "De l'aide automatique",
   "votre disposition"
-  ];
-const jokes = [
+  ],
+jokes = [
   "",
   "Qu'est ce qui est jaune et qui attend ? \n \n ||Jonathan||",
   "Comment fait-on pour empêcher le lait de tourner ? \n \n ||En le mettant dans une casserole carrée.||",
@@ -30,6 +30,17 @@ const jokes = [
   "qu'est ce qui a 2 branches mais pas de feuille ? \n \n ||Des lunettes.||",
   "C'est le fils de ma mère mais c'est pas mon frère, qui est-ce ? \n \n ||C'est moi.||",
   "Qu'est-ce qu'un cochon qui rit ? \n \n ||Un porc tout gai !||"
+],
+
+decisions = [
+	"",
+	"Oui",
+	"Non",
+	"Peut-être",
+	"Pas sûr...",
+	"évidemment",
+	"Pas vraiment",
+	"Sûr !"
 ];
 
 const salutations = [
@@ -194,13 +205,12 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 
 	// Roboto go
 	if (m.startsWith('roboto go')||m.startsWith('go')||m.startsWith('@')) {
-		msg.delete();
 		let nb = parseInt(m.replace(/[^0-9]/g, "")),
 			msgSend;
 			if (!isNaN(nb) && goCodes[nb] != undefined) {
 				let link = goCodes[nb].lk;
 				msgSend = msg.channel.send({embed: {
-					title: "GO code",
+					title: "GO code n°"+nb,
 					color: 16777215,
 					description: "Voici le lien: "+link
 				}});
@@ -219,7 +229,8 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			}
 	
 			setTimeout(function(){
-				msg.channel.lastMessage.delete();
+				msgSend.delete();
+				msg.delete();
 			}, 5000);
 	}
 	
@@ -268,6 +279,18 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 		}});
 	}
 	
+	}
+
+	// Roboto decision
+	if (m.startsWith('roboto decision ')||m.startsWith('decision ')||m.startsWith('8ball ')) {
+		let req = msg.content.replace(/roboto decision |decision |8ball /i, ""),
+			index = Math.floor(Math.random() * (decisions.length - 1) + 1),
+			decision = decisions[index];
+			msg.channel.send({embed: {
+				title: "Décision",
+				color: 16777215,
+				description: "Alors, voyons... \n**Question**:```"+req+"```\n**Réponse**: ```"+decision+"```."
+			}});
 	}
 	
 	// Roboto insult
