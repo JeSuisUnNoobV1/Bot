@@ -4,10 +4,6 @@
 const	Discord = require('discord.js'),
 		goCodes = require('./codes.json'),
 		users = require('./users.json'),
-		low = require('lowdb'),
-		FileSync = require('lowdb/adapters/FileSync'),
-		adapter = new FileSync('./users.json'),
-		db = low(adapter),
 		client = new Discord.Client(),
 
 activities_list = [
@@ -119,9 +115,12 @@ client.on('message', msg => {
 	}
 
 if (m!="roboto rank"||m!="rank"||m!="xp"||m!="levels"||m!="money") {
-	db.get('users').find({id: msg.author.id})
-  .assign({ xp: db.get('users').find({id: msg.author.id}).value()+20 }) // or .defaults depending on what you want to do
-  .value();
+	for (let i = 0; i<users.length; i++) {
+		if (users[i].id == msg.author.id){
+			users[i].xp += 20;
+			break;
+		}
+	}
 }
 
 /* 05 / Auto moderation
