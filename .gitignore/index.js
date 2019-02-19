@@ -190,7 +190,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 	}
 
 	// Roboto rank
-	if (m=="roboto rank"||m=="rank"||m=="xp"||m=="levels"||m=="money"){
+	if (m.startsWith("roboto rank")||m.startsWith("rank")||m.startsWith("xp")||m.startsWith("levels")||m.startsWith("money")){
 		let xp, money, member = msg.mentions.members.first() || msg.author;
 		console.log(member);
 		for (let i = 0; i<users.length; i++) {
