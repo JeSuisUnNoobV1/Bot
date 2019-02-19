@@ -202,7 +202,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 		}
 
 		msg.channel.send({embed: {
-			title: "Expérience de "+member.username,
+			title: "Expérience de "+member.tag,
 			color: 16777215,
 			description: "Xp: "+xp+"\nMoney: "+money
 	    }});
