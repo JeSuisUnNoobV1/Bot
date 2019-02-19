@@ -199,6 +199,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 	// Roboto timeout
 	if (m.startsWith("roboto timeout")||m.startsWith("timeout")){
 		let time = m.replace(/roboto timeout |timeout /g, "");
+		msg.channel.send(time);
 		if (time == "reset") {
 			if (globalInterval != false) {
 				msg.channel.send({embed: {
