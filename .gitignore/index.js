@@ -114,13 +114,14 @@ client.on('message', msg => {
 		return false;
 	}
 
+if (m!="roboto rank"||m!="rank"||m!="xp"||m!="levels"||m!="money") {
 	for (let i = 0; i<users.length; i++) {
 		if (users[i].id == msg.author.id){
 			users[i].xp += 20;
 			break;
 		}
 	}
-
+}
 
 /* 05 / Auto moderation
 =========================== */
@@ -189,8 +190,8 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 	}
 
 	// Roboto rank
-	if (m=="roboto rank"||m=="rank"||m=="xp"||m=="levels"){
-		let xp, money, member = msg.mentions.members.first() || msg.author;
+	if (m=="roboto rank"||m=="rank"||m=="xp"||m=="levels"||m=="money"){
+		let xp, money, member = m.replace(/roboto rank|rank|xp|levels|money| /g, "") != "" ? m.replace(/roboto rank|rank|xp|levels|money| /g, "") : msg.author;
 
 		for (let i = 0; i<users.length; i++) {
 			if (users[i].id == member.id){
@@ -201,7 +202,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 		}
 
 		msg.channel.send({embed: {
-			title: "Expérience de "+member,
+			title: "Expérience de "+member.username,
 			color: 16777215,
 			description: "Xp: "+xp+"\nMoney: "+money
 	    }});
