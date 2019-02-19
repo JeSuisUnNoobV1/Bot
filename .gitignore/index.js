@@ -191,7 +191,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 
 	// Roboto rank
 	if (m=="roboto rank"||m=="rank"||m=="xp"||m=="levels"||m=="money"){
-		let xp, money, member = msg.mentions.users.first() || msg.author;
+		let xp, money, member = msg.mentions.members.first() || msg.author;
 
 		for (let i = 0; i<users.length; i++) {
 			if (users[i].id == member.id){
