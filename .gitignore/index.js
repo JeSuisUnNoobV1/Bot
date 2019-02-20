@@ -222,15 +222,15 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 				}}).then(message => {
 					message.react('👍').then(() => message.react('👎'));
 
-					const filter = (reaction, author) => {
-						return ['👍', '👎'].includes(reaction.emoji.name) && author.id === msg.author.id;
+					const filter = (reaction) => {
+						return ['👍', '👎'].includes(reaction.emoji.name);
 					};
 
-			message.awaitReactions(filter).then(collected => {
+			message.awaitReactions(filter, { max: 3, time: 30000, errors: ['time'] }).then(collected => {
 				const reaction = collected.first();
 				console.log(reaction.emoji);
 
-			if (!reaction.users[reaction.users.length].bot) {
+			if (!reaction.users[reaction.users.length -1].bot) {
         		if (reaction.emoji.name === '👍') {
 					for (let i = 0,a , b; i<users.length; i++) {
 						if (users[i].id == msg.author.id){
