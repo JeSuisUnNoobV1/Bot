@@ -223,11 +223,13 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 
 			for (let i = 0; i<users.length; i++) {
 				if (users[i].id == msg.author.id && users[i].money < somme){
+					msg.author.createDM().then(channel => {
 						return channel.send({embed: {
 							title: 'Débit impossible',
 							color: 16057630,
 							description: "Désolé, vous n'avez que **"+users[i].money+" coins**.\nPas suffisamment pour donner à "+user
 						}});
+					});
 				}
 			}
 
