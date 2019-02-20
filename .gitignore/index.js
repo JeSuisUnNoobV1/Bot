@@ -218,9 +218,9 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 					title: "Débit de coins",
 					color: 16777215,
 					description: "Vous vous apprêtez à donner **"+somme+" coins** à "+user+"."
-				}});
-					channel.lastMessage.react(':white_check_mark:');
-					await channel.lastMessage.react(":white_check_mark:");
+				}}).then(async message => {
+					message.react(':white_check_mark:');
+					await message.react(":white_check_mark:");
 					if (user != false && !isNaN(parseInt(somme)) && parseInt(somme) > 0){
 						for (let i = 0,a , b; i<users.length; i++) {
 							if (users[i].id == author.id){
