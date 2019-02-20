@@ -78,7 +78,7 @@ client.on("guildMemberAdd", members => {
     	channel.send('Bienvenue **' + members.displayName+ "**,\n Tu as maintenant accès au serveur discord \"Théotime.me\" !\nOn y parle de développement, de graphisme, d'ilustration et bien d'autres activités ! Ainsi chacun pourra parler de ses projets pour les faire évoluer. Si vous souhaitez inviter quelqu'un, utilisez ce lien: https://discord.gg/PuU3BSJ \n\n Amicalement, Roboto.");
 	});
 
-	users.push({id: members.id, xp: 0, money: 0});
+	users.push({id: members.id, xp: 0, money: 0, sellAlreadyCode: false});
 });
 
 client.on('message', msg => {
@@ -244,10 +244,10 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 				channel.send({embed: {
 					title: "Débit de coins",
 					color: 16777215,
-					description: "Vous vous apprêtez à donner **"+somme+" coins** à "+user+".\nVous avez 20s pour accorder le débit.\n Pour annuler, utilisez: `refus`.Accordez si vous le souhaitez en répondant avec votre Tag discord. ```ex #6461```"
+					description: "Vous vous apprêtez à donner **"+somme+" coins** à "+user+".\nVous avez 20s pour accorder le débit.\n Pour annuler, utilisez: `refus`.Accordez si vous le souhaitez en répondant avec votre Tag discord. ```ex: #6461```"
 				}}).then(message => {
 
-					const filter = m => m.content+"" == msg.author.tag.split('#')[1];
+					const filter = m => m.content.replace('#', "")+"" == msg.author.tag.split('#')[1];
 					const filterReset = m => m.content.toLowerCase() == 'refus';
 
 			channel.awaitMessages(filter, { max: 1, time: 20000, errors: ['time'] }).then(collected => {
@@ -304,6 +304,118 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 				}});
 			});
 		}
+	}
+
+	// Roboto invite
+	if (m.startsWith("sell")){
+		msg.delete();
+
+		let somme = m.split(' ')[1],
+			code = m.replace("sell "+somme+" ", ""),
+			sellAlreadyCode = false,
+			coins = 0;
+
+			for (let i = 0; i<users.length; i++) {
+				if (users[i].id == msg.author.id && users[i].sellAlreadyCode){
+					sellAlreadyCode = true;
+				}
+			}
+
+		if (sellAlreadyCode == false) {
+			msg.channel.send({embed: {
+				title: "Vente de code",
+				color: 16777215,
+				description: msg.author+" vend du code !\nVous pouvez l'acheter au prix de `"+somme+" coins` pendant les 5 minutes qui suivent avec la commande ```buy "+msg.author.tag.split('#')[1]+"```"
+			}});
+
+			for (let i = 0; i<users.length; i++) {
+				if (users[i].id == msg.author.id){
+					users[i].sellAlreadyCode = true;
+				}
+			}
+
+			const filter = m => m.content == "buy "+msg.author.tag.split('#')[1];
+			const filterReset = m => m.content.toLowerCase() == 'refus';
+
+	msg.channel.awaitMessages(filter, { time: 20000, errors: ['time'] }).then(collected => {
+		let user = collected.last();
+		for (let i = 0; i<users.length; i++) {
+			if (users[i].id == user.id){
+				users[i].money -= somme;
+			}
+
+			coins += somme;
+		}
+
+		msg.author.createDM().then(channel => {
+			channel.send({embed: {
+				title: "Débit de coins",
+				color: 16777215,
+				description: "Vous vous apprêtez à acheter au prix de **"+somme+" coins** le code de "+user+".\nVous avez 20s pour accorder le débit.\n Pour annuler, utilisez: `refus`.Accordez si vous le souhaitez en répondant avec votre Tag discord. ```ex: #6461```"
+			}}).then(message => {
+
+				const filter = m => m.content.replace('#', "")+"" == msg.author.tag.split('#')[1];
+
+		channel.awaitMessages(filter, { max: 1, time: 20000, errors: ['time'] }).then(collected => {
+			
+
+		channel.send({embed: {
+			title: "Débit de coins",
+			color: 16777215,
+			description: "Vous avez été débité de **"+somme+" coins**."
+		}});
+
+		channel.send({embed: {
+			title: "Crédit de coins",
+			color: 16777215,
+			description: msg.author+" vous a fait un don. Vous avez donc été crédité de **"+somme+" coins**."
+		}});
+	}).catch(collected => {
+		channel.send({embed: {
+			title: "Débit de coins annulé",
+			color: 16777215,
+			description: "Très bien, le débit a été annulé."
+		}});
+	});
+
+	channel.awaitMessages(filterReset, { max: 1, time: 15000, errors: ['time'] }).then(collected => {
+		channel.send({embed: {
+			title: "Débit de coins annulé",
+			color: 16777215,
+			description: "Très bien, le débit a été annulé. Vous pouvez encore revenir sur votre décision en entrant votre Tag discord. ```ex #6461```"
+		}});
+	});
+}).catch(collected => {
+	channel.send({embed: {
+		title: "Vente terminée !",
+		color: 16777215,
+		description: "La vente du code de "+msg.author+" est terminée !"
+	}});
+
+	for (let i = 0; i<users.length; i++) {
+		if (users[i].id == msg.author.id){
+			users[i].money += coins;
+		}
+	}
+
+	msg.author.createDM().then(channel => {
+		channel.send({embed: {
+			title: "Crédit de coins",
+			color: 16777215,
+			description: "Suite à la vente de votre code vous avez été crédité de ```"+coins+" coins```"
+		}});
+	});
+});
+});
+});
+		} else {
+			msg.channel.send({embed: {
+				title: "Erreur de vente",
+				color: 16057630,
+				description: msg.author+", vous ne pouvez pas vendre du code car vous en vendez déjà !"
+			}});
+		}
+
 	}
 
 	// Roboto invite
