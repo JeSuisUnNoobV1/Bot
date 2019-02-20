@@ -214,11 +214,21 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			user = msg.mentions.users.first() || false;
 
 			if (user == msg.author) {
-				msg.channel.send({embed: {
+				channel.send({embed: {
 					title: "Débit impossible",
 					color: 16057630,
 					description: "Vous ne pouvez pas vous donner des coins à vous même."
 				}});
+			}
+
+			for (let i = 0; i<users.length; i++) {
+				if (users[i].id == msg.author.id && users[i].money < somme){
+						return channel.send({embed: {
+							title: 'Débit impossible',
+							color: 16057630,
+							description: "Désolé, vous n'avez que **"+users[i].money+" coins**.\nPas suffisamment pour donner à "+user
+						}});
+				}
 			}
 
 		if (user != false && !isNaN(parseInt(somme)) && parseInt(somme) > 0){
@@ -232,52 +242,43 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 					const filter = m => m.content+"" == msg.author.tag.split('#')[1];
 					const filterReset = m => m.content.toLowerCase() == 'refus';
 
-channel.awaitMessages(filter, { max: 1, time: 15000, errors: ['time'] }).then(collected => {
-	for (let i = 0,a , b; i<users.length; i++) {
+			channel.awaitMessages(filter, { max: 1, time: 15000, errors: ['time'] }).then(collected => {
+				for (let i = 0,a , b; i<users.length; i++) {
+					if (users[i].id == msg.author.id){
+						users[i].money -= somme;
+						a = true;
+					}
 		
-		if (users[i].id == msg.author.id){
-			if (users[i].money >= somme) {
-				users[i].money -= somme;
-				a = true;
-			} else {
-				channel.send({embed: {
-					title: 'Débit impossible',
-					color: 16057630,
-					description: "Désolé, vous n'avez que **"+users[i].money+" coins**. Pas suffisamment pour donner à "+user
-				}});
-			}
-		}
-		
-		if (users[i].id == user.id) {
-			users[i].money += somme;
-			b = true;
-		}
+					if (users[i].id == user.id) {
+						users[i].money += somme;
+						b = true;
+					}
 
-		if (a && b){
-			break;
-		}
-	}
+					if (a && b){
+						break;
+					}
+				}
 
-	channel.send({embed: {
-		title: "Débit de coins",
-		color: 16777215,
-		description: "Vous avez été débité de **"+somme+" coins**."
-	}});
-}).catch(collected => {
-	channel.send({embed: {
-		title: "Débit de coins annulé",
-		color: 16777215,
-		description: "Très bien, le débit a été annulé."
-	}});
-});
+			channel.send({embed: {
+				title: "Débit de coins",
+				color: 16777215,
+				description: "Vous avez été débité de **"+somme+" coins**."
+			}});
+		}).catch(collected => {
+			channel.send({embed: {
+				title: "Débit de coins annulé",
+				color: 16777215,
+				description: "Très bien, le débit a été annulé."
+			}});
+		});
 
-channel.awaitMessages(filterReset, { max: 1, time: 15000, errors: ['time'] }).then(collected => {
-	channel.send({embed: {
-		title: "Débit de coins annulé",
-		color: 16777215,
-		description: "Très bien, le débit a été annulé. Vous pouvez encore revenir sur votre décision en entrant votre ID discord."
-	}});
-});
+		channel.awaitMessages(filterReset, { max: 1, time: 15000, errors: ['time'] }).then(collected => {
+			channel.send({embed: {
+				title: "Débit de coins annulé",
+				color: 16777215,
+				description: "Très bien, le débit a été annulé. Vous pouvez encore revenir sur votre décision en entrant votre ID discord."
+			}});
+		});
 });
 });
 		} else {
