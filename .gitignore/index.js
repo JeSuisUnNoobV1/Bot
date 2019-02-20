@@ -244,7 +244,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 				channel.send({embed: {
 					title: "Débit de coins",
 					color: 16777215,
-					description: "Vous vous apprêtez à donner **"+somme+" coins** à "+user+".\nVous avez 20s pour accorder le débit.\n Pour annuler, utilisez: `refus`.Accordez si vous le souhaitez en répondant avec votre Tag discord: ```ex #6461```."
+					description: "Vous vous apprêtez à donner **"+somme+" coins** à "+user+".\nVous avez 20s pour accorder le débit.\n Pour annuler, utilisez: `refus`.Accordez si vous le souhaitez en répondant avec votre Tag discord. ```ex #6461```"
 				}}).then(message => {
 
 					const filter = m => m.content+"" == msg.author.tag.split('#')[1];
@@ -284,7 +284,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			channel.send({embed: {
 				title: "Débit de coins annulé",
 				color: 16777215,
-				description: "Très bien, le débit a été annulé. Vous pouvez encore revenir sur votre décision en entrant votre Tag discord: ```ex #6461```."
+				description: "Très bien, le débit a été annulé. Vous pouvez encore revenir sur votre décision en entrant votre Tag discord. ```ex #6461```"
 			}});
 		});
 });
@@ -294,7 +294,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 				channel.send({embed: {
 					title: "Erreur de donation",
 					color: 16057630,
-					description: "Désolé, vous devez préciser la somme ainsi que le bénéficiaire de votre don.```ex: give 50 @Théotime#6461```"
+					description: "Désolé, vous devez préciser la somme ainsi que le bénéficiaire de votre don. ```ex: give 50 @Théotime#6461```"
 				}});
 			});
 		}
