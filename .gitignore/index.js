@@ -214,22 +214,28 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			user = msg.mentions.users.first() || false;
 
 			if (user == msg.author) {
-				channel.send({embed: {
-					title: "Débit impossible",
-					color: 16057630,
-					description: "Vous ne pouvez pas vous donner des coins à vous même."
-				}});
+				msg.author.createDM().then(channel => {
+					channel.send({embed: {
+						title: "Débit impossible",
+						color: 16057630,
+						description: "Vous ne pouvez pas vous donner des coins à vous même."
+					}});
+				});
+
+				return false;
 			}
 
 			for (let i = 0; i<users.length; i++) {
 				if (users[i].id == msg.author.id && users[i].money < somme){
 					msg.author.createDM().then(channel => {
-						return channel.send({embed: {
+						channel.send({embed: {
 							title: 'Débit impossible',
 							color: 16057630,
 							description: "Désolé, vous n'avez que **"+users[i].money+" coins**.\nPas suffisamment pour donner à "+user
 						}});
 					});
+
+					return false;
 				}
 			}
 
