@@ -190,11 +190,11 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 
 	// Roboto rank
 	if (m.startsWith("roboto rank")||m.startsWith("rank")||m.startsWith("xp")||m.startsWith("levels")||m.startsWith("money")){
-		let xp, money, member = msg.mentions.members.first() || msg.author;
+		let xp, money, member = msg.mentions.users.first() || msg.author;
 		for (let i = 0; i<users.length; i++) {
 			if (users[i].id == member.id){
 				xp = users[i].xp;
-				money = users[i].money;
+				money = typeof users[i].money === "string" ? parseInt(users[i].money) : users[i].money;
 				break;
 			}
 		}
