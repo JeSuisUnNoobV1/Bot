@@ -218,12 +218,12 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 				channel.send({embed: {
 					title: "Débit de coins",
 					color: 16777215,
-					description: "Vous vous apprêtez à donner **"+somme+" coins** à "+user+". Vous avez 30s pour accorder le débit. Après il sera annulé.\nAccordez si vous le souhaitez en répondant avec votre ID discord"
+					description: "Vous vous apprêtez à donner **"+somme+" coins** à "+user+". Vous avez s pour accorder le débit. Après il sera annulé.\nAccordez si vous le souhaitez en répondant avec votre ID discord"
 				}}).then(message => {
 // Await !vote messages
-const filter = m => m.content == msg.author.tag.split('#')[1];
+const filter = m => m.content+"" == msg.author.tag.split('#')[1];
 // Errors: ['time'] treats ending because of the time limit as an error
-channel.awaitMessages(filter, { max: 4, time: 30000, errors: ['time'] }).then(collected => {
+channel.awaitMessages(filter, { max: 1, time: 15000, errors: ['time'] }).then(collected => {
 	for (let i = 0,a , b; i<users.length; i++) {
 		if (users[i].id == msg.author.id){
 			users[i].money -= somme;
