@@ -104,8 +104,9 @@ client.on('message', msg => {
 
 	// Pour éviter que le bot se réponde tout seul
 	if (msg.author.bot) return false;
+	if (msg.channel.type == "dm") return false;
 
-	if (msg.channel.type != "dm" && msg.member.roles.find('name', 'Muted')) {
+	if ( msg.member.roles.find('name', 'Muted')) {
 		msg.delete();
 		msg.author.createDM().then(channel => {
 			return channel.send('Désolé, vous avez été mute car vous n\'avez pas respecté les <#540256081293606915>');
