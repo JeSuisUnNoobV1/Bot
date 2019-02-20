@@ -226,7 +226,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 						return ['👍', '👎'].includes(reaction.emoji.name) && author.id === msg.author.id;
 					};
 
-			message.awaitReactions(filter, {max: 1, time: 30000, errors: ['time'] }).then(collected => {
+			message.awaitReactions(filter, {max: 3, time: 30000, errors: ['time'] }).then(collected => {
         		const reaction = collected.first();
 			if (!reaction.users[reaction.users.length].bot) {
 				console.log(reaction.emoji);
