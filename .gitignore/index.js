@@ -272,6 +272,12 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 				color: 16777215,
 				description: "Vous avez été débité de **"+somme+" coins**."
 			}});
+
+			channel.send({embed: {
+				title: "Crédit de coins",
+				color: 16777215,
+				description: msg.author+" vous a fait un don. Vous avez donc été crédité de **"+somme+" coins**."
+			}});
 		}).catch(collected => {
 			channel.send({embed: {
 				title: "Débit de coins annulé",
