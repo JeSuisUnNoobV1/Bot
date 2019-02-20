@@ -282,11 +282,13 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 });
 });
 		} else {
-			msg.channel.send({embed: {
-				title: "Erreur de donation",
-				color: 16057630,
-				description: "Désolé, vous devez préciser la somme ainsi que le bénéficiaire de votre don.```ex: give 50 @Théotime#6461```"
-			}});
+			msg.author.createDM().then(channel => {
+				channel.send({embed: {
+					title: "Erreur de donation",
+					color: 16057630,
+					description: "Désolé, vous devez préciser la somme ainsi que le bénéficiaire de votre don.```ex: give 50 @Théotime#6461```"
+				}});
+			});
 		}
 	}
 
