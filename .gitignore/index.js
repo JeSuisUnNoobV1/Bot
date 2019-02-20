@@ -213,45 +213,64 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			user = msg.mentions.users.first() || false,
 			author = msg.author;
 
+		if (user != false && !isNaN(parseInt(somme)) && parseInt(somme) > 0){
 			author.createDM().then(channel => {
 				channel.send({embed: {
 					title: "Débit de coins",
 					color: 16777215,
 					description: "Vous vous apprêtez à donner **"+somme+" coins** à "+user+"."
-				}}).then(async message => {
-					message.react(':white_check_mark:');
-					await message.react(":white_check_mark:");
-					if (user != false && !isNaN(parseInt(somme)) && parseInt(somme) > 0){
-						for (let i = 0,a , b; i<users.length; i++) {
-							if (users[i].id == author.id){
-								users[i].money -= somme;
-								a = true;
-							}
-							
-							if (users[i].id == user.id) {
-								users[i].money += somme;
-								b = true;
-							}
-		
-							if (a && b){
-								break;
-							}
-						}
+				}}).then(message => {
+					message.react(':white_check_mark:').then(() => message.react(':x:'));
 
-						channel.send({embed: {
-							title: "Débit de coins",
-							color: 16777215,
-							description: "Vous avez été débité de **"+somme+" coins**."
-						}});
-					} else {
-						msg.channel.send({embed: {
-							title: "Erreur de donation",
-							color: 16057630,
-							description: "Désolé, vous devez préciser la somme ainsi que le bénéficiaire de votre don.```ex: give 50 @Théotime#6461```"
-						}});
+					const filter = (reaction, user) => {
+						return [':white_check_mark:', ':x:'].includes(reaction.emoji.name) && user.id === message.author.id;
+					};
+
+			message.awaitReactions(filter, { max: 1, time: 60000, errors: ['time'] }).then(collected => {
+        		const reaction = collected.first();
+
+        		if (reaction.emoji.name === ':white_check_mark:') {
+					for (let i = 0,a , b; i<users.length; i++) {
+						if (users[i].id == author.id){
+							users[i].money -= somme;
+							a = true;
+						}
+						
+						if (users[i].id == user.id) {
+							users[i].money += somme;
+							b = true;
+						}
+	
+						if (a && b){
+							break;
+						}
 					}
-				});
+
+					channel.send({embed: {
+						title: "Débit de coins",
+						color: 16777215,
+						description: "Vous avez été débité de **"+somme+" coins**."
+					}});
+        		} else {
+					channel.send({embed: {
+						title: "Débit de coins annulé",
+						color: 16777215,
+						description: "Très bien, le débit a été annulé."
+					}});
+        		}
+   			}).catch(collected => {
+        		console.log(`After a minute, only ${collected.size} out of 4 reacted.`);
+        		message.reply('you didn\'t react with neither a thumbs up, nor a thumbs down.');
 			});
+			});
+		});
+		} else {
+			msg.channel.send({embed: {
+				title: "Erreur de donation",
+				color: 16057630,
+				description: "Désolé, vous devez préciser la somme ainsi que le bénéficiaire de votre don.```ex: give 50 @Théotime#6461```"
+			}});
+		}
 	}
 
 	// Roboto invite
