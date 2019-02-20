@@ -209,7 +209,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 	// Roboto give
 	if (m.startsWith("give")) {
 		let split = m.split(' '),
-			somme = split[1],
+			somme = parseInt(split[1]),
 			user = msg.mentions.users.first() || false,
 			author = msg.author;
 
@@ -219,34 +219,33 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 					color: 16777215,
 					description: "Vous vous apprêtez à donner **"+somme+" coins** à "+user+"."
 				}}).then(function (message) {
-					message.react("👍");
-					message.react("👎");
+					message.react(':white_check_mark:');
+					await message.react(":white_check_mark:");
+					if (user != false && !isNaN(parseInt(somme)) && parseInt(somme) > 0){
+						for (let i = 0,a , b; i<users.length; i++) {
+							if (users[i].id == author.id){
+								users[i].money -= somme;
+								a = true;
+							}
+							
+							if (users[i].id == user.id) {
+								users[i].money += somme;
+								b = true;
+							}
+		
+							if (a && b){
+								break;
+							}
+						}
+					} else {
+						msg.channel.send({embed: {
+							title: "Erreur de donation",
+							color: 16057630,
+							description: "Désolé, vous devez préciser la somme ainsi que le bénéficiaire de votre don.```ex: give 50 @Théotime#6461```"
+						}});
+					}
 				});
 			});
-
-			if (user != false && !isNaN(parseInt(somme))){
-				for (let i = 0,a , b; i<users.length; i++) {
-					if (users[i].id == author.id){
-						users[i].money -= somme;
-						a = true;
-					}
-					
-					if (users[i].id == user.id) {
-						users[i].money += somme;
-						b = true;
-					}
-
-					if (a && b){
-						break;
-					}
-				}
-			} else {
-    			msg.channel.send({embed: {
-						title: "Erreur de donation",
-    				color: 16057630,
-    				description: "Désolé, vous devez préciser la somme ainsi que le bénéficiaire de votre don.```ex: give 50 @Théotime#6461```"
-					}});
-			}
 	}
 
 	// Roboto invite
