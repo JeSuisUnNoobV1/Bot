@@ -213,6 +213,14 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			somme = parseInt(split[1]),
 			user = msg.mentions.users.first() || false;
 
+			if (user == msg.author) {
+				msg.channel.send({embed: {
+					title: "Débit impossible",
+					color: 16057630,
+					description: "Vous ne pouvez pas vous donner des coins à vous même."
+				}});
+			}
+
 		if (user != false && !isNaN(parseInt(somme)) && parseInt(somme) > 0){
 			msg.author.createDM().then(channel => {
 				channel.send({embed: {
@@ -220,15 +228,24 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 					color: 16777215,
 					description: "Vous vous apprêtez à donner **"+somme+" coins** à "+user+".\nAccordez si vous le souhaitez en répondant avec votre ID discord.\nVous avez 15s pour accorder le débit. Pour annuler, utilisez: `refus`."
 				}}).then(message => {
-// Await !vote messages
-const filter = m => m.content+"" == msg.author.tag.split('#')[1];
-const filterReset = m => m.content.toLowerCase() == 'refus';
-// Errors: ['time'] treats ending because of the time limit as an error
+
+					const filter = m => m.content+"" == msg.author.tag.split('#')[1];
+					const filterReset = m => m.content.toLowerCase() == 'refus';
+
 channel.awaitMessages(filter, { max: 1, time: 15000, errors: ['time'] }).then(collected => {
 	for (let i = 0,a , b; i<users.length; i++) {
+		
 		if (users[i].id == msg.author.id){
-			users[i].money -= somme;
-			a = true;
+			if (users[i].money >= somme) {
+				users[i].money -= somme;
+				a = true;
+			} else {
+				channel.send({embed: {
+					title: 'Débit impossible',
+					color: 16057630,
+					description: "Désolé, vous n'avez que **"+users[i].money+" coins**. Pas suffisamment pour donner à "+user
+				}});
+			}
 		}
 		
 		if (users[i].id == user.id) {
@@ -258,7 +275,7 @@ channel.awaitMessages(filterReset, { max: 1, time: 15000, errors: ['time'] }).th
 	channel.send({embed: {
 		title: "Débit de coins annulé",
 		color: 16777215,
-		description: "Très bien, le débit a été annulé."
+		description: "Très bien, le débit a été annulé. Vous pouvez encore revenir sur votre décision en entrant votre ID discord."
 	}});
 });
 });
