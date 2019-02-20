@@ -211,11 +211,10 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 	if (m.startsWith("give")) {
 		let split = m.split(' '),
 			somme = parseInt(split[1]),
-			user = msg.mentions.users.first() || false,
-			author = msg.author;
+			user = msg.mentions.users.first() || false;
 
 		if (user != false && !isNaN(parseInt(somme)) && parseInt(somme) > 0){
-			author.createDM().then(channel => {
+			msg.author.createDM().then(channel => {
 				channel.send({embed: {
 					title: "Débit de coins",
 					color: 16777215,
@@ -223,8 +222,8 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 				}}).then(message => {
 					message.react('👍').then(() => message.react('👎'));
 
-					const filter = (reaction, user) => {
-						return ['👍', '👎'].includes(reaction.emoji.name) && user.id === message.author.id && user.bot == false;
+					const filter = (reaction, author) => {
+						return ['👍', '👎'].includes(reaction.emoji.name) && author.id === msg.author.id && author.bot == false;
 					};
 
 			message.awaitReactions(filter, { max: 3, time: 60000, errors: ['time'] }).then(collected => {
@@ -232,7 +231,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 
         		if (reaction.emoji.name === '👍') {
 					for (let i = 0,a , b; i<users.length; i++) {
-						if (users[i].id == author.id){
+						if (users[i].id == msg.author.id){
 							users[i].money -= somme;
 							a = true;
 						}
