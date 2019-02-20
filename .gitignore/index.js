@@ -226,10 +226,11 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 						return ['👍', '👎'].includes(reaction.emoji.name) && author.id === msg.author.id;
 					};
 
-			message.awaitReactions(filter, {max: 3, time: 30000, errors: ['time'] }).then(collected => {
-        		const reaction = collected.first();
-			if (!reaction.users[reaction.users.length].bot) {
+			message.awaitReactions(filter).then(collected => {
+				const reaction = collected.first();
 				console.log(reaction.emoji);
+
+			if (!reaction.users[reaction.users.length].bot) {
         		if (reaction.emoji.name === '👍') {
 					for (let i = 0,a , b; i<users.length; i++) {
 						if (users[i].id == msg.author.id){
@@ -260,13 +261,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 					}});
 				}
 			}
-   			}).catch(collected => {
-				channel.send({embed: {
-					title: "Débit de coins annulé",
-					color: 16777215,
-					description: "Très bien, le débit a été annulé. (délai de 30s écoulé)"
-				}});
-			});
+   			});
 			});
 		});
 		} else {
