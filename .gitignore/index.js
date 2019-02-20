@@ -218,18 +218,18 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 				channel.send({embed: {
 					title: "Débit de coins",
 					color: 16777215,
-					description: "Vous vous apprêtez à donner **"+somme+" coins** à "+user+"."
+					description: "Vous vous apprêtez à donner **"+somme+" coins** à "+user+". Vous avez 30s pour accorder le débit. Après il sera annulé."
 				}}).then(message => {
-					message.react(':white_check_mark:').then(() => message.react(':x:'));
+					message.react('👍').then(() => message.react('👎'));
 
 					const filter = (reaction, user) => {
-						return [':white_check_mark:', ':x:'].includes(reaction.emoji.name) && user.id === message.author.id;
+						return ['👍', '👎'].includes(reaction.emoji.name) && user.id === message.author.id;
 					};
 
 			message.awaitReactions(filter, { max: 1, time: 60000, errors: ['time'] }).then(collected => {
         		const reaction = collected.first();
 
-        		if (reaction.emoji.name === ':white_check_mark:') {
+        		if (reaction.emoji.name === '👍') {
 					for (let i = 0,a , b; i<users.length; i++) {
 						if (users[i].id == author.id){
 							users[i].money -= somme;
