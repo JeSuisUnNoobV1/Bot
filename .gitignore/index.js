@@ -347,44 +347,19 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			coins += somme;
 		}
 
-		msg.author.createDM().then(channel => {
+		user.createDM().then(channel => {
 			channel.send({embed: {
 				title: "Débit de coins",
 				color: 16777215,
-				description: "Vous vous apprêtez à acheter au prix de **"+somme+" coins** le code de "+user+".\nVous avez 20s pour accorder le débit.\n Pour annuler, utilisez: `refus`.Accordez si vous le souhaitez en répondant avec votre Tag discord. ```ex: #6461```"
-			}}).then(message => {
+				description: "Vous avez été débité de **"+somme+" coins**."
+			}});
 
-				const filter = m => m.content.replace('#', "")+"" == msg.author.tag.split('#')[1];
-
-		channel.awaitMessages(filter, { max: 1, time: 20000, errors: ['time'] }).then(collected => {
-			
-
-		channel.send({embed: {
-			title: "Débit de coins",
-			color: 16777215,
-			description: "Vous avez été débité de **"+somme+" coins**."
-		}});
-
-		channel.send({embed: {
-			title: "Crédit de coins",
-			color: 16777215,
-			description: msg.author+" vous a fait un don. Vous avez donc été crédité de **"+somme+" coins**."
-		}});
-	}).catch(collected => {
-		channel.send({embed: {
-			title: "Débit de coins annulé",
-			color: 16777215,
-			description: "Très bien, le débit a été annulé."
-		}});
-	});
-
-	channel.awaitMessages(filterReset, { max: 1, time: 15000, errors: ['time'] }).then(collected => {
-		channel.send({embed: {
-			title: "Débit de coins annulé",
-			color: 16777215,
-			description: "Très bien, le débit a été annulé. Vous pouvez encore revenir sur votre décision en entrant votre Tag discord. ```ex #6461```"
-		}});
-	});
+			channel.send({embed: {
+				title: "Code source de "+msg.author,
+				color: 16777215,
+				description: "```"+code+"```"
+			}});
+		});
 }).catch(collected => {
 	channel.send({embed: {
 		title: "Vente terminée !",
