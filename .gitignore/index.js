@@ -213,14 +213,18 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			author = msg.author;
 
 			if (user != false && !isNaN(parseInt(somme))){
-				for (let i = 0; i<users.length; i++) {
+				for (let i = 0,a , b; i<users.length; i++) {
 					if (users[i].id == author.id){
 						users[i].money -= somme;
-						break;
+						a = true;
 					}
 					
 					if (users[i].id == user.id) {
 						users[i].money += somme;
+						b = true;
+					}
+
+					if (a && b){
 						break;
 					}
 				}
