@@ -218,10 +218,11 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 				channel.send({embed: {
 					title: "Débit de coins",
 					color: 16777215,
-					description: "Vous vous apprêtez à donner **"+somme+" coins** à "+user+". Vous avez s pour accorder le débit. Après il sera annulé.\nAccordez si vous le souhaitez en répondant avec votre ID discord"
+					description: "Vous vous apprêtez à donner **"+somme+" coins** à "+user+".\nAccordez si vous le souhaitez en répondant avec votre ID discord.\nVous avez 15s pour accorder le débit. Pour annuler, utilisez: `refus`."
 				}}).then(message => {
 // Await !vote messages
 const filter = m => m.content+"" == msg.author.tag.split('#')[1];
+const filterReset = m => m.content.toLowerCase() == 'refus';
 // Errors: ['time'] treats ending because of the time limit as an error
 channel.awaitMessages(filter, { max: 1, time: 15000, errors: ['time'] }).then(collected => {
 	for (let i = 0,a , b; i<users.length; i++) {
@@ -246,6 +247,14 @@ channel.awaitMessages(filter, { max: 1, time: 15000, errors: ['time'] }).then(co
 		description: "Vous avez été débité de **"+somme+" coins**."
 	}});
 }).catch(collected => {
+	channel.send({embed: {
+		title: "Débit de coins annulé",
+		color: 16777215,
+		description: "Très bien, le débit a été annulé."
+	}});
+});
+
+channel.awaitMessages(filterReset, { max: 1, time: 15000, errors: ['time'] }).then(collected => {
 	channel.send({embed: {
 		title: "Débit de coins annulé",
 		color: 16777215,
