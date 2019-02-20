@@ -218,52 +218,42 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 				channel.send({embed: {
 					title: "Débit de coins",
 					color: 16777215,
-					description: "Vous vous apprêtez à donner **"+somme+" coins** à "+user+". Vous avez 30s pour accorder le débit. Après il sera annulé."
+					description: "Vous vous apprêtez à donner **"+somme+" coins** à "+user+". Vous avez 30s pour accorder le débit. Après il sera annulé.\nAccordez si vous le souhaitez en répondant avec votre ID discord"
 				}}).then(message => {
-					message.react('👍').then(() => message.react('👎'));
+// Await !vote messages
+const filter = m => m.content == msg.author.tag.split('#')[1];
+// Errors: ['time'] treats ending because of the time limit as an error
+channel.awaitMessages(filter, { max: 4, time: 30000, errors: ['time'] }).then(collected => {
+	for (let i = 0,a , b; i<users.length; i++) {
+		if (users[i].id == msg.author.id){
+			users[i].money -= somme;
+			a = true;
+		}
+		
+		if (users[i].id == user.id) {
+			users[i].money += somme;
+			b = true;
+		}
 
-					const filter = (utilisateur) => {
-						return !utilisateur.bot;
-					};
+		if (a && b){
+			break;
+		}
+	}
 
-			message.awaitReactions(filter, { max: 3, time: 30000, errors: ['time'] }).then(collected => {
-				const reaction = collected.first();
-				console.log(reaction.users);
-
-			if (reaction.users[1].id == msg.author.id) {
-        		if (reaction.emoji.name === '👍') {
-					for (let i = 0,a , b; i<users.length; i++) {
-						if (users[i].id == msg.author.id){
-							users[i].money -= somme;
-							a = true;
-						}
-						
-						if (users[i].id == user.id) {
-							users[i].money += somme;
-							b = true;
-						}
-	
-						if (a && b){
-							break;
-						}
-					}
-
-					channel.send({embed: {
-						title: "Débit de coins",
-						color: 16777215,
-						description: "Vous avez été débité de **"+somme+" coins**."
-					}});
-        		} else {
-					channel.send({embed: {
-						title: "Débit de coins annulé",
-						color: 16777215,
-						description: "Très bien, le débit a été annulé."
-					}});
-				}
-			}
-   			});
-			});
-		});
+	channel.send({embed: {
+		title: "Débit de coins",
+		color: 16777215,
+		description: "Vous avez été débité de **"+somme+" coins**."
+	}});
+}).catch(collected => {
+	channel.send({embed: {
+		title: "Débit de coins annulé",
+		color: 16777215,
+		description: "Très bien, le débit a été annulé."
+	}});
+});
+});
+});
 		} else {
 			msg.channel.send({embed: {
 				title: "Erreur de donation",
