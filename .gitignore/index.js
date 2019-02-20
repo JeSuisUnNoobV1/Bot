@@ -214,13 +214,13 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			author = msg.author;
 
 			author.createDM().then(channel => {
-				return channel.send({embed: {
+				channel.send({embed: {
 					title: "Débit de coins",
 					color: 16777215,
 					description: "Vous vous apprêtez à donner **"+somme+" coins** à "+user+"."
-				}}).then(function (message) {
-					message.react(':white_check_mark:');
-					await message.react(":white_check_mark:");
+				}});
+					channel.lastMessage.react(':white_check_mark:');
+					await channel.lastMessage.react(":white_check_mark:");
 					if (user != false && !isNaN(parseInt(somme)) && parseInt(somme) > 0){
 						for (let i = 0,a , b; i<users.length; i++) {
 							if (users[i].id == author.id){
@@ -237,6 +237,12 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 								break;
 							}
 						}
+
+						channel.send({embed: {
+							title: "Débit de coins",
+							color: 16777215,
+							description: "Vous avez été débité de **"+somme+" coins**."
+						}});
 					} else {
 						msg.channel.send({embed: {
 							title: "Erreur de donation",
