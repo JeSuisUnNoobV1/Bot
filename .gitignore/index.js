@@ -335,7 +335,6 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			}
 
 			const filter = m => m.content == "buy "+msg.author.tag.split('#')[1];
-			const filterReset = m => m.content.toLowerCase() == 'refus';
 
 	msg.channel.awaitMessages(filter, { time: 20000, errors: ['time'] }).then(collected => {
 		let user = collected.last();
@@ -380,8 +379,6 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			description: "Suite à la vente de votre code vous avez été crédité de ```"+coins+" coins```"
 		}});
 	});
-});
-});
 });
 		} else {
 			msg.channel.send({embed: {
