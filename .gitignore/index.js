@@ -209,7 +209,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 	if (m.startsWith("give")) {
 		let split = m.split(' '),
 			somme = split[1],
-			user = msg.mentions.members.first() || false,
+			user = msg.mentions.users.first() || false,
 			author = msg.author;
 
 			if (user != false && !isNaN(parseInt(somme))){
@@ -217,15 +217,18 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 					if (users[i].id == author.id){
 						users[i].money -= somme;
 						break;
-					} else if (users[i].id == user.id) {
+					}
+					
+					if (users[i].id == user.id) {
 						users[i].money += somme;
+						break;
 					}
 				}
 			} else {
     			msg.channel.send({embed: {
-						title: "Erreur de donation",
-    			  color: 16057630,
-    			  description: "Désolé, vous devez préciser la somme ainsi que le bénéficiaire de votre don.```ex: give 50 <@483335511159865347>```"
+					title: "Erreur de donation",
+    				color: 16057630,
+    				description: "Désolé, vous devez préciser la somme ainsi que le bénéficiaire de votre don.```ex: give 50 @Théotime#6461```"
 				}});
 			}
 	}
