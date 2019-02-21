@@ -62,7 +62,7 @@ var globalInterval = false;
 ================ */
 
 client.on('ready', () => {
-    client.channels.find("id", "539847850666885131").send("Hey, je suis prêt à faire feu !");
+    client.channels.find(val => val.id === "539847850666885131").send("Hey, je suis prêt à faire feu !");
     client.user.setAvatar('https://theotime.me/discord/roboto.png');
 	client.user.setActivity("la console", { type: 'WATCHING' });
     setInterval(() => {
@@ -108,7 +108,7 @@ client.on('message', msg => {
 	}
 	
 	function isAuth(){ // use msg.author
-		if (msg.member.roles.find('name', 'noBot')){
+		if (msg.member.roles.find(val => val.name === 'noBot')){
 			return false;
 		} else {
 			return true;
@@ -119,7 +119,7 @@ client.on('message', msg => {
 	if (msg.author.bot) return false;
 	if (msg.channel.type == "dm") return false;
 
-	if ( msg.member.roles.find('name', 'Muted')) {
+	if ( msg.member.roles.find(val => val.name === 'Muted')) {
 		msg.delete();
 		msg.author.createDM().then(channel => {
 			return channel.send('Désolé, vous avez été mute car vous n\'avez pas respecté les <#540256081293606915>');
@@ -141,7 +141,7 @@ if (m!="roboto rank"&&m!="rank"&m!="xp"&&m!="levels"&&m!="money") {
 if(m.includes("fdp")||m.includes("beze")||m.includes("bese")||m.includes("bz")||m.includes("salop")||m.includes("pute")||m === "con"||m.includes("connard")||m.includes("tg")||m.includes("batard")||m.includes("putain")||m.includes("tes morts")||m.includes("merde")||m.includes("merd")||m.includes("couilles")||m.includes("abruti")||m.startsWith("nique ")||m===("nique")) {
 	if (!isAdmin()) {
 		msg.delete().then(msg => {
-			client.channels.find("id", "545230202914078720").send({embed: {
+			client.channels.find(val => val.id === "545230202914078720").send({embed: {
 				title: "Insulte",
 				color: 16777215,
 				description: msg.author+"a insulté dans le channel "+msg.channel+" en disant ```"+msg.content+"```"
@@ -772,7 +772,7 @@ if ((m.startsWith('bonjour') || m.startsWith('salut') || m.startsWith('hey') ||
 	// Théotime
 	if (msg.channel.id == "547044092878520330") {
 		msg.delete().then(
-			client.users.find("id", "483335511159865347").createDM().then(channel => {
+			client.users.find(val => val.id === "483335511159865347").createDM().then(channel => {
 				return channel.send({embed: {
 					title: "message de "+msg.author.tag,
 					color: 16777215,
@@ -785,7 +785,7 @@ if ((m.startsWith('bonjour') || m.startsWith('salut') || m.startsWith('hey') ||
 	// Vincent
 	if (msg.channel.id == "547044109261471744") {
 		msg.delete().then(
-			client.users.find("id", "467630539898224661").createDM().then(channel => {
+			client.users.find(val => val.id === "467630539898224661").createDM().then(channel => {
 				return channel.send({embed: {
 					title: "message de "+msg.author.tag,
 					color: 16777215,
