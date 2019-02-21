@@ -185,12 +185,16 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 	}
 
 	// Roboto channel
-	if (m=="roboto channel"||m=="channel"){
+	if (m=="roboto channel"||m=="!channel"){
 		msg.channel.send("Vous êtes sur le salon `"+msg.channel.name+"`");	
 	}
 
+	if (m=="roboto help"||m=='!help'){
+		const id = message.guild.roles.find('name', 'Modérateur').id; // Changer "Modérateur" par le nom donné au rôle de modération
+	}
+
 	// Roboto rank
-	if (m.startsWith("roboto rank")||m.startsWith("rank")||m.startsWith("xp")||m.startsWith("levels")||m.startsWith("money")){
+	if (m.startsWith("roboto money")||m.startsWith("roboto xp")||m.startsWith("!money")||m.startsWith("!xp")){
 		let xp, money, member = msg.mentions.users.first() || msg.author;
 		for (let i = 0; i<users.length; i++) {
 			if (users[i].id == member.id){
@@ -208,8 +212,8 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 	}
 
 	// Roboto give
-	if (m.startsWith("give")) {
-		let split = m.split(' '),
+	if (m.startsWith("roboto give")||m.startsWith("!give")) {
+		let split = m.replace(/roboto give /, '!give ').split(' '),
 			somme = parseInt(split[1]),
 			user = msg.mentions.users.first() || false;
 
@@ -309,13 +313,14 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 	}
 
 	// Roboto invite
-	if (m.startsWith("sell")){
+	if (m.startsWith("roboto sell ") || m.startsWith("!sell ")){
 		msg.delete();
 
-		let somme = m.split(' ')[1],
+		let somme = m.replace(/roboto sell /, "!sell ").split(' ')[1],
 			code = m.replace("sell "+somme+" ", ""),
 			sellAlreadyCode = false,
-			coins = 0;
+			coins = 0,
+			number = 0;
 
 			for (let i = 0; i<users.length; i++) {
 				if (users[i].id == msg.author.id && users[i].sellAlreadyCode){
@@ -327,7 +332,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			msg.channel.send({embed: {
 				title: "Vente de code",
 				color: 16777215,
-				description: msg.author+" vend du code !\nVous pouvez l'acheter au prix de `"+somme+" coins` pendant les 5 minutes qui suivent avec la commande ```buy "+msg.author.tag.split('#')[1]+"```"
+				description: msg.author+" vend du code !\nVous pouvez l'acheter au prix de `"+somme+" coins` avec la commande ```buy "+msg.author.tag.split('#')[1]+"``` La vente sera clôturée après une minute donc faîtes vite !"
 			}});
 
 			for (let i = 0; i<users.length; i++) {
@@ -338,7 +343,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 
 			const filter = m => m.content == "buy "+msg.author.tag.split('#')[1];
 
-	msg.channel.awaitMessages(filter, { time: 20000, errors: ['time'] }).then(collected => {
+	msg.channel.awaitMessages(filter, { time: 60000, errors: ['time'] }).then(collected => {
 		let user = collected.last();
 		for (let i = 0; i<users.length; i++) {
 			if (users[i].id == user.id){
@@ -346,6 +351,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			}
 
 			coins += somme;
+			number += 1;
 		}
 
 		user.createDM().then(channel => {
@@ -365,21 +371,30 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 	msg.channel.send({embed: {
 		title: "Vente terminée !",
 		color: 16777215,
-		description: "La vente du code de "+msg.author+" est terminée !\n"+number+" personne"
+		description: "La vente du code de "+msg.author+" est terminée !\n"+number+" personne"+(number > 1 ? "s ont" : " a")+" acheté le code."
 	}});
 
 	for (let i = 0; i<users.length; i++) {
 		if (users[i].id == msg.author.id){
 			users[i].money += coins;
+			users[i].sellAlreadyCode = false;
 		}
 	}
 
 	msg.author.createDM().then(channel => {
-		channel.send({embed: {
-			title: "Crédit de coins",
-			color: 16777215,
-			description: "Suite à la vente de votre code vous avez été crédité de ```"+coins+" coins```"
-		}});
+		if (number != 0) {
+			channel.send({embed: {
+				title: "Crédit de coins",
+				color: 16777215,
+				description: "Suite à la vente de votre code vous avez été crédité de ```"+coins+" coins```"
+			}});
+		} else {
+			channel.send({embed: {
+				title: "Désolé",
+				color: 16777215,
+				description: "Votre vente de code n'a pas porté ses fruits...\nEssayez d'être plus convaincant la prochaine fois."
+			}});
+		}
 	});
 });
 		} else {
@@ -668,7 +683,7 @@ if (isAdmin()){
 		msg.author.createDM().then(channel => {
 			let content = "";
 			for (let i = 0; i<goCodes.length; i++) {
-				content += '	{"lk": '+goCodes[i].lk+'}\n';
+				content += '	{"lk": "'+goCodes[i].lk+'"}\n';
 			}
 			return channel.send("```[\n"+content+"]```");
 		});
