@@ -808,7 +808,7 @@ function bank({ desc, from, to, price, cb }){
 		}});
 
 		for (let i = 0; i<users.length; i++) {
-			if (users[i].id == from.id && users[i].money < somme){
+			if (users[i].id == from.id && users[i].money < price){
 				channel.send({embed: {
 					title: 'Débit impossible',
 					color: 16057630, // rouge
