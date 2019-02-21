@@ -362,7 +362,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			}
 
 			client.on('message', msg => {
-				if (msg.author.bot || !acheteurs.includes(msg.author.id)) return false;
+				if (msg.author.bot || acheteurs.includes(msg.author.id)) return false;
 
 				if (msg.content == buyStr){
 					let user = msg.author;
