@@ -319,38 +319,6 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 					// Anti robot et anti multi-paiements
 				if (msg.author.bot || acheteurs.includes(msg.author.id)) return false;
 
-				if (msg.content == "!sell reset" || msg.content == "!sell reset" && canPay){
-					msg.channel.send({embed: {
-						title: "Vente terminée !",
-						color: 16777215,
-						description: "La vente du code de "+msg.author+" est terminée !\n"+acheteurs.length+" personne"+(acheteurs.length > 1 ? "s ont" : " a")+" acheté le code."
-					}});
-	
-					msg.author.createDM().then(channel => {
-						if (acheteurs != []) {
-							channel.send({embed: {
-								title: "Crédit de coins",
-								color: 16777215,
-								description: "Suite à la vente de votre code vous avez été crédité de ```"+coins+" coins```"
-							}});
-						} else {
-							channel.send({embed: {
-								title: "Désolé",
-								color: 16777215,
-								description: "Votre vente de code n'a pas porté ses fruits...\nEssayez d'être plus convaincant la prochaine fois."
-							}});
-						}
-					});
-	
-					for (let i = 0; i<users.length; i++) {
-						if (users[i].id == msg.author.id){
-							users[i].sellAlreadyCode = false;
-						}
-					}
-
-					canPay = false;
-				}
-
 				if (msg.content == buyStr && canPay){
 					bank({
 						desc: "acheter du code",
