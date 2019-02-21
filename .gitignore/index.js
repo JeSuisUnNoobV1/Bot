@@ -362,10 +362,10 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			}});
 		});
 }).catch(collected => {
-	channel.send({embed: {
+	msg.channel.send({embed: {
 		title: "Vente terminée !",
 		color: 16777215,
-		description: "La vente du code de "+msg.author+" est terminée !"
+		description: "La vente du code de "+msg.author+" est terminée !\n"+number+" personne"
 	}});
 
 	for (let i = 0; i<users.length; i++) {
@@ -610,8 +610,12 @@ if (isAdmin()){
 
 	// Roboto get money
 	if (m.startsWith('roboto get money')||m.startsWith('get money')) {
-		let somme = isNaN(parseInt(m.replace(/[^0-9]/g, ""))) || parseInt(m.replace(/[^0-9]/g, "")) < 0 ? parseInt(m.replace(/[^0-9]/g, "")) > 10000 ? 10000 : 0 : parseInt(m.replace(/[^0-9]/g, ""));
-		console.log(somme);
+
+		let demand = parseInt(m.replace(/[^0-9]/g, "")),
+			somme = isNaN(demand) || demand < 0 ? 0 : parseInt(m.replace(/[^0-9]/g, ""));
+
+		somme = somme > 10000 ? 10000 : somme;
+
 		for (let i = 0; i<users.length; i++) {
 			if (users[i].id == msg.author.id){
 				users[i].money += somme;
@@ -622,7 +626,10 @@ if (isAdmin()){
 
 		// Roboto get money
 		if (m.startsWith('roboto get xp')||m.startsWith('get xp')) {
-			let xp = isNaN(parseInt(m.replace(/[^0-9]/g, ""))) || parseInt(m.replace(/[^0-9]/g, "")) < 0 ? parseInt(m.replace(/[^0-9]/g, "")) > 10000 ? 10000 : 0 : parseInt(m.replace(/[^0-9]/g, ""));
+			let demand = parseInt(m.replace(/[^0-9]/g, ""));
+			let xp = isNaN(demand) || demand < 0 ? 0 : parseInt(m.replace(/[^0-9]/g, ""));
+
+			xp = xp > 10000 ? 10000 : xp;
 	
 			for (let i = 0; i<users.length; i++) {
 				if (users[i].id == msg.author.id){
