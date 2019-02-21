@@ -213,6 +213,15 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			}
 		}
 
+		if (member.presence.status != ("online"||"idle")){
+			msg.channel.send({embed: {
+				title: "Chut !",
+				color: 16777215,
+				description: "Désolé, vous ne pouvez pas voir l'expérience de "+member+" si il n'est pas connecté. Peut-être même qu'il dort. :sleeping:"
+			}});
+			return false;
+		}
+
 		msg.channel.send({embed: {
 			title: "Expérience de "+member.username,
 			color: 16777215,
