@@ -130,7 +130,7 @@ client.on('message', msg => {
 if (m!="roboto rank"&&m!="rank"&m!="xp"&&m!="levels"&&m!="money") {
 	for (let i = 0; i<users.length; i++) {
 		if (users[i].id == msg.author.id){
-			users[i].xp += 20;
+			users[i].xp += 1;
 			break;
 		}
 	}
@@ -854,19 +854,19 @@ function bank({ desc, from, to, price, cb }){
 				}
 
 			}
-
-			setTimeout(function(){
-				if (payed == false && canPay == true) {
-					channel.send({embed: {
-						title: "Débit de coins annulé",
-						color: 16777215,
-						description: "Très bien, le débit a été annulé."
-					}});
-				}
-
-				canPay = false;
-			}, 20000);
 		});
+
+		setTimeout(function(){
+			if (!payed && canPay) {
+				channel.send({embed: {
+					title: "Débit de coins annulé",
+					color: 16777215,
+					description: "Très bien, le débit a été annulé."
+				}});
+			}
+
+			canPay = false;
+		}, 20000);
 	});
 }
 
