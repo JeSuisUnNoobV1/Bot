@@ -251,7 +251,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 					msg.author.createDM().then(channel => {
 						channel.send({embed: {
 							title: 'Débit impossible',
-							color: 16057630,
+							color: 16057630, // rouge
 							description: "Désolé, vous n'avez que **"+users[i].money+" coins**.\nPas suffisamment pour donner à "+user
 						}});
 					});
@@ -264,7 +264,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			msg.author.createDM().then(channel => {
 				channel.send({embed: {
 					title: "Débit de coins",
-					color: 16777215,
+					color: 16777215, // blanc
 					description: "Vous vous apprêtez à donner **"+somme+" coins** à "+user+".\nVous avez 20s pour accorder le débit.\n Pour annuler, utilisez: `refus`.Accordez si vous le souhaitez en répondant avec votre Tag discord. ```ex: #6461```"
 				}}).then(message => {
 
@@ -290,21 +290,21 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 
 			channel.send({embed: {
 				title: "Débit de coins",
-				color: 16777215,
+				color: 16777215, // blanc
 				description: "Vous avez été débité de **"+somme+" coins**."
 			}});
 
 		user.createDM().then(channel => {
 			channel.send({embed: {
 				title: "Crédit de coins",
-				color: 16777215,
+				color: 16777215, // blanc
 				description: msg.author+" vous a fait un don. Vous avez donc été crédité de **"+somme+" coins**."
 			}});
 		});
 		}).catch(collected => {
 			channel.send({embed: {
 				title: "Débit de coins annulé",
-				color: 16777215,
+				color: 16777215, // blanc
 				description: "Très bien, le débit a été annulé."
 			}});
 		});
@@ -312,7 +312,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 		channel.awaitMessages(filterReset, { max: 1, time: 15000, errors: ['time'] }).then(collected => {
 			channel.send({embed: {
 				title: "Débit de coins annulé",
-				color: 16777215,
+				color: 16777215, // blanc
 				description: "Très bien, le débit a été annulé. Vous pouvez encore revenir sur votre décision en entrant votre Tag discord. ```ex #6461```"
 			}});
 		});
@@ -322,7 +322,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			msg.author.createDM().then(channel => {
 				channel.send({embed: {
 					title: "Erreur de donation",
-					color: 16057630,
+					color: 16057630, // rouge
 					description: "Désolé, vous devez préciser la somme ainsi que le bénéficiaire de votre don. ```ex: give 50 @Théotime#6461```"
 				}});
 			});
@@ -352,7 +352,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 		if (sellAlreadyCode == false) {
 			msg.channel.send({embed: {
 				title: "Vente de code",
-				color: 16777215,
+				color: 16777215, // blanc
 				description: msg.author+" vend du code !\nVous avez une minute pour l'acheter au prix de `"+somme+" coins` avec la commande ```buy "+msg.author.tag.split('#')[1]+"```"
 			}});
 
@@ -363,16 +363,31 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			}
 
 			client.on('message', msg => {
-				if (msg.author.bot || acheteurs.includes(msg.author.id)) return false;
 
-				if (msg.content == buyStr){
+					// Anti robot et anti multi-paiements
+				if (msg.author.bot || acheteurs.includes(msg.author.id)) return false;
+				
+				if (msg.content == buyStr && canPay){
 					let user = msg.author,
 						payed = false;
+
+					for (let i = 0; i<users.length; i++) {
+						if (users[i].id == user.id && users[i].money < somme){
+							user.createDM().then(channel => {
+								channel.send({embed: {
+									title: 'Débit impossible',
+									color: 16057630, // rouge
+									description: "Désolé, vous n'avez que **"+users[i].money+" coins**.\nPas suffisamment pour payer le montant de```"+somme+" coins```"
+								}});
+							});
+							return false;
+						}
+					}
 			
 					user.createDM().then(channel => {
 						channel.send({embed: {
 							title: "Débit de coins",
-							color: 16777215,
+							color: 16777215, // blanc
 							description: "Vous vous apprêtez à acheter du code au prix de **"+somme+" coins** à "+vendeur+".\nVous avez 20s pour accorder le débit.\n Pour annuler, utilisez: `refus`.Accordez si vous le souhaitez en répondant avec votre Tag discord. ```ex: #6461```"
 						}});
 
@@ -380,7 +395,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 							if (msg.content.replace('#', "")+"" == msg.author.discriminator){
 								channel.send({embed: {
 									title: "Débit de coins",
-									color: 16777215,
+									color: 16777215, // blanc
 									description: "Vous avez été débité de **"+somme+" coins**."
 								}});
 
@@ -396,16 +411,25 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 								setTimeout(function(){
 									channel.send({embed: {
 										title: "Code source de "+msg.author,
-										color: 16777215,
+										color: 16777215, // blanc
 										description: "```"+code+"```"
 									}});
 								}, 800);
 							} else if (msg.content.toLowerCase() == "refus") {
-								channel.send({embed: {
-									title: "Débit de coins annulé",
-									color: 16777215,
-									description: "Très bien, le débit a été annulé. Vous pouvez encore revenir sur votre décision en entrant votre Tag discord. ```ex #6461```"
-								}});
+								if (payed == false) {
+									channel.send({embed: {
+										title: "Débit de coins annulé",
+										color: 16777215, // blanc
+										description: "Très bien, le débit a été annulé. Vous pouvez encore revenir sur votre décision en entrant votre Tag discord. ```ex #6461```"
+									}});
+								} else {
+									msg.channel.send({embed: {
+										title: "Erreur d'annulation",
+										color: 16057630, // rouge
+										description: "Il est impossible d'annuler un paiement après l'avoir effectué."
+									}});
+								}
+
 							}
 
 							setTimeout(function(){
