@@ -367,7 +367,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 					// Anti robot et anti multi-paiements
 				if (msg.author.bot || acheteurs.includes(msg.author.id)) return false;
 				
-				if (msg.content == buyStr && canPay){
+				if (msg.content == buyStr){
 					let user = msg.author,
 						payed = false;
 
