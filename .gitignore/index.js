@@ -366,29 +366,58 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 				if (msg.author.bot || acheteurs.includes(msg.author.id)) return false;
 
 				if (msg.content == buyStr){
-					let user = msg.author;
-					for (let i = 0; i<users.length; i++) {
-						if (users[i].id == user.id){
-							users[i].money -= somme;
-							coins += somme;
-							acheteurs.push(user.id);
-						}
-					}
+					let user = msg.author,
+						payed = false;
 			
 					user.createDM().then(channel => {
 						channel.send({embed: {
 							title: "Débit de coins",
 							color: 16777215,
-							description: "Vous avez été débité de **"+somme+" coins**."
+							description: "Vous vous apprêtez à acheter du code au prix de **"+somme+" coins** à "+vendeur+".\nVous avez 20s pour accorder le débit.\n Pour annuler, utilisez: `refus`.Accordez si vous le souhaitez en répondant avec votre Tag discord. ```ex: #6461```"
 						}});
-			
-						setTimeout(function(){
-							channel.send({embed: {
-								title: "Code source de "+msg.author,
-								color: 16777215,
-								description: "```"+code+"```"
-							}});
-						}, 500);
+
+						client.on('message', msg => {
+							if (msg.content.replace('#', "")+"" == msg.author.discriminator){
+								channel.send({embed: {
+									title: "Débit de coins",
+									color: 16777215,
+									description: "Vous avez été débité de **"+somme+" coins**."
+								}});
+
+								for (let i = 0; i<users.length; i++) {
+									if (users[i].id == user.id){
+										users[i].money -= somme;
+										coins = coins + somme;
+										acheteurs.push(user.id);
+										payed = true;
+									}
+								}
+					
+								setTimeout(function(){
+									channel.send({embed: {
+										title: "Code source de "+msg.author,
+										color: 16777215,
+										description: "```"+code+"```"
+									}});
+								}, 800);
+							} else if (msg.content.toLowerCase() == "refus") {
+								channel.send({embed: {
+									title: "Débit de coins annulé",
+									color: 16777215,
+									description: "Très bien, le débit a été annulé. Vous pouvez encore revenir sur votre décision en entrant votre Tag discord. ```ex #6461```"
+								}});
+							}
+
+							setTimeout(function(){
+								if (payed == false) {
+									channel.send({embed: {
+										title: "Débit de coins annulé",
+										color: 16777215,
+										description: "Très bien, le débit a été annulé."
+									}});
+								}
+							}, 20000);
+						});
 					});
 				}
 			});
