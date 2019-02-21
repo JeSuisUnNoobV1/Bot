@@ -823,15 +823,15 @@ function bank({ desc, from, to, price, cb }){
 				channel.send({embed: {
 					title: "Débit de coins",
 					color: 16777215, // blanc
-					description: "Vous avez été débité de **"+somme+" coins**."
+					description: "Vous avez été débité de **"+price+" coins**."
 				}});
 
 				for (let i = 0, a, b; i<users.length; i++) {
 					if (users[i].id == from.id){
-						users[i].money -= somme;
+						users[i].money -= price;
 						users[i].xp += 20;
 					} else if (users[i].id == to.id){
-						users[i].money += somme;
+						users[i].money += price;
 					} else if (a && b) {
 						payed = true;
 						cb(price);
