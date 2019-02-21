@@ -772,9 +772,11 @@ function bank({ desc, from, to, price, cb }){
 						users[i].money += price;
 					} else if (a && b) {
 						payed = true;
-						cb(price);
 					}
 				}
+
+				cb(price);
+				
 			} else if (msg.content.toLowerCase() == "refus" && canPay) {
 				if (payed == false && canPay == true) {
 					channel.send({embed: {
