@@ -84,7 +84,7 @@ client.on("guildMemberAdd", members => {
 		if (users[i].id == members.id){
 			users[i].xp = 0;
 			users[i].money = 0;
-=			users[i].sellAlreadyCode = false;
+			users[i].sellAlreadyCode = false;
 			exist = true;
 		}
 	}
