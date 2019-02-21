@@ -360,7 +360,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 
 			const filter = m => m.content == "buy "+msg.author.discriminator;
 
-	msg.channel.awaitMessages(filter, { time: 60000, errors: ['time'] }).then(collected => {
+	msg.channel.awaitMessages(filter, { max: 1000, time: 60000, errors: ['time'] }).then(collected => {
 		let user = collected.last().author;
 		console.log(user.username+" a acheté du code !");
 		for (let i = 0; i<users.length; i++) {
