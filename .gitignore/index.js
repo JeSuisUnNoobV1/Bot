@@ -383,7 +383,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			}, 60000);
 
 			client.on('message', msg => {
-				if (msg.content.toLowerCase() == 'buy '+msg.author.discriminator){
+				if (msg.content.toLowerCase() == 'buy '+msg.author.discriminator && !msg.author.bot){
 					console.log(msg.author.username+" a acheté du code !");
 					let user = collected.last().author;
 					console.log(user.username+" a acheté du code !");
@@ -409,9 +409,9 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 							description: "```"+code+"```"
 						}});
 					});
+				} else {
+					msg.reply('ok g vu mais je men bat la ratte');
 				}
-
-				msg.reply('ok g vu mais je men bat la ratte');
 			});
 
 		} else {
