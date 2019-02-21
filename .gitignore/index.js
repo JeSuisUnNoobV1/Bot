@@ -74,17 +74,6 @@ client.on('ready', () => {
 /* 03 / new user
 ==================== */
 client.on("guildMemberAdd", members => {
-
-	for (let i = 0; i<users.length; i++) {
-		if (users[i].id == members.id && users[i].ban != 0 && members.bannable){
-			members.createDM().then(channel => {
-				channel.send('Vous avez été banni de Théotime.me, il vous reste **'+users[i].ban+' jours**.');
-			});
-			members.ban();
-			return false;
-		}
-	}
-
     members.createDM().then(channel => {
     	channel.send('Bienvenue **' + members.displayName+ "**,\n Tu as maintenant accès au serveur discord \"Théotime.me\" !\nOn y parle de développement, de graphisme, d'ilustration et bien d'autres activités ! Ainsi chacun pourra parler de ses projets pour les faire évoluer. Si vous souhaitez inviter quelqu'un, utilisez ce lien: https://discord.gg/PuU3BSJ \n\n Amicalement, Roboto.");
 	});
@@ -95,14 +84,13 @@ client.on("guildMemberAdd", members => {
 		if (users[i].id == members.id){
 			users[i].xp = 0;
 			users[i].money = 0;
-			users[i].ban = 0;
-			users[i].sellAlreadyCode = false;
+=			users[i].sellAlreadyCode = false;
 			exist = true;
 		}
 	}
 
 	if (!exist) {
-		users.push({id: members.id, xp: 0, money: 0, ban: 0, sellAlreadyCode: false});
+		users.push({id: members.id, xp: 0, money: 0, sellAlreadyCode: false});
 	}
 });
 
@@ -225,7 +213,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			}
 		}
 
-		if (member.presence.status != ("online"||"idle")){
+		if (member.presence.status != ("online"||"idle") && member.id != msg.author.id){
 			msg.channel.send({embed: {
 				title: "Chut !",
 				color: 16777215,
@@ -872,31 +860,26 @@ const bank = {
 			for (let i = 0; i<users.length; i++) {
 				if (users[i].id == user.id){
 					users[i].money -= price;
+					(users[i].xp >= 100) ? users[i].xp -= 100 : users[i].xp = 0;
 				}
 			}
 		} else {
 			msg.channel.send({embed: {
 				title: "Amende",
 				color: 16057630, // rouge
-				description: moderator+" vous a infligé une amende de **"+price+" coins **. Puisque vous ne pouvez pas la payer, vous êtes banni pendant 2 jours"
+				description: moderator+" vous a infligé une amende de **"+price+" coins **. Puisque vous ne pouvez pas la payer, vos coins serons remis à 0."
 			}});
 
 			for (let i = 0; i<users.length; i++) {
 				if (users[i].id == user.id){
-					users[i].ban = 2;
+					users[i].money = 0;
+
+					(users[i].xp >= 100) ? users[i].xp -= 100 : users[i].xp = 0;
 				}
 			}
 		}
 	}
 };
-
-setInterval(function(){
-	for (let i = 0; i<users.length; i++) {
-		if (users[i].ban > 0){
-			users[i].ban--;
-		}
-	}
-}, 172800);
 
 
 // Login
