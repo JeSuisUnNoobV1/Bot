@@ -293,13 +293,11 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			}
 
 		if (isNaN(somme) || somme <= 0 || code == ""){
-			return msg.author.createDM().then(channel => {
-				channel.send({embed: {
-					title: "Erreur de vente",
-					color: 16057630, // rouge
-					description: "Désolé, la commande ou la somme ne sont pas valides. Merci d'utiliser !sell ainsi ```!sell 87 <code>```"
-				}});
-			});
+			return msg.channel.send({embed: {
+				title: "Erreur de vente",
+				color: 16057630, // rouge
+				description: "Désolé, la commande ou la somme ne sont pas valides. Merci d'utiliser !sell ainsi ```!sell <prix> <code>```"
+			}});
 		}
 
 		if (sellAlreadyCode == false) {
