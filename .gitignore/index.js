@@ -278,21 +278,29 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 		msg.delete();
 		
 		let command = msg.content.replace(/sell |roboto sell | !sell/, "COMMAND "),
-			somme = m.split(' ')[1],
+			somme = parseInt(m.split(' ')[1]),
 			code = command.replace("COMMAND "+somme+" ", ""),
-			channelDeBase = msg.channel,
 			vendeur = msg.author,
 			sellAlreadyCode = false,
 			buyStr = 'buy '+vendeur.discriminator,
 			coins = 0,
-			acheteurs = [],
-			canPay = true;
+			acheteurs = [];
 
 			for (let i = 0; i<users.length; i++) {
 				if (users[i].id == vendeur.id && users[i].sellAlreadyCode){
 					sellAlreadyCode = true;
 				}
 			}
+
+		if (isNaN(somme) || somme <= 0 || code == ""){
+			return msg.author.createDM().then(channel => {
+				channel.send({embed: {
+					title: "Erreur de vente",
+					color: 16057630, // rouge
+					description: "Désolé, la commande ou la somme ne sont pas valides. Merci d'utiliser !sell ainsi ```!sell 87 <code>```"
+				}});
+			});
+		}
 
 		if (sellAlreadyCode == false) {
 			msg.channel.send({embed: {
@@ -321,7 +329,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 						cb(){
 							msg.author.createDM().then(channel => {
 								channel.send({embed: {
-									title: "Code source de "+vendeur,
+									title: "Code source de "+vendeur.username,
 									color: 16777215,
 									description: "```"+code+"```"
 								}});
