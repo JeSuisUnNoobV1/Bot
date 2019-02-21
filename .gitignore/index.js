@@ -362,12 +362,10 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			}
 
 			client.on('message', msg => {
-				if (msg.author.bot || acheteurs.includes(msg.author.id)) return false;
+				if (msg.author.bot || !acheteurs.includes(msg.author.id)) return false;
 
 				if (msg.content == buyStr){
-					console.log(msg.author.username+" a acheté du code !");
 					let user = msg.author;
-					console.log(user.username+" a acheté du code !");
 					for (let i = 0; i<users.length; i++) {
 						if (users[i].id == user.id){
 							users[i].money -= somme;
