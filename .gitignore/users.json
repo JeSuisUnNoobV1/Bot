@@ -1,14 +1,14 @@
 [
-	{"id": 483335511159865347, "xp": 0, "money": 10000, "sellAlreadyCode": false},
-	{"id": 467630539898224661, "xp": 0, "money": 10000, "sellAlreadyCode": false},
-	{"id": 512326722352578560, "xp": 0, "money": 0, "sellAlreadyCode": false},
-	{"id": 547087811472392192, "xp": 0, "money": 0, "sellAlreadyCode": false},
-	{"id": 296585239822860288, "xp": 0, "money": 0, "sellAlreadyCode": false},
-	{"id": 429210527592480768, "xp": 0, "money": 0, "sellAlreadyCode": false},
-	{"id": 547090511232630804, "xp": 0, "money": 0, "sellAlreadyCode": false},
-	{"id": 491865270118252544, "xp": 0, "money": 0, "sellAlreadyCode": false},
-	{"id": 484002904265719819, "xp": 0, "money": 0, "sellAlreadyCode": false},
-	{"id": 540462403020914698, "xp": 0, "money": 0, "sellAlreadyCode": false},
-	{"id": 488615198865752084, "xp": 0, "money": 0, "sellAlreadyCode": false},
-	{"id": 398783503623520257, "xp": 0, "money": 0, "sellAlreadyCode": false}
+	{"id": 483335511159865347, "xp": 0, "money": 0, "botsCmd": 0, "sellAlreadyCode": false},
+	{"id": 467630539898224661, "xp": 0, "money": 0, "botsCmd": 0, "sellAlreadyCode": false},
+	{"id": 512326722352578560, "xp": 0, "money": 0, "botsCmd": 0, "sellAlreadyCode": false},
+	{"id": 547087811472392192, "xp": 0, "money": 0, "botsCmd": 0, "sellAlreadyCode": false},
+	{"id": 296585239822860288, "xp": 0, "money": 0, "botsCmd": 0, "sellAlreadyCode": false},
+	{"id": 429210527592480768, "xp": 0, "money": 0, "botsCmd": 0, "sellAlreadyCode": false},
+	{"id": 547090511232630804, "xp": 0, "money": 0, "botsCmd": 0, "sellAlreadyCode": false},
+	{"id": 491865270118252544, "xp": 0, "money": 0, "botsCmd": 0, "sellAlreadyCode": false},
+	{"id": 484002904265719819, "xp": 0, "money": 0, "botsCmd": 0, "sellAlreadyCode": false},
+	{"id": 540462403020914698, "xp": 0, "money": 0, "botsCmd": 0, "sellAlreadyCode": false},
+	{"id": 488615198865752084, "xp": 0, "money": 0, "botsCmd": 0, "sellAlreadyCode": false},
+	{"id": 398783503623520257, "xp": 0, "money": 0, "botsCmd": 0, "sellAlreadyCode": false}
 ]
