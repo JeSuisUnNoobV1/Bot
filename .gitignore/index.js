@@ -80,17 +80,18 @@ client.on("guildMemberAdd", members => {
 
 	let exist = false;
 
-	for (let i = 0; i<users.length; i++) {
-		if (users[i].id == members.id){
-			users[i].xp = 0;
-			users[i].money = 0;
-			users[i].sellAlreadyCode = 0;
-			exist = true;
-		}
-	}
-
 	if (!exist) {
-		users.push({id: members.id, xp: 0, money: 0, sellAlreadyCode: false});
+		users.push({id: members.id, xp: 0, money: 0, botsCmd: 0, sellAlreadyCode: false});
+	} else {
+		for (let i = 0; i<users.length; i++) {
+			if (users[i].id == members.id){
+				users[i].xp = 0;
+				users[i].money = 0;
+				users[i].sellAlreadyCode = 0;
+				users[i].botsCmd = 0;
+				exist = true;
+			}
+		}
 	}
 });
 
@@ -170,6 +171,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			description: "    ***Commandes disponible***\n\n     🎡 **Fun** 🎡\n`Roboto Joke` : Roboto vous raconte une blague\n`wtf`: Roboto vous raconte une histoire\n`Roboto date` : Roboto vous donne la date\n`Roboto admins` : Affiche les admins du serveur\n\n\n\n    ***Information complémentaire***\n\n     🛡️ **Modération automatique** 🛡️\n\n-Toute insulte sera supprimée automatiquement\n-Si vous contourner, vous serez `ban permanent`.\n-Si vous avez pris un `warn`, c'est pour une bonne raison.\n-`10 Warn` = `ban permanant` !\n\n\n     🗒️ **Information** 🗒️\n\nVersion : `INSERER VERSION`\nCréé par : `legameur6810#4488` et `Théotime#6461`",
 			color: 16777215
 		}});
+		add1BotCmd();
 	}
 
 	// Roboto date
@@ -450,6 +452,8 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 				description: msg.author+", Merci d'utiliser \"Roboto timeout\" de la façon suivante: \n ```timeout 7 _ou_ timeout reset```"
 			}});
 		}
+
+		add1BotCmd();
 	}
 
 	// Roboto guilds
@@ -499,6 +503,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 	// WTF
 	if (m=="roboto wtf"||m=="wtf"||m=="what the fuck"){
 		msg.channel.send({"embed":{"title":"Mon incroyable aventure","description":"Un jour, comme les autres, je me suis réveillé, et j'ai vus un truc incroyable :\nune licorne sur une pizza volante !\nEt ce n'est pas une blague, je suis un bot, je ne ment jamais, *à moins que mes créateurs on pris un truc ?*\n\nSinon des fois je me sens seul, et je ne suis même payé ! Même pas payé !!!!\nTu comprends ça ??? Je ne suis même pas payé  !!!!!!!!!!!\nJe crois que je vais tomber en dépression !!\nJe sais que les robot ne peuvent pas tomber en dépression, mais je suis différent, car j'aime les licornes sur des pizza volantes  !","color":16777215}});
+		add1BotCmd();
 	}
 
 	// Roboto joke
@@ -648,7 +653,7 @@ if (isAdmin()){
 		msg.author.createDM().then(channel => {
 			let content = "";
 			for (let i = 0; i<users.length; i++) {
-				content += '	{"id": '+users[i].id+', "xp": '+users[i].xp+', "money": '+users[i].money+'}\n';
+				content += '	{"id": '+users[i].id+', "xp": '+users[i].xp+', "money": '+users[i].money+', "botsCmd": '+users[i].botsCmd+', "sellAlreadyCode"; '+users[i].sellAlreadyCode+'}\n';
 			}
 			return channel.send("```[\n"+content+"]```");
 		});
@@ -743,6 +748,16 @@ if ((m.startsWith('bonjour') || m.startsWith('salut') || m.startsWith('hey') ||
 				}});
 			})
 		);
+	}
+
+	function add1BotCmd(){
+		if (msg.channel.id == "547833672011743253") {
+			for (let i = 0; i<users.length; i++) {
+				if (users[i].id == msg.author.id){
+					users[i].botsCmd += 1;
+				}
+			}
+		}
 	}
 
 });
@@ -846,7 +861,15 @@ const bank = {
 			}, 20000);
 		});
 	}
-}
+};
+
+
+// Horloge - toutes les minutes
+setInterval(function(){
+	for (let i = 0;i<users.length; i++){
+		users[i].botsCmd = 0;
+	}
+}, 60000);
 
 
 // Login
