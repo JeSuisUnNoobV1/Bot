@@ -742,7 +742,8 @@ if ((m.startsWith('bonjour') || m.startsWith('salut') || m.startsWith('hey') ||
 });
 
 function bank({ desc, from, to, price, cb }){
-	let canPay = true;
+	let canPay = true, // Variables globales à la fonction
+		payed = false;
 
 	from.createDM().then(channel => {
 		channel.send({embed: {
@@ -752,7 +753,7 @@ function bank({ desc, from, to, price, cb }){
 		}});
 
 		for (let i = 0; i<users.length; i++) {
-			if (users[i].id == from.id && users[i].money < price){
+			if (users[i].id == from.id && users[i].money < price){ // Si la personne n'a pas les coins pour payer
 				channel.send({embed: {
 					title: 'Débit impossible',
 					color: 16057630, // rouge
@@ -763,35 +764,33 @@ function bank({ desc, from, to, price, cb }){
 		}
 
 		client.on('message', msg => {
-			if (msg.content.replace('#', "")+"" == msg.author.discriminator && canPay){
+			if (msg.content.replace('#', "")+"" == msg.author.discriminator && canPay){ // Si le message est bien égal au tag de son auteur et que l'on peut encore payer
 				channel.send({embed: {
 					title: "Débit de coins",
 					color: 16777215, // blanc
 					description: "Vous avez été débité de **"+price+" coins**."
 				}});
 
-				for (let i = 0, a, b; i<users.length; i++) {
+				for (let i = 0; i<users.length; i++) {
 					if (users[i].id == from.id){
-						users[i].money -= price;
-						users[i].xp += 20;
+						users[i].money -= price; // On enlève la thune
+						users[i].xp += 20;	// On lui ajoute de l'XP
+						payed = true; // La somme est payée
+						cb(price); // Callback quand la somme est payée
 					} else if (users[i].id == to.id){
-						users[i].money += price;
-					} else if (a && b) {
-						payed = true;
+						users[i].money += price; // On ajoute la thune
 					}
 				}
-
-				cb(price);
 				
 			} else if (msg.content.toLowerCase() == "refus" && canPay) {
-				if (payed == false && canPay == true) {
+				if (payed == false && canPay == true) { // Si on peut encore payer mais que la somme n'est pas encore payée
 					channel.send({embed: {
 						title: "Débit de coins annulé",
 						color: 16777215, // blanc
 						description: "Très bien, le débit a été annulé. Vous pouvez encore revenir sur votre décision en entrant votre Tag discord. ```ex #6461```"
 					}});
-					canPay = false;
-				} else {
+					canPay = false; // On ne peux plus payer après l'annulation
+				} else { // Si la somme est déjà payée ou que le paiement a été annulé
 					msg.channel.send({embed: {
 						title: "Erreur d'annulation",
 						color: 16057630, // rouge
@@ -803,7 +802,7 @@ function bank({ desc, from, to, price, cb }){
 		});
 
 		setTimeout(function(){
-			if (!payed && canPay) {
+			if (!payed && canPay) { // Si la somme n'est pas payée et que on peut encore payer
 				channel.send({embed: {
 					title: "Débit de coins annulé",
 					color: 16777215,
@@ -811,7 +810,7 @@ function bank({ desc, from, to, price, cb }){
 				}});
 			}
 
-			canPay = false;
+			canPay = false; // On ne peut plus payer après les 20s
 		}, 20000);
 	});
 }
