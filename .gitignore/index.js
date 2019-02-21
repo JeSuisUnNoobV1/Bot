@@ -339,7 +339,8 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			sellAlreadyCode = false,
 			buyStr = 'buy '+vendeur.discriminator,
 			coins = 0,
-			number = 0;
+			number = 0,
+			acheteurs = [];
 
 			for (let i = 0; i<users.length; i++) {
 				if (users[i].id == vendeur.id && users[i].sellAlreadyCode){
@@ -361,7 +362,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			}
 
 			client.on('message', msg => {
-				if (msg.author.bot) return false;
+				if (msg.author.bot || acheteurs.includes(msg.author.id)) return false;
 
 				if (msg.content == buyStr){
 					console.log(msg.author.username+" a acheté du code !");
@@ -374,6 +375,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			
 						coins += somme;
 						number ++;
+						acheteurs.push(msg.author.id);
 					}
 			
 					user.createDM().then(channel => {
