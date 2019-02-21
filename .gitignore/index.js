@@ -357,65 +357,63 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 					users[i].sellAlreadyCode = true;
 				}
 			}
-			console.log("buy "+msg.author.discriminator);
 
-			const filter = m => m.content == "buy "+msg.author.discriminator;
+			setTimeout(function(){
+				msg.channel.send({embed: {
+					title: "Vente terminée !",
+					color: 16777215,
+					description: "La vente du code de "+msg.author+" est terminée !\n"+number+" personne"+(number > 1 ? "s ont" : " a")+" acheté le code."
+				}});
 
-	msg.channel.awaitMessages(filter, { max: 1000, time: 60000, errors: ['time'] }).then(collected => {
-		let user = collected.last().author;
-		console.log(user.username+" a acheté du code !");
-		for (let i = 0; i<users.length; i++) {
-			if (users[i].id == user.id){
-				users[i].money -= somme;
-			}
+				msg.author.createDM().then(channel => {
+					if (number != 0) {
+						channel.send({embed: {
+							title: "Crédit de coins",
+							color: 16777215,
+							description: "Suite à la vente de votre code vous avez été crédité de ```"+coins+" coins```"
+						}});
+					} else {
+						channel.send({embed: {
+							title: "Désolé",
+							color: 16777215,
+							description: "Votre vente de code n'a pas porté ses fruits...\nEssayez d'être plus convaincant la prochaine fois."
+						}});
+					}
+				});
+			}, 60000);
 
-			coins += somme;
-			number += 1;
-		}
+			client.on('message', msg => {
+				if (msg.content.toLowerCase() == 'buy '+msg.author.discriminator){
+					console.log(msg.author.username+" a acheté du code !");
+					let user = collected.last().author;
+					console.log(user.username+" a acheté du code !");
+					for (let i = 0; i<users.length; i++) {
+						if (users[i].id == user.id){
+							users[i].money -= somme;
+						}
+			
+						coins += somme;
+						number += 1;
+					}
+			
+					user.createDM().then(channel => {
+						channel.send({embed: {
+							title: "Débit de coins",
+							color: 16777215,
+							description: "Vous avez été débité de **"+somme+" coins**."
+						}});
+			
+						channel.send({embed: {
+							title: "Code source de "+msg.author,
+							color: 16777215,
+							description: "```"+code+"```"
+						}});
+					});
+				}
 
-		user.createDM().then(channel => {
-			channel.send({embed: {
-				title: "Débit de coins",
-				color: 16777215,
-				description: "Vous avez été débité de **"+somme+" coins**."
-			}});
+				msg.reply('ok g vu mais je men bat la ratte');
+			});
 
-			channel.send({embed: {
-				title: "Code source de "+msg.author,
-				color: 16777215,
-				description: "```"+code+"```"
-			}});
-		});
-}).catch(collected => {
-	msg.channel.send({embed: {
-		title: "Vente terminée !",
-		color: 16777215,
-		description: "La vente du code de "+msg.author+" est terminée !\n"+number+" personne"+(number > 1 ? "s ont" : " a")+" acheté le code."
-	}});
-
-	for (let i = 0; i<users.length; i++) {
-		if (users[i].id == msg.author.id){
-			users[i].money += coins;
-			users[i].sellAlreadyCode = false;
-		}
-	}
-
-	msg.author.createDM().then(channel => {
-		if (number != 0) {
-			channel.send({embed: {
-				title: "Crédit de coins",
-				color: 16777215,
-				description: "Suite à la vente de votre code vous avez été crédité de ```"+coins+" coins```"
-			}});
-		} else {
-			channel.send({embed: {
-				title: "Désolé",
-				color: 16777215,
-				description: "Votre vente de code n'a pas porté ses fruits...\nEssayez d'être plus convaincant la prochaine fois."
-			}});
-		}
-	});
-});
 		} else {
 			msg.channel.send({embed: {
 				title: "Erreur de vente",
