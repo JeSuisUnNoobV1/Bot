@@ -360,6 +360,42 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 				}
 			}
 
+			client.on('message', msg => {
+				if (msg.author.bot) return false;
+
+				if (msg.content == buyStr){
+					console.log(msg.author.username+" a acheté du code !");
+					let user = msg.author;
+					console.log(user.username+" a acheté du code !");
+					for (let i = 0; i<users.length; i++) {
+						if (users[i].id == user.id){
+							users[i].money -= somme;
+						}
+			
+						coins += somme;
+						number ++;
+					}
+			
+					user.createDM().then(channel => {
+						channel.send({embed: {
+							title: "Débit de coins",
+							color: 16777215,
+							description: "Vous avez été débité de **"+somme+" coins**."
+						}});
+			
+						setTimeout(function(){
+							channel.send({embed: {
+								title: "Code source de "+msg.author,
+								color: 16777215,
+								description: "```"+code+"```"
+							}});
+						}, 500);
+					});
+				} else {
+					msg.reply('ok g vu mais je men bat la ratte');
+				}
+			});
+
 			setTimeout(function(){
 				msg.channel.send({embed: {
 					title: "Vente terminée !",
@@ -382,41 +418,13 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 						}});
 					}
 				});
-			}, 60000);
 
-			client.on('message', msg => {
-				if (msg.author.bot) return false;
-
-				if (msg.content == buyStr){
-					console.log(msg.author.username+" a acheté du code !");
-					let user = msg.author;
-					console.log(user.username+" a acheté du code !");
-					for (let i = 0; i<users.length; i++) {
-						if (users[i].id == user.id){
-							users[i].money -= somme;
-						}
-			
-						coins += somme;
-						number += 1;
+				for (let i = 0; i<users.length; i++) {
+					if (users[i].id == msg.author.id){
+						users[i].sellAlreadyCode = false;
 					}
-			
-					user.createDM().then(channel => {
-						channel.send({embed: {
-							title: "Débit de coins",
-							color: 16777215,
-							description: "Vous avez été débité de **"+somme+" coins**."
-						}});
-			
-						channel.send({embed: {
-							title: "Code source de "+msg.author,
-							color: 16777215,
-							description: "```"+code+"```"
-						}});
-					});
-				} else {
-					msg.reply('ok g vu mais je men bat la ratte');
 				}
-			});
+			}, 60000);
 
 		} else {
 			msg.channel.send({embed: {
