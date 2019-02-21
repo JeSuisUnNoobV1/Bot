@@ -138,7 +138,7 @@ if (m!="roboto rank"&&m!="rank"&m!="xp"&&m!="levels"&&m!="money") {
 }
 
 	for (let i = 0; i<users.length; i++) {
-		if (users[i].botsCmd >= 3){
+		if (users[i].id == msg.author.id && users[i].botsCmd >= 3){
 			msg.channel.send({embed: {
 				title: "Waouh, moins vite !",
 				color: 16057630,
