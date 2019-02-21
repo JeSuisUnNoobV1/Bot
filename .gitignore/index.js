@@ -217,16 +217,15 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			msg.channel.send({embed: {
 				title: "Chut !",
 				color: 16777215,
-				description: "Désolé, vous ne pouvez pas voir l'expérience de "+member+" si il n'est pas connecté. Peut-être même qu'il dort. :sleeping:"
+				description: "Désolé, vous ne pouvez pas voir l'expérience ni les coins de "+member+" si il n'est pas connecté. Peut-être même qu'il dort. :sleeping:"
 			}});
-			return false;
+		} else {
+			msg.channel.send({embed: {
+				title: "Expérience de "+member.username,
+				color: 16777215,
+				description: "Xp: "+xp+"\nMoney: "+money
+			}});
 		}
-
-		msg.channel.send({embed: {
-			title: "Expérience de "+member.username,
-			color: 16777215,
-			description: "Xp: "+xp+"\nMoney: "+money
-	    }});
 	}
 
 	// Roboto give
@@ -350,7 +349,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			msg.channel.send({embed: {
 				title: "Vente de code",
 				color: 16777215,
-				description: msg.author+" vend du code !\nVous pouvez l'acheter au prix de `"+somme+" coins` avec la commande ```buy "+msg.author.tag.split('#')[1]+"``` La vente sera clôturée après une minute donc faîtes vite !"
+				description: msg.author+" vend du code !\nVous avez une minute pour l'acheter au prix de `"+somme+" coins` avec la commande ```buy "+msg.author.tag.split('#')[1]+"```"
 			}});
 
 			for (let i = 0; i<users.length; i++) {
@@ -359,10 +358,11 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 				}
 			}
 
-			const filter = m => m.content == "buy "+msg.author.tag.split('#')[1];
+			const filter = m => m.content == "buy "+msg.author.discriminator;
 
 	msg.channel.awaitMessages(filter, { time: 60000, errors: ['time'] }).then(collected => {
-		let user = collected.last();
+		let user = collected.last().author;
+		console.log(user.username+" a acheté du code !");
 		for (let i = 0; i<users.length; i++) {
 			if (users[i].id == user.id){
 				users[i].money -= somme;
