@@ -741,12 +741,12 @@ if (isAdmin()){
 ============================= */
 
 if ((m.startsWith('bonjour') || m.startsWith('salut') || m.startsWith('hey') || m.startsWith('hello') || m.startsWith('wesh') || m.startsWith('wsh') || m.startsWith('bjr') || m.startsWith('slt') || m.startsWith('coucou') || m.startsWith('cc')) && (msg.author.id != "512326722352578560" && msg.channel.id != "547042040068833300" && msg.channel.id != "547044092878520330" && msg.channel.id != "547044109261471744")) {
-	const destinataire = msg.content.replace(/bonjour|salut|hey|hello|wesh|wsh|bjr|slt|coucou|cc| /, "").split(' '),
+	const destinataire = msg.mentions.users.first() || false,
 		  str = salutations[Math.floor(Math.random() * (salutations.length - 1) + 1)];
 	 var  username = msg.author;
 
-	if (destinataire != "") {
-		username = destinataire[1];
+	if (destinataire != false) {
+		username = destinataire;
 	}
 
 
@@ -762,7 +762,7 @@ if ((m.startsWith('bonjour') || m.startsWith('salut') || m.startsWith('hey') ||
 	// Developpeurs
 	if (msg.channel.id == "547042040068833300") {
 		msg.delete().then(
-		client.channels.find("id", "547043406971535370").send({embed: {
+		client.channels.find(val => val.id === "547043406971535370").send({embed: {
 			title: "message de "+msg.author.tag,
 			color: 16777215,
 			description: "Contenu du message:\n"+msg.content
