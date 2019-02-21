@@ -341,7 +341,8 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			sellAlreadyCode = false,
 			buyStr = 'buy '+vendeur.discriminator,
 			coins = 0,
-			acheteurs = [];
+			acheteurs = [],
+			canPay = true;
 
 			for (let i = 0; i<users.length; i++) {
 				if (users[i].id == vendeur.id && users[i].sellAlreadyCode){
@@ -392,7 +393,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 						}});
 
 						client.on('message', msg => {
-							if (msg.content.replace('#', "")+"" == msg.author.discriminator){
+							if (msg.content.replace('#', "")+"" == msg.author.discriminator && canPay){
 								channel.send({embed: {
 									title: "Débit de coins",
 									color: 16777215, // blanc
@@ -415,7 +416,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 										description: "```"+code+"```"
 									}});
 								}, 800);
-							} else if (msg.content.toLowerCase() == "refus") {
+							} else if (msg.content.toLowerCase() == "refus" && canPay) {
 								if (payed == false) {
 									channel.send({embed: {
 										title: "Débit de coins annulé",
@@ -440,6 +441,8 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 										description: "Très bien, le débit a été annulé."
 									}});
 								}
+
+								canPay = false;
 							}, 20000);
 						});
 					});
