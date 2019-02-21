@@ -633,7 +633,7 @@ if (isAdmin()){
 					channel.send({embed: {
 						title: "Crédit de coins",
 						color: 16777215,
-						description: msg.author+", vous avez été crédité de```"+somme+" coins```"
+						description: "Vvous avez été crédité de **"+somme+" coins**"
 					}});
 				});
 				break;
@@ -654,6 +654,17 @@ if (isAdmin()){
 
 	// Roboto get db
 	if (m=="get db"||m=="roboto get db") {
+		msg.author.createDM().then(channel => {
+			let content = "";
+			for (let i = 0; i<users.length; i++) {
+				content += "	{id: "+users[i].id+", xp: "+users[i].xp+", money: "+users[i].money+"}\n";
+			}
+			return channel.send("```[\n"+content+"]```");
+		});
+	}
+
+	// Roboto get db
+	if (m=="get godb"||m=="roboto get godb") {
 		msg.author.createDM().then(channel => {
 			let content = "";
 			for (let i = 0; i<users.length; i++) {
