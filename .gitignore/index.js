@@ -808,14 +808,12 @@ function bank({ desc, from, to, price, cb }){
 		}});
 
 		for (let i = 0; i<users.length; i++) {
-			if (users[i].id == msg.author.id && users[i].money < somme){
+			if (users[i].id == from.id && users[i].money < somme){
 				channel.send({embed: {
 					title: 'Débit impossible',
 					color: 16057630, // rouge
 					description: "Désolé, vous n'avez que **"+users[i].money+" coins**.\nPas suffisamment pour pour payer la somme de ```"+price+"```"
 				}});
-			
-				canPay = false;
 				return;
 			}
 		}
