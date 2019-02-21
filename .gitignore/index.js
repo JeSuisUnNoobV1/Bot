@@ -339,7 +339,6 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			sellAlreadyCode = false,
 			buyStr = 'buy '+vendeur.discriminator,
 			coins = 0,
-			number = 0,
 			acheteurs = [];
 
 			for (let i = 0; i<users.length; i++) {
@@ -372,7 +371,6 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 						}
 			
 						coins += somme;
-						number ++;
 						acheteurs.push(msg.author.id);
 					}
 			
@@ -400,11 +398,11 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 				msg.channel.send({embed: {
 					title: "Vente terminée !",
 					color: 16777215,
-					description: "La vente du code de "+msg.author+" est terminée !\n"+number+" personne"+(number > 1 ? "s ont" : " a")+" acheté le code."
+					description: "La vente du code de "+msg.author+" est terminée !\n"+acheteurs.length+" personne"+(acheteurs.length > 1 ? "s ont" : " a")+" acheté le code."
 				}});
 
 				msg.author.createDM().then(channel => {
-					if (number != 0) {
+					if (acheteurs != []) {
 						channel.send({embed: {
 							title: "Crédit de coins",
 							color: 16777215,
