@@ -137,6 +137,17 @@ if (m!="roboto rank"&&m!="rank"&m!="xp"&&m!="levels"&&m!="money") {
 	}
 }
 
+	for (let i = 0; i<users.length; i++) {
+		if (users[i].botsCmd >= 3){
+			msg.channel.send({embed: {
+				title: "Waouh, moins vite !",
+				color: 16057630,
+				description: "Désolé, vous ne pouvez pas envoyer plus de 3 commandes par minutes."
+			}});
+		}
+		return;
+	}	
+
 /* 05 / Auto moderation
 =========================== */
 if(m.includes("fdp")||m.includes("beze")||m.includes("bese")||m.includes("bz")||m.includes("salop")||m.includes("pute")||m === "con"||m.includes("connard")||m.includes("tg")||m.includes("batard")||m.includes("putain")||m.includes("tes morts")||m.includes("merde")||m.includes("merd")||m.includes("couilles")||m.includes("abruti")||m.startsWith("nique ")||m===("nique")) {
@@ -759,7 +770,6 @@ if ((m.startsWith('bonjour') || m.startsWith('salut') || m.startsWith('hey') ||
 			}
 		}
 	}
-
 });
 
 const bank = {
