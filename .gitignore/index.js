@@ -776,6 +776,8 @@ const bank = {
 					color: 16057630, // blanc
 					description: "Un bot ne peux pas recevoir de coins."
 				}});
+
+				return false;
 			}
 	
 			for (let i = 0; i<users.length; i++) {
@@ -785,7 +787,7 @@ const bank = {
 						color: 16057630, // rouge
 						description: "Désolé, vous n'avez que **"+users[i].money+" coins**.\nPas suffisamment pour pour payer la somme de ```"+price+"```"
 					}});
-					return;
+					return false;
 				}
 			}
 	
