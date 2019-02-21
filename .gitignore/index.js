@@ -335,12 +335,14 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 
 		let somme = m.replace(/roboto sell /, "!sell ").split(' ')[1],
 			code = m.replace("sell "+somme+" ", ""),
+			vendeur = msg.author,
 			sellAlreadyCode = false,
+			buyStr = 'buy '+vendeur.discriminator,
 			coins = 0,
 			number = 0;
 
 			for (let i = 0; i<users.length; i++) {
-				if (users[i].id == msg.author.id && users[i].sellAlreadyCode){
+				if (users[i].id == vendeur.id && users[i].sellAlreadyCode){
 					sellAlreadyCode = true;
 				}
 			}
@@ -383,9 +385,11 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			}, 60000);
 
 			client.on('message', msg => {
-				if (msg.content.toLowerCase() == 'buy '+msg.author.discriminator && !msg.author.bot){
+				if (msg.author.bot) return false;
+
+				if (msg.content == buyStr){
 					console.log(msg.author.username+" a acheté du code !");
-					let user = collected.last().author;
+					let user = msg.author;
 					console.log(user.username+" a acheté du code !");
 					for (let i = 0; i<users.length; i++) {
 						if (users[i].id == user.id){
