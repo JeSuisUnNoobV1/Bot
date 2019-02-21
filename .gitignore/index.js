@@ -357,6 +357,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 					users[i].sellAlreadyCode = true;
 				}
 			}
+			console.log("buy "+msg.author.discriminator);
 
 			const filter = m => m.content == "buy "+msg.author.discriminator;
 
