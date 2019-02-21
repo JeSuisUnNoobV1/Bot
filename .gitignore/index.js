@@ -246,6 +246,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 				return false;
 			}
 
+		if (user.presence.status != undefined && !isNaN(somme)) {
 			bank({
 				desc: "faire un don",
 				from: msg.author,
@@ -261,7 +262,6 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 					});
 				}
 			});
-
 		} else {
 			msg.author.createDM().then(channel => {
 				channel.send({embed: {
