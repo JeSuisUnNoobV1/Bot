@@ -329,13 +329,14 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 		}
 	}
 
-	// Roboto invite
-	if (m.startsWith("!sell ")){
+	// Roboto sell
+	if (m.startsWith("!sell ") || m.startsWith("roboto sell ") || m.startsWith("sell ")){
 		msg.delete();
-
-		let somme = m.split(' ')[1],
-			command = msg.content.replace(/sell |roboto sell | !sell/, "COMMAND "),
-			code = msg.content.replace(command+" "+somme+" ", ""),
+		
+		let command = msg.content.replace(/sell |roboto sell | !sell/, "COMMAND "),
+			somme = m.split(' ')[1],
+			code = command.replace("COMMAND "+somme+" ", ""),
+			channelDeBase = msg.channel,
 			vendeur = msg.author,
 			sellAlreadyCode = false,
 			buyStr = 'buy '+vendeur.discriminator,
@@ -369,10 +370,9 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 					for (let i = 0; i<users.length; i++) {
 						if (users[i].id == user.id){
 							users[i].money -= somme;
+							coins += somme;
+							acheteurs.push(user.id);
 						}
-			
-						coins += somme;
-						acheteurs.push(msg.author.id);
 					}
 			
 					user.createDM().then(channel => {
@@ -390,8 +390,6 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 							}});
 						}, 500);
 					});
-				} else {
-					msg.reply('ok g vu mais je men bat la ratte');
 				}
 			});
 
