@@ -668,7 +668,7 @@ if (isAdmin()){
 		msg.author.createDM().then(channel => {
 			let content = "";
 			for (let i = 0; i<goCodes.length; i++) {
-				content += '	{"lk": '+goCodes[i].id+'}\n';
+				content += '	{"lk": '+goCodes[i].lk+'}\n';
 			}
 			return channel.send("```[\n"+content+"]```");
 		});
