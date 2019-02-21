@@ -253,7 +253,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 				to: user,
 				price: somme,
 				cb(somme){
-					msg.author.createDM().then(channel => {
+					user.createDM().then(channel => {
 						channel.send({embed: {
 							title: "Crédit de coins",
 							color: 16777215, // blanc
@@ -793,7 +793,7 @@ function bank({ desc, from, to, price, cb }){
 					channel.send({embed: {
 						title: "Débit de coins annulé",
 						color: 16777215, // blanc
-						description: "Très bien, le débit a été annulé. Vous pouvez encore revenir sur votre décision en entrant votre Tag discord. ```ex #6461```"
+						description: "Très bien, le débit a été annulé."
 					}});
 					canPay = false; // On ne peux plus payer après l'annulation
 				} else { // Si la somme est déjà payée ou que le paiement a été annulé
