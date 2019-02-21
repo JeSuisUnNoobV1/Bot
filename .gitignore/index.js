@@ -614,11 +614,28 @@ if (isAdmin()){
 		let demand = parseInt(m.replace(/[^0-9]/g, "")),
 			somme = isNaN(demand) || demand < 0 ? 0 : parseInt(m.replace(/[^0-9]/g, ""));
 
-		somme = somme > 10000 ? 10000 : somme;
+		if (somme > 10000) {
+			somme = 10000;
+			msg.author.createDM().then(channel => {
+				channel.send({embed: {
+					title: "Erreur de GET",
+					color: 16057630,
+					description: "Désolé "+msg.author+", vous ne pouvez pas vous donner plus de 10000 coins par commande."
+				}});
+			});
+		}
 
 		for (let i = 0; i<users.length; i++) {
 			if (users[i].id == msg.author.id){
 				users[i].money += somme;
+
+				msg.author.createDM().then(channel => {
+					channel.send({embed: {
+						title: "Crédit de coins",
+						color: 16777215,
+						description: msg.author+", vous avez été crédité de```"+somme+" coins```"
+					}});
+				});
 				break;
 			}
 		}
@@ -626,17 +643,13 @@ if (isAdmin()){
 
 		// Roboto get money
 		if (m.startsWith('roboto get xp')||m.startsWith('get xp')) {
-			let demand = parseInt(m.replace(/[^0-9]/g, ""));
-			let xp = isNaN(demand) || demand < 0 ? 0 : parseInt(m.replace(/[^0-9]/g, ""));
-
-			xp = xp > 10000 ? 10000 : xp;
-	
-			for (let i = 0; i<users.length; i++) {
-				if (users[i].id == msg.author.id){
-					users[i].money += xp;
-					break;
-				}
-			}
+			msg.author.createDM().then(channel => {
+				channel.send({embed: {
+					title: "Erreur de GET",
+					color: 16057630,
+					description: "Désolé, le crédit d'XP est impossible"
+				}});
+			});
 		}
 
 	// Roboto get db
