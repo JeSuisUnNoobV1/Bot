@@ -319,11 +319,13 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 						to: vendeur,
 						price: somme,
 						cb(){
-							msg.channel.send({embed: {
-								title: "Code source de "+vendeur,
-								color: 16777215,
-								description: "```"+code+"```"
-							}});
+							msg.author.createDM().then(channel => {
+								channel.send({embed: {
+									title: "Code source de "+vendeur,
+									color: 16777215,
+									description: "```"+code+"```"
+								}});
+							});
 						}
 					});
 				}
