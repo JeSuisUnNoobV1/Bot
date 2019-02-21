@@ -78,7 +78,20 @@ client.on("guildMemberAdd", members => {
     	channel.send('Bienvenue **' + members.displayName+ "**,\n Tu as maintenant accès au serveur discord \"Théotime.me\" !\nOn y parle de développement, de graphisme, d'ilustration et bien d'autres activités ! Ainsi chacun pourra parler de ses projets pour les faire évoluer. Si vous souhaitez inviter quelqu'un, utilisez ce lien: https://discord.gg/PuU3BSJ \n\n Amicalement, Roboto.");
 	});
 
-	users.push({id: members.id, xp: 0, money: 0, sellAlreadyCode: false});
+	let exist = false;
+
+	for (let i = 0; i<users.length; i++) {
+		if (users[i].id == members.id){
+			users[i].xp = 0;
+			users[i].money = 0;
+			users[i].sellAlreadyCode = 0;
+			exist = true;
+		}
+	}
+
+	if (!exist) {
+		users.push({id: members.id, xp: 0, money: 0, sellAlreadyCode: false});
+	}
 });
 
 client.on('message', msg => {
@@ -151,7 +164,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 	}
 
 	// Roboto help
-	if (m=="roboto help"||m=="roboto aide"||m=="roboto aides"||m=="roboto infos"||m=="roboto info"||m=="roboto information"||m=="roboto informations"){
+	if (m=="roboto help"||m=="!help"||m=="roboto aide"||m=="roboto aides"||m=="roboto infos"||m=="roboto info"||m=="roboto information"||m=="roboto informations"){
 		msg.channel.send({"embed":{
 			title: "Aide du serveur",
 			description: "    ***Commandes disponible***\n\n     🎡 **Fun** 🎡\n`Roboto Joke` : Roboto vous raconte une blague\n`wtf`: Roboto vous raconte une histoire\n`Roboto date` : Roboto vous donne la date\n`Roboto admins` : Affiche les admins du serveur\n\n\n\n    ***Information complémentaire***\n\n     🛡️ **Modération automatique** 🛡️\n\n-Toute insulte sera supprimée automatiquement\n-Si vous contourner, vous serez `ban permanent`.\n-Si vous avez pris un `warn`, c'est pour une bonne raison.\n-`10 Warn` = `ban permanant` !\n\n\n     🗒️ **Information** 🗒️\n\nVersion : `INSERER VERSION`\nCréé par : `legameur6810#4488` et `Théotime#6461`",
@@ -160,7 +173,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 	}
 
 	// Roboto date
-	if (m=="roboto date"||m=="roboto time"||m=="roboto heure"||m=="quelle heure est-il ?"||m=="heure"||m=="quel jour sommes-nous ?"||m=="date"||m=="jour"){
+	if (m=="roboto date"||m=="roboto time"||m=="roboto heure"||m=="quelle heure est-il ?"||m=="heure"||m=="quel jour sommes-nous ?"||m=="date"||m=="jour"||m=="!date"){
 		const   d = new Date(),
 			   _d = d.getDate() < 10 ? "0"+d.getDate() : d.getDate(),
 			    m = d.getMonth() +1 < 10 ? "0"+(d.getMonth() +1) : d.getMonth() +1,
@@ -180,21 +193,17 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 		msg.channel.send({"embed":{
 			title:"Administrateurs du serveur",
 			description: "Super admin: <@467630539898224661> \n Admin: <@483335511159865347> \n Ces deux personnes gèrent le serveur et sont mes uniques responsables et développeurs.",
-		  	color: 3356828
+		  	color: 16777215
 		}});	
 	}
 
 	// Roboto channel
-	if (m=="roboto channel"||m=="!channel"){
+	if (m=="roboto channel"||m=="!channel"||m=="channel"){
 		msg.channel.send("Vous êtes sur le salon `"+msg.channel.name+"`");	
 	}
 
-	if (m=="roboto help"||m=='!help'){
-		const id = message.guild.roles.find('name', 'Modérateur').id; // Changer "Modérateur" par le nom donné au rôle de modération
-	}
-
 	// Roboto rank
-	if (m.startsWith("roboto money")||m.startsWith("roboto xp")||m.startsWith("!money")||m.startsWith("!xp")){
+	if (m.startsWith("roboto money")||m.startsWith("roboto xp")||m.startsWith("!money")||m.startsWith("!xp")||m.startsWith("xp")||m.startsWith("money")){
 		let xp, money, member = msg.mentions.users.first() || msg.author;
 		for (let i = 0; i<users.length; i++) {
 			if (users[i].id == member.id){
@@ -212,7 +221,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 	}
 
 	// Roboto give
-	if (m.startsWith("roboto give")||m.startsWith("!give")) {
+	if (m.startsWith("roboto give")||m.startsWith("!give")||m.startsWith("give")) {
 		let split = m.replace(/roboto give /, '!give ').split(' '),
 			somme = parseInt(split[1]),
 			user = msg.mentions.users.first() || false;
