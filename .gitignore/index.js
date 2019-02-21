@@ -330,11 +330,12 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 	}
 
 	// Roboto invite
-	if (m.startsWith("roboto sell ") || m.startsWith("!sell ")){
+	if (m.startsWith("!sell ")){
 		msg.delete();
 
-		let somme = m.replace(/roboto sell /, "!sell ").split(' ')[1],
-			code = m.replace("sell "+somme+" ", ""),
+		let somme = m.split(' ')[1],
+			command = msg.content.replace(/sell |roboto sell | !sell/, "COMMAND "),
+			code = msg.content.replace(command+" "+somme+" ", ""),
 			vendeur = msg.author,
 			sellAlreadyCode = false,
 			buyStr = 'buy '+vendeur.discriminator,
