@@ -246,7 +246,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 				return false;
 			}
 
-		if (user.presence.status != undefined && !isNaN(somme)) {
+		if (user != false && !isNaN(somme)) {
 			bank.transfert({
 				desc: "faire un don",
 				from: msg.author,
@@ -267,7 +267,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 				channel.send({embed: {
 					title: "Erreur de donation",
 					color: 16057630, // rouge
-					description: "Désolé, vous devez préciser la somme ainsi que le bénéficiaire de votre don. ```ex: give 50 @Théotime#6461```"
+					description: "Désolé, vous devez préciser la somme ainsi que le bénéficiaire de votre don qui ne peut pas être un rôle. ```ex: give 50 @Théotime#6461```"
 				}});
 			});
 		}
