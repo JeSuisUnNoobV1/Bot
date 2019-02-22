@@ -693,7 +693,7 @@ if (isAdmin()){
 			reason = msg.content.replace(/roboto report |report |!report /, "").replace("<@"+reported.id+">", "").replace(" ", "");
 		msg.delete().then(() => {
 			if (reported != false && reason != "") {
-				client.channels.find(val => val.id === "547043406971535370").send({embed: {
+				client.channels.find(val => val.id === "548526615085449216").send({embed: {
 					title: reporter.username+" a report un utilisateur",
 					color: 16777215,
 					description: reporter+" a report "+reported+" pour la raison suivante: ```"+reason+"```"
