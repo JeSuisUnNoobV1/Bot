@@ -293,11 +293,11 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 				}
 			}
 
-		if (isNaN(somme) || somme <= 0 || code == ""){
+		if (isNaN(somme) || somme <= 0 ||  somme > 100000 || code == ""){
 			return msg.channel.send({embed: {
 				title: "Erreur de vente",
 				color: 16057630, // rouge
-				description: "Désolé, la commande ou la somme ne sont pas valides. Merci d'utiliser !sell ainsi ```!sell <prix> <code>```"
+				description: "Désolé, la commande ou la somme ne sont pas valides (entre 1 et 100 000). Merci d'utiliser !sell ainsi ```!sell <prix> <code>```"
 			}});
 		}
 
@@ -353,7 +353,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 				msg.channel.send({embed: {
 					title: "Vente terminée !",
 					color: 16777215,
-					description: "La vente du code de "+msg.author+" est terminée !\n"+(acheteurs.length -1)+" personne"+(acheteurs.length > 1 ? "s ont" : " a")+" acheté le code."
+					description: "La vente du code de "+msg.author+" est terminée !\n"+acheteurs.length+" personne"+(acheteurs.length > 1 ? "s ont" : " a")+" acheté le code."
 				}});
 
 				msg.author.createDM().then(channel => {
