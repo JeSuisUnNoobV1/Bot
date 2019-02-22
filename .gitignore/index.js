@@ -690,7 +690,7 @@ if (isAdmin()){
 	if (m.startsWith("roboto report")||m.startsWith("report")||m.startsWith("!report")){
 		let reported = msg.mentions.users.first() || false,
 			reporter = msg.author,
-			reason = msg.content.replace(/roboto report |report |!report /, "").replace("<@"+reported.id+">", "").replace(" ", "");
+			reason = msg.content.replace(/roboto report |report |!report /, "").replace("<@"+reported.id+">", "");
 		msg.delete().then(() => {
 			if (reported != false && reason != "") {
 				client.channels.find(val => val.id === "548526615085449216").send({embed: {
