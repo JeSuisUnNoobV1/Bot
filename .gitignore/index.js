@@ -146,11 +146,23 @@ if(m.includes("fdp")||m.includes("beze")||m.includes("bese")||m.includes("bz")||
 				color: 16777215,
 				description: msg.author+"a insulté dans le channel "+msg.channel+" en disant ```"+msg.content+"```"
 			}});
+
+			msg.channel.send({embed: {
+				color: 16057630,
+				description: "Hop Hop Hop, évitez les insultes s'il vous plait."
+			}});
+
+			for (let i = 0; i<users.length; i++) {
+				if (users[i].id == msg.author.id){
+					if (users[i].xp >= 50) {
+						users[i].xp -= 50;
+					} else {
+						users[i].xp = 0;
+					}
+					break;
+				}
+			}
 		});
-    	msg.channel.send({embed: {
-    	  color: 16057630,
-    	  description: "Hop Hop Hop, évitez les insultes s'il vous plait."
-		}});
 	}
 }
 
@@ -656,7 +668,7 @@ if (isAdmin()){
 		msg.author.createDM().then(channel => {
 			let content = "";
 			for (let i = 0; i<users.length; i++) {
-				content += '	{"id": '+users[i].id+', "xp": '+users[i].xp+', "money": '+users[i].money+'}\n';
+				content += '	{"id": '+users[i].id+', "xp": '+users[i].xp+', "money": '+users[i].money+', "sellAlreadyCode": '+users[i].sellAlreadyCode+'}\n';
 			}
 			return channel.send("```[\n"+content+"]```");
 		});
@@ -670,6 +682,21 @@ if (isAdmin()){
 				content += '	{"lk": "'+goCodes[i].lk+'"}\n';
 			}
 			return channel.send("```[\n"+content+"]```");
+		});
+	}
+
+	// Roboto report
+	if (m.startsWith("roboto report")||m.startsWith("report")||m.startsWith("!report")){
+		let reported = msg.mentions.users.first(),
+			reporter = msg.author,
+			reason = msg.content.replace(/roboto report |report |!report /, "").replace("<@"+reported+"> ", "");
+		msg.delete().then(() => {
+			client.channels.find(val => val.id === "547043406971535370").send({embed: {
+				title: reported+" à été report",
+				color: 16777215,
+				description: "par "+reporter+" pour la raison suivante: ```"+reason+"```"
+			}});
+			msg.channel.send('Requête transférée. Gare à toi '+reported+" !")
 		});
 	}
 	
