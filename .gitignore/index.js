@@ -585,7 +585,7 @@ if (isAdmin()){
 	// Roboto say
 	if (m.startsWith("roboto say")||m.startsWith("say")){
 		msg.delete();
-		msg.channel.send(msg.content.replace(/roboto say |say |Say |sAy |saY |Roboto say |Roboto Say |roboto Say/, ''));
+		msg.channel.send(msg.content.replace(/roboto say |say |Say |sAy |saY |Roboto say |Roboto Say |roboto Say /, ''));
 	}
 
 	if (m.startsWith('purge')||m.startsWith('!purge')) {
@@ -607,6 +607,7 @@ if (isAdmin()){
 
 	// Roboto set go
 	if (m.startsWith('set go')) {
+		"https://example.com";
 		let lk = msg.content.replace(/set go |Roboto set go |roboto set go /, ""),
 			cd = goCodes.length < 1000 ? goCodes.length < 100 ? goCodes.length < 10 ? "000"+goCodes.length : "00"+goCodes.length : "0"+goCodes.length : goCodes.length;
 
@@ -687,15 +688,20 @@ if (isAdmin()){
 
 	// Roboto report
 	if (m.startsWith("roboto report")||m.startsWith("report")||m.startsWith("!report")){
-		let reported = msg.mentions.users.first(),
+		let reported = msg.mentions.users.first() || false,
 			reporter = msg.author,
-			reason = msg.content.replace(/roboto report |report |!report /, "").replace("<@"+reported+"> ", "");
+			reason = msg.content.replace(/roboto report |report |!report /, "").replace("<@"+reported.id+"> ", "");
 		msg.delete().then(() => {
-			client.channels.find(val => val.id === "547043406971535370").send({embed: {
-				title: reported+" à été report",
-				color: 16777215,
-				description: "par "+reporter+" pour la raison suivante: ```"+reason+"```"
-			}});
+			if (reported != false) {
+				client.channels.find(val => val.id === "547043406971535370").send({embed: {
+					title: reporter.username+" a report un utilisateur",
+					color: 16777215,
+					description: reporter+" a report "+reported+" pour la raison suivante: ```"+reason+"```"
+				}});
+			} else {
+
+			}
+
 			msg.channel.send('Requête transférée. Gare à toi '+reported+" !")
 		});
 	}
