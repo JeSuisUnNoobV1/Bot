@@ -314,9 +314,8 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 	if (m.startsWith(prefix+"sell ")){
 		msg.delete();
 		
-		let command = msg.content.replace(/sell |roboto sell | !sell/, "COMMAND "),
-			somme = parseInt(m.split(' ')[1]),
-			code = command.replace(prefix+"sell "+somme+" ", ""),
+		let somme = parseInt(m.split(' ')[1]),
+			code = msg.content.replace(prefix+"sell "+somme+" ", ""),
 			vendeur = msg.author,
 			sellAlreadyCode = false,
 			buyStr = 'buy '+vendeur.discriminator,
@@ -436,7 +435,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 	// Roboto code
 	if (m.startsWith(prefix+"code")){
 		msg.delete();
-		msg.channel.send("```"+msg.content.replace(/code |code/, '')+"```");
+		msg.channel.send("```"+msg.content.replace(prefix+"code", '')+"```");
 	}
 
 	// Roboto me
@@ -451,7 +450,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 
 	// Roboto timeout
 	if (m.startsWith(prefix+"timeout")){
-		let time = m.replace(/roboto timeout |timeout /g, "");
+		let time = m.replace(prefix+"timeout", "");
 		if (time == "reset") {
 			if (globalInterval != false) {
 				msg.channel.send({embed: {
@@ -568,7 +567,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			if (m == "roboto flip" || m == "flip") {
 				send(Math.floor(Math.random() * 2));
 			} else {
-				send(isNaN(parseInt(m.replace(/roboto flip |flip /, ""))) ? m.replace(/roboto flip |flip /, "") == "pile" ? 0 : 1 : parseInt(m.replace(/roboto flip |flip /, "")));
+				send(isNaN(parseInt(m.replace(prefix+"flip", ""))) ? m.replace(prefix+"flip", "") == "pile" ? 0 : 1 : parseInt(m.replace(prefix+"flip", "")));
 			}
 		} else {
 			send(Math.floor(Math.random() * 2));
@@ -586,7 +585,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 
 	// Roboto decision
 	if (m.startsWith(prefix+'decision ')) {
-		let req = msg.content.replace(/roboto decision |decision |8ball /i, ""),
+		let req = msg.content.replace(prefix+"decision", ""),
 			index = Math.floor(Math.random() * (decisions.length - 1) + 1),
 			decision = decisions[index];
 			msg.channel.send({embed: {
@@ -604,7 +603,7 @@ if (isAdmin()){
 	// Roboto say
 	if (m.startsWith(prefix+"say")){
 		msg.delete();
-		msg.channel.send(msg.content.replace(/roboto say |say |Say |sAy |saY |Roboto say |Roboto Say |roboto Say /, ''));
+		msg.channel.send(msg.content.replace(prefix+"say", ''));
 	}
 
 	if (m.startsWith(prefix+'purge')) {
