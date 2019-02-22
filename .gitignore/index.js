@@ -316,6 +316,15 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 
 			client.on('message', msg => {
 
+				if (msg.author.id == vendeur.id){
+					return msg.author.createDM().then(channel => {
+						channel.send({embed: {
+							title: "Erreur d'achat",
+							color: 16057630,
+							description: msg.author+", vous vendez du code mais vous ne pouvez pas vous l'acheter à vous même !"
+						}});
+					});
+				}
 					// Anti robot et anti multi-paiements
 				if (msg.author.bot || acheteurs.includes(msg.author.id)) return false;
 
