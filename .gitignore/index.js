@@ -698,6 +698,8 @@ if (isAdmin()){
 					color: 16777215,
 					description: reporter+" a report "+reported+" pour la raison suivante: ```"+reason+"```"
 				}});
+
+				msg.channel.send('Requête transférée. Gare à toi '+reported+" !")
 			} else {
 				msg.channel.send({embed: {
 					title: "Erreur de report",
@@ -706,7 +708,6 @@ if (isAdmin()){
 				}});
 			}
 
-			msg.channel.send('Requête transférée. Gare à toi '+reported+" !")
 		});
 	}
 	
