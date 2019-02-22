@@ -342,7 +342,6 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 									description: "```"+code+"```"
 								}});
 							});
-és = sa;
 							coins += sommePayee;
 							acheteurs.push(msg.author.id);
 						}
