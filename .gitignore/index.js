@@ -334,7 +334,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 						from: msg.author,
 						to: vendeur,
 						price: somme,
-						cb(){
+						cb(sommePayee){
 							msg.author.createDM().then(channel => {
 								channel.send({embed: {
 									title: "Code source de "+vendeur.username,
@@ -342,8 +342,8 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 									description: "```"+code+"```"
 								}});
 							});
-
-							coins += somme;
+és = sa;
+							coins += sommePayee;
 							acheteurs.push(msg.author.id);
 						}
 					});
