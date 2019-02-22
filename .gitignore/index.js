@@ -781,7 +781,7 @@ const bank = {
 			}
 	
 			for (let i = 0; i<users.length; i++) {
-				if (!this.canPay()){ // Si la personne n'a pas les coins pour payer
+				if (!this.canPay(from)){ // Si la personne n'a pas les coins pour payer
 					channel.send({embed: {
 						title: 'Débit impossible',
 						color: 16057630, // rouge
