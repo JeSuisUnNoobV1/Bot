@@ -349,7 +349,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 				}});
 
 				msg.author.createDM().then(channel => {
-					if (acheteurs != []) {
+					if (acheteurs != [] && coins == 0) {
 						channel.send({embed: {
 							title: "Crédit de coins",
 							color: 16777215,
