@@ -757,7 +757,7 @@ const bank = {
 	},
 
 	canPay(user, somme){
-			if (this.getMoney(user) < somme){
+			if (this.getMoney(user) >= somme){
 				return false; // Peut payer la somme
 			} else {
 				return true; // Ne peut pas payer la somme
