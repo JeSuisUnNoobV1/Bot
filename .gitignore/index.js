@@ -605,13 +605,13 @@ if (isAdmin()){
 		let demand = parseInt(m.replace(/[^0-9]/g, "")),
 			somme = isNaN(demand) || demand < 0 ? 0 : parseInt(m.replace(/[^0-9]/g, ""));
 
-		if (somme > 10000) {
-			somme = 10000;
+		if (somme > 100000) {
+			somme = 100000;
 			msg.author.createDM().then(channel => {
 				channel.send({embed: {
 					title: "Erreur de GET",
 					color: 16057630,
-					description: "Désolé "+msg.author+", vous ne pouvez pas vous donner plus de 10000 coins par commande."
+					description: "Désolé "+msg.author+", vous ne pouvez pas vous donner plus de 100 000 coins par commande."
 				}});
 			});
 		}
