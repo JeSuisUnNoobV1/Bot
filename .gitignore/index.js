@@ -214,6 +214,27 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 		msg.channel.send("Vous êtes sur le salon `"+msg.channel.name+"`");	
 	}
 
+	if (m=="roboto stats"||m=="stats"||m=="!stats"){
+		let totalUsers = users.length,
+			totalConnectedUsers = 0,
+			channels = 4,
+			dateDeCreation = 2019,
+			nbAdmins = 2,
+			nbBots = 0;
+
+			for (let i = 0; i<users.length; i++){
+				if (!["offline"].includes(client.users.get(users[i].id).presence.status)){
+					totalConnectedUsers += 1;
+				}
+			}
+
+			msg.channel.send({"embed":{
+				title:"Statistiques du serveur",
+				description: "Nombre d'utilisateur total: "+totalUsers+"\nUtilisateurs connectés: "+totalConnectedUsers+"\nNombre de channels: "+channels+"\nServeur crée en: "+dateDeCreation+"\nAdmins: "+nbAdmins+"\nBots: "+nbBots,
+				  color: 16777215
+			}});	
+	}
+
 	// Roboto rank
 	if (m.startsWith("roboto money")||m.startsWith("roboto xp")||m.startsWith("!money")||m.startsWith("!xp")||m.startsWith("xp")||m.startsWith("money")){
 		let xp, money, member = msg.mentions.users.first() || msg.author;
@@ -707,7 +728,6 @@ if (isAdmin()){
 					description: "Vous n'avez pas correctement utilisé la commande ou oublié de mettre une raison ```!report <utilisateur> <raison>```"
 				}});
 			}
-
 		});
 	}
 	
