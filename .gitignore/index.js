@@ -316,7 +316,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 
 			client.on('message', msg => {
 
-				if (msg.author.id == vendeur.id){
+				if (msg.author.id == vendeur.id && msg.content == buyStr && canPay){
 					return msg.author.createDM().then(channel => {
 						channel.send({embed: {
 							title: "Erreur d'achat",
@@ -354,7 +354,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 				msg.channel.send({embed: {
 					title: "Vente terminée !",
 					color: 16777215,
-					description: "La vente du code de "+msg.author+" est terminée !\n"+acheteurs.length+" personne"+(acheteurs.length > 1 ? "s ont" : " a")+" acheté le code."
+					description: "La vente du code de "+msg.author+" est terminée !\n"+(acheteurs.length -1)+" personne"+(acheteurs.length > 1 ? "s ont" : " a")+" acheté le code."
 				}});
 
 				msg.author.createDM().then(channel => {
@@ -807,7 +807,7 @@ const bank = {
 			}});
 	
 			client.on('message', msg => {
-				if (msg.content.replace('#', "")+"" == msg.author.discriminator && canPay){ // Si le message est bien égal au tag de son auteur et que l'on peut encore payer
+				if (msg.content.replace('#', "")+"" == msg.author.discriminator && canPay && msg.author.id == from.id){ // Si le message est bien égal au tag de son auteur et que l'on peut encore payer
 					channel.send({embed: {
 						title: "Débit de coins",
 						color: 16777215, // blanc
@@ -825,7 +825,7 @@ const bank = {
 						}
 					}
 					
-				} else if (msg.content.toLowerCase() == "refus" && canPay) {
+				} else if (msg.content.toLowerCase() == "refus" && canPay && msg.author.id == from.id) {
 					if (payed == false && canPay == true) { // Si on peut encore payer mais que la somme n'est pas encore payée
 						channel.send({embed: {
 							title: "Débit de coins annulé",
