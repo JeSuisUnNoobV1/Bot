@@ -767,7 +767,7 @@ const bank = {
 	transfert({ desc, from, to, price, cb }){
 		let canPay = true, // Variables globales à la fonction
 			payed = false;
-	
+
 		from.createDM().then(channel => {
 	
 			if (to.bot){
