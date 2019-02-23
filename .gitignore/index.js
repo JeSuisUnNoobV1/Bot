@@ -9,7 +9,7 @@ const	Discord = require('discord.js'),
 		users = require('./users.json'),
 		config = require('./config.json'),
 		client = new Discord.Client(),
-		guild = client.guilds.get("539738715707408385"),
+		guild = client.guilds.last(),
 
 activities_list = [
   "",
@@ -79,10 +79,10 @@ client.on('ready', () => {
 /* 03 / new user
 ==================== */
 client.on("guildMemberAdd", members => {
-	members.addRole(guild.roles.find("name", "Utilisateur discord"));
+	members.addRole(guild.roles.find("name", "Utilisateur discord").id);
     members.createDM().then(channel => {
     	channel.send('Bienvenue **' + members.displayName+ "**,\n Tu as maintenant accès au serveur discord \"Théotime.me\" !\nOn y parle de développement, de graphisme, d'ilustration et bien d'autres activités ! Ainsi chacun pourra parler de ses projets pour les faire évoluer. Si vous souhaitez inviter quelqu'un, utilisez ce lien: https://theotime.me/discord \n\n Amicalement, Roboto.");
-	});"Utilisateur discord"
+	});
 
 	let exist = false;
 
