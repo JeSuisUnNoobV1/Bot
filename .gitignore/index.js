@@ -72,14 +72,15 @@ client.on('ready', () => {
     setInterval(() => {
       const index = Math.floor(Math.random() * (activities_list.length - 1) + 1); 
       client.user.setActivity(activities_list[index], { type: 'WATCHING' });
-  }, 4500);
+	}, 4500);
 });
 
 /* 03 / new user
 ==================== */
 client.on("guildMemberAdd", members => {
+	members.addRole("Utilisateur discord");
     members.createDM().then(channel => {
-    	channel.send('Bienvenue **' + members.displayName+ "**,\n Tu as maintenant accès au serveur discord \"Théotime.me\" !\nOn y parle de développement, de graphisme, d'ilustration et bien d'autres activités ! Ainsi chacun pourra parler de ses projets pour les faire évoluer. Si vous souhaitez inviter quelqu'un, utilisez ce lien: https://discord.gg/PuU3BSJ \n\n Amicalement, Roboto.");
+    	channel.send('Bienvenue **' + members.displayName+ "**,\n Tu as maintenant accès au serveur discord \"Théotime.me\" !\nOn y parle de développement, de graphisme, d'ilustration et bien d'autres activités ! Ainsi chacun pourra parler de ses projets pour les faire évoluer. Si vous souhaitez inviter quelqu'un, utilisez ce lien: https://theotime.me/discord \n\n Amicalement, Roboto.");
 	});
 
 	let exist = false;
@@ -100,6 +101,8 @@ client.on("guildMemberAdd", members => {
 
 client.on('message', msg => {
 	var m = msg.content.toLowerCase();
+
+if (m.startsWith(prefix)){
 
 /* 04 / Check functions
 =========================== */
@@ -195,7 +198,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			    m = d.getMonth() +1 < 10 ? "0"+(d.getMonth() +1) : d.getMonth() +1,
 			    y = d.getFullYear(),
 			    h = d.getHours() +1 < 10 ? "0"+(d.getHours() +1) : d.getHours() +1,
-				_m = d.getMinutes() < 10 ? "0"+d.getMinutes() : d.getMinutes();
+			   _m = d.getMinutes() < 10 ? "0"+d.getMinutes() : d.getMinutes();
 
 		msg.channel.send({"embed":{
 			title: "Voici la date :",
@@ -716,7 +719,7 @@ if (isAdmin()){
 					description: reporter+" a report "+reported+" pour la raison suivante: ```"+reason.replace(" ", "")+"```"
 				}});
 
-				msg.channel.send('Requête transférée. Gare à toi '+reported+" !")
+				msg.channel.send('Requête transférée. Gare à toi '+reported+" !");
 			} else {
 				msg.channel.send({embed: {
 					title: "Erreur de report",
@@ -748,6 +751,7 @@ if (isAdmin()){
 	}
 
 }
+} /* Fin de prefix check */
 
 /* 09 / Instant responses
 ============================= */
