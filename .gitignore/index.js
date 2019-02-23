@@ -9,7 +9,6 @@ const	Discord = require('discord.js'),
 		users = require('./users.json'),
 		config = require('./config.json'),
 		client = new Discord.Client(),
-		guild = client.guilds.last(),
 
 activities_list = [
   "",
@@ -56,6 +55,18 @@ const salutations = [
 	"Hey USERNAME !",
 	"Bienvenue USERNAME !",
 	"Hello, ça va ou quoi ?"
+],
+
+readyMessages = [
+	"",
+	"Wallah je suis prêt.",
+	"Asy c good. Roboto ready.",
+	"Les fréros c bon j'suis chargé.",
+	"Pas de problème, Roboto est dans la place.",
+	"Un bot discord ? Roboto est chargé.",
+	"Ptn ça en a pris du temps. Roboto ready.",
+	"C'est bon tranquille je suis chargé.",
+	"Hey, je suis prêt à faire feu !"
 ];
 
 var globalInterval = false,
@@ -66,7 +77,7 @@ var globalInterval = false,
 ================ */
 
 client.on('ready', () => {
-	client.channels.find(val => val.id === "539847850666885131").send("Hey, je suis prêt à faire feu !");
+	client.channels.find(val => val.id === "539847850666885131").send(readyMessages[Math.floor(Math.random() * (readyMessages.length - 1) + 1)]);
 	client.user.setUsername(config.name+config.prefix);
     client.user.setAvatar('https://theotime.me/discord/roboto.png');
 	client.user.setActivity("la console", { type: 'WATCHING' });
@@ -79,7 +90,6 @@ client.on('ready', () => {
 /* 03 / new user
 ==================== */
 client.on("guildMemberAdd", members => {
-	members.addRole(guild.roles.find("name", "Utilisateur discord").id);
     members.createDM().then(channel => {
     	channel.send('Bienvenue **' + members.displayName+ "**,\n Tu as maintenant accès au serveur discord \"Théotime.me\" !\nOn y parle de développement, de graphisme, d'ilustration et bien d'autres activités ! Ainsi chacun pourra parler de ses projets pour les faire évoluer. Si vous souhaitez inviter quelqu'un, utilisez ce lien: https://theotime.me/discord \n\n Amicalement, Roboto.");
 	});
