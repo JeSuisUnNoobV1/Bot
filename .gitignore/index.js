@@ -91,7 +91,37 @@ client.on('ready', () => {
 ==================== */
 client.on("guildMemberAdd", members => {
     members.createDM().then(channel => {
+		var guild,
+			role = guild.roles.find(role => role.name == "Utilisateur discord");
+	
     	channel.send('Bienvenue **' + members.displayName+ "**,\n Tu as maintenant accès au serveur discord \"Théotime.me\" !\nOn y parle de développement, de graphisme, d'ilustration et bien d'autres activités ! Ainsi chacun pourra parler de ses projets pour les faire évoluer. Si vous souhaitez inviter quelqu'un, utilisez ce lien: https://theotime.me/discord \n\n Amicalement, Roboto.");
+		channel.send({embed: {
+			title: "Captcha",
+			description: "Merci de valider ce captcha avant d'avoir accès à tous les salons\nAjoutez dix à votre tag discord```ex: #6461 + 10 = #6471```",
+			color: 16777215
+		}});
+		client.on('message', msg => {
+			guild = msg.guild;
+			if (msg.replace('#', "") == members.discriminator+10+"" && canResolveCaptcha){
+				channel.send({embed: {
+					title: "Captcha résolu",
+					description: "Vous n'êtes pas un robot !\nEt l'accès à tous les channels a été activé (sauf les channels top secrets).",
+					color: 16777215
+				}}).then(msg => {
+					setTimeout(function(){
+						msg.react('✅');
+					}, 600);
+				});
+				let role = msg.guild.roles.get("name", 'Utilisateur discord');
+				members.addRole(role);
+			} else {
+				channel.send({embed: {
+					title: "Captcha",
+					description: "Vous pouvez réésayer car nous ne sommes pas sur que vous n'êtes pas un robot-hamster.",
+					color: 16777215
+				}});
+			}
+		});
 	});
 
 	let exist = false;
