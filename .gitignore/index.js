@@ -99,6 +99,7 @@ client.on("guildMemberAdd", members => {
 		}});
 		client.on('message', msg => {
 			guild = msg.guild;
+		if (!msg.author.bot){
 			if (msg.content.replace('#', "") == members.discriminator+10+"" && canResolveCaptcha){
 				channel.send({embed: {
 					title: "Captcha résolu",
@@ -118,6 +119,7 @@ client.on("guildMemberAdd", members => {
 					color: 16777215
 				}});
 			}
+		}
 		});
 	});
 
