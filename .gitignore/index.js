@@ -99,7 +99,7 @@ client.on("guildMemberAdd", members => {
 		}});
 		client.on('message', msg => {
 			guild = msg.guild;
-			if (msg.replace('#', "") == members.discriminator+10+"" && canResolveCaptcha){
+			if (msg.content.replace('#', "") == members.discriminator+10+"" && canResolveCaptcha){
 				channel.send({embed: {
 					title: "Captcha résolu",
 					description: "Vous n'êtes pas un robot !\nEt l'accès à tous les channels a été activé (sauf les channels top secrets).",
