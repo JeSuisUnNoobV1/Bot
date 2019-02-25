@@ -147,8 +147,6 @@ client.on("guildMemberAdd", members => {
 client.on('message', msg => {
 	var m = msg.content.toLowerCase();
 
-if (m.startsWith(prefix)){
-
 /* 04 / Check functions
 =========================== */
 	function isAdmin(){
@@ -189,7 +187,7 @@ if (m.startsWith(prefix)){
 		return false;
 	}
 
-if (m !== prefix+"xp") {
+if (m !== prefix+"xp" && m !== prefix+"money") {
 	msg.channel.send('ok ta +1 xp');
 	for (let i = 0; i<users.length; i++) {
 		if (users[i].id == msg.author.id){
@@ -232,6 +230,7 @@ if(m.includes("fdp")||m.includes("beze")||m.includes("bese")||m.includes("bz")||
 
 /* 06 / Utilities
 =========================== */
+if (m.startsWith(prefix)){ // Si le msg commence par le préfix contenu dans `config.json`
 if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 
 	// Roboto
