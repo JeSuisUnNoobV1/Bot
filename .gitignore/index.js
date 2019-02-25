@@ -189,7 +189,7 @@ if (m.startsWith(prefix)){
 		return false;
 	}
 
-if (m !== prefix+"xp" && m !== prefix+"money") {
+if (m !== prefix+"xp") {
 	msg.channel.send('ok ta +1 xp');
 	for (let i = 0; i<users.length; i++) {
 		if (users[i].id == msg.author.id){
