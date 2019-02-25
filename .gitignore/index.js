@@ -91,6 +91,8 @@ client.on('ready', () => {
 ==================== */
 client.on("guildMemberAdd", members => {
     members.createDM().then(channel => {
+		let canResolveCaptcha = true;
+
     	channel.send('Bienvenue **' + members.displayName+ "**,\n Tu as maintenant accès au serveur discord \"Théotime.me\" !\nOn y parle de développement, de graphisme, d'ilustration et bien d'autres activités ! Ainsi chacun pourra parler de ses projets pour les faire évoluer. Si vous souhaitez inviter quelqu'un, utilisez ce lien: https://theotime.me/discord \n\n Amicalement, Roboto.");
 		channel.send({embed: {
 			title: "Captcha",
@@ -110,6 +112,9 @@ client.on("guildMemberAdd", members => {
 						msg.react('✅');
 					}, 600);
 				});
+
+				canResolveCaptcha = false;
+
 				var role = members.roles.find(role => role.name == "Utilisateur discord");
 				members.addRole(role);
 			} else {
