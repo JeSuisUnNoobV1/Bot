@@ -115,7 +115,7 @@ client.on("guildMemberAdd", members => {
 
 				canResolveCaptcha = false;
 
-				var role = members.roles.find(role => role.name == "Utilisateur discord");
+				var role = members.guild.roles.find(role => role.name == "Utilisateur discord");
 				members.addRole(role);
 			} else {
 				channel.send({embed: {
