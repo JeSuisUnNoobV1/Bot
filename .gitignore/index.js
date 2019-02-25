@@ -168,7 +168,12 @@ if (m.startsWith(prefix)){
 	}
 
 	function checkXpLevel(xp){
-		if (xp > 100000) {
+		if (xp >= 10000) {
+			let role = msg.member.guild.roles.find(role => role.name == "VIP");
+			msg.author.addRole(role);
+		} else if (xp >= 1000) {
+			let role = msg.member.guild.roles.find(role => role.name == "Habitués");
+			msg.author.addRole(role);
 		}
 	}
 
@@ -184,7 +189,7 @@ if (m.startsWith(prefix)){
 		return false;
 	}
 
-if (m!="roboto rank"&&m!="rank"&m!="xp"&&m!="levels"&&m!="money") {
+if (m!=prefix+"xp"&&m!=prefix+"money") {
 	for (let i = 0; i<users.length; i++) {
 		if (users[i].id == msg.author.id){
 			users[i].xp += 1;
