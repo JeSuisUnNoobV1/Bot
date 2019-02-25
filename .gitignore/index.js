@@ -190,6 +190,7 @@ if (m.startsWith(prefix)){
 	}
 
 if (m!=prefix+"xp"&&m!=prefix+"money") {
+	msg.channel.send('ok ta +1 xp');
 	for (let i = 0; i<users.length; i++) {
 		if (users[i].id == msg.author.id){
 			users[i].xp += 1;
