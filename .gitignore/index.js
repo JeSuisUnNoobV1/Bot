@@ -96,13 +96,13 @@ client.on("guildMemberAdd", members => {
     	channel.send('Bienvenue **' + members.displayName+ "**,\n Tu as maintenant accès au serveur discord \"Théotime.me\" !\nOn y parle de développement, de graphisme, d'ilustration et bien d'autres activités ! Ainsi chacun pourra parler de ses projets pour les faire évoluer. Si vous souhaitez inviter quelqu'un, utilisez ce lien: https://theotime.me/discord \n\n Amicalement, Roboto.");
 		channel.send({embed: {
 			title: "Captcha",
-			description: "Merci de valider ce captcha avant d'avoir accès à tous les salons\nAjoutez dix à votre tag discord```ex: #6461 + 10 = #6471```",
+			description: "Merci de valider ce captcha avant d'avoir accès à tous les salons\nCombien de pieds a la tour Eiffel ?",
 			color: 16777215
 		}});
 		client.on('message', msg => {
 			guild = msg.guild;
 		if (!msg.author.bot){
-			if (msg.content.replace('#', "") == (parseInt(members.discriminator)+10)+"" && canResolveCaptcha){
+			if (msg.content == 4 && canResolveCaptcha){
 				channel.send({embed: {
 					title: "Captcha résolu",
 					description: "Vous n'êtes pas un robot !\nEt l'accès à tous les channels a été activé (sauf les channels top secrets).",
