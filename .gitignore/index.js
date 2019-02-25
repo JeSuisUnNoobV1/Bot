@@ -91,9 +91,6 @@ client.on('ready', () => {
 ==================== */
 client.on("guildMemberAdd", members => {
     members.createDM().then(channel => {
-		var guild,
-			role = guild.roles.find(role => role.name == "Utilisateur discord");
-	
     	channel.send('Bienvenue **' + members.displayName+ "**,\n Tu as maintenant accès au serveur discord \"Théotime.me\" !\nOn y parle de développement, de graphisme, d'ilustration et bien d'autres activités ! Ainsi chacun pourra parler de ses projets pour les faire évoluer. Si vous souhaitez inviter quelqu'un, utilisez ce lien: https://theotime.me/discord \n\n Amicalement, Roboto.");
 		channel.send({embed: {
 			title: "Captcha",
@@ -112,7 +109,7 @@ client.on("guildMemberAdd", members => {
 						msg.react('✅');
 					}, 600);
 				});
-				let role = msg.guild.roles.get("name", 'Utilisateur discord');
+				var role = members.roles.find(role => role.name == "Utilisateur discord");
 				members.addRole(role);
 			} else {
 				channel.send({embed: {
@@ -163,6 +160,11 @@ if (m.startsWith(prefix)){
 		}
 	}
 
+	function checkXpLevel(xp){
+		if (xp > 100000) {
+		}
+	}
+
 	// Pour éviter que le bot se réponde tout seul
 	if (msg.author.bot) return false;
 	if (msg.channel.type == "dm") return false;
@@ -179,6 +181,7 @@ if (m!="roboto rank"&&m!="rank"&m!="xp"&&m!="levels"&&m!="money") {
 	for (let i = 0; i<users.length; i++) {
 		if (users[i].id == msg.author.id){
 			users[i].xp += 1;
+			checkXpLevel(users[i].xp);
 			break;
 		}
 	}
@@ -269,12 +272,6 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			dateDeCreation = 2019,
 			nbAdmins = 2,
 			nbBots = 0;
-
-			for (let i = 0; i<users.length; i++){
-				if (!["offline"].includes(client.users.get(users[i].id).presence.status)){
-					totalConnectedUsers += 1;
-				}
-			}
 
 			msg.channel.send({"embed":{
 				title:"Statistiques du serveur",
