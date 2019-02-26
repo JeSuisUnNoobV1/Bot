@@ -148,7 +148,7 @@ client.on("guildMemberAdd", members => {
 					color: 16777215
 				}});
 				setTimeout(function(){
-					msg.guild.ban(msg.author, {days: 3, reason: 'a échoué au CAPTCHA' });
+					members.ban({days: 3, reason: 'a échoué au CAPTCHA' });
 				}, 8000);
 			}
 		}
