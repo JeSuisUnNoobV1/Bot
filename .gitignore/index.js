@@ -144,7 +144,7 @@ client.on("guildMemberAdd", members => {
 			}
 		}
 		});
-	});
+	}).catch(console.error);
 
 	let exist = false;
 
@@ -193,7 +193,7 @@ client.on('message', msg => {
 					color: 16777215,
 					description: msg.author+" ! Vous venez d'obtenir le rôle de `VIP` !\nMaintenant, vous pouvez```- gérer les émojis\n- envoyer des messages TTS\n- attacher des fichiers\n- mentionner @everyone\n- utiliser des émojis externes\n- ajouter des réactions à celles existantes\n- rendre les membres muets dans les salon vocaux```"
 				}});
-			});
+			}).catch(console.error);
 		} else if (xp == 248) {
 			let role = msg.member.guild.roles.find(role => role.name == "Habitués");
 			msg.author.addRole(role);
@@ -203,7 +203,7 @@ client.on('message', msg => {
 					color: 16777215,
 					description: msg.author+" ! Vous êtes maintenant un habitué. C'est à dire que vous êtes tellement actif que nous vous faisons plus confiance.\nC'est pour cela que nous vous récompensons avec ces quelques privillèges: ```- créer des invitations\n- changer cotre pseudo\n- être affiché séparément des autres membres\n- une magnifique couleur rouge !```"
 				}});
-			});
+			}).catch(console.error);
 		} else if (xp == 100) {
 			msg.author.createDM().then(channel => {
 				channel.send({embed: {
@@ -211,7 +211,7 @@ client.on('message', msg => {
 					color: 16777215,
 					description: "Merci "+msg.author+". Merci de vous engager et d'être actif dans notre serveur. Merci de participer à son évolution et de le faire vivre. Nous espérons que notre très cher serveur Discord Théotime.me vous plaît.\n\n		_--Le staff_"
 				}});
-			});
+			}).catch(console.error);
 		} else if (xp == 5) {
 			msg.author.createDM().then(channel => {
 				channel.send({embed: {
@@ -219,7 +219,7 @@ client.on('message', msg => {
 					color: 16777215,
 					description: "J'ai oublié de vous donner quelques principes et aides pour que vous ne soyez pas perdus dans notre serveur.\nTout d'abord, quelques commandes d'usage: ```"+prefix+"help				   Affiche l'aide\n"+prefix+"me     				Affiche votre profil\n"+prefix+"help-me				Appelle de l'aide```\nLe serveur,  c'est comme une grande famille, donc il n'y a pas beaucoup de rêgles. Suffisamment pour que ça ne soit pas le bazar mais pas trop, non plus, pour que personne ne se sente contraint. Je vous invite tout de même à aller les consulter à cette adresse: https://theotime.me/disRules. Sinon, il y a régulièrement des évènements sur le serveur (ex. GiveAway). Alors soyez actifs pour ne pas les rater !\nNous avons également développé un système de grades (ou rôles) qui sont automatiquement attibués aux plus actifs d'entre vous et à ceux qui apportent le plus de soutien aux autres utilisateurs.\nAussi, si vous voulez inviter un ami, utilisez ce lien: https://theotime.me/discord.\n\n		_-- Le staff_"
 				}});
-			});
+			}).catch(console.error);
 		}
 	}
 
@@ -230,7 +230,7 @@ client.on('message', msg => {
 		msg.delete();
 		msg.author.createDM().then(channel => {
 			return channel.send('Désolé, vous avez été mute car vous n\'avez pas respecté les <#540256081293606915>');
-	 	});
+	 	}).catch(console.error);
 		return false;
 	}
 
@@ -411,7 +411,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 						color: 16057630,
 						description: "Vous ne pouvez pas vous donner des coins à vous même."
 					}});
-				});
+				}).catch(console.error);
 
 				return false;
 			}
@@ -429,7 +429,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 							color: 16777215, // blanc
 							description: user+" vous a fait un don de```"+somme+"```"
 						}});
-					});
+					}).catch(console.error);
 				}
 			});
 		} else {
@@ -439,7 +439,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 					color: 16057630, // rouge
 					description: "Désolé, vous devez préciser la somme ainsi que le bénéficiaire de votre don qui ne peut pas être un rôle. ```ex: give 50 @Théotime#6461```"
 				}});
-			});
+			}).catch(console.error);
 		}
 	}
 
@@ -492,7 +492,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 							color: 16057630,
 							description: msg.author+", vous vendez du code mais vous ne pouvez pas vous l'acheter à vous même !"
 						}});
-					});
+					}).catch(console.error);
 				}
 					// Anti robot et anti multi-paiements
 				if (msg.author.bot || acheteurs.includes(msg.author.id)) return false;
@@ -510,7 +510,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 									color: 16777215,
 									description: "```"+code+"```"
 								}});
-							});
+							}).catch(console.error);
 							coins += sommePayee;
 							acheteurs.push(msg.author.id);
 						}
@@ -539,7 +539,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 							description: "Votre vente de code n'a pas porté ses fruits...\nEssayez d'être plus convaincant la prochaine fois."
 						}});
 					}
-				});
+				}).catch(console.error);
 
 				for (let i = 0; i<users.length; i++) {
 					if (users[i].id == msg.author.id){
@@ -761,7 +761,7 @@ if (isAdmin()){
 					color: 16057630,
 					description: "Désolé "+msg.author+", vous ne pouvez pas vous donner plus de 100 000 coins par commande."
 				}});
-			});
+			}).catch(console.error);
 		}
 
 		for (let i = 0; i<users.length; i++) {
@@ -774,7 +774,7 @@ if (isAdmin()){
 						color: 16777215,
 						description: "Vous avez été crédité de **"+somme+" coins**"
 					}});
-				});
+				}).catch(console.error);
 				break;
 			}
 		}
@@ -788,7 +788,7 @@ if (isAdmin()){
 					color: 16057630,
 					description: "Désolé, le crédit d'XP est impossible"
 				}});
-			});
+			}).catch(console.error);
 		}
 
 	// Roboto get db
@@ -799,7 +799,7 @@ if (isAdmin()){
 				content += '	{"id": '+users[i].id+', "xp": '+users[i].xp+', "money": '+users[i].money+', "sellAlreadyCode": '+users[i].sellAlreadyCode+'}\n';
 			}
 			return channel.send("```[\n"+content+"]```");
-		});
+		}).catch(console.error);
 	}
 
 	// Roboto get db
@@ -810,7 +810,7 @@ if (isAdmin()){
 				content += '	{"lk": "'+goCodes[i].lk+'"}\n';
 			}
 			return channel.send("```[\n"+content+"]```");
-		});
+		}).catch(console.error);
 	}
 
 	// Roboto report
@@ -878,7 +878,7 @@ if (isAdmin()){
 					description: "Merci d'indiquer l'utilisateur qui doit-être banni.```ex: "+prefix+"ban <userID> <days> <reason>```"
 				}});
 			}
-		});
+		}).catch(console.error);
 	}
 
 	if (m.startsWith(prefix+"unban ")){
@@ -964,7 +964,7 @@ if ((m.startsWith('bonjour') || m.startsWith('salut') || m.startsWith('hey') ||
 					color: 16777215,
 					description: "Contenu du message:\n"+msg.content
 				}});
-			})
+			}).catch(console.error)
 		);
 	}
 
@@ -977,7 +977,7 @@ if ((m.startsWith('bonjour') || m.startsWith('salut') || m.startsWith('hey') ||
 					color: 16777215,
 					description: "Contenu du message:\n"+msg.content
 				}});
-			})
+			}).catch(console.error)
 		);
 	}
 
@@ -1082,7 +1082,7 @@ const bank = {
 	
 				canPay = false; // On ne peut plus payer après les 20s
 			}, 20000);
-		});
+		}).catch(console.error);
 	},
 
 	amende({moderator, to, price}){
