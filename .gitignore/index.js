@@ -72,9 +72,14 @@ readyMessages = [
 captcha_questions = [
 	"",
 	"Combien de pieds a la tour Eiffel ?|4",
-	"De quelle couleur est un stylo rouge ?|rouge",
+	"De quelle couleur écrit un stylo rouge ?|rouge",
 	"Le piano est-il un instrument ?|oui",
-	"Voit-on dans le noir ?|non",
+	"Êtes-vous un robot ?|non",
+	"Écrivez \"1\" en lettres.|un",
+	"De quelle couleur sont les carottes ?|orange",
+	"Peut-on utiliser un stylo pour écrire sur une feuille blanche ?|oui",
+	"Poursuivez en un mot: Petit papa noêl, quand tu descendra du [---]|ciel",
+	"Combien y a t-il d'heures en un jour ?|24",
 	"Combien de secondes y a t-il dans une minute ?|60",
 	"Combien y a t-il de couleurs dans un arc en ciel ?|7"
 ];
@@ -101,23 +106,20 @@ client.on('ready', () => {
 ==================== */
 client.on("guildMemberAdd", members => {
     members.createDM().then(channel => {
-		let canResolveCaptcha = true,
-			autres_tentatives = 1,
-			choosed = captcha_questions[Math.floor(Math.random() * (captcha_questions.length - 1) + 1)],
+		let choosed = captcha_questions[Math.floor(Math.random() * (captcha_questions.length - 1) + 1)],
 			question = choosed.split('|')[0],
-			response = choosed.split('|')[1],
-			tentatives_aLaBase = autres_tentatives;
+			response = choosed.split('|')[1];
 
     	channel.send('Bienvenue **' + members.displayName+ "**,\n Tu as maintenant accès au serveur discord \"Théotime.me\" !\nOn y parle de développement, de graphisme, d'ilustration et bien d'autres activités ! Ainsi chacun pourra parler de ses projets pour les faire évoluer. Si vous souhaitez inviter quelqu'un, utilisez ce lien: https://theotime.me/discord \n\n Amicalement, Roboto.");
 		channel.send({embed: {
 			title: "Captcha",
-			description: "Merci de valider ce captcha avant d'avoir accès à tous les salons\n```"+question+"```",
+			description: "Merci de valider ce captcha avant d'avoir accès à tous les salons. Attention ! Si vous échouez vous serez banni 3 jours. Désolé mais une protection anti-robot doit être forte.\n```"+question+"```",
 			color: 16777215
 		}});
 		client.on('message', msg => {
 			guild = msg.guild;
 		if (!msg.author.bot){
-			if (msg.content == response && canResolveCaptcha){
+			if (msg.content == response){
 				channel.send({embed: {
 					title: "Captcha résolu",
 					description: "Vous n'êtes pas un robot !\nEt l'accès à tous les channels a été activé (sauf les channels top secrets).",
@@ -128,24 +130,12 @@ client.on("guildMemberAdd", members => {
 					}, 600);
 				});
 
-				canResolveCaptcha = false;
-
 				var role = members.guild.roles.find(role => role.name == "Utilisateur discord");
 				members.addRole(role);
-			} else if (canResolveCaptcha) {
-				autres_tentatives --;
-				if (autres_tentatives <= 0) {
-					canResolveCaptcha = false;
-				}
-				channel.send({embed: {
-					title: "Captcha",
-					description: "Vous pouvez réésayer car nous ne sommes pas sur que vous n'êtes pas un robot-hamster.",
-					color: 16777215
-				}});
 			} else {
 				channel.send({embed: {
 					title: "Captcha",
-					description: "Vous avez écoulé les "+(tentatives_aLaBase+1)+" tentatives qui vous on été accordées.\nVous serez donc banni 3 jours dans moins de 5 secondes",
+					description: "Vous avez échoué au captcha.\nAlors comme promi, vous serez banni 3 jours dans moins de 5 secondes",
 					color: 16777215
 				}});
 				setTimeout(function(){
