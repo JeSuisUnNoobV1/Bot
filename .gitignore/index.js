@@ -890,28 +890,20 @@ if (isAdmin()){
 	}
 
 	if (m.startsWith(prefix+"unban ")){
-		let userID = msg.content.split(' ')[1] || false;
+		let userID = msg.content.split(' ')[1];
 
-			if (userID != false) {
+			if (userID != "") {
 				msg.guild.unban(userID);
-				let user = client.users.get(userID);
-				user.createDM().then(channel => {
-					channel.send({embed: {
-						title: "Vous avez été banni",
-						color: 16057630,
-						description: "Allez, c'est bon, vous avez purgé votre peine. Maintenant plus de bétises, hein ?"
-					}});
-				});
 				msg.channel.send({embed: {
 					title: "Dé-ban réussi",
 					color: 16057630,
-					description: user+" a été débanni"
+					description: "L'utilisateur a été débanni"
 				}});
 			} else {
 				msg.channel.send({embed: {
 					title: "Erreur de dé-ban",
 					color: 16057630,
-					description: "Merci d'indiquer l'id de l'utilisateur qui doit-être débanni.```ex: "+prefix+"unban <userID> <reason>```"
+					description: "Merci d'indiquer l'id de l'utilisateur qui doit-être débanni.```ex: "+prefix+"unban <userID>```"
 				}});
 			}
 	}
