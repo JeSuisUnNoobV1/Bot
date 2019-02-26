@@ -234,7 +234,7 @@ client.on('message', msg => {
 		return false;
 	}
 
-if (m !== prefix+"xp" && m !== prefix+"money") {
+if (m !== prefix+"xp" && m !== prefix+"money" && m !== prefix+"me" && m !== prefix+"profile") {
 	for (let i = 0; i<users.length; i++) {
 		if (users[i].id == msg.author.id){
 			users[i].xp += 1;
@@ -379,12 +379,14 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 	}
 
 	// Roboto rank
-	if (m.startsWith(prefix+"money")||m.startsWith(prefix+"xp")){
-		let xp, money, member = msg.mentions.users.first() || msg.author;
+	if (m.startsWith(prefix+"money")||m.startsWith(prefix+"xp")||m.startsWith(prefix+"profile")){
+		let member = msg.mentions.users.first() || msg.author,
+			dispo = msg.author.presence.status == "online" ? "est disponible" : msg.author.presence.status == "idle" ? "est inactif" : msg.author.presence.status == "dnd" ? "ne veut pas être dérangé" : "est invisible",
+			money, xp;
 		for (let i = 0; i<users.length; i++) {
 			if (users[i].id == member.id){
 				xp = users[i].xp;
-				money = typeof users[i].money === "string" ? parseInt(users[i].money) : users[i].money;
+				money = users[i].money;
 				break;
 			}
 		}
@@ -396,11 +398,18 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 				description: "Désolé, vous ne pouvez pas voir l'expérience ni les coins de "+member+" si il n'est pas connecté. Peut-être même qu'il dort. :sleeping:"
 			}});
 		} else {
+			for (let i = 0; i<users.length; i++) {
+				if (users[i].id == msg.author.id){
+					xp = users[i].xp;
+					money = users[i].money;
+					break;
+				}
+			}
 			msg.channel.send({embed: {
-				title: "Expérience de "+member.username,
+				title: "Profil de "+msg.author.username,
 				color: 16777215,
-				description: "Xp: "+xp+"\nMoney: "+money
-			}});
+				description: "Tu es <@"+msg.author.id+"> et tu "+dispo+".\n```xp: "+xp+"\nmoney: "+money+"```\nPour les développeurs, ton id est ```"+msg.author.id+"```"
+	    	}});
 		}
 	}
 
@@ -592,7 +601,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 		msg.channel.send({embed: {
 			title: "Profil de "+msg.author.username,
 			color: 16777215,
-			description: "Tu es <@"+msg.author.id+"> et tu "+dispo+".\n```xp: "+xp+"\nmoney: "+money+"```\nPour les developpeurs, ton id est ```"+msg.author.id+"```"
+			description: "Tu es <@"+msg.author.id+"> et tu "+dispo+".\n```xp: "+xp+"\nmoney: "+money+"```\nPour les développeurs, ton id est ```"+msg.author.id+"```"
 	    }});
 	}
 
