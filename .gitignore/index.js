@@ -844,6 +844,40 @@ if (isAdmin()){
 			}
 		});
 	}
+
+	if (m.startsWith(prefix+"ban ")){
+		let user = msg.mentions.members.first() || false,
+			days = m.split(' ')[2] || false,
+			reason = m.split(' ')[3] || false,
+			adMod = isAdmin() ? "administrateur" : "modérateur";
+
+		user.createDM().then(channel => {
+			if (user != false) {
+				if (days != false && reason != false) {
+					channel.send({embed: {
+						title: "Vous avez été banni",
+						color: 16057630,
+						description: "Bon, pas question de rigoler. Vous avez été banni par un "+adMod+" pour "+days+" jours. Il a donné la raison suivante :```"+reason+"```"
+					}});
+					user.ban({ days: days, reason: reason });
+				} else if (days == false && reason != false) {
+					channel.send({embed: {
+						title: "Vous avez été banni",
+						color: 16057630,
+						description: "Bon, pas question de rigoler. Vous avez été banni par un "+adMod+". Il a donné la raison suivante :```"+reason+"```"
+					}});
+					user.ban({ reason: reason });
+				} else if (days != false && reason == false) {
+					channel.send({embed: {
+						title: "Vous avez été banni",
+						color: 16057630,
+						description: "Bon, pas question de rigoler. Vous avez été banni par un "+adMod+" pour "+days+" jours. Il n'a donné de raison mais ce devait être mérité."
+					}});
+					user.ban({ days: days });
+				}
+			}
+		});
+	}
 	
 	// Roboto kick
 	if(m.startsWith(prefix+"kick ")) {
