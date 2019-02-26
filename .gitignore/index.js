@@ -67,6 +67,16 @@ readyMessages = [
 	"Ptn ça en a pris du temps. Roboto ready.",
 	"C'est bon tranquille je suis chargé.",
 	"Hey, je suis prêt à faire feu !"
+],
+
+captcha_questions = [
+	"",
+	"Combien de pieds a la tour Eiffel ?|4",
+	"De quelle couleur est un stylo rouge ?|rouge",
+	"Le piano est-il un instrument ?|oui",
+	"Voit-on dans le noir ?|non",
+	"Combien de secondes y a t-il dans une minute ?|60",
+	"Combien y a t-il de couleurs dans un arc en ciel ?|7"
 ];
 
 var globalInterval = false,
@@ -91,18 +101,22 @@ client.on('ready', () => {
 ==================== */
 client.on("guildMemberAdd", members => {
     members.createDM().then(channel => {
-		let canResolveCaptcha = true;
+		let canResolveCaptcha = true,
+			autres_tentatives = 1,
+			choosed = captcha_questions[Math.floor(Math.random() * (captcha_questions.length - 1) + 1)],
+			question = choosed.split('|')[0],
+			response = choosed.split('|')[1];
 
     	channel.send('Bienvenue **' + members.displayName+ "**,\n Tu as maintenant accès au serveur discord \"Théotime.me\" !\nOn y parle de développement, de graphisme, d'ilustration et bien d'autres activités ! Ainsi chacun pourra parler de ses projets pour les faire évoluer. Si vous souhaitez inviter quelqu'un, utilisez ce lien: https://theotime.me/discord \n\n Amicalement, Roboto.");
 		channel.send({embed: {
 			title: "Captcha",
-			description: "Merci de valider ce captcha avant d'avoir accès à tous les salons\nCombien de pieds a la tour Eiffel ?",
+			description: "Merci de valider ce captcha avant d'avoir accès à tous les salons\n```"+question+"```",
 			color: 16777215
 		}});
 		client.on('message', msg => {
 			guild = msg.guild;
 		if (!msg.author.bot){
-			if (msg.content == 4 && canResolveCaptcha){
+			if (msg.content == response && canResolveCaptcha){
 				channel.send({embed: {
 					title: "Captcha résolu",
 					description: "Vous n'êtes pas un robot !\nEt l'accès à tous les channels a été activé (sauf les channels top secrets).",
@@ -117,12 +131,25 @@ client.on("guildMemberAdd", members => {
 
 				var role = members.guild.roles.find(role => role.name == "Utilisateur discord");
 				members.addRole(role);
-			} else {
+			} else if (canResolveCaptcha) {
+				autres_tentatives --;
+				if (autres_tentatives <= 0) {
+					canResolveCaptcha = false;
+				}
 				channel.send({embed: {
 					title: "Captcha",
 					description: "Vous pouvez réésayer car nous ne sommes pas sur que vous n'êtes pas un robot-hamster.",
 					color: 16777215
 				}});
+			} else {
+				channel.send({embed: {
+					title: "Captcha",
+					description: "Vous avez écoulé les "+(autres_tentatives+1)+" tentatives qui vous on été accordées.\nVous serez donc banni 3 jours dans moins de 5 secondes",
+					color: 16777215
+				}});
+				setTimeout(function(){
+					msg.guild.ban(msg.author, {days: 3, reason: 'a échoué au CAPTCHA' });
+				}, 8000);
 			}
 		}
 		});
@@ -199,15 +226,14 @@ client.on('message', msg => {
 				channel.send({embed: {
 					title: "Au fait.",
 					color: 16777215,
-					description: "J'ai oublié de vous donner quelques principes et aides pour que vous ne soyez pas perdus dans notre serveur.\nTout d'abord, quelques commandes d'usage: ```"+prefix+"help				   Affiche l'aide\n"+prefix+"profile				Affiche votre profil\n"+prefix+"help-me				Appelle de l'aide```\nLe serveur,  c'est comme une grande famille, donc il n'y a pas beaucoup de rêgles. Suffisamment pour que ça ne soit pas le bazar mais pas trop, non plus, pour que personne ne se sente contraint. Je vous invite tout de même à aller les consulter à cette adresse: https://theotime.me/disRules. Sinon, il y a régulièrement des évènements sur le serveur (ex. GiveAway). Alors soyez actifs pour ne pas les rater !\nNous avons également développé un système de grades (ou rôles) qui sont automatiquement attibués aux plus actifs d'entre vous et à ceux qui apportent le plus de soutien aux autres utilisateurs.\nAussi, si vous voulez inviter un ami, utilisez ce lien: https://theotime.me/discord.\n\n		_-- Le staff_"
+					description: "J'ai oublié de vous donner quelques principes et aides pour que vous ne soyez pas perdus dans notre serveur.\nTout d'abord, quelques commandes d'usage: ```"+prefix+"help				   Affiche l'aide\n"+prefix+"me     				Affiche votre profil\n"+prefix+"help-me				Appelle de l'aide```\nLe serveur,  c'est comme une grande famille, donc il n'y a pas beaucoup de rêgles. Suffisamment pour que ça ne soit pas le bazar mais pas trop, non plus, pour que personne ne se sente contraint. Je vous invite tout de même à aller les consulter à cette adresse: https://theotime.me/disRules. Sinon, il y a régulièrement des évènements sur le serveur (ex. GiveAway). Alors soyez actifs pour ne pas les rater !\nNous avons également développé un système de grades (ou rôles) qui sont automatiquement attibués aux plus actifs d'entre vous et à ceux qui apportent le plus de soutien aux autres utilisateurs.\nAussi, si vous voulez inviter un ami, utilisez ce lien: https://theotime.me/discord.\n\n		_-- Le staff_"
 				}});
 			});
 		}
 	}
 
-	// Pour éviter que le bot se réponde tout seul
-	if (msg.author.bot) return false;
-	if (msg.channel.type == "dm") return false;
+	if (msg.author.bot) return false; // Pour éviter que le bot se réponde tout seul
+	if (msg.channel.type == "dm") return false; // Pour éviter les gains d'XP en messages privés
 
 	if ( msg.member.roles.find(val => val.name === 'Muted')) {
 		msg.delete();
