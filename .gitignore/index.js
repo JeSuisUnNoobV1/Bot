@@ -374,11 +374,34 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			msg.channel.send({"embed":{
 				title:"Statistiques du serveur",
 				description: "Nombre d'utilisateur total: "+totalUsers+"\nUtilisateurs connectés: "+totalConnectedUsers+"\nNombre de channels: "+channels+"\nServeur crée en: "+dateDeCreation+"\nAdmins: "+nbAdmins+"\nBots: "+nbBots,
-				  color: 16777215
+				color: 16777215
 			}});	
 	}
 
-	// Roboto rank
+	// Roboto embed
+	if (m.startsWith(prefix+"embed ")){
+		let title = msg.content.split(' ')[1] || "embed",
+			content = msg.content.replace(prefix+"embed "+title, "");
+		
+		if (content != undefined){
+			if (isAdmin()){
+				msg.channel.send({"embed":{
+					title: title,
+					description: content,
+					color: 16777215
+				}});
+			} else {
+				msg.channel.send({"embed":{
+					title: title,
+					description: content,
+					color: 16777215,
+					footer: "Embed of "+msg.author
+				}});
+			}
+		}
+	}
+
+	// Roboto profile/money/xp
 	if (m.startsWith(prefix+"money")||m.startsWith(prefix+"xp")||m.startsWith(prefix+"profile")){
 		let member = msg.mentions.users.first() || msg.author,
 			dispo = msg.author.presence.status == "online" ? "est disponible" : msg.author.presence.status == "idle" ? "est inactif" : msg.author.presence.status == "dnd" ? "ne veut pas être dérangé" : "est invisible",
@@ -405,6 +428,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 					break;
 				}
 			}
+
 			msg.channel.send({embed: {
 				title: "Profil de "+msg.author.username,
 				color: 16777215,
