@@ -914,7 +914,6 @@ if (isAdmin()){
 					description: "Merci d'indiquer l'id de l'utilisateur qui doit-être débanni.```ex: "+prefix+"unban <userID> <reason>```"
 				}});
 			}
-		});
 	}
 	
 	// Roboto kick
