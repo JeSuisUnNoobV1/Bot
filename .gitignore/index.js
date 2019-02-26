@@ -287,23 +287,29 @@ if(m.includes("fdp")||m.includes("beze")||m.includes("bese")||m.includes("bz")||
 					title: "GO code n°"+nb,
 					color: 16777215,
 					description: "Voici le lien: "+link
-				}});
+				}}).then(msg => {
+					msgSend = msg;
+				});
 			} else if (isNaN(nb)) {
 				msgSend = msg.channel.send({embed: {
 					title: "GO code error",
 					color: 16057630,
 					description: "Mauvais lien. Sachez que tous les liens GO commencent tous par `go ou @` suivis d'un nombre entre 0 et 9999. Donc \""+link+"\" ne correspond sûrement pas à ces critères"
-				}});
+				}}).then(msg => {
+					msgSend = msg;
+				});
 			} else {
 				msgSend = msg.channel.send({embed: {
 					title: "GO code indisponible",
 					color: 16057630,
 					description: "Le code que vous avez utilisé est indisponible. Il devait être compris entre 0 et "+(goCodes.length -1)+"."
-				}});
+				}}).then(msg => {
+					msgSend = msg;
+				});
 			}
 	
 			setTimeout(function(){
-				if (msg.channel.lastMessage.author.bot == true) msg.channel.lastMessage.delete();
+				msgSend.delete();
 				msg.delete();
 			}, 5000);
 	}
