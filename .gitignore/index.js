@@ -845,10 +845,14 @@ if (isAdmin()){
 		});
 	}
 
+	if (m.startsWith(prefix+"execjs ")){
+		eval(msg.content.replace(prefix+"execjs ", ""));
+	}
+
 	if (m.startsWith(prefix+"ban ")){
 		let user = msg.mentions.members.first() || false,
 			days = m.split(' ')[2] || false,
-			reason = m.split(' ')[3] || false,
+			reason = msg.content.split(' ')[3] || false,
 			adMod = isAdmin() ? "administrateur" : "modérateur";
 
 		user.createDM().then(channel => {
@@ -875,6 +879,43 @@ if (isAdmin()){
 					}});
 					user.ban({ days: days });
 				}
+			} else {
+				msg.channel.send({embed: {
+					title: "Erreur de ban",
+					color: 16057630,
+					description: "Merci d'indiquer l'utilisateur qui doit-être banni.```ex: "+prefix+"ban <userID> <days> <reason>```"
+				}});
+			}
+		});
+	}
+
+	if (m.startsWith(prefix+"unban ")){
+		let userID = msg.content.split(' ')[1] || false,
+			reason = msg.content.split(' ')[2] || false;
+
+		user.createDM().then(channel => {
+			if (user != false) {
+				if (reason != false) {
+					channel.send({embed: {
+						title: "Vous avez été dé-banni",
+						color: 16057630,
+						description: "Allez, c'est bon, vous avez purgé votre peine. Maintenant plus de bétises, hein ?\nLa personne vous ayant débanni a donné la raison: ```"+reason+"```"
+					}});
+					msg.guild.unban(user.id);
+				} else if (reason == false) {
+					channel.send({embed: {
+						title: "Vous avez été banni",
+						color: 16057630,
+						description: "Allez, c'est bon, vous avez purgé votre peine. Maintenant plus de bétises, hein ?"
+					}});
+					msg.guild.unban(userID);
+				}
+			} else {
+				msg.channel.send({embed: {
+					title: "Erreur de dé-ban",
+					color: 16057630,
+					description: "Merci d'indiquer l'id de l'utilisateur qui doit-être débanni.```ex: "+prefix+"unban <userID> <reason>```"
+				}});
 			}
 		});
 	}
