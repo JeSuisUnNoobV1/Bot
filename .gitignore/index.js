@@ -387,8 +387,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			if (isAdmin()){
 				msg.channel.send({"embed":{
 					title: title,
-					description: content,
-					color: 16777215
+					description: content
 				}});
 			} else {
 				msg.channel.send({"embed":{
