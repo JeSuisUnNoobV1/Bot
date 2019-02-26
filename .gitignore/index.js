@@ -274,6 +274,40 @@ if(m.includes("fdp")||m.includes("beze")||m.includes("bese")||m.includes("bz")||
 	}
 }
 
+/* 05.5 / GO codes
+====================== */
+
+	// Roboto go
+	if (m.startsWith('go')||m.startsWith('#')||m.startsWith(prefix+'go')) {
+		let nb = parseInt(m.replace(/[^0-9]/g, "")),
+			msgSend;
+			if (!isNaN(nb) && goCodes[nb] != undefined) {
+				let link = goCodes[nb].lk;
+				msgSend = msg.channel.send({embed: {
+					title: "GO code n°"+nb,
+					color: 16777215,
+					description: "Voici le lien: "+link
+				}});
+			} else if (isNaN(nb)) {
+				msgSend = msg.channel.send({embed: {
+					title: "GO code error",
+					color: 16057630,
+					description: "Mauvais lien. Sachez que tous les liens GO commencent tous par `go ou @` suivis d'un nombre entre 0 et 9999. Donc \""+link+"\" ne correspond sûrement pas à ces critères"
+				}});
+			} else {
+				msgSend = msg.channel.send({embed: {
+					title: "GO code indisponible",
+					color: 16057630,
+					description: "Le code que vous avez utilisé est indisponible. Il devait être compris entre 0 et "+(goCodes.length -1)+"."
+				}});
+			}
+	
+			setTimeout(function(){
+				if (msg.channel.lastMessage.author.bot == true) msg.channel.lastMessage.delete();
+				msg.delete();
+			}, 5000);
+	}
+
 /* 06 / Utilities
 =========================== */
 if (m.startsWith(prefix)){ // Si le msg commence par le préfix contenu dans `config.json`
@@ -612,38 +646,6 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			description: "Voilà les grades de "+msg.author+": "+toSend
 		}});
 	}
-
-	// Roboto go
-	if (m.startsWith('go')||m.startsWith('#')||m.startsWith(prefix+'go')) {
-		let nb = parseInt(m.replace(/[^0-9]/g, "")),
-			msgSend;
-			if (!isNaN(nb) && goCodes[nb] != undefined) {
-				let link = goCodes[nb].lk;
-				msgSend = msg.channel.send({embed: {
-					title: "GO code n°"+nb,
-					color: 16777215,
-					description: "Voici le lien: "+link
-				}});
-			} else if (isNaN(nb)) {
-				msgSend = msg.channel.send({embed: {
-					title: "GO code error",
-					color: 16057630,
-					description: "Mauvais lien. Sachez que tous les liens GO commencent tous par `go ou @` suivis d'un nombre entre 0 et 9999. Donc \""+link+"\" ne correspond sûrement pas à ces critères"
-				}});
-			} else {
-				msgSend = msg.channel.send({embed: {
-					title: "GO code indisponible",
-					color: 16057630,
-					description: "Le code que vous avez utilisé est indisponible. Il devait être compris entre 0 et "+(goCodes.length -1)+"."
-				}});
-			}
-	
-			setTimeout(function(){
-				if (msg.channel.lastMessage.author.bot == true) msg.channel.lastMessage.delete();
-				msg.delete();
-			}, 5000);
-	}
-	
 
 /* 07 / Fun
 =============== */
