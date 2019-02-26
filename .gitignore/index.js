@@ -105,7 +105,8 @@ client.on("guildMemberAdd", members => {
 			autres_tentatives = 1,
 			choosed = captcha_questions[Math.floor(Math.random() * (captcha_questions.length - 1) + 1)],
 			question = choosed.split('|')[0],
-			response = choosed.split('|')[1];
+			response = choosed.split('|')[1],
+			tentatives_aLaBase = autres_tentatives;
 
     	channel.send('Bienvenue **' + members.displayName+ "**,\n Tu as maintenant accès au serveur discord \"Théotime.me\" !\nOn y parle de développement, de graphisme, d'ilustration et bien d'autres activités ! Ainsi chacun pourra parler de ses projets pour les faire évoluer. Si vous souhaitez inviter quelqu'un, utilisez ce lien: https://theotime.me/discord \n\n Amicalement, Roboto.");
 		channel.send({embed: {
@@ -144,7 +145,7 @@ client.on("guildMemberAdd", members => {
 			} else {
 				channel.send({embed: {
 					title: "Captcha",
-					description: "Vous avez écoulé les "+(autres_tentatives+1)+" tentatives qui vous on été accordées.\nVous serez donc banni 3 jours dans moins de 5 secondes",
+					description: "Vous avez écoulé les "+(tentatives_aLaBase+1)+" tentatives qui vous on été accordées.\nVous serez donc banni 3 jours dans moins de 5 secondes",
 					color: 16777215
 				}});
 				setTimeout(function(){
