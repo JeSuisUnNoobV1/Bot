@@ -184,7 +184,7 @@ client.on('message', msg => {
 	}
 
 	function checkXpLevel(xp){
-		if (xp == 5000) {
+		if (xp == 2048) {
 			let role = msg.member.guild.roles.find(role => role.name == "VIP");
 			msg.author.addRole(role);
 			msg.author.createDM().then(channel => {
@@ -194,7 +194,7 @@ client.on('message', msg => {
 					description: msg.author+" ! Vous venez d'obtenir le rôle de `VIP` !\nMaintenant, vous pouvez```- gérer les émojis\n- envoyer des messages TTS\n- attacher des fichiers\n- mentionner @everyone\n- utiliser des émojis externes\n- ajouter des réactions à celles existantes\n- rendre les membres muets dans les salon vocaux```"
 				}});
 			});
-		} else if (xp == 500) {
+		} else if (xp == 248) {
 			let role = msg.member.guild.roles.find(role => role.name == "Habitués");
 			msg.author.addRole(role);
 			msg.author.createDM().then(channel => {
@@ -614,7 +614,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 	}
 
 	// Roboto go
-	if (m.startsWith(prefix+'go')||m.startsWith('go')) {
+	if (m.startsWith('go')||m.startsWith('#')||m.startsWith(prefix+'go')) {
 		let nb = parseInt(m.replace(/[^0-9]/g, "")),
 			msgSend;
 			if (!isNaN(nb) && goCodes[nb] != undefined) {
