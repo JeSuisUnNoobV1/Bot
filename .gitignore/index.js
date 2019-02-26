@@ -380,6 +380,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 
 	// Roboto embed
 	if (m.startsWith(prefix+"embed ")){
+		msg.delete();
 		let title = msg.content.split(' ')[1] || "embed",
 			content = msg.content.replace(prefix+"embed "+title, "");
 		
