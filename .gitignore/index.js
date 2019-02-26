@@ -394,7 +394,6 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 				msg.channel.send({"embed":{
 					title: title,
 					description: content,
-					color: 16777215,
 					footer: "Embed of "+msg.author
 				}});
 			}
