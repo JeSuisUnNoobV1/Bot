@@ -108,7 +108,8 @@ client.on("guildMemberAdd", members => {
     members.createDM().then(channel => {
 		let choosed = captcha_questions[Math.floor(Math.random() * (captcha_questions.length - 1) + 1)],
 			question = choosed.split('|')[0],
-			response = choosed.split('|')[1];
+			response = choosed.split('|')[1],
+			resolved = false;
 
     	channel.send('Bienvenue **' + members.displayName+ "**,\n Tu as maintenant accès au serveur discord \"Théotime.me\" !\nOn y parle de développement, de graphisme, d'ilustration et bien d'autres activités ! Ainsi chacun pourra parler de ses projets pour les faire évoluer. Si vous souhaitez inviter quelqu'un, utilisez ce lien: https://theotime.me/discord \n\n Amicalement, Roboto.");
 		channel.send({embed: {
@@ -119,7 +120,7 @@ client.on("guildMemberAdd", members => {
 		client.on('message', msg => {
 			guild = msg.guild;
 		if (!msg.author.bot){
-			if (msg.content == response){
+			if (msg.content.toLowerCase() == response){
 				channel.send({embed: {
 					title: "Captcha résolu",
 					description: "Vous n'êtes pas un robot !\nEt l'accès à tous les channels a été activé (sauf les channels top secrets).",
@@ -132,7 +133,8 @@ client.on("guildMemberAdd", members => {
 
 				var role = members.guild.roles.find(role => role.name == "Utilisateur discord");
 				members.addRole(role);
-			} else {
+				resolved = true;
+			} else if (!resolved) {
 				channel.send({embed: {
 					title: "Captcha",
 					description: "Vous avez échoué au captcha.\nAlors comme promi, vous serez banni 3 jours dans moins de 5 secondes",
