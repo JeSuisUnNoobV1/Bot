@@ -191,7 +191,7 @@ client.on('message', msg => {
 				channel.send({embed: {
 					title: "...",
 					color: 16777215,
-					description: "J'ai le plaisir de vous annoncer que vous êtes désormais ... Je ne vous ment pas ! ... est le rôle le plus élevé que vous puissiez avoir sur ce serveur. Maintenant, vous pouvez"
+					description: "J'ai le plaisir de vous annoncer que vous êtes désormais ... Je ne vous ment pas ! ... est le rôle le plus élevé que vous puissiez avoir sur ce serveur. Maintenant, vous pouvez juste frimer parce que ous avez déjà tout ! Mais en plus, vous pouvez demander en ami un administrateur sans qu'il vous refuse ! Parce que vous avez la classe."
 				}});
 			}).catch(console.error);
 		} else if (xp == 16384) {
@@ -201,7 +201,7 @@ client.on('message', msg => {
 				channel.send({embed: {
 					title: "bruh.",
 					color: 16777215,
-					description: msg.author+" ! Vous venez d'obtenir le rôle de `Bruh.` ! Maintenant, vous pouvez ``````"
+					description: msg.author+", vus venez d'obtenir le rôle de `Bruh.` ! Maintenant, vous pouvez ```- "+prefix+"ban <mention d'utilisateur> [https://theotime.me/disBan]\n- "+prefix+"unban <mention d'utilisateur> [https://theotime.me/disUnban]```"
 				}});
 			}).catch(console.error);
 		} else if (xp == 8192) {
@@ -211,7 +211,7 @@ client.on('message', msg => {
 				channel.send({embed: {
 					title: "NoLife.",
 					color: 16777215,
-					description: "Félicitations, "+msg.author+" ! Vous êtes un NoLife ! Non, plus sérieusement, vous commencez à atteindre une place importante dans le serveur avec vos 8192 xp. Alors nous vous confions certaines responsabilités ainsi que quelques privillèges. ``````"
+					description: "Félicitations, "+msg.author+" ! Vous êtes un NoLife. Non, plus sérieusement, vous commencez à atteindre une place importante dans le serveur avec vos 8192 xp. Alors nous vous confions certaines responsabilités ainsi que quelques privillèges. ```- "+prefix+"get db [https://theotime.me/disGetDB]\n- "+prefix+"get goDB [https://theotime.me/disGetGoDB]\n- le début du style```"
 				}});
 			}).catch(console.error);
 		} else if (xp == 4096) {
@@ -221,7 +221,7 @@ client.on('message', msg => {
 				channel.send({embed: {
 					title: "WAOUH.",
 					color: 16777215,
-					description: "Hey, "+msg.author+" ! Vous êtes un dieu ! Cool, hein. Bon alors comme vous devez déjà le savoir: ici, plus on est là depuis longtemps, plus on a de droits et de privillèges. Alors, pour vous, vous pouvez"
+					description: "Hey, "+msg.author+" ! Vous êtes un dieu ! Cool, hein. Bon alors comme vous devez déjà le savoir: ici, plus on est là depuis longtemps, plus on a de droits et de privillèges. Alors maintenant vous pouvez: ```- envoyer des messages TTS\n- Mentionner @everyone\n- "+prefix+"purge <nombre> [https://theotime.me/disPurge]\n- rendre muets et sourds les utilisateurs\n- déplacer les membres dans un channel vocal```"
 				}});
 			}).catch(console.error);
 		} else if (xp == 2048) {
@@ -231,7 +231,7 @@ client.on('message', msg => {
 				channel.send({embed: {
 					title: "WAOUH.",
 					color: 16777215,
-					description: msg.author+" ! Vous venez d'obtenir le rôle de `VIP` !\nMaintenant, vous pouvez```- gérer les émojis\n- envoyer des messages TTS\n- attacher des fichiers\n- mentionner @everyone\n- utiliser des émojis externes\n- ajouter des réactions à celles existantes\n- rendre les membres muets dans les salon vocaux```"
+					description: msg.author+" ! Vous venez d'obtenir le rôle de `VIP` !\nMaintenant, vous pouvez```- "+prefix+"sell <prix> <code> [https://theotime.me/disSell]\n- "+prefix+"timeout <secondes> [https://theotime.me/disTimeout]\n- "+prefix+"say <message> [https://theotime.me/disSay]\n- attacher des fichiers\n- utiliser des émojis externes```"
 				}});
 			}).catch(console.error);
 		} else if (xp == 512) {
@@ -243,7 +243,7 @@ client.on('message', msg => {
 				channel.send({embed: {
 					title: "HEY!",
 					color: 16777215,
-					description: "[actifs]"
+					description: "Ben alors là chapeau, étant donné de votre grande participation dans le serveur, vous avez eu le grade \"actifs\" ! Cela dit, vous aurez donc divers avantages: ```- changer de pseudo\n- "+prefix+"set go <url> [https://theotime.me/disGO]\n- "+prefix+"embed <title> <message> [https://theotime.me/disEmbed]```"
 				}});
 			}).catch(console.error);
 		} else if (xp == 256) {
@@ -253,7 +253,7 @@ client.on('message', msg => {
 				channel.send({embed: {
 					title: "HEY!",
 					color: 16777215,
-					description: msg.author+" ! Vous êtes maintenant un habitué. C'est à dire que vous êtes tellement actif que nous vous faisons plus confiance.\nC'est pour cela que nous vous récompensons avec ces quelques privillèges: ```- créer des invitations\n- changer cotre pseudo\n- être affiché séparément des autres membres\n- une magnifique couleur rouge !```"
+					description: msg.author+" ! Vous êtes maintenant un habitué. C'est à dire que vous êtes tellement actif que nous vous faisons plus confiance.\nC'est pour cela que nous vous récompensons avec ces quelques privillèges: ```- créer des invitations\n- envoyer des liens\n- "+prefix+"report <mention d'utilisateur> [https://theotime.me/disReport]\n- ajouter des réactions \n- être affiché séparément des autres membres\n- une magnifique couleur rouge !```"
 				}});
 			}).catch(console.error);
 		} else if (xp == 100) {
@@ -269,7 +269,7 @@ client.on('message', msg => {
 				channel.send({embed: {
 					title: "Au fait.",
 					color: 16777215,
-					description: "J'ai oublié de vous donner quelques principes et aides pour que vous ne soyez pas perdus dans notre serveur.\nTout d'abord, quelques commandes d'usage: ```"+prefix+"help				   Affiche l'aide\n"+prefix+"me     				Affiche votre profil\n"+prefix+"help-me				Appelle de l'aide```\nLe serveur,  c'est comme une grande famille, donc il n'y a pas beaucoup de rêgles. Suffisamment pour que ça ne soit pas le bazar mais pas trop, non plus, pour que personne ne se sente contraint. Je vous invite tout de même à aller les consulter à cette adresse: https://theotime.me/disRules. Sinon, il y a régulièrement des évènements sur le serveur (ex. GiveAway). Alors soyez actifs pour ne pas les rater !\nNous avons également développé un système de grades (ou rôles) qui sont automatiquement attibués aux plus actifs d'entre vous et à ceux qui apportent le plus de soutien aux autres utilisateurs.\nAussi, si vous voulez inviter un ami, utilisez ce lien: https://theotime.me/discord.\n\n		_-- Le staff_"
+					description: "J'ai oublié de vous donner quelques principes et aides pour que vous ne soyez pas perdus dans notre serveur.\nTout d'abord, quelques commandes d'usage: ```"+prefix+"help				   Affiche l'aide\n"+prefix+"me     				Affiche votre profil\n"+prefix+"help-me				Appelle de l'aide```\nLes autres sont sur https://theotime.me/disCmds.\nLe serveur,  c'est comme une grande famille, donc il n'y a pas beaucoup de rêgles. Suffisamment pour que ça ne soit pas le bazar mais pas trop, non plus, pour que personne ne se sente contraint. Je vous invite tout de même à aller les consulter à cette adresse: https://theotime.me/disRules. Sinon, il y a régulièrement des évènements sur le serveur (ex. GiveAway). Alors soyez actifs pour ne pas les rater !\nNous avons également développé un système de grades (ou rôles) qui sont automatiquement attibués aux plus actifs d'entre vous et à ceux qui apportent le plus de soutien aux autres utilisateurs.\nAussi, si vous voulez inviter un ami, utilisez ce lien: https://theotime.me/discord.\n\n		_-- Le staff_"
 				}});
 			}).catch(console.error);
 		}
@@ -374,6 +374,23 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 	// Roboto
 	if (m==prefix+nameLC){
 		msg.channel.send("Oui, c'est moi ! \n Je peux vous aidez si vous tapez \"roboto help\", \n mais je peux aussi vous raconter des blagues avec \n roboto joke.");
+	}
+	
+	// Roboto commands
+	if (m==prefix+"commands"){
+		if (isAdmin()) {
+			msg.channel.send({"embed":{
+				title: "Toutes les commandes disponibles",
+				description: "```"+prefix+"kick <mention>            kick un membre du serveur\n"+prefix+"get xp <nombre>           Vous donne la somme indiquée en xp\n"+prefix+"get money <nombre>        Vous donne la somme indiquée en coins\n"+prefix+"decision <question>       Trouve une réponse aléatoire à votre question\n"+prefix+"cat                       Envoie un chat trop mignon !\n"+prefix+"dog                       Envoie une magnifique image de chien\n"+prefix+"joke                      Vous fait rire avec une blague tordante\n"+prefix+"wtf                       "+config.name+" vous raconte une histoire !\n"+prefix+"roles                     Affiche vos rôles\n"+prefix+"code <code>               Envoie du code\n"+prefix+"invite                    Vous donne une invitation du serveur\n"+prefix+"give <somme> <mention>    Donne la somme à un utilisateur\n"+prefix+"profile <mention>         Affiche le profil d'un utilisateur\n"+prefix+"me                        Affiche votre profile\n"+prefix+"stats                     Affiche les statistiques du serveur\n"+prefix+"channel                   affiche le channel ou vous vous trouvez\n"+prefix+"admins                    Affiche les admins du serveur\n"+prefix+"date                      Affiche la date\n"+prefix+"help                      Affiche l'aide\n"+prefix+"flip                      Pile ou face\n"+prefix+"go <nombre>               Affiche le lien correspondant au nombre\n"+prefix+"report <mention>          report un utilisateur aux admins\n"+prefix+"embed <titre> <message>   envoyer un embed\n"+prefix+"timeout <secondes>        mettre en marche un compte à rebours\n"+prefix+"sell <prix> <code>        vendre du code\n"+prefix+"say <message>             faire dire quelque chose à "+config.name+"\n"+prefix+"purge <nombre>            supprime les msg d'un channel\n"+prefix+"get db                    obtenir la bdd en DM\n"+prefix+"get goDB                  obtenir la bdd de tous les GO en DM\n"+prefix+"ban <mention>             bannir un utilisateur\n"+prefix+"unban <mention>           dé-bannir un utilisateur```",
+				color: 16777215
+			}});
+		} else if (isBruh()) {
+			msg.channel.send({"embed":{
+				title: "Toutes les commandes disponibles",
+				description: "```"+prefix+"kick <mention>            kick un membre du serveur\n"+prefix+"get xp <nombre>           Vous donne la somme indiquée en xp\n"+prefix+"get money <nombre>        Vous donne la somme indiquée en coins\n"+prefix+"decision <question>       Trouve une réponse aléatoire à votre question\n"+prefix+"cat                       Envoie un chat trop mignon !\n"+prefix+"dog                       Envoie une magnifique image de chien\n"+prefix+"joke                      Vous fait rire avec une blague tordante\n"+prefix+"wtf                       "+config.name+" vous raconte une histoire !\n"+prefix+"roles                     Affiche vos rôles\n"+prefix+"code <code>               Envoie du code\n"+prefix+"invite                    Vous donne une invitation du serveur\n"+prefix+"give <somme> <mention>    Donne la somme à un utilisateur\n"+prefix+"profile <mention>         Affiche le profil d'un utilisateur\n"+prefix+"me                        Affiche votre profile\n"+prefix+"stats                     Affiche les statistiques du serveur\n"+prefix+"channel                   affiche le channel ou vous vous trouvez\n"+prefix+"admins                    Affiche les admins du serveur\n"+prefix+"date                      Affiche la date\n"+prefix+"help                      Affiche l'aide\n"+prefix+"flip                      Pile ou face\n"+prefix+"go <nombre>               Affiche le lien correspondant au nombre\n"+prefix+"report <mention>          report un utilisateur aux admins\n"+prefix+"embed <titre> <message>   envoyer un embed\n"+prefix+"timeout <secondes>        mettre en marche un compte à rebours\n"+prefix+"sell <prix> <code>        vendre du code\n"+prefix+"say <message>             faire dire quelque chose à "+config.name+"\n"+prefix+"purge <nombre>            supprime les msg d'un channel\n"+prefix+"get db                    obtenir la bdd en DM\n"+prefix+"get goDB                  obtenir la bdd de tous les GO en DM\n"+prefix+"ban <mention>             bannir un utilisateur\n"+prefix+"unban <mention>           dé-bannir un utilisateur```",
+				color: 16777215
+			}});
+		}
 	}
 
 	// Roboto help
