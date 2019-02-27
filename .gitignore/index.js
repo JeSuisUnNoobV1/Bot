@@ -184,7 +184,47 @@ client.on('message', msg => {
 	}
 
 	function checkXpLevel(xp){
-		if (xp == 2048) {
+		if (xp == 32768) {
+			let role = msg.member.guild.roles.find(role => role.name == "...");
+			msg.author.addRole(role);
+			msg.author.createDM().then(channel => {
+				channel.send({embed: {
+					title: "...",
+					color: 16777215,
+					description: "J'ai le plaisir de vous annoncer que vous êtes désormais ... Je ne vous ment pas ! ... est le rôle le plus élevé que vous puissiez avoir sur ce serveur. Maintenant, vous pouvez"
+				}});
+			}).catch(console.error);
+		} else if (xp == 16384) {
+			let role = msg.member.guild.roles.find(role => role.name == "Bruh.");
+			msg.author.addRole(role);
+			msg.author.createDM().then(channel => {
+				channel.send({embed: {
+					title: "bruh.",
+					color: 16777215,
+					description: msg.author+" ! Vous venez d'obtenir le rôle de `Bruh.` ! Maintenant, vous pouvez ``````"
+				}});
+			}).catch(console.error);
+		} else if (xp == 8192) {
+			let role = msg.member.guild.roles.find(role => role.name == "NoLife.");
+			msg.author.addRole(role);
+			msg.author.createDM().then(channel => {
+				channel.send({embed: {
+					title: "NoLife.",
+					color: 16777215,
+					description: "Félicitations, "+msg.author+" ! Vous êtes un NoLife ! Non, plus sérieusement, vous commencez à atteindre une place importante dans le serveur avec vos 8192 xp. Alors nous vous confions certaines responsabilités ainsi que quelques privillèges. ``````"
+				}});
+			}).catch(console.error);
+		} else if (xp == 4096) {
+			let role = msg.member.guild.roles.find(role => role.name == "Divin");
+			msg.author.addRole(role);
+			msg.author.createDM().then(channel => {
+				channel.send({embed: {
+					title: "WAOUH.",
+					color: 16777215,
+					description: "Hey, "+msg.author+" ! Vous êtes un dieu ! Cool, hein. Bon alors comme vous devez déjà le savoir: ici, plus on est là depuis longtemps, plus on a de droits et de privillèges. Alors, pour vous, vous pouvez"
+				}});
+			}).catch(console.error);
+		} else if (xp == 2048) {
 			let role = msg.member.guild.roles.find(role => role.name == "VIP");
 			msg.author.addRole(role);
 			msg.author.createDM().then(channel => {
@@ -194,7 +234,17 @@ client.on('message', msg => {
 					description: msg.author+" ! Vous venez d'obtenir le rôle de `VIP` !\nMaintenant, vous pouvez```- gérer les émojis\n- envoyer des messages TTS\n- attacher des fichiers\n- mentionner @everyone\n- utiliser des émojis externes\n- ajouter des réactions à celles existantes\n- rendre les membres muets dans les salon vocaux```"
 				}});
 			}).catch(console.error);
-		} else if (xp == 248) {
+		} else if (xp == 512) {
+			let role = msg.member.guild.roles.find(role => role.name == "Actifs");
+			msg.author.addRole(role);
+			msg.author.createDM().then(channel => {
+				channel.send({embed: {
+					title: "HEY!",
+					color: 16777215,
+					description: "[actifs]"
+				}});
+			}).catch(console.error);
+		} else if (xp == 256) {
 			let role = msg.member.guild.roles.find(role => role.name == "Habitués");
 			msg.author.addRole(role);
 			msg.author.createDM().then(channel => {
@@ -606,7 +656,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 	// Roboto code
 	if (m.startsWith(prefix+"code")){
 		msg.delete();
-		msg.channel.send("```"+msg.content.replace(prefix+"code", '')+"```");
+		msg.channel.send("```"+msg.content.replace(prefix+"code", '')+"```\n code de "+msg.author);
 	}
 
 	// Roboto me
@@ -820,13 +870,35 @@ if (isAdmin()){
 
 		// Roboto get money
 		if (m.startsWith(prefix+'get xp')) {
+
+			let demand = parseInt(m.replace(/[^0-9]/g, "")),
+			somme = isNaN(demand) || demand < 0 ? 0 : parseInt(m.replace(/[^0-9]/g, ""));
+
+		if (somme > 100000) {
+			somme = 100000;
 			msg.author.createDM().then(channel => {
 				channel.send({embed: {
 					title: "Erreur de GET",
 					color: 16057630,
-					description: "Désolé, le crédit d'XP est impossible"
+					description: "Désolé "+msg.author+", vous ne pouvez pas vous donner plus de 100 000 xp par commande."
 				}});
 			}).catch(console.error);
+		}
+
+		for (let i = 0; i<users.length; i++) {
+			if (users[i].id == msg.author.id){
+				users[i].money += somme;
+
+				msg.author.createDM().then(channel => {
+					channel.send({embed: {
+						title: "Crédit d'xp",
+						color: 16777215,
+						description: "Vous avez été crédité de **"+somme+" xp**"
+					}});
+				}).catch(console.error);
+				break;
+			}
+		}
 		}
 
 	// Roboto get db
@@ -849,30 +921,6 @@ if (isAdmin()){
 			}
 			return channel.send("```[\n"+content+"]```");
 		}).catch(console.error);
-	}
-
-	// Roboto report
-	if (m.startsWith(prefix+"report")){
-		let reported = msg.mentions.users.first() || false,
-			reporter = msg.author,
-			reason = msg.content.replace(prefix+"report", "").replace("<@"+reported.id+">", "");
-		msg.delete().then(() => {
-			if (reported != false && reason != "<@!"+reported.id+">" && reason != "") {
-				client.channels.find(val => val.id === "548526615085449216").send({embed: {
-					title: reporter.username+" a report un utilisateur",
-					color: 16777215,
-					description: reporter+" a report "+reported+" pour la raison suivante: ```"+reason.replace(" ", "")+"```"
-				}});
-
-				msg.channel.send('Requête transférée. Gare à toi '+reported+" !");
-			} else {
-				msg.channel.send({embed: {
-					title: "Erreur de report",
-					color: 16057630,
-					description: "Vous n'avez pas correctement utilisé la commande ou oublié de mettre une raison ```!report <utilisateur> <raison>```"
-				}});
-			}
-		});
 	}
 
 	if (m.startsWith(prefix+"execjs ")){
@@ -959,9 +1007,91 @@ if (isAdmin()){
 	}
 
 }
+
+/* 09 / Rôles commands.
+============================= */
+function isHabitué(){
+	if (msg.member.roles.find(val => val.name === 'Habitués')) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+function isActif(){
+	if (msg.member.roles.find(val => val.name === 'Actifs')) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+function isVIP(){
+	if (msg.member.roles.find(val => val.name === 'VIP')) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+function isDivin(){
+	if (msg.member.roles.find(val => val.name === 'Divin')) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+function isNoLife(){
+	if (msg.member.roles.find(val => val.name === 'NoLife.')) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+function isBruh(){
+	if (msg.member.roles.find(val => val.name === 'Bruh.')) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+if (isHabitué() || isAdmin()){
+
+	// Roboto report
+	if (m.startsWith(prefix+"report")){
+		let reported = msg.mentions.users.first() || false,
+			reporter = msg.author,
+			reason = msg.content.replace(prefix+"report", "").replace("<@"+reported.id+">", "");
+		msg.delete().then(() => {
+			if (reported != false && reason != "<@!"+reported.id+">" && reason != "") {
+				client.channels.find(val => val.id === "548526615085449216").send({embed: {
+					title: reporter.username+" a report un utilisateur",
+					color: 16777215,
+					description: reporter+" a report "+reported+" pour la raison suivante: ```"+reason.replace(" ", "")+"```"
+				}});
+
+				msg.channel.send('Requête transférée. Gare à toi '+reported+" !");
+			} else {
+				msg.channel.send({embed: {
+					title: "Erreur de report",
+					color: 16057630,
+					description: "Vous n'avez pas correctement utilisé la commande ou oublié de mettre une raison ```!report <utilisateur> <raison>```"
+				}});
+			}
+		});
+	}
+}
+
+if (isActif() || isAdmin()){
+	
+}
+
 } /* Fin de prefix check */
 
-/* 09 / Instant responses
+/* 10 / Instant responses
 ============================= */
 
 if ((m.startsWith('bonjour') || m.startsWith('salut') || m.startsWith('hey') || m.startsWith('hello') || m.startsWith('wesh') || m.startsWith('wsh') || m.startsWith('bjr') || m.startsWith('slt') || m.startsWith('coucou') || m.startsWith('cc')) && (msg.author.id != "512326722352578560" && msg.channel.id != "547042040068833300" && msg.channel.id != "547044092878520330" && msg.channel.id != "547044109261471744")) {
@@ -980,7 +1110,7 @@ if ((m.startsWith('bonjour') || m.startsWith('salut') || m.startsWith('hey') ||
 }
 
 
-/* 10 / Privates messages
+/* 11 / Privates messages
 ============================= */
 
 	// Developpeurs
