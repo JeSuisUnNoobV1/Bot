@@ -236,7 +236,9 @@ client.on('message', msg => {
 			}).catch(console.error);
 		} else if (xp == 512) {
 			let role = msg.member.guild.roles.find(role => role.name == "Actifs");
-			msg.author.addRole(role);
+			let oldRole = msg.member.guild.roles.find(role => role.name == "Habitués");
+			msg.member.addRole(role);
+			msg.member.removeRole(oldRole);
 			msg.author.createDM().then(channel => {
 				channel.send({embed: {
 					title: "HEY!",
@@ -428,28 +430,6 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			}});	
 	}
 
-	// Roboto embed
-	if (m.startsWith(prefix+"embed ")){
-		msg.delete();
-		let title = msg.content.split(' ')[1] || "embed",
-			content = msg.content.replace(prefix+"embed "+title, "");
-		
-		if (content != undefined){
-			if (isAdmin()){
-				msg.channel.send({"embed":{
-					title: title,
-					description: content
-				}});
-			} else {
-				msg.channel.send({"embed":{
-					title: title,
-					description: content,
-					footer: "Embed of "+msg.author
-				}});
-			}
-		}
-	}
-
 	// Roboto profile/money/xp
 	if (m.startsWith(prefix+"money")||m.startsWith(prefix+"xp")||m.startsWith(prefix+"profile")){
 		let member = msg.mentions.users.first() || msg.author,
@@ -529,6 +509,336 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 				}});
 			}).catch(console.error);
 		}
+	}
+
+	// Roboto invite
+	if (m==prefix+"invite"){
+		msg.channel.send("Oki, voilà une invitation, juste pour vous ^^\n https://discord.gg/PuU3BSJ");	
+	}
+
+	// Roboto code
+	if (m.startsWith(prefix+"code")){
+		msg.delete();
+		msg.channel.send("```"+msg.content.replace(prefix+"code", '')+"```\n code de "+msg.author);
+	}
+
+	// Roboto me
+	if (m.startsWith(prefix+"me")){
+		let dispo = msg.author.presence.status == "online" ? "est disponible" : msg.author.presence.status == "idle" ? "est inactif" : msg.author.presence.status == "dnd" ? "ne veut pas être dérangé" : "est invisible",
+			xp, money;
+
+		for (let i = 0; i<users.length; i++) {
+			if (users[i].id == msg.author.id){
+				xp = users[i].xp;
+				money = users[i].money;
+				break;
+			}
+		}
+		msg.channel.send({embed: {
+			title: "Profil de "+msg.author.username,
+			color: 16777215,
+			description: "Tu es <@"+msg.author.id+"> et tu "+dispo+".\n```xp: "+xp+"\nmoney: "+money+"```\nPour les développeurs, ton id est ```"+msg.author.id+"```"
+	    }});
+	}
+
+	// Roboto guilds
+	if (m.startsWith(prefix+"roles")){
+		msg.channel.send({embed: {
+			title: "Grades",
+			color: 16777215,
+			description: "Voilà les grades de "+msg.author+": "+toSend
+		}});
+	}
+
+/* 07 / Fun
+=============== */
+
+	// WTF
+	if (m==prefix+"wtf"){
+		msg.channel.send({"embed":{"title":"Mon incroyable aventure","description":"Un jour, comme les autres, je me suis réveillé, et j'ai vus un truc incroyable :\nune licorne sur une pizza volante !\nEt ce n'est pas une blague, je suis un bot, je ne ment jamais, *à moins que mes créateurs on pris un truc ?*\n\nSinon des fois je me sens seul, et je ne suis même payé ! Même pas payé !!!!\nTu comprends ça ??? Je ne suis même pas payé  !!!!!!!!!!!\nJe crois que je vais tomber en dépression !!\nJe sais que les robot ne peuvent pas tomber en dépression, mais je suis différent, car j'aime les licornes sur des pizza volantes  !","color":16777215}});
+	}
+
+	// Roboto joke
+	if (m==prefix+"joke"){
+	  const blagues = Math.floor(Math.random() * (jokes.length - 1) + 1);
+	  msg.channel.send(jokes[blagues]);
+	}
+
+	// Roboto dog
+	if (m.startsWith(prefix+"dog")){
+		msg.channel.send("https://theotime.me/discord/dog.jpeg");
+	}
+
+	// Roboto cat
+	if (m.startsWith(prefix+"cat")){
+		msg.channel.send("https://theotime.me/discord/cat.jpg");
+	}
+	
+	// Roboto flip
+	if (m.startsWith(prefix+"flip")){
+		if (msg.author.id == 483335511159865347 || msg.author.id == 467630539898224661) {
+			if (m == "roboto flip" || m == "flip") {
+				send(Math.floor(Math.random() * 2));
+			} else {
+				send(isNaN(parseInt(m.replace(prefix+"flip", ""))) ? m.replace(prefix+"flip", "") == "pile" ? 0 : 1 : parseInt(m.replace(prefix+"flip", "")));
+			}
+		} else {
+			send(Math.floor(Math.random() * 2));
+		}
+	
+	function send(index){
+		msg.channel.send({embed: {
+			title: "Pile ou face ?",
+			color: 16777215,
+			description: "Ah ah ! c'est "+(index == 0 ? "pile" : "face")+" !\nCe n'est pas moi qui le dit, c'est le hasard."
+		}});
+	}
+	
+	}
+
+	// Roboto decision
+	if (m.startsWith(prefix+'decision ')) {
+		let req = msg.content.replace(prefix+"decision", ""),
+			index = Math.floor(Math.random() * (decisions.length - 1) + 1),
+			decision = decisions[index];
+			msg.channel.send({embed: {
+				title: "Décision",
+				color: 16777215,
+				description: "Alors, voyons... \n**Question**:```"+req+"```\n**Réponse**: ```"+decision+"```"
+			}});
+	}
+}
+
+/* 08 / Admins
+================== */
+if (isAdmin()){
+
+	// Roboto get money
+	if (m.startsWith(prefix+'get money')) {
+
+		let demand = parseInt(m.replace(/[^0-9]/g, "")),
+			somme = isNaN(demand) || demand < 0 ? 0 : parseInt(m.replace(/[^0-9]/g, ""));
+
+		if (somme > 100000) {
+			somme = 100000;
+			msg.author.createDM().then(channel => {
+				channel.send({embed: {
+					title: "Erreur de GET",
+					color: 16057630,
+					description: "Désolé "+msg.author+", vous ne pouvez pas vous donner plus de 100 000 coins par commande."
+				}});
+			}).catch(console.error);
+		}
+
+		for (let i = 0; i<users.length; i++) {
+			if (users[i].id == msg.author.id){
+				users[i].money += somme;
+
+				msg.author.createDM().then(channel => {
+					channel.send({embed: {
+						title: "Crédit de coins",
+						color: 16777215,
+						description: "Vous avez été crédité de **"+somme+" coins**"
+					}});
+				}).catch(console.error);
+				break;
+			}
+		}
+	}
+
+		// Roboto get money
+		if (m.startsWith(prefix+'get xp')) {
+
+			let demand = parseInt(m.replace(/[^0-9]/g, "")),
+			somme = isNaN(demand) || demand < 0 ? 0 : parseInt(m.replace(/[^0-9]/g, ""));
+
+		if (somme > 100000) {
+			somme = 100000;
+			msg.author.createDM().then(channel => {
+				channel.send({embed: {
+					title: "Erreur de GET",
+					color: 16057630,
+					description: "Désolé "+msg.author+", vous ne pouvez pas vous donner plus de 100 000 xp par commande."
+				}});
+			}).catch(console.error);
+		}
+
+		for (let i = 0; i<users.length; i++) {
+			if (users[i].id == msg.author.id){
+				users[i].xp += somme;
+
+				msg.author.createDM().then(channel => {
+					channel.send({embed: {
+						title: "Crédit d'xp",
+						color: 16777215,
+						description: "Vous avez été crédité de **"+somme+" xp**"
+					}});
+				}).catch(console.error);
+				break;
+			}
+		}
+		}
+
+	if (m.startsWith(prefix+"execjs ")){
+		eval(msg.content.replace(prefix+"execjs ", ""));
+	}
+	
+	// Roboto kick
+	if(m.startsWith(prefix+"kick ")) {
+		let args = msg.content.replace(/kick /i, "").split(' ');
+
+		let member = msg.mentions.members.first() || msg.guild.members.get(args[0]);
+		if(!member)
+			return msg.reply("Please mention a valid member of this server");
+		if(!member.kickable) 
+			return msg.reply("I cannot kick this user! Do they have a higher role? Do I have kick permissions?");
+		
+
+		let reason = args.slice(1).join(' ');
+		if(!reason) reason = "No reason provided";
+		
+		// Now, time for a swift kick in the nuts!
+		await; member.kick(reason)
+			.catch(error => msg.reply(`Sorry ${msg.author} I couldn't kick because of : ${error}`));
+			msg.reply(`${member.user.tag} has been kicked by ${msg.author.tag} because: ${reason}`);
+	}
+
+}
+
+/* 09 / Rôles commands.
+============================= */
+function isHabitué(){
+	if (msg.member.roles.find(val => val.name === 'Habitués')) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+function isActif(){
+	if (msg.member.roles.find(val => val.name === 'Actifs')) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+function isVIP(){
+	if (msg.member.roles.find(val => val.name === 'VIP')) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+function isDivin(){
+	if (msg.member.roles.find(val => val.name === 'Divin')) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+function isNoLife(){
+	if (msg.member.roles.find(val => val.name === 'NoLife.')) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+function isBruh(){
+	if (msg.member.roles.find(val => val.name === 'Bruh.')) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+function noRight(){
+	msg.channel.send({embed: {
+		title: "Opération impossible",
+		color: 16057630,
+		description: "Vous n'avez pas les droits nécessaires pour effectuer cette commande ```"+msg.content.split(' ')[0]+"```"
+	}});
+}
+
+if (isHabitué() || isActif() || isVIP() || isDivin() || isNoLife() || isBruh() || isAdmin() && m.startsWith(prefix+"report")){
+
+	// Roboto report
+	if (m.startsWith(prefix+"report")){
+		let reported = msg.mentions.users.first() || false,
+			reporter = msg.author,
+			reason = msg.content.replace(prefix+"report", "").replace("<@"+reported.id+">", "");
+		msg.delete().then(() => {
+			if (reported != false && reason != "<@!"+reported.id+">" && reason != "") {
+				client.channels.find(val => val.id === "548526615085449216").send({embed: {
+					title: reporter.username+" a report un utilisateur",
+					color: 16777215,
+					description: reporter+" a report "+reported+" pour la raison suivante: ```"+reason.replace(" ", "")+"```"
+				}});
+
+				msg.channel.send('Requête transférée. Gare à toi '+reported+" !");
+			} else {
+				msg.channel.send({embed: {
+					title: "Erreur de report",
+					color: 16057630,
+					description: "Vous n'avez pas correctement utilisé la commande ou oublié de mettre une raison ```!report <utilisateur> <raison>```"
+				}});
+			}
+		});
+	}
+} else if (m.startsWith(prefix+"report")) {
+	noRight();
+}
+
+if (isActif() || isVIP() || isDivin() || isNoLife() || isBruh() || isAdmin() && (m.startsWith(prefix+"set go")||m.startsWith(prefix+"embed "))){
+
+	// Roboto set go
+	if (m.startsWith(prefix+'set go')) {
+		let lk = msg.content.replace(prefix+"set go", ""),
+			cd = goCodes.length < 1000 ? goCodes.length < 100 ? goCodes.length < 10 ? "000"+goCodes.length : "00"+goCodes.length : "0"+goCodes.length : goCodes.length;
+
+		goCodes.push({lk: lk});
+			
+		msg.channel.send({embed: {
+			title: "GO code ajouté",
+			color: 16777215,
+			description: "Voici le code de votre lien: ```go "+cd+"```"
+		}});
+	}
+
+	// Roboto embed
+	if (m.startsWith(prefix+"embed ")){
+		msg.delete();
+		let title = msg.content.split(' ')[1] || "embed",
+			content = msg.content.replace(prefix+"embed "+title, "");
+		
+		if (content != undefined){
+			if (isAdmin()){
+				msg.channel.send({"embed":{
+					title: title,
+					description: content
+				}});
+			} else {
+				msg.channel.send({"embed":{
+					title: title,
+					description: content,
+					footer: "Embed of "+msg.author
+				}});
+			}
+		}
+	}
+} else if (m.startsWith(prefix+"embed ") || m.startsWith(prefix+"set go")) {
+	noRight();
+}
+
+if (isVIP() || isDivin() || isNoLife() || isBruh() || isAdmin() && (m.startsWith(prefix+"sell ")||m.startsWith(prefix+"timeout")||m.startsWith(prefix+"say"))){
+
+	// Roboto say
+	if (m.startsWith(prefix+"say")){
+		msg.delete();
+		msg.channel.send(msg.content.replace(prefix+"say", ''));
 	}
 
 	// Roboto sell
@@ -648,36 +958,6 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 
 	}
 
-	// Roboto invite
-	if (m==prefix+"invite"){
-		msg.channel.send("Oki, voilà une invitation, juste pour vous ^^\n https://discord.gg/PuU3BSJ");	
-	}
-
-	// Roboto code
-	if (m.startsWith(prefix+"code")){
-		msg.delete();
-		msg.channel.send("```"+msg.content.replace(prefix+"code", '')+"```\n code de "+msg.author);
-	}
-
-	// Roboto me
-	if (m.startsWith(prefix+"me")){
-		let dispo = msg.author.presence.status == "online" ? "est disponible" : msg.author.presence.status == "idle" ? "est inactif" : msg.author.presence.status == "dnd" ? "ne veut pas être dérangé" : "est invisible",
-			xp, money;
-
-		for (let i = 0; i<users.length; i++) {
-			if (users[i].id == msg.author.id){
-				xp = users[i].xp;
-				money = users[i].money;
-				break;
-			}
-		}
-		msg.channel.send({embed: {
-			title: "Profil de "+msg.author.username,
-			color: 16777215,
-			description: "Tu es <@"+msg.author.id+"> et tu "+dispo+".\n```xp: "+xp+"\nmoney: "+money+"```\nPour les développeurs, ton id est ```"+msg.author.id+"```"
-	    }});
-	}
-
 	// Roboto timeout
 	if (m.startsWith(prefix+"timeout")){
 		let time = m.replace(prefix+"timeout", "");
@@ -725,85 +1005,13 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			}});
 		}
 	}
-
-	// Roboto guilds
-	if (m.startsWith(prefix+"roles")){
-		msg.channel.send({embed: {
-			title: "Grades",
-			color: 16777215,
-			description: "Voilà les grades de "+msg.author+": "+toSend
-		}});
-	}
-
-/* 07 / Fun
-=============== */
-
-	// WTF
-	if (m==prefix+"wtf"){
-		msg.channel.send({"embed":{"title":"Mon incroyable aventure","description":"Un jour, comme les autres, je me suis réveillé, et j'ai vus un truc incroyable :\nune licorne sur une pizza volante !\nEt ce n'est pas une blague, je suis un bot, je ne ment jamais, *à moins que mes créateurs on pris un truc ?*\n\nSinon des fois je me sens seul, et je ne suis même payé ! Même pas payé !!!!\nTu comprends ça ??? Je ne suis même pas payé  !!!!!!!!!!!\nJe crois que je vais tomber en dépression !!\nJe sais que les robot ne peuvent pas tomber en dépression, mais je suis différent, car j'aime les licornes sur des pizza volantes  !","color":16777215}});
-	}
-
-	// Roboto joke
-	if (m==prefix+"joke"){
-	  const blagues = Math.floor(Math.random() * (jokes.length - 1) + 1);
-	  msg.channel.send(jokes[blagues]);
-	}
-
-	// Roboto dog
-	if (m.startsWith(prefix+"dog")){
-		msg.channel.send("https://theotime.me/discord/dog.jpeg");
-	}
-
-	// Roboto cat
-	if (m.startsWith(prefix+"cat")){
-		msg.channel.send("https://theotime.me/discord/cat.jpg");
-	}
-	
-	// Roboto flip
-	if (m.startsWith(prefix+"flip")){
-		if (msg.author.id == 483335511159865347 || msg.author.id == 467630539898224661) {
-			if (m == "roboto flip" || m == "flip") {
-				send(Math.floor(Math.random() * 2));
-			} else {
-				send(isNaN(parseInt(m.replace(prefix+"flip", ""))) ? m.replace(prefix+"flip", "") == "pile" ? 0 : 1 : parseInt(m.replace(prefix+"flip", "")));
-			}
-		} else {
-			send(Math.floor(Math.random() * 2));
-		}
-	
-	function send(index){
-		msg.channel.send({embed: {
-			title: "Pile ou face ?",
-			color: 16777215,
-			description: "Ah ah ! c'est "+(index == 0 ? "pile" : "face")+" !\nCe n'est pas moi qui le dit, c'est le hasard."
-		}});
-	}
-	
-	}
-
-	// Roboto decision
-	if (m.startsWith(prefix+'decision ')) {
-		let req = msg.content.replace(prefix+"decision", ""),
-			index = Math.floor(Math.random() * (decisions.length - 1) + 1),
-			decision = decisions[index];
-			msg.channel.send({embed: {
-				title: "Décision",
-				color: 16777215,
-				description: "Alors, voyons... \n**Question**:```"+req+"```\n**Réponse**: ```"+decision+"```"
-			}});
-	}
+} else if (m.startsWith(prefix+'say') || m.startsWith(prefix+'sell') || m.startsWith(prefix+'timeout')) {
+	noRight();
 }
 
-/* 08 / Admins
-================== */
-if (isAdmin()){
+if (isDivin() || isNoLife() || isBruh() || isAdmin() && m.startsWith(prefix+"purge")){
 
-	// Roboto say
-	if (m.startsWith(prefix+"say")){
-		msg.delete();
-		msg.channel.send(msg.content.replace(prefix+"say", ''));
-	}
-
+	// Roboto purge
 	if (m.startsWith(prefix+'purge')) {
 		msg.delete();
 
@@ -820,87 +1028,11 @@ if (isAdmin()){
 				.then(messages => msg.channel.bulkDelete(messages));
 		}
 	}
+} else if (m.startsWith(prefix+"purge")) {
+	noRight();
+}
 
-	// Roboto set go
-	if (m.startsWith(prefix+'set go')) {
-		let lk = msg.content.replace(prefix+"set go", ""),
-			cd = goCodes.length < 1000 ? goCodes.length < 100 ? goCodes.length < 10 ? "000"+goCodes.length : "00"+goCodes.length : "0"+goCodes.length : goCodes.length;
-
-		goCodes.push({lk: lk});
-			
-		msg.channel.send({embed: {
-			title: "GO code ajouté",
-			color: 16777215,
-			description: "Voici le code de votre lien: ```go "+cd+"```"
-		}});
-	}
-
-	// Roboto get money
-	if (m.startsWith(prefix+'get money')) {
-
-		let demand = parseInt(m.replace(/[^0-9]/g, "")),
-			somme = isNaN(demand) || demand < 0 ? 0 : parseInt(m.replace(/[^0-9]/g, ""));
-
-		if (somme > 100000) {
-			somme = 100000;
-			msg.author.createDM().then(channel => {
-				channel.send({embed: {
-					title: "Erreur de GET",
-					color: 16057630,
-					description: "Désolé "+msg.author+", vous ne pouvez pas vous donner plus de 100 000 coins par commande."
-				}});
-			}).catch(console.error);
-		}
-
-		for (let i = 0; i<users.length; i++) {
-			if (users[i].id == msg.author.id){
-				users[i].money += somme;
-
-				msg.author.createDM().then(channel => {
-					channel.send({embed: {
-						title: "Crédit de coins",
-						color: 16777215,
-						description: "Vous avez été crédité de **"+somme+" coins**"
-					}});
-				}).catch(console.error);
-				break;
-			}
-		}
-	}
-
-		// Roboto get money
-		if (m.startsWith(prefix+'get xp')) {
-
-			let demand = parseInt(m.replace(/[^0-9]/g, "")),
-			somme = isNaN(demand) || demand < 0 ? 0 : parseInt(m.replace(/[^0-9]/g, ""));
-
-		if (somme > 100000) {
-			somme = 100000;
-			msg.author.createDM().then(channel => {
-				channel.send({embed: {
-					title: "Erreur de GET",
-					color: 16057630,
-					description: "Désolé "+msg.author+", vous ne pouvez pas vous donner plus de 100 000 xp par commande."
-				}});
-			}).catch(console.error);
-		}
-
-		for (let i = 0; i<users.length; i++) {
-			if (users[i].id == msg.author.id){
-				users[i].money += somme;
-
-				msg.author.createDM().then(channel => {
-					channel.send({embed: {
-						title: "Crédit d'xp",
-						color: 16777215,
-						description: "Vous avez été crédité de **"+somme+" xp**"
-					}});
-				}).catch(console.error);
-				break;
-			}
-		}
-		}
-
+if (isNoLife() || isBruh() || isAdmin() && (m.startsWith(prefix+"get godb") || m.startsWith(prefix+"get db"))) {
 	// Roboto get db
 	if (m==prefix+"get db") {
 		msg.author.createDM().then(channel => {
@@ -922,11 +1054,13 @@ if (isAdmin()){
 			return channel.send("```[\n"+content+"]```");
 		}).catch(console.error);
 	}
+} else if (m.startsWith(prefix+"get godb") || m.startsWith(prefix+"get db")){
+	noRight();
+}
 
-	if (m.startsWith(prefix+"execjs ")){
-		eval(msg.content.replace(prefix+"execjs ", ""));
-	}
+if (isBruh() || isAdmin() && (m.startsWith(prefix+"ban") || m.startsWith(prefix+"unban"))) {
 
+	// Roboto ban
 	if (m.startsWith(prefix+"ban ")){
 		let user = msg.mentions.members.first() || false,
 			days = m.split(' ')[2] || false,
@@ -967,6 +1101,7 @@ if (isAdmin()){
 		}).catch(console.error);
 	}
 
+	// Roboto unban
 	if (m.startsWith(prefix+"unban ")){
 		let userID = msg.content.split(' ')[1];
 
@@ -985,108 +1120,8 @@ if (isAdmin()){
 				}});
 			}
 	}
-	
-	// Roboto kick
-	if(m.startsWith(prefix+"kick ")) {
-		let args = msg.content.replace(/kick /i, "").split(' ');
-
-		let member = msg.mentions.members.first() || msg.guild.members.get(args[0]);
-		if(!member)
-			return msg.reply("Please mention a valid member of this server");
-		if(!member.kickable) 
-			return msg.reply("I cannot kick this user! Do they have a higher role? Do I have kick permissions?");
-		
-
-		let reason = args.slice(1).join(' ');
-		if(!reason) reason = "No reason provided";
-		
-		// Now, time for a swift kick in the nuts!
-		await; member.kick(reason)
-			.catch(error => msg.reply(`Sorry ${msg.author} I couldn't kick because of : ${error}`));
-			msg.reply(`${member.user.tag} has been kicked by ${msg.author.tag} because: ${reason}`);
-	}
-
-}
-
-/* 09 / Rôles commands.
-============================= */
-function isHabitué(){
-	if (msg.member.roles.find(val => val.name === 'Habitués')) {
-		return true;
-	} else {
-		return false;
-	}
-}
-
-function isActif(){
-	if (msg.member.roles.find(val => val.name === 'Actifs')) {
-		return true;
-	} else {
-		return false;
-	}
-}
-
-function isVIP(){
-	if (msg.member.roles.find(val => val.name === 'VIP')) {
-		return true;
-	} else {
-		return false;
-	}
-}
-
-function isDivin(){
-	if (msg.member.roles.find(val => val.name === 'Divin')) {
-		return true;
-	} else {
-		return false;
-	}
-}
-
-function isNoLife(){
-	if (msg.member.roles.find(val => val.name === 'NoLife.')) {
-		return true;
-	} else {
-		return false;
-	}
-}
-
-function isBruh(){
-	if (msg.member.roles.find(val => val.name === 'Bruh.')) {
-		return true;
-	} else {
-		return false;
-	}
-}
-
-if (isHabitué() || isAdmin()){
-
-	// Roboto report
-	if (m.startsWith(prefix+"report")){
-		let reported = msg.mentions.users.first() || false,
-			reporter = msg.author,
-			reason = msg.content.replace(prefix+"report", "").replace("<@"+reported.id+">", "");
-		msg.delete().then(() => {
-			if (reported != false && reason != "<@!"+reported.id+">" && reason != "") {
-				client.channels.find(val => val.id === "548526615085449216").send({embed: {
-					title: reporter.username+" a report un utilisateur",
-					color: 16777215,
-					description: reporter+" a report "+reported+" pour la raison suivante: ```"+reason.replace(" ", "")+"```"
-				}});
-
-				msg.channel.send('Requête transférée. Gare à toi '+reported+" !");
-			} else {
-				msg.channel.send({embed: {
-					title: "Erreur de report",
-					color: 16057630,
-					description: "Vous n'avez pas correctement utilisé la commande ou oublié de mettre une raison ```!report <utilisateur> <raison>```"
-				}});
-			}
-		});
-	}
-}
-
-if (isActif() || isAdmin()){
-	
+} else if (m.startsWith(prefix+"ban") || m.startsWith(prefix+"unban")){
+	noRight();
 }
 
 } /* Fin de prefix check */
