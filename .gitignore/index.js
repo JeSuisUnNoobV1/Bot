@@ -248,7 +248,7 @@ client.on('message', msg => {
 			}).catch(console.error);
 		} else if (xp == 256) {
 			let role = msg.member.guild.roles.find(role => role.name == "Habitués");
-			msg.author.addRole(role);
+			msg.member.addRole(role);
 			msg.author.createDM().then(channel => {
 				channel.send({embed: {
 					title: "HEY!",
