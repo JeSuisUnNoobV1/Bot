@@ -490,7 +490,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 
 	// Roboto profile/money/xp
 	if (m.startsWith(prefix+"money")||m.startsWith(prefix+"xp")||m.startsWith(prefix+"profile")||m.startsWith(prefix+"profil")){
-		let member = m!=(prefix+"money" || prefix+"xp" || prefix+"profile" || prefix+"profil") ? msg.mentions.users.first() : msg.author,
+		let member = ![prefix+"money", prefix+"xp", prefix+"profile", prefix+"profil"].includes(m) ? msg.mentions.users.first() : msg.author,
 			dispo = msg.author.presence.status == "online" ? "est disponible" : msg.author.presence.status == "idle" ? "est inactif" : msg.author.presence.status == "dnd" ? "ne veut pas être dérangé" : "est invisible",
 			money, xp;
 		for (let i = 0; i<users.length; i++) {
