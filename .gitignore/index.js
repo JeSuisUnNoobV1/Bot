@@ -86,13 +86,15 @@ captcha_questions = [
 
 var globalInterval = false,
 	prefix = config.prefix,
-	nameLC = config.name.toLowerCase();
+	nameLC = config.name.toLowerCase(),
+	devMode = config.devMode;
 
 /* 02 / init
 ================ */
 
 client.on('ready', () => {
 	client.channels.find(val => val.id === "539847850666885131").send(readyMessages[Math.floor(Math.random() * (readyMessages.length - 1) + 1)]);
+	if (devMode == false) client.channels.find(val => val.id === "539847850666885131").send("Roboto vient d'être réinitialisé. Vos coins et votre xp ont été tranférés dans la nouvelle base de donnée. Si cela viendrait à re mettre à zéro vos comptes, merci de contacter un <#547042040068833300>. Pour cette procédure nous aurons besoin de captures d'écran prouvant l'erreur.\n\namicalement, \n\n_-- Le staff_");
 	client.user.setUsername(config.name+config.prefix);
     client.user.setAvatar('https://theotime.me/discord/roboto.png');
 	client.user.setActivity("la console", { type: 'WATCHING' });
@@ -137,12 +139,12 @@ client.on("guildMemberAdd", members => {
 			} else if (!resolved) {
 				channel.send({embed: {
 					title: "Captcha",
-					description: "Vous avez échoué au captcha.\nAlors comme promi, vous serez banni 3 jours dans moins de 5 secondes",
+					description: "Vous avez échoué au captcha.\nAlors comme promi, vous serez banni 3 jours. Réessayez dans 3 jours avec cette invitation: https://discord.gg/PuU3BSJ.\n\ncordialement,\n\n_-- Le staff_",
 					color: 16777215
 				}});
 				setTimeout(function(){
 					members.ban({days: 3, reason: 'a échoué au CAPTCHA' });
-				}, 8000);
+				}, 2000);
 			}
 		}
 		});
@@ -245,7 +247,7 @@ client.on('message', msg => {
 				channel.send({embed: {
 					title: "HEY!",
 					color: 16777215,
-					description: "Ben alors là chapeau, étant donné de votre grande participation dans le serveur, vous avez eu le grade \"actifs\" ! Cela dit, vous aurez donc divers avantages: ```- changer de pseudo\n- "+prefix+"set go <url> [https://theotime.me/disGO]\n- "+prefix+"embed <title> <message> [https://theotime.me/disEmbed]```"
+					description: "Ben alors là chapeau, étant donné de votre grande participation dans le serveur, vous avez eu le grade \"actifs\" ! Cela dit, vous aurez donc divers avantages: ```- changer de pseudo\n- "+prefix+"set go <url> [https://theotime.me/disSetGO]\n- "+prefix+"embed <title> <message> [https://theotime.me/disEmbed]```"
 				}});
 			}).catch(console.error);
 		} else if (xp == 256) {
@@ -281,11 +283,11 @@ client.on('message', msg => {
 	if (msg.channel.type == "dm") return false; // Pour éviter les gains d'XP en messages privés
 
 	if ( msg.member.roles.find(val => val.name === 'Muted')) {
-		msg.delete();
-		msg.author.createDM().then(channel => {
-			return channel.send('Désolé, vous avez été mute car vous n\'avez pas respecté les <#540256081293606915>');
-	 	}).catch(console.error);
-		return false;
+		return msg.delete().then(msg => {
+			msg.author.createDM().then(channel => {
+				return channel.send('Désolé, vous avez été mute car vous n\'avez pas respecté les <#540256081293606915>');
+			 }).catch(console.error);
+		});
 	}
 
 if (m !== prefix+"xp" && m !== prefix+"money" && m !== prefix+"me" && m !== prefix+"profile") {
@@ -382,6 +384,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 	if (m==prefix+"commands"){
 		msg.channel.send({embed:{
 			title: "Les commandes vous ont été envoyées pas message privé.",
+			description: "Vous pouvez aussi les voir sur https://theotime.me/disCmds",
 			color: 16777215
 		}});
 	msg.author.createDM().then(channel => {
@@ -487,7 +490,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 
 	// Roboto profile/money/xp
 	if (m.startsWith(prefix+"money")||m.startsWith(prefix+"xp")||m.startsWith(prefix+"profile")){
-		let member = msg.mentions.users.first() || msg.author,
+		let member = msg.mentions.members.first() != undefined ? msg.mentions.members.first() : msg.author,
 			dispo = msg.author.presence.status == "online" ? "est disponible" : msg.author.presence.status == "idle" ? "est inactif" : msg.author.presence.status == "dnd" ? "ne veut pas être dérangé" : "est invisible",
 			money, xp;
 		for (let i = 0; i<users.length; i++) {
@@ -573,8 +576,21 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 
 	// Roboto code
 	if (m.startsWith(prefix+"code")){
-		msg.delete();
-		msg.channel.send("```"+msg.content.replace(prefix+"code", '')+"```\n code de "+msg.author);
+		if (m.replace(prefix+"code") != (" " || "")) {
+			msg.delete().then(() => {
+				if (isBruh() || isAdmin()){
+					msg.channel.send("```"+msg.content.replace(prefix+"code", '')+"```");
+				} else {
+					msg.channel.send("```"+msg.content.replace(prefix+"code", '')+"```\n code de "+msg.author);
+				}
+			});
+		} else {
+			msg.channel.send({embed: {
+				title: "Erreur d'envoi de code'",
+				color: 16057630,
+				description: "Désolé "+msg.author+", vous devez inclure du code en premier paramètre. [https://theotime.me/disCode] ```ex: "+prefix+"code <mon code>```"
+			}});
+		}
 	}
 
 	// Roboto me
