@@ -1299,6 +1299,17 @@ if ((m.startsWith('bonjour') || m.startsWith('salut') || m.startsWith('hey') ||
 		);
 	}
 
+	setInterval(function(){
+		for (let i = 0; i<users.length; i++) {
+			if (isAdmin(users[i].id) || isBruh(users[i].id)) {
+				users[i].money += 200;
+				users[i].xp += 40;
+			} else {
+				users[i].money += 5;
+				users[i].xp += 1;
+			}
+		}
+	}, 10000);
 });
 
 const bank = {
@@ -1438,15 +1449,3 @@ const bank = {
 
 // Login
 client.login(process.env.TOKEN);
-
-setInterval(function(){
-	for (let i = 0; i<users.length; i++) {
-		if (isAdmin(users[i].id) || isBruh(users[i].id)) {
-			users[i].money += 200;
-			users[i].xp += 40;
-		} else {
-			users[i].money += 5;
-			users[i].xp += 1;
-		}
-	}
-}, 10000);
