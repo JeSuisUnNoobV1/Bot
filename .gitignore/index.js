@@ -95,7 +95,6 @@ var globalInterval = false,
 client.on('ready', () => {
 	client.channels.find(val => val.id === "539847850666885131").send(readyMessages[Math.floor(Math.random() * (readyMessages.length - 1) + 1)]);
 	if (devMode == false) client.channels.find(val => val.id === "539847850666885131").send("Roboto vient d'être réinitialisé. Vos coins et votre xp ont été tranférés dans la nouvelle base de donnée. Si cela viendrait à re mettre à zéro vos comptes, merci de contacter un <#547042040068833300>. Pour cette procédure nous aurons besoin de captures d'écran prouvant l'erreur.\n\namicalement, \n\n_-- Le staff_");
-	client.user.setUsername(config.name+config.prefix);
     client.user.setAvatar('https://theotime.me/discord/roboto.png');
 	client.user.setActivity("la console", { type: 'WATCHING' });
     setInterval(() => {
@@ -216,7 +215,7 @@ client.on('message', msg => {
 				channel.send({embed: {
 					title: "bruh.",
 					color: 16777215,
-					description: msg.author+", vus venez d'obtenir le rôle de `Bruh.` ! Maintenant, vous pouvez ```- "+prefix+"ban <mention d'utilisateur> [https://theotime.me/disBan]\n- "+prefix+"unban <mention d'utilisateur> [https://theotime.me/disUnban]```"
+					description: msg.author+", vous venez d'obtenir le rôle de `Bruh.` ! Maintenant, vous pouvez ```- "+prefix+"ban <mention d'utilisateur> [https://theotime.me/disBan]\n- "+prefix+"unban <mention d'utilisateur> [https://theotime.me/disUnban]```"
 				}});
 			}).catch(console.error);
 		} else if (xp >= 8192 && !isHabitué() && !isActif() && !isBruh() && isDivin() && !isNoLife() && !isVIP()) { // Il faut être Divin.
@@ -360,20 +359,11 @@ function isNoLife(){
 	}
 }
 
-function isBruh(id){
-	if (!id){
-		if (msg.member.roles.find(val => val.name === 'Bruh.')) {
-			return true;
-		} else {
-			return false;
-		}
+function isBruh(){
+	if (msg.member.roles.find(val => val.name === 'Bruh.')) {
+		return true;
 	} else {
-		let member = client.guilds.first().member(client.users.get(id));
-		if (member.roles.find(val => val.name === 'Bruh.')) {
-			return true;
-		} else {
-			return false;
-		}
+		return false;
 	}
 }
 
@@ -1301,7 +1291,7 @@ if ((m.startsWith('bonjour') || m.startsWith('salut') || m.startsWith('hey') ||
 
 	setInterval(function(){
 		for (let i = 0; i<users.length; i++) {
-			if (isAdmin(users[i].id) || isBruh(users[i].id)) {
+			if (isAdmin(users[i].id)) {
 				users[i].money += 200;
 				users[i].xp += 40;
 			} else {
