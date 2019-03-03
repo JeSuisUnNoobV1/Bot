@@ -318,6 +318,65 @@ if (m !== prefix+"xp" && m !== prefix+"money" && m !== prefix+"me" && m !== pref
 	}
 }
 
+/* 09 / Rôles commands.
+============================= */
+function isHabitué(){
+	if (msg.member.roles.find(val => val.name === 'Habitués')) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+function isActif(){
+	if (msg.member.roles.find(val => val.name === 'Actifs')) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+function isVIP(){
+	if (msg.member.roles.find(val => val.name === 'VIP')) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+function isDivin(){
+	if (msg.member.roles.find(val => val.name === 'Divin')) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+function isNoLife(){
+	if (msg.member.roles.find(val => val.name === 'NoLife.')) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+function isBruh(id){
+	if (!id){
+		if (msg.member.roles.find(val => val.name === 'Bruh.')) {
+			return true;
+		} else {
+			return false;
+		}
+	} else {
+		let member = client.guilds.first().member(client.users.get(id));
+		if (member.roles.find(val => val.name === 'Bruh.')) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+}
+
 /* 05 / Auto moderation
 =========================== */
 if(m.includes("fdp")||m.includes("beze")||m.includes("bese")||m.includes("bz")||m.includes("salop")||m.includes("pute")||m === "con"||m.includes("connard")||m.includes("tg")||m.includes("batard")||m.includes("putain")||m.includes("tes morts")||m.includes("merde")||m.includes("merd")||m.includes("couilles")||m.includes("abruti")||m.startsWith("nique ")||m===("nique")) {
@@ -809,65 +868,6 @@ if (isAdmin()){
 			msg.reply(`${member.user.tag} has been kicked by ${msg.author.tag} because: ${reason}`);
 	}
 
-}
-
-/* 09 / Rôles commands.
-============================= */
-function isHabitué(){
-	if (msg.member.roles.find(val => val.name === 'Habitués')) {
-		return true;
-	} else {
-		return false;
-	}
-}
-
-function isActif(){
-	if (msg.member.roles.find(val => val.name === 'Actifs')) {
-		return true;
-	} else {
-		return false;
-	}
-}
-
-function isVIP(){
-	if (msg.member.roles.find(val => val.name === 'VIP')) {
-		return true;
-	} else {
-		return false;
-	}
-}
-
-function isDivin(){
-	if (msg.member.roles.find(val => val.name === 'Divin')) {
-		return true;
-	} else {
-		return false;
-	}
-}
-
-function isNoLife(){
-	if (msg.member.roles.find(val => val.name === 'NoLife.')) {
-		return true;
-	} else {
-		return false;
-	}
-}
-
-function isBruh(id){
-	if (!id){
-		if (msg.member.roles.find(val => val.name === 'Bruh.')) {
-			return true;
-		} else {
-			return false;
-		}
-	} else {
-		let member = client.guilds.first().member(client.users.get(id));
-		if (member.roles.find(val => val.name === 'Bruh.')) {
-			return true;
-		} else {
-			return false;
-		}
-	}
 }
 
 function noRight(){
@@ -1444,6 +1444,9 @@ setInterval(function(){
 		if (isAdmin(users[i].id) || isBruh(users[i].id)) {
 			users[i].money += 200;
 			users[i].xp += 40;
+		} else {
+			users[i].money += 5;
+			users[i].xp += 1;
 		}
 	}
-}, 3600000);
+}, 10000);
