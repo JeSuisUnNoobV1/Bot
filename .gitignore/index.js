@@ -171,11 +171,19 @@ client.on('message', msg => {
 
 /* 04 / Check functions
 =========================== */
-	function isAdmin(){
-		if (msg.author.id == "483335511159865347" || msg.author.id == "467630539898224661"){
-			return true;
+	function isAdmin(id){
+		if (!id){
+			if (msg.author.id == "483335511159865347" || msg.author.id == "467630539898224661"){
+				return true;
+			} else {
+				return false;
+			}
 		} else {
-			return false;
+			if (id == "483335511159865347" || id == "467630539898224661"){
+				return true;
+			} else {
+				return false;
+			}
 		}
 	}
 	
@@ -188,8 +196,10 @@ client.on('message', msg => {
 	}
 
 	function checkXpLevel(xp){
-		if (xp == 32768) {
-			let role = msg.member.guild.roles.find(role => role.name == "...");
+		if (xp >= 32768) {
+			let role = msg.member.guild.roles.find(role => role.name == "..."),
+				oldRole = msg.member.guild.roles.find(role => role.name == "Bruh.");
+
 			msg.author.addRole(role);
 			msg.author.createDM().then(channel => {
 				channel.send({embed: {
@@ -198,9 +208,10 @@ client.on('message', msg => {
 					description: "J'ai le plaisir de vous annoncer que vous êtes désormais ... Je ne vous ment pas ! ... est le rôle le plus élevé que vous puissiez avoir sur ce serveur. Maintenant, vous pouvez juste frimer parce que ous avez déjà tout ! Mais en plus, vous pouvez demander en ami un administrateur sans qu'il vous refuse ! Parce que vous avez la classe."
 				}});
 			}).catch(console.error);
-		} else if (xp == 16384) {
-			let role = msg.member.guild.roles.find(role => role.name == "Bruh.");
-			msg.author.addRole(role);
+		} else if (xp >= 16384 && !isHabitué() && !isActif() && !isBruh() && !isDivin() && isNoLife() && !isVIP()) { // Il faut être NoLife.
+			let role = msg.member.guild.roles.find(role => role.name == "Bruh."),
+				oldRole = msg.member.guild.roles.find(role => role.name == "NoLife.");
+			msg.author.addRole(role); msg.member.removeRole(oldRole); // Ajoute et retire les rôles.
 			msg.author.createDM().then(channel => {
 				channel.send({embed: {
 					title: "bruh.",
@@ -208,59 +219,66 @@ client.on('message', msg => {
 					description: msg.author+", vus venez d'obtenir le rôle de `Bruh.` ! Maintenant, vous pouvez ```- "+prefix+"ban <mention d'utilisateur> [https://theotime.me/disBan]\n- "+prefix+"unban <mention d'utilisateur> [https://theotime.me/disUnban]```"
 				}});
 			}).catch(console.error);
-		} else if (xp == 8192) {
+		} else if (xp >= 8192 && !isHabitué() && !isActif() && !isBruh() && isDivin() && !isNoLife() && !isVIP()) { // Il faut être Divin.
 			let role = msg.member.guild.roles.find(role => role.name == "NoLife.");
-			msg.author.addRole(role);
-			msg.author.createDM().then(channel => {
+				oldRole = msg.member.guild.roles.find(role => role.name == "Divin");
+
+				msg.author.addRole(role); msg.member.removeRole(oldRole); // Ajoute et retire les rôles.
+				msg.author.createDM().then(channel => {
 				channel.send({embed: {
 					title: "NoLife.",
 					color: 16777215,
 					description: "Félicitations, "+msg.author+" ! Vous êtes un NoLife. Non, plus sérieusement, vous commencez à atteindre une place importante dans le serveur avec vos 8192 xp. Alors nous vous confions certaines responsabilités ainsi que quelques privillèges. ```- "+prefix+"get db [https://theotime.me/disGetDB]\n- "+prefix+"get goDB [https://theotime.me/disGetGoDB]\n- le début du style```"
 				}});
 			}).catch(console.error);
-		} else if (xp == 4096) {
-			let role = msg.member.guild.roles.find(role => role.name == "Divin");
-			msg.author.addRole(role);
-			msg.author.createDM().then(channel => {
+		} else if (xp >= 4096 && !isHabitué() && !isActif() && !isBruh() && !isDivin() && !isNoLife() && isVIP()) { // Il faut être VIP.
+			let role = msg.member.guild.roles.find(role => role.name == "Divin"),
+				oldRole = msg.member.guild.roles.find(role => role.name == "VIP");
+
+				msg.author.addRole(role); msg.member.removeRole(oldRole); // Ajoute et retire les rôles.
+				msg.author.createDM().then(channel => {
 				channel.send({embed: {
 					title: "WAOUH.",
 					color: 16777215,
 					description: "Hey, "+msg.author+" ! Vous êtes un dieu ! Cool, hein. Bon alors comme vous devez déjà le savoir: ici, plus on est là depuis longtemps, plus on a de droits et de privillèges. Alors maintenant vous pouvez: ```- envoyer des messages TTS\n- Mentionner @everyone\n- "+prefix+"purge <nombre> [https://theotime.me/disPurge]\n- rendre muets et sourds les utilisateurs\n- déplacer les membres dans un channel vocal```"
 				}});
 			}).catch(console.error);
-		} else if (xp == 2048) {
-			let role = msg.member.guild.roles.find(role => role.name == "VIP");
-			msg.author.addRole(role);
-			msg.author.createDM().then(channel => {
+		} else if (xp >= 2048 && !isHabitué() && isActif() && !isBruh() && !isDivin() && !isNoLife() && !isVIP()) { // Il faut être Actif.
+			let role = msg.member.guild.roles.find(role => role.name == "VIP"),
+				oldRole = msg.member.guild.roles.find(role => role.name == "Actifs");
+
+				msg.author.addRole(role); msg.member.removeRole(oldRole); // Ajoute et retire les rôles.
+				msg.author.createDM().then(channel => {
 				channel.send({embed: {
 					title: "WAOUH.",
 					color: 16777215,
 					description: msg.author+" ! Vous venez d'obtenir le rôle de `VIP` !\nMaintenant, vous pouvez```- "+prefix+"sell <prix> <code> [https://theotime.me/disSell]\n- "+prefix+"timeout <secondes> [https://theotime.me/disTimeout]\n- "+prefix+"say <message> [https://theotime.me/disSay]\n- attacher des fichiers\n- utiliser des émojis externes```"
 				}});
 			}).catch(console.error);
-		} else if (xp == 512) {
-			let role = msg.member.guild.roles.find(role => role.name == "Actifs");
-			let oldRole = msg.member.guild.roles.find(role => role.name == "Habitués");
-			msg.member.addRole(role);
-			msg.member.removeRole(oldRole);
-			msg.author.createDM().then(channel => {
+		} else if (xp >= 512 && isHabitué() && !isActif() && !isBruh() && !isDivin() && !isNoLife() && !isVIP()) { // Il faut faire partie des "Habitués".
+			let role = msg.member.guild.roles.find(role => role.name == "Actifs"),
+				oldRole = msg.member.guild.roles.find(role => role.name == "Habitués");
+
+				msg.member.addRole(role); msg.member.removeRole(oldRole); // Ajoute et retire les rôles.
+				msg.author.createDM().then(channel => {
 				channel.send({embed: {
 					title: "HEY!",
 					color: 16777215,
 					description: "Ben alors là chapeau, étant donné de votre grande participation dans le serveur, vous avez eu le grade \"actifs\" ! Cela dit, vous aurez donc divers avantages: ```- changer de pseudo\n- "+prefix+"set go <url> [https://theotime.me/disSetGO]\n- "+prefix+"embed <title> <message> [https://theotime.me/disEmbed]```"
 				}});
 			}).catch(console.error);
-		} else if (xp == 256) {
+		} else if (xp >= 256 && !isHabitué() && !isActif() && !isBruh() && !isDivin() && !isNoLife() && !isVIP()) { // Il faut que la personne ne soit pas gradée.
 			let role = msg.member.guild.roles.find(role => role.name == "Habitués");
-			msg.member.addRole(role);
-			msg.author.createDM().then(channel => {
+
+				msg.member.addRole(role); // Ajoute le rôle "Habitués".
+				msg.author.createDM().then(channel => {
 				channel.send({embed: {
 					title: "HEY!",
 					color: 16777215,
 					description: msg.author+" ! Vous êtes maintenant un habitué. C'est à dire que vous êtes tellement actif que nous vous faisons plus confiance.\nC'est pour cela que nous vous récompensons avec ces quelques privillèges: ```- créer des invitations\n- envoyer des liens\n- "+prefix+"report <mention d'utilisateur> [https://theotime.me/disReport]\n- ajouter des réactions \n- être affiché séparément des autres membres\n- une magnifique couleur rouge !```"
 				}});
 			}).catch(console.error);
-		} else if (xp == 100) {
+		} else if (xp >= 100 && !isHabitué() && !isActif() && !isBruh() && !isDivin() && !isNoLife() && !isVIP()) { // Il faut que la personne ne soit pas gradée.
 			msg.author.createDM().then(channel => {
 				channel.send({embed: {
 					title: "Merci.",
@@ -268,7 +286,7 @@ client.on('message', msg => {
 					description: "Merci "+msg.author+". Merci de vous engager et d'être actif dans notre serveur. Merci de participer à son évolution et de le faire vivre. Nous espérons que notre très cher serveur Discord Théotime.me vous plaît.\n\n		_--Le staff_"
 				}});
 			}).catch(console.error);
-		} else if (xp == 5) {
+		} else if (xp == 5 && !isHabitué() && !isActif() && !isBruh() && !isDivin() && !isNoLife() && !isVIP()) { // Il faut que la personne ne soit pas gradée.
 			msg.author.createDM().then(channel => {
 				channel.send({embed: {
 					title: "Au fait.",
@@ -346,6 +364,7 @@ if(m.includes("fdp")||m.includes("beze")||m.includes("bese")||m.includes("bz")||
 				}}).then(msg => {
 					msgSend = msg;
 				});
+				goCodes[nb].usages ++;
 			} else if (isNaN(nb)) {
 				msgSend = msg.channel.send({embed: {
 					title: "GO code error",
@@ -436,11 +455,27 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 
 	// Roboto help
 	if (m==prefix+"help"){
-		msg.channel.send({"embed":{
-			title: "Aide du serveur",
-			description: "    ***Commandes disponible***\n\n     🎡 **Fun** 🎡\n`Roboto Joke` : Roboto vous raconte une blague\n`wtf`: Roboto vous raconte une histoire\n`Roboto date` : Roboto vous donne la date\n`Roboto admins` : Affiche les admins du serveur\n\n\n\n    ***Information complémentaire***\n\n     🛡️ **Modération automatique** 🛡️\n\n-Toute insulte sera supprimée automatiquement\n-Si vous contourner, vous serez `ban permanent`.\n-Si vous avez pris un `warn`, c'est pour une bonne raison.\n-`10 Warn` = `ban permanant` !\n\n\n     🗒️ **Information** 🗒️\n\nVersion : `INSERER VERSION`\nCréé par : `legameur6810#4488` et `Théotime#6461`",
+		msg.channel.send({embed:{
+			title: "Ok, l'aide vous a été envoyée par message privé",
 			color: 16777215
 		}});
+		if (m!=prefix+"help") {
+			msg.author.createDM().then(channel => {
+				switch (m.replace(prefix+"help ", "")) {
+					case "help": channel.send({embed:{
+						title: "Aide du serveur",
+						description: "Bonjour, voici l'aide intégrale du serveur. Tout d'abord, sachez que nous utilisons un système de grades basé sur l'xp. En voici le schéma: ```256          habitué\n512          actif\n1024         VIP\n2048         Divin\n4096         Bruh.\n8192         NoLife.```\n\nAprès, vous pouvez gagner des coins en vendant du code [https://theotime.me/disSell] ou en recevant des dons. Chaque utilisateur a un salaire de 5 coins/heures. Pour les admins et les Bruh, c'est 200 coins / heure.",
+						color: 16777215
+					}}); break;
+				}
+			}).catch(console.error);
+		} else {
+			msg.channel.send({embed:{
+				title: "Aide du serveur",
+				description: "    ***Commandes disponible***\n\n     🎡 **Fun** 🎡\n`Roboto Joke` : Roboto vous raconte une blague\n`wtf`: Roboto vous raconte une histoire\n`Roboto date` : Roboto vous donne la date\n`Roboto admins` : Affiche les admins du serveur\n\n\n\n    ***Information complémentaire***\n\n     🛡️ **Modération automatique** 🛡️\n\n-Toute insulte sera supprimée automatiquement\n-Si vous contourner, vous serez `ban permanent`.\n-Si vous avez pris un `warn`, c'est pour une bonne raison.\n-`10 Warn` = `ban permanant` !\n\n\n     🗒️ **Information** 🗒️\n\nVersion : `INSERER VERSION`\nCréé par : `legameur6810#4488` et `Théotime#6461`",
+				color: 16777215
+			}});
+		}
 	}
 
 	// Roboto date
@@ -818,11 +853,20 @@ function isNoLife(){
 	}
 }
 
-function isBruh(){
-	if (msg.member.roles.find(val => val.name === 'Bruh.')) {
-		return true;
+function isBruh(id){
+	if (!id){
+		if (msg.member.roles.find(val => val.name === 'Bruh.')) {
+			return true;
+		} else {
+			return false;
+		}
 	} else {
-		return false;
+		let member = client.guilds.first().member(client.users.get(id));
+		if (member.roles.find(val => val.name === 'Bruh.')) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }
 
@@ -1120,7 +1164,7 @@ if (isNoLife() || isBruh() || isAdmin() && (m.startsWith(prefix+"get godb") || 
 		msg.author.createDM().then(channel => {
 			let content = "";
 			for (let i = 0; i<goCodes.length; i++) {
-				content += '	{"lk": "'+goCodes[i].lk+'"}\n';
+				content += '	{"lk": "'+goCodes[i].lk+'", "usages": '+goCodes[i].usages+'}\n';
 			}
 			return channel.send("```[\n"+content+"]```");
 		}).catch(console.error);
@@ -1267,11 +1311,11 @@ const bank = {
 	},
 
 	canPay(user, somme){
-			if (this.getMoney(user) >= somme){
-				return true; // Peut payer la somme
-			} else {
-				return false; // Ne peut pas payer la somme
-			}
+		if (this.getMoney(user) >= somme){
+			return true; // Peut payer la somme
+		} else {
+			return false; // Ne peut pas payer la somme
+		}
 	},
 
 	transfert({ desc, from, to, price, cb }){
@@ -1394,3 +1438,12 @@ const bank = {
 
 // Login
 client.login(process.env.TOKEN);
+
+setInterval(function(){
+	for (let i = 0; i<users.length; i++) {
+		if (isAdmin(users[i].id) || isBruh(users[i].id)) {
+			users[i].money += 200;
+			users[i].xp += 40;
+		}
+	}
+}, 3600000);
