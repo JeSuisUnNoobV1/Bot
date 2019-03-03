@@ -1299,7 +1299,7 @@ if ((m.startsWith('bonjour') || m.startsWith('salut') || m.startsWith('hey') ||
 				users[i].xp += 1;
 			}
 		}
-	}, 10000);
+	}, 3600000);
 });
 
 const bank = {
