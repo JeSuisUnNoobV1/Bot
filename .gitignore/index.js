@@ -447,7 +447,11 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			title: "Les commandes vous ont été envoyées pas message privé.",
 			description: "Vous pouvez aussi les voir sur https://theotime.me/disCmds",
 			color: 16777215
-		}});
+		}}).then(msg => {
+			setTimeout(function(){
+				msg.delete();
+			}, 5000);
+		});
 	msg.author.createDM().then(channel => {
 		if (isAdmin()) {
 			channel.send({"embed":{
@@ -500,12 +504,17 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 		msg.channel.send({embed:{
 			title: "Ok, l'aide vous a été envoyée par message privé",
 			color: 16777215
-		}});
+		}}).then(msg => {
+			setTimeout(function(){
+				msg.delete();
+			}, 5000);
+		});
 
 		msg.author.createDM().then(channel => {
 			if (m!=prefix+"help") {
 				switch (m.replace(prefix+"help ", "")) {
 					case "help": message = "Cette commande affiche l'aide d'une commande si elle est en paramètre, sinon elle affiche l'aide du serveur. Disponible pour tous les membres."; break;
+					default: message = "Désolé, la commande est introuvable."; break;
 				}
 
 				channel.send({embed:{
