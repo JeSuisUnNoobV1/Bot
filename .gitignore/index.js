@@ -87,6 +87,7 @@ captcha_questions = [
 var globalInterval = false,
 	prefix = config.prefix,
 	nameLC = config.name.toLowerCase(),
+	name = config.name,
 	devMode = config.devMode;
 
 /* 02 / init
