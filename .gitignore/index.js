@@ -251,7 +251,7 @@ client.on('message', msg => {
 				channel.send({embed: {
 					title: "WAOUH.",
 					color: 16777215,
-					description: msg.author+" ! Vous venez d'obtenir le rôle de `VIP` !\nMaintenant, vous pouvez```- "+prefix+"sell <prix> <code> [https://theotime.me/disSell]\n- "+prefix+"timeout <secondes> [https://theotime.me/disTimeout]\n- "+prefix+"say <message> [https://theotime.me/disSay]\n- attacher des fichiers\n- utiliser des émojis externes```"
+					description: msg.author+" ! Vous venez d'obtenir le rôle de `VIP` !\nMaintenant, vous pouvez```- "+prefix+"sell <prix> <code>\n- "+prefix+"timeout <secondes>\n- "+prefix+"say <message>\n- attacher des fichiers\n- utiliser des émojis externes```"
 				}});
 			}).catch(console.error);
 		} else if (xp >= 512 && isHabitué() && !isActif() && !isBruh() && !isDivin() && !isNoLife() && !isVIP()) { // Il faut faire partie des "Habitués".
@@ -263,10 +263,10 @@ client.on('message', msg => {
 				channel.send({embed: {
 					title: "HEY!",
 					color: 16777215,
-					description: "Ben alors là chapeau, étant donné de votre grande participation dans le serveur, vous avez eu le grade \"actifs\" ! Cela dit, vous aurez donc divers avantages: ```- changer de pseudo\n- "+prefix+"set go <url> [https://theotime.me/disSetGO]\n- "+prefix+"embed <title> <message> [https://theotime.me/disEmbed]```"
+					description: "Ben alors là chapeau, étant donné de votre grande participation dans le serveur, vous avez eu le grade \"actifs\" ! Cela dit, vous aurez donc divers avantages: ```- changer de pseudo\n- "+prefix+"set go <url>\n- "+prefix+"embed <title> <message>```"
 				}});
 			}).catch(console.error);
-		} else if (xp >= 256 && !isHabitué() && !isActif() && !isBruh() && !isDivin() && !isNoLife() && !isVIP()) { // Il faut que la personne ne soit pas gradée.
+		} else if (xp == 256) { // Il faut que la personne ne soit pas gradée.
 			let role = msg.member.guild.roles.find(role => role.name == "Habitués");
 
 				msg.member.addRole(role); // Ajoute le rôle "Habitués".
@@ -274,15 +274,7 @@ client.on('message', msg => {
 				channel.send({embed: {
 					title: "HEY!",
 					color: 16777215,
-					description: msg.author+" ! Vous êtes maintenant un habitué. C'est à dire que vous êtes tellement actif que nous vous faisons plus confiance.\nC'est pour cela que nous vous récompensons avec ces quelques privillèges: ```- créer des invitations\n- envoyer des liens\n- "+prefix+"report <mention d'utilisateur> [https://theotime.me/disReport]\n- ajouter des réactions \n- être affiché séparément des autres membres\n- une magnifique couleur rouge !```"
-				}});
-			}).catch(console.error);
-		} else if (xp >= 100 && !isHabitué() && !isActif() && !isBruh() && !isDivin() && !isNoLife() && !isVIP()) { // Il faut que la personne ne soit pas gradée.
-			msg.author.createDM().then(channel => {
-				channel.send({embed: {
-					title: "Merci.",
-					color: 16777215,
-					description: "Merci "+msg.author+". Merci de vous engager et d'être actif dans notre serveur. Merci de participer à son évolution et de le faire vivre. Nous espérons que notre très cher serveur Discord Théotime.me vous plaît.\n\n		_--Le staff_"
+					description: msg.author+" ! Vous êtes maintenant un habitué. C'est à dire que vous êtes tellement actif que nous vous faisons plus confiance.\nC'est pour cela que nous vous récompensons avec ces quelques privillèges: ```- créer des invitations\n- envoyer des liens\n- "+prefix+"report <mention d'utilisateur>\n- ajouter des réactions \n- être affiché séparément des autres membres\n- une magnifique couleur rouge !```"
 				}});
 			}).catch(console.error);
 		} else if (xp == 5 && !isHabitué() && !isActif() && !isBruh() && !isDivin() && !isNoLife() && !isVIP()) { // Il faut que la personne ne soit pas gradée.
@@ -508,23 +500,26 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			title: "Ok, l'aide vous a été envoyée par message privé",
 			color: 16777215
 		}});
-		if (m!=prefix+"help") {
-			msg.author.createDM().then(channel => {
+
+		msg.author.createDM().then(channel => {
+			if (m!=prefix+"help") {
 				switch (m.replace(prefix+"help ", "")) {
-					case "help": channel.send({embed:{
-						title: "Aide du serveur",
-						description: "Bonjour, voici l'aide intégrale du serveur. Tout d'abord, sachez que nous utilisons un système de grades basé sur l'xp. En voici le schéma: ```256          habitué\n512          actif\n1024         VIP\n2048         Divin\n4096         Bruh.\n8192         NoLife.```\n\nAprès, vous pouvez gagner des coins en vendant du code [https://theotime.me/disSell] ou en recevant des dons. Chaque utilisateur a un salaire de 5 coins/heures. Pour les admins et les Bruh, c'est 200 coins / heure.",
-						color: 16777215
-					}}); break;
+					case "help": message = "Cette commande affiche l'aide d'une commande si elle est en paramètre, sinon elle affiche l'aide du serveur. Disponible pour tous les membres."; break;
 				}
-			}).catch(console.error);
-		} else {
-			msg.channel.send({embed:{
-				title: "Aide du serveur",
-				description: "    ***Commandes disponible***\n\n     🎡 **Fun** 🎡\n`Roboto Joke` : Roboto vous raconte une blague\n`wtf`: Roboto vous raconte une histoire\n`Roboto date` : Roboto vous donne la date\n`Roboto admins` : Affiche les admins du serveur\n\n\n\n    ***Information complémentaire***\n\n     🛡️ **Modération automatique** 🛡️\n\n-Toute insulte sera supprimée automatiquement\n-Si vous contourner, vous serez `ban permanent`.\n-Si vous avez pris un `warn`, c'est pour une bonne raison.\n-`10 Warn` = `ban permanant` !\n\n\n     🗒️ **Information** 🗒️\n\nVersion : `INSERER VERSION`\nCréé par : `legameur6810#4488` et `Théotime#6461`",
-				color: 16777215
-			}});
-		}
+
+				channel.send({embed:{
+					title: "Aide de la commande "+prefix+m.replace(prefix+"help ", ""),
+					description: message,
+					color: 16777215
+				}}); 
+			} else {
+				channel.send({embed:{
+					title: "Aide du serveur",
+					description: "Bonjour, voici l'aide intégrale du serveur. Tout d'abord, sachez que nous utilisons un système de grades basé sur l'xp. En voici le schéma: ```256          habitué\n512          actif\n1024         VIP\n2048         Divin\n4096         Bruh.\n8192         NoLife.```\n\nAprès, vous pouvez gagner des coins en vendant du code [https://theotime.me/disSell] ou en recevant des dons. Une référence complète de toutes les commandes de "+name+" se trouvent sur https://theotime.me/disCmds.\nNous avons aussi des rêgles. C'est nécessaire pour éviter les remarque racistes, antisémites, etc. Vous pouvez les consulter sur https://theotime.me/disRules ou dans le channel <#540256081293606915>.\nMerci de bien les lire pour que vous ne soyez pas surpris si une sanction vous est donnée.\nEnsuite, sachez que nous organisons régulièrement des évènement, type Giveaway dans un channel dédié qui apparait seulement quand un évènement est en cours.\nMerci de rester sympathique vis-à-vis de l'équipe du serveur car il est en développement. Donc si des bugs, erreurs ou problèmes surviennent, contactez-les dans le channel <#547042040068833300>.\nMaintenant vous savez à peu près tout. Si vous voulez en savoir plus sur une commande, entrez ceci: ```"+prefix+"help <commande>```",
+					color: 16777215
+				}});
+			}
+		}).catch(console.error);
 	}
 
 	// Roboto date
@@ -1293,10 +1288,11 @@ if ((m.startsWith('bonjour') || m.startsWith('salut') || m.startsWith('hey') ||
 		for (let i = 0; i<users.length; i++) {
 			if (isAdmin(users[i].id)) {
 				users[i].money += 200;
-				users[i].xp += 40;
+				users[i].xp += 1;
 			} else {
 				users[i].money += 5;
 				users[i].xp += 1;
+				checkXpLevel(users[i].id);
 			}
 		}
 	}, 3600000);
@@ -1363,7 +1359,6 @@ const bank = {
 					for (let i = 0; i<users.length; i++) {
 						if (users[i].id == from.id){
 							users[i].money -= price; // On enlève la thune
-							users[i].xp += 20;	// On lui ajoute de l'XP
 							payed = true; // La somme est payée
 							cb(price); // Callback quand la somme est payée
 						} else if (users[i].id == to.id){
