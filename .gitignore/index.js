@@ -703,8 +703,17 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 
 	// Roboto guilds
 	if (m.startsWith(prefix+"roles")){
-		let toSend = "Habitués";
+		let xp;
+		for (let i = 0; i<users.length; i++) {
+			if (users[i].id == msg.author.id) {
+				xp = users[i].xp;
+				break;
+			}
+		}
+
+		let toSend = "Aucun role, "+xp+" xp";
 		if (isAdmin()){ toSend = "Administrateur"; return; }
+		if (isHabitué()){ toSend = "Habitués"; return; }
 		if (isActif()){ toSend = "Actif"; return; }
 		if (isVIP()){ toSend = "VIP"; return; }
 		if (isDivin()){ toSend = "Divin"; return; }
