@@ -703,10 +703,18 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 
 	// Roboto guilds
 	if (m.startsWith(prefix+"roles")){
+		let toSend = "Habitués";
+		if (isAdmin()){ toSend = "Administrateur"; return; }
+		if (isActif()){ toSend = "Actif"; return; }
+		if (isVIP()){ toSend = "VIP"; return; }
+		if (isDivin()){ toSend = "Divin"; return; }
+		if (isNoLife()){ toSend = "NoLife."; return; }
+		if (isBruh()){ toSend = "Bruh."; return; }
+
 		msg.channel.send({embed: {
-			title: "Grades",
+			title: "Role de "+msg.author.username,
 			color: 16777215,
-			description: "Voilà les grades de "+msg.author+": "+toSend
+			description: "Vous êtes ```"+toSend+"```"
 		}});
 	}
 
@@ -770,7 +778,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 
 	// Roboto decision
 	if (m.startsWith(prefix+'decision ')) {
-		let req = msg.content.replace(prefix+"decision", ""),
+		let req = msg.content.replace(prefix+"decision ", ""),
 			index = Math.floor(Math.random() * (decisions.length - 1) + 1),
 			decision = decisions[index];
 			msg.channel.send({embed: {
