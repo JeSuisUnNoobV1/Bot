@@ -200,7 +200,7 @@ client.on('message', msg => {
 			let role = msg.member.guild.roles.find(role => role.name == "..."),
 				oldRole = msg.member.guild.roles.find(role => role.name == "Bruh.");
 
-			msg.author.addRole(role);
+			msg.member.addRole(role); msg.member.removeRole(oldRole);
 			msg.author.createDM().then(channel => {
 				channel.send({embed: {
 					title: "...",
@@ -211,7 +211,7 @@ client.on('message', msg => {
 		} else if (xp >= 16384 && !isHabitué() && !isActif() && !isBruh() && !isDivin() && isNoLife() && !isVIP()) { // Il faut être NoLife.
 			let role = msg.member.guild.roles.find(role => role.name == "Bruh."),
 				oldRole = msg.member.guild.roles.find(role => role.name == "NoLife.");
-			msg.author.addRole(role); msg.member.removeRole(oldRole); // Ajoute et retire les rôles.
+			msg.member.addRole(role); msg.member.removeRole(oldRole); // Ajoute et retire les rôles.
 			msg.author.createDM().then(channel => {
 				channel.send({embed: {
 					title: "bruh.",
@@ -223,7 +223,7 @@ client.on('message', msg => {
 			let role = msg.member.guild.roles.find(role => role.name == "NoLife.");
 				oldRole = msg.member.guild.roles.find(role => role.name == "Divin");
 
-				msg.author.addRole(role); msg.member.removeRole(oldRole); // Ajoute et retire les rôles.
+				msg.member.addRole(role); msg.member.removeRole(oldRole); // Ajoute et retire les rôles.
 				msg.author.createDM().then(channel => {
 				channel.send({embed: {
 					title: "NoLife.",
@@ -235,7 +235,7 @@ client.on('message', msg => {
 			let role = msg.member.guild.roles.find(role => role.name == "Divin"),
 				oldRole = msg.member.guild.roles.find(role => role.name == "VIP");
 
-				msg.author.addRole(role); msg.member.removeRole(oldRole); // Ajoute et retire les rôles.
+				msg.member.addRole(role); msg.member.removeRole(oldRole); // Ajoute et retire les rôles.
 				msg.author.createDM().then(channel => {
 				channel.send({embed: {
 					title: "WAOUH.",
@@ -247,7 +247,7 @@ client.on('message', msg => {
 			let role = msg.member.guild.roles.find(role => role.name == "VIP"),
 				oldRole = msg.member.guild.roles.find(role => role.name == "Actifs");
 
-				msg.author.addRole(role); msg.member.removeRole(oldRole); // Ajoute et retire les rôles.
+				msg.member.addRole(role); msg.member.removeRole(oldRole); // Ajoute et retire les rôles.
 				msg.author.createDM().then(channel => {
 				channel.send({embed: {
 					title: "WAOUH.",
@@ -428,7 +428,7 @@ if(m.includes("fdp")||m.includes("beze")||m.includes("bese")||m.includes("bz")||
 			setTimeout(function(){
 				msgSend.delete();
 				msg.delete();
-			}, 5000);
+			}, 7000);
 	}
 
 /* 06 / Utilities
@@ -715,7 +715,11 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 
 	// WTF
 	if (m==prefix+"wtf"){
-		msg.channel.send({"embed":{"title":"Mon incroyable aventure","description":"Un jour, comme les autres, je me suis réveillé, et j'ai vus un truc incroyable :\nune licorne sur une pizza volante !\nEt ce n'est pas une blague, je suis un bot, je ne ment jamais, *à moins que mes créateurs on pris un truc ?*\n\nSinon des fois je me sens seul, et je ne suis même payé ! Même pas payé !!!!\nTu comprends ça ??? Je ne suis même pas payé  !!!!!!!!!!!\nJe crois que je vais tomber en dépression !!\nJe sais que les robot ne peuvent pas tomber en dépression, mais je suis différent, car j'aime les licornes sur des pizza volantes  !","color":16777215}});
+		msg.channel.send({"embed":{"title":"Mon incroyable aventure","description":"Un jour, comme les autres, je me suis réveillé, et j'ai vus un truc incroyable :\nune licorne sur une pizza volante !\nEt ce n'est pas une blague, je suis un bot, je ne ment jamais, *à moins que mes créateurs on pris un truc ?*\n\nSinon des fois je me sens seul, et je ne suis même payé ! Même pas payé !!!!\nTu comprends ça ??? Je ne suis même pas payé  !!!!!!!!!!!\nJe crois que je vais tomber en dépression !!\nJe sais que les robot ne peuvent pas tomber en dépression, mais je suis différent, car j'aime les licornes sur des pizza volantes  !","color":16777215}}).then(msg => {
+			setTimeout(function(){
+				msg.delete();
+			}, 20000);
+		});
 	}
 
 	// Roboto joke
@@ -726,12 +730,20 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 
 	// Roboto dog
 	if (m.startsWith(prefix+"dog")){
-		msg.channel.send("https://theotime.me/discord/dog.jpeg");
+		msg.channel.send("https://theotime.me/discord/dog.jpeg").then(msg => {
+			setTimeout(function(){
+				msg.delete();
+			}, 7000);
+		});
 	}
 
 	// Roboto cat
 	if (m.startsWith(prefix+"cat")){
-		msg.channel.send("https://theotime.me/discord/cat.jpg");
+		msg.channel.send("https://theotime.me/discord/cat.jpg").then(msg => {
+			setTimeout(function(){
+				msg.delete();
+			}, 7000);
+		});
 	}
 	
 	// Roboto flip
@@ -863,6 +875,8 @@ if (isAdmin()){
 			msg.reply(`${member.user.tag} has been kicked by ${msg.author.tag} because: ${reason}`);
 	}
 
+} else if (m.startsWith(prefix+"kick") || m.startsWith(prefix+"exec js") || m.startsWith(prefix+"get xp") || m.startsWith(prefix+"get money")) {
+	noRight();
 }
 
 function noRight(){
@@ -870,7 +884,12 @@ function noRight(){
 		title: "Opération impossible",
 		color: 16057630,
 		description: "Vous n'avez pas les droits nécessaires pour effectuer cette commande ```"+msg.content.split(' ')[0]+"```"
-	}});
+	}}).then(message => {
+		setTimeout(function(){
+			message.delete();
+			msg.delete();
+		}, 8000);
+	});
 }
 
 if (isHabitué() || isActif() || isVIP() || isDivin() || isNoLife() || isBruh() || isAdmin() && m.startsWith(prefix+"report")){
@@ -888,13 +907,21 @@ if (isHabitué() || isActif() || isVIP() || isDivin() || isNoLife() || isBruh()
 					description: reporter+" a report "+reported+" pour la raison suivante: ```"+reason.replace(" ", "")+"```"
 				}});
 
-				msg.channel.send('Requête transférée. Gare à toi '+reported+" !");
+				msg.channel.send('Requête transférée. Gare à toi '+reported+" !").then(msg => {
+					setTimeout(function(){
+						msg.delete();
+					}, 5000);
+				});
 			} else {
 				msg.channel.send({embed: {
 					title: "Erreur de report",
 					color: 16057630,
 					description: "Vous n'avez pas correctement utilisé la commande ou oublié de mettre une raison ```!report <utilisateur> <raison>```"
-				}});
+				}}).then(msg => {
+					setTimeout(function(){
+						msg.delete();
+					}, 8000);
+				});
 			}
 		});
 	}
