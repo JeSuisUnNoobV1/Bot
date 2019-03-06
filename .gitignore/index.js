@@ -804,7 +804,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 if (isAdmin()){
 
 	// Test function for developers
-	if (m.startsWith('test')){
+	if (m.startsWith(prefix+'test')){
 		msg.react('✅');
 		client.on('messageReactionAdd', (reaction, user) => {
 			if (!user.bot && user.id == reaction.message.author.id) {
