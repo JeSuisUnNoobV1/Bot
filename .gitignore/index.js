@@ -1440,7 +1440,6 @@ const bank = {
 								}});
 							}
 						}
-						msg.channel.send(reaction.emoji.name);
 					}
 				});
 
