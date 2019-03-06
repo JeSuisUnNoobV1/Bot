@@ -808,13 +808,9 @@ if (isAdmin()){
 		msg.react('✅').then(() => {
 			msg.react('🔴');
 		});
-		client.on('messageReactionAdd', (reaction, user) => {
-			if (!user.bot && user.id == reaction.message.author.id) {
-				if (reaction.emoji == "✅") {
-					msg.channel.send("oui");
-				} else if (reaction.emoji == "🔴") {
-					msg.channel.send("non");
-				}
+		client.on('messageReactionAdd', (reaction) => {
+			if (reaction.message.id == msg.id) {
+				msg.channel.send(reaction.emoji.name);
 			}
 		});
 	}
