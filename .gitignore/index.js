@@ -805,10 +805,18 @@ if (isAdmin()){
 
 	// Test function for developers
 	if (m.startsWith(prefix+'test')){
-		msg.react('✅');
+		msg.react('✅').then(() => {
+			setTimeout(function(){
+				msg.react('🔴');
+			}, 200);
+		});
 		client.on('messageReactionAdd', (reaction, user) => {
 			if (!user.bot && user.id == reaction.message.author.id) {
-				msg.delete();
+				if (reaction.emoji == "✅") {
+					msg.channel.send("oui");
+				} else if (reaction.emoji == "🔴") {
+					msg.channel.send("non");
+				}
 			}
 		});
 	}
