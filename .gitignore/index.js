@@ -1411,7 +1411,7 @@ const bank = {
 
 				client.on('messageReactionAdd', (reaction, user) => {
 					if (!user.bot && user.id == reaction.message.author.id && reaction.message.channel.type == "dm" && reaction.message.id == msg.id && canPay && !payed) {
-						if (reaction.emoji == "✅") {
+						if (reaction.emoji.name == "✅") {
 							channel.send({embed: {
 								title: "Débit de coins",
 								color: 16777215, // blanc
@@ -1428,7 +1428,7 @@ const bank = {
 									users[i].money += price; // On ajoute la thune
 								}
 							}
-						} else if (reaction.emoji == "🔴" && canPay) {
+						} else if (reaction.emoji.name == "🔴" && canPay) {
 							if (payed == false && canPay == true) { // Si on peut encore payer mais que la somme n'est pas encore payée
 								channel.send({embed: {
 									title: "Débit de coins annulé",
