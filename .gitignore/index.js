@@ -196,7 +196,7 @@ client.on('message', msg => {
 	}
 
 	function checkXpLevel(xp){
-		if (xp >= 32768) {
+		if (xp == 32768) {
 			let role = msg.member.guild.roles.find(role => role.name == "..."),
 				oldRole = msg.member.guild.roles.find(role => role.name == "Bruh.");
 
@@ -208,7 +208,7 @@ client.on('message', msg => {
 					description: "J'ai le plaisir de vous annoncer que vous êtes désormais ... Je ne vous ment pas ! ... est le rôle le plus élevé que vous puissiez avoir sur ce serveur. Maintenant, vous pouvez juste frimer parce que ous avez déjà tout ! Mais en plus, vous pouvez demander en ami un administrateur sans qu'il vous refuse ! Parce que vous avez la classe."
 				}});
 			}).catch(console.error);
-		} else if (xp >= 16384 && !isHabitué() && !isActif() && !isBruh() && !isDivin() && isNoLife() && !isVIP()) { // Il faut être NoLife.
+		} else if (xp == 16384) { // Il faut être NoLife.
 			let role = msg.member.guild.roles.find(role => role.name == "Bruh."),
 				oldRole = msg.member.guild.roles.find(role => role.name == "NoLife.");
 			msg.member.addRole(role); msg.member.removeRole(oldRole); // Ajoute et retire les rôles.
@@ -219,7 +219,7 @@ client.on('message', msg => {
 					description: msg.author+", vous venez d'obtenir le rôle de `Bruh.` ! Maintenant, vous pouvez ```- "+prefix+"ban <mention d'utilisateur> [https://theotime.me/disBan]\n- "+prefix+"unban <mention d'utilisateur> [https://theotime.me/disUnban]```"
 				}});
 			}).catch(console.error);
-		} else if (xp >= 8192 && !isHabitué() && !isActif() && !isBruh() && isDivin() && !isNoLife() && !isVIP()) { // Il faut être Divin.
+		} else if (xp == 8192 && !isHabitué() && !isActif() && !isBruh() && isDivin() && !isNoLife() && !isVIP()) { // Il faut être Divin.
 			let role = msg.member.guild.roles.find(role => role.name == "NoLife.");
 				oldRole = msg.member.guild.roles.find(role => role.name == "Divin");
 
@@ -231,7 +231,7 @@ client.on('message', msg => {
 					description: "Félicitations, "+msg.author+" ! Vous êtes un NoLife. Non, plus sérieusement, vous commencez à atteindre une place importante dans le serveur avec vos 8192 xp. Alors nous vous confions certaines responsabilités ainsi que quelques privillèges. ```- "+prefix+"get db [https://theotime.me/disGetDB]\n- "+prefix+"get goDB [https://theotime.me/disGetGoDB]\n- le début du style```"
 				}});
 			}).catch(console.error);
-		} else if (xp >= 4096 && !isHabitué() && !isActif() && !isBruh() && !isDivin() && !isNoLife() && isVIP()) { // Il faut être VIP.
+		} else if (xp == 4096 && !isHabitué() && !isActif() && !isBruh() && !isDivin() && !isNoLife() && isVIP()) { // Il faut être VIP.
 			let role = msg.member.guild.roles.find(role => role.name == "Divin"),
 				oldRole = msg.member.guild.roles.find(role => role.name == "VIP");
 
@@ -243,7 +243,7 @@ client.on('message', msg => {
 					description: "Hey, "+msg.author+" ! Vous êtes un dieu ! Cool, hein. Bon alors comme vous devez déjà le savoir: ici, plus on est là depuis longtemps, plus on a de droits et de privillèges. Alors maintenant vous pouvez: ```- envoyer des messages TTS\n- Mentionner @everyone\n- "+prefix+"purge <nombre> [https://theotime.me/disPurge]\n- rendre muets et sourds les utilisateurs\n- déplacer les membres dans un channel vocal```"
 				}});
 			}).catch(console.error);
-		} else if (xp >= 2048 && !isHabitué() && isActif() && !isBruh() && !isDivin() && !isNoLife() && !isVIP()) { // Il faut être Actif.
+		} else if (xp == 2048 && !isHabitué() && isActif() && !isBruh() && !isDivin() && !isNoLife() && !isVIP()) { // Il faut être Actif.
 			let role = msg.member.guild.roles.find(role => role.name == "VIP"),
 				oldRole = msg.member.guild.roles.find(role => role.name == "Actifs");
 
@@ -255,7 +255,7 @@ client.on('message', msg => {
 					description: msg.author+" ! Vous venez d'obtenir le rôle de `VIP` !\nMaintenant, vous pouvez```- "+prefix+"sell <prix> <code>\n- "+prefix+"timeout <secondes>\n- "+prefix+"say <message>\n- attacher des fichiers\n- utiliser des émojis externes```"
 				}});
 			}).catch(console.error);
-		} else if (xp >= 512 && isHabitué() && !isActif() && !isBruh() && !isDivin() && !isNoLife() && !isVIP()) { // Il faut faire partie des "Habitués".
+		} else if (xp == 512 && isHabitué() && !isActif() && !isBruh() && !isDivin() && !isNoLife() && !isVIP()) { // Il faut faire partie des "Habitués".
 			let role = msg.member.guild.roles.find(role => role.name == "Actifs"),
 				oldRole = msg.member.guild.roles.find(role => role.name == "Habitués");
 
@@ -711,7 +711,8 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			}
 		}
 
-		let toSend = "Aucun role, "+xp+" xp";
+		let toSend = "Aucun role, \n"+xp+" xp";
+
 		if (isAdmin()){ toSend = "Administrateur"; return; }
 		if (isHabitué()){ toSend = "Habitués"; return; }
 		if (isActif()){ toSend = "Actif"; return; }
@@ -1337,19 +1338,6 @@ if ((m.startsWith('bonjour') || m.startsWith('salut') || m.startsWith('hey') ||
 			}).catch(console.error)
 		);
 	}
-
-	setInterval(function(){
-		for (let i = 0; i<users.length; i++) {
-			if (isAdmin(users[i].id)) {
-				users[i].money += 200;
-				users[i].xp += 1;
-			} else {
-				users[i].money += 5;
-				users[i].xp += 1;
-				checkXpLevel(users[i].id);
-			}
-		}
-	}, 3600000);
 });
 
 const bank = {
