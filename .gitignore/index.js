@@ -609,7 +609,11 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 				title: "Profil de "+msg.author.username,
 				color: 16777215,
 				description: "Tu es <@"+msg.author.id+"> et tu "+dispo+".\n```xp: "+xp+"\nmoney: "+money+"```\nPour les développeurs, ton id est ```"+msg.author.id+"```"
-	    	}});
+	    	}}).then(msg => {
+				setTimeout(function(){
+					msg.delete();
+				}, 8000);
+			});
 		}
 	}
 
@@ -698,7 +702,11 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			title: "Profil de "+msg.author.username,
 			color: 16777215,
 			description: "Tu es <@"+msg.author.id+"> et tu "+dispo+".\n```xp: "+xp+"\nmoney: "+money+"```\nPour les développeurs, ton id est ```"+msg.author.id+"```"
-	    }});
+	    }}).then(msg => {
+			setTimeout(function(){
+				msg.delete();
+			}, 8000);
+		});
 	}
 
 	// Roboto guilds
@@ -1399,7 +1407,7 @@ const bank = {
 			channel.send({embed: {
 				title: "Débit de coins",
 				color: 16777215, // blanc
-				description: "Vous vous apprêtez à "+desc+" à "+to.username+" au prix de **"+price+" coins**.\nVous avez 20s pour accorder le débit.\n Pour annuler, utilisez: `refus`.Accordez si vous le souhaitez en répondant avec votre tag Discord. ```ex: #6461```"
+				description: "Vous vous apprêtez à "+desc+" à "+to.username+" au prix de **"+price+" coins**.\nVous avez 20s pour accorder le débit.\n "
 			}}).then(msg => {
 				msg.react('✅').then(() => {
 					msg.react('🔴');
