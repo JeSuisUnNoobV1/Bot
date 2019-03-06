@@ -612,7 +612,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 	    	}}).then(msg => {
 				setTimeout(function(){
 					msg.delete();
-				}, 5000);
+				}, 6000);
 			});
 		}
 	}
@@ -706,7 +706,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			setTimeout(function(){
 				msg2.delete();
 				msg.delete();
-			}, 5000);
+			}, 6000);
 		});
 	}
 
