@@ -1407,7 +1407,7 @@ const bank = {
 
 				client.on('messageReactionAdd', (reaction, user) => {
 					if (!user.bot && reaction.message.channel.type == "dm") {
-						if (reaction.emoji.name == "✅" && canPay && !payed) {
+						if (reaction.emoji.name == "✅" && canPay) {
 							channel.send({embed: {
 								title: "Débit de coins",
 								color: 16777215, // blanc
