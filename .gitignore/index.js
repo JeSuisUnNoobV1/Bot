@@ -612,7 +612,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 	    	}}).then(msg => {
 				setTimeout(function(){
 					msg.delete();
-				}, 8000);
+				}, 5000);
 			});
 		}
 	}
@@ -702,10 +702,11 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			title: "Profil de "+msg.author.username,
 			color: 16777215,
 			description: "Tu es <@"+msg.author.id+"> et tu "+dispo+".\n```xp: "+xp+"\nmoney: "+money+"```\nPour les développeurs, ton id est ```"+msg.author.id+"```"
-	    }}).then(msg => {
+	    }}).then(msg2 => {
 			setTimeout(function(){
+				msg2.delete();
 				msg.delete();
-			}, 8000);
+			}, 5000);
 		});
 	}
 
