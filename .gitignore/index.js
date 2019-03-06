@@ -1422,6 +1422,7 @@ const bank = {
 								if (users[i].id == from.id){
 									users[i].money -= price; // On enlève la thune
 									payed = true; // La somme est payée
+									canPay = false; // On ne peux plus payer après avoir payé
 									cb(price); // Callback quand la somme est payée
 								} else if (users[i].id == to.id){
 									users[i].money += price; // On ajoute la thune
