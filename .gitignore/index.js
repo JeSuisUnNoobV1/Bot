@@ -712,17 +712,17 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 	}
 
 	if (m.startsWith(prefix+"google ")) {
-		let q = m.replace(prefix+"google "),
+		let q = m.replace(prefix+"google ", ""),
 			cx = "017567266544748746605:9-8clqys140",
 			key = "AIzaSyCyZgRt-igTYO05X_8LgDwoOsZgdqf4h3U",
-			url = 'http://www.googleapis.com/customsearch/v1?cx='+cx+'&key='+key+'&q='+encodeURI(q),
+			path = '/customsearch/v1?cx='+cx+'&key='+key+'&q='+encodeURI(q),
 			rep;
 
 			var options = {
-				host: url,
+				host: "www.googleapis.com",
 				port: 80,
-				path: '/resource?id=foo&bar=baz',
-				method: 'POST'
+				path: path,
+				method: 'GET'
 			  };
 			  
 			HTTPS.request(options, function(rep) {
