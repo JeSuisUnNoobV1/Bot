@@ -412,7 +412,7 @@ if(m.includes("fdp")||m.includes("beze")||m.includes("bese")||m.includes("bz")||
 				msgSend = msg.channel.send({embed: {
 					title: "GO code error",
 					color: 16057630,
-					description: "Mauvais lien. Sachez que tous les liens GO commencent tous par `go ou @` suivis d'un nombre entre 0 et 9999. Donc \""+link+"\" ne correspond sûrement pas à ces critères"
+					description: "Mauvais lien. Sachez que tous les liens GO commencent tous par `go ou @` suivis d'un nombre entre 0 et 9999. Donc \""+nb+"\" ne correspond sûrement pas à ces critères"
 				}}).then(msg => {
 					msgSend = msg;
 				});
@@ -727,7 +727,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 		
 			res.on('end', function(){
 				rep = JSON.parse(body);
-				msg.channel.send("Gl a trouvé "+rep.searchInformation.totalResults+" résultats en "+rep.searchInformation.searchTime+" secondes.")
+				msg.channel.send("Gl a trouvé "+rep.searchInformation.totalResults+" résultats en "+rep.searchInformation.searchTime+" secondes.");
 			});
 		}).on('error', function(e){
 			  console.error(e);
