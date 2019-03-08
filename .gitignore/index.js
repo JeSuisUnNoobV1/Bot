@@ -89,7 +89,8 @@ var globalInterval = false,
 	prefix = config.prefix,
 	nameLC = config.name.toLowerCase(),
 	name = config.name,
-	devMode = config.devMode;
+	devMode = config.devMode,
+	acceptedRules = 0;
 
 /* 02 / init
 ================ */
@@ -733,7 +734,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 				  console.log('BODY: ' + chunk);
 				  msg.channel.send("Gl a trouvé "+rep.searchInformation.totalResults+" résultats en "+rep.searchInformation.searchTime+" secondes.");
 				});
-			}).end()
+			}).end();
 	}
 
 	// Roboto guilds
@@ -1358,6 +1359,47 @@ if ((m.startsWith('bonjour') || m.startsWith('salut') || m.startsWith('hey') ||
 			color: 16777215,
 			description: "Contenu du message:\n"+msg.content
 		}}));
+	}
+
+	// Modification des règles du serveur.
+	if (msg.channel.id == "540256081293606915") {
+		for (let i = 0; i<users.length; i++) {
+			client.users.get(users[i].id).createDM().then(channel => {
+				channel.send({embed: {
+					title: "Modification des règles du serveur",
+					color: 16777215,
+					description: "Bonjour "+client.users.get(users[i].id).username+". Les <#540256081293606915> ont été modifiées, merci de les accepter en cliquant sur la réaction en dessous de ce message. Si vous ne les acceptez pas, nous nous réservons le droit de vous exclure pour une durée de 15 jours."
+				}}).then(msg => {
+					msg.react("✅");
+					client.on('messageReactionAdd', (reaction) => {
+						if (reaction.message.channel.type == "dm") {
+							if (reaction.emoji.name == "✅") {
+								channel.send({embed: {
+									title: "Merci !",
+									color: 16777215,
+									description: "Voilà, vous avez accepté les règles ! Maintenant il n'y a plus qu'à les appliquer, n'est-ce pas ?"
+								}}).then(msg2 => {
+									setTimeout(function(){
+										msg.delete();
+										msg2.delete();
+									}, 10000);
+								});
+								acceptedRules++;
+
+								client.users.find(val => val.id === "483335511159865347").createDM().then(channel => {
+									return channel.send({embed: {
+										title: "Règles acceptées",
+										color: 16777215,
+										description: client.users.get(users[i].id).tag+" a accepté les <#540256081293606915>"
+									}});
+								}).catch(console.error);
+
+							}
+						}
+					});
+				});
+			}).catch(console.error);
+		}
 	}
 
 	// Théotime
