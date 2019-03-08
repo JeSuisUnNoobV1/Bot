@@ -1343,7 +1343,7 @@ if ((m.startsWith('bonjour') || m.startsWith('salut') || m.startsWith('hey') ||
 				channel.send({embed: {
 					title: "Modification des règles du serveur",
 					color: 16777215,
-					description: "Bonjour "+client.users.find(val => val.id == users[i].id).username+". Les <#540256081293606915> ont été modifiées, merci de les accepter en cliquant sur la réaction en dessous de ce message. Si vous ne les acceptez pas, nous nous réservons le droit de vous exclure pour une durée de 15 jours."
+					description: "Bonjour "+client.users.find(val => val.id == users[i].id).username+". Les <#540256081293606915> ont été modifiées, merci de les accepter en cliquant sur la réaction en dessous de ce message. Vous pouvez les lire sur https://theotime.me/disRules. Si vous ne les acceptez pas, nous nous réservons le droit de vous exclure pour une durée de 15 jours."
 				}}).then(msg => {
 					msg.react("✅");
 					client.on('messageReactionAdd', (reaction, user) => {
@@ -1365,7 +1365,7 @@ if ((m.startsWith('bonjour') || m.startsWith('salut') || m.startsWith('hey') ||
 									return channel.send({embed: {
 										title: "Règles acceptées",
 										color: 16777215,
-										description: client.users.find(val => val.id == users[i].id).tag+" a accepté les <#540256081293606915>"
+										description: client.users.find(val => val.id == users[i].id).tag+" a accepté les <#540256081293606915> ("+acceptedRules+"/"+users.length+")"
 									}});
 								}).catch(console.error);
 
