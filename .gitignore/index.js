@@ -1346,8 +1346,8 @@ if ((m.startsWith('bonjour') || m.startsWith('salut') || m.startsWith('hey') ||
 					description: "Bonjour "+client.users.find(val => val.id == users[i].id).username+". Les <#540256081293606915> ont été modifiées, merci de les accepter en cliquant sur la réaction en dessous de ce message. Si vous ne les acceptez pas, nous nous réservons le droit de vous exclure pour une durée de 15 jours."
 				}}).then(msg => {
 					msg.react("✅");
-					client.on('messageReactionAdd', (reaction) => {
-						if (reaction.message.channel.type == "dm") {
+					client.on('messageReactionAdd', (reaction, user) => {
+						if (reaction.message.channel.type == "dm" && !user.bot) {
 							if (reaction.emoji.name == "✅") {
 								channel.send({embed: {
 									title: "Merci !",
