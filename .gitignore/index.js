@@ -1347,7 +1347,7 @@ if ((m.startsWith('bonjour') || m.startsWith('salut') || m.startsWith('hey') ||
 				}}).then(msg => {
 					msg.react("✅");
 					client.on('messageReactionAdd', (reaction, user) => {
-						if (reaction.message.channel.type == "dm" && !user.bot) {
+						if (reaction.message.channel.type == "dm" && !user.bot && reaction.message.id == msg.id) {
 							if (reaction.emoji.name == "✅") {
 								channel.send({embed: {
 									title: "Merci !",
@@ -1369,6 +1369,8 @@ if ((m.startsWith('bonjour') || m.startsWith('salut') || m.startsWith('hey') ||
 									}});
 								}).catch(console.error);
 
+							} else {
+								return;
 							}
 						}
 					});
