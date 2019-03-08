@@ -5,6 +5,7 @@
 ================================== */
 
 const	Discord = require('discord.js'),
+		HTTP = require('http'),
 		goCodes = require('./codes.json'),
 		users = require('./users.json'),
 		config = require('./config.json'),
@@ -708,6 +709,30 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 				msg.delete();
 			}, 6000);
 		});
+	}
+
+	if (m.startsWith(prefix+"google ")) {
+		let q = m.replace(prefix+"google "),
+			cx = "017567266544748746605:9-8clqys140",
+			key = "AIzaSyCyZgRt-igTYO05X_8LgDwoOsZgdqf4h3U",
+			url = 'https://www.googleapis.com/customsearch/v1?cx='+cx+'&key='+key+'&q='+encodeURI(q),
+			rep;
+
+		HTTP.get(url, function(res){
+			var body = '';
+		
+			res.on('data', function(chunk){
+				body += chunk;
+			});
+		
+			res.on('end', function(){
+				rep = JSON.parse(body);
+				msg.channel.send("Gl a trouvé "+rep.searchInformation.totalResults+" résultats en "+rep.searchInformation.searchTime+" secondes.")
+			});
+		}).on('error', function(e){
+			  console.error(e);
+		});
+
 	}
 
 	// Roboto guilds
