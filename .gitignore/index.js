@@ -859,12 +859,12 @@ if (isAdmin()){
 										title: "Règles acceptées",
 										color: 16777215,
 										description: client.users.find(val => val.id == users[i].id).tag+" a accepté les <#540256081293606915> ("+acceptedRules+"/"+users.length+")"
-									}});
+									}}).then(() => {
+										if (acceptedRules == users.length) {
+											acceptedRules = 0;
+										}
+									});
 								}).catch(console.error);
-
-								if (acceptedRules == users.length) {
-									acceptedRules = 0;
-								}
 
 							} else {
 								return;
