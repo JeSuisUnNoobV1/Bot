@@ -836,8 +836,9 @@ if (isAdmin()){
 					description: "Bonjour "+client.users.find(val => val.id == users[i].id).username+". Les <#540256081293606915> ont été modifiées, merci de les accepter en cliquant sur la réaction en dessous de ce message. Vous pouvez les lire sur https://theotime.me/disRules. Si vous ne les acceptez pas, nous nous réservons le droit de vous exclure pour une durée de 15 jours."
 				}}).then(msg => {
 					msg.react("✅");
+					let canCheck;
 					client.on('messageReactionAdd', (reaction, user) => {
-						if (reaction.message.channel.type == "dm" && !user.bot && reaction.message.id == msg.id) {
+						if (reaction.message.channel.type == "dm" && !user.bot && reaction.message.id == msg.id && canCheck) {
 							if (reaction.emoji.name == "✅") {
 								channel.send({embed: {
 									title: "Merci !",
@@ -850,6 +851,7 @@ if (isAdmin()){
 									}, 10000);
 								});
 								acceptedRules++;
+								canCheck = false;
 
 								client.users.find(val => val.id === "483335511159865347").createDM().then(channel => {
 									return channel.send({embed: {
@@ -866,6 +868,12 @@ if (isAdmin()){
 							} else {
 								return;
 							}
+						} else {
+							channel.send({embed: {
+								title: "Modification des règles du serveur",
+								color: 16057630,
+								description: "Vous avez déjà accepté les <#540256081293606915>."
+							}})
 						}
 					});
 				});
