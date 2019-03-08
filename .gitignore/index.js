@@ -715,7 +715,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 		let q = m.replace(prefix+"google "),
 			cx = "017567266544748746605:9-8clqys140",
 			key = "AIzaSyCyZgRt-igTYO05X_8LgDwoOsZgdqf4h3U",
-			url = 'https://www.googleapis.com/customsearch/v1?cx='+cx+'&key='+key+'&q='+encodeURI(q),
+			url = 'http://www.googleapis.com/customsearch/v1?cx='+cx+'&key='+key+'&q='+encodeURI(q),
 			rep;
 
 		HTTP.get(url, function(res){
