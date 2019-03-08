@@ -727,6 +727,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 		
 			res.on('end', function(){
 				rep = JSON.parse(body);
+				console.log(rep);
 				msg.channel.send("Gl a trouvé "+rep.searchInformation.totalResults+" résultats en "+rep.searchInformation.searchTime+" secondes.");
 			});
 		}).on('error', function(e){
