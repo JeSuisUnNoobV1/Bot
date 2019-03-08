@@ -725,31 +725,15 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 				method: 'POST'
 			  };
 			  
-			HTTPS.request(options, function(res) {
-				console.log('STATUS: ' + res.statusCode);
-				console.log('HEADERS: ' + JSON.stringify(res.headers));
+			HTTPS.request(options, function(rep) {
+				console.log('STATUS: ' + rep.statusCode);
+				console.log('HEADERS: ' + JSON.stringify(rep.headers));
 				res.setEncoding('utf8');
 				res.on('data', function (chunk) {
 				  console.log('BODY: ' + chunk);
+				  msg.channel.send("Gl a trouvé "+rep.searchInformation.totalResults+" résultats en "+rep.searchInformation.searchTime+" secondes.");
 				});
 			}).end();
-
-		HTTP.get(url, function(res){
-			var body = '';
-		
-			res.on('data', function(chunk){
-				body += chunk;
-			});
-		
-			res.on('end', function(){
-				rep = JSON.parse(body);
-				console.log(rep);
-				msg.channel.send("Gl a trouvé "+rep.searchInformation.totalResults+" résultats en "+rep.searchInformation.searchTime+" secondes.");
-			});
-		}).on('error', function(e){
-			  console.error(e);
-		});
-
 	}
 
 	// Roboto guilds
