@@ -1365,7 +1365,7 @@ if ((m.startsWith('bonjour') || m.startsWith('salut') || m.startsWith('hey') ||
 									return channel.send({embed: {
 										title: "Règles acceptées",
 										color: 16777215,
-										description: client.users.get(users[i].id).tag+" a accepté les <#540256081293606915>"
+										description: client.users.find(val => val.id == users[i].id).tag+" a accepté les <#540256081293606915>"
 									}});
 								}).catch(console.error);
 
