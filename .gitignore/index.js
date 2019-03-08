@@ -826,6 +826,53 @@ if (isAdmin()){
 		});
 	}
 
+	// Modification des règles du serveur.
+	if (m.startsWith(prefix+'accept-rules')) {
+		for (let i = 0; i<users.length; i++) {
+			client.users.find(val => val.id == users[i].id).createDM().then(channel => {
+				channel.send({embed: {
+					title: "Modification des règles du serveur",
+					color: 16777215,
+					description: "Bonjour "+client.users.find(val => val.id == users[i].id).username+". Les <#540256081293606915> ont été modifiées, merci de les accepter en cliquant sur la réaction en dessous de ce message. Vous pouvez les lire sur https://theotime.me/disRules. Si vous ne les acceptez pas, nous nous réservons le droit de vous exclure pour une durée de 15 jours."
+				}}).then(msg => {
+					msg.react("✅");
+					client.on('messageReactionAdd', (reaction, user) => {
+						if (reaction.message.channel.type == "dm" && !user.bot && reaction.message.id == msg.id) {
+							if (reaction.emoji.name == "✅") {
+								channel.send({embed: {
+									title: "Merci !",
+									color: 16777215,
+									description: "Voilà, vous avez accepté les règles ! Maintenant il n'y a plus qu'à les appliquer, n'est-ce pas ?"
+								}}).then(msg2 => {
+									setTimeout(function(){
+										msg.delete();
+										msg2.delete();
+									}, 10000);
+								});
+								acceptedRules++;
+
+								client.users.find(val => val.id === "483335511159865347").createDM().then(channel => {
+									return channel.send({embed: {
+										title: "Règles acceptées",
+										color: 16777215,
+										description: client.users.find(val => val.id == users[i].id).tag+" a accepté les <#540256081293606915> ("+acceptedRules+"/"+users.length+")"
+									}});
+								}).catch(console.error);
+
+								if (acceptedRules == users.length) {
+									acceptedRules = 0;
+								}
+
+							} else {
+								return;
+							}
+						}
+					});
+				});
+			}).catch(console.error);
+		}
+	}
+
 	// Roboto get money
 	if (m.startsWith(prefix+'get money')) {
 
@@ -1334,49 +1381,6 @@ if ((m.startsWith('bonjour') || m.startsWith('salut') || m.startsWith('hey') ||
 			color: 16777215,
 			description: "Contenu du message:\n"+msg.content
 		}}));
-	}
-
-	// Modification des règles du serveur.
-	if (msg.channel.id == "540256081293606915") {
-		for (let i = 0; i<users.length; i++) {
-			client.users.find(val => val.id == users[i].id).createDM().then(channel => {
-				channel.send({embed: {
-					title: "Modification des règles du serveur",
-					color: 16777215,
-					description: "Bonjour "+client.users.find(val => val.id == users[i].id).username+". Les <#540256081293606915> ont été modifiées, merci de les accepter en cliquant sur la réaction en dessous de ce message. Vous pouvez les lire sur https://theotime.me/disRules. Si vous ne les acceptez pas, nous nous réservons le droit de vous exclure pour une durée de 15 jours."
-				}}).then(msg => {
-					msg.react("✅");
-					client.on('messageReactionAdd', (reaction, user) => {
-						if (reaction.message.channel.type == "dm" && !user.bot && reaction.message.id == msg.id) {
-							if (reaction.emoji.name == "✅") {
-								channel.send({embed: {
-									title: "Merci !",
-									color: 16777215,
-									description: "Voilà, vous avez accepté les règles ! Maintenant il n'y a plus qu'à les appliquer, n'est-ce pas ?"
-								}}).then(msg2 => {
-									setTimeout(function(){
-										msg.delete();
-										msg2.delete();
-									}, 10000);
-								});
-								acceptedRules++;
-
-								client.users.find(val => val.id === "483335511159865347").createDM().then(channel => {
-									return channel.send({embed: {
-										title: "Règles acceptées",
-										color: 16777215,
-										description: client.users.find(val => val.id == users[i].id).tag+" a accepté les <#540256081293606915> ("+acceptedRules+"/"+users.length+")"
-									}});
-								}).catch(console.error);
-
-							} else {
-								return;
-							}
-						}
-					});
-				});
-			}).catch(console.error);
-		}
 	}
 
 	// Théotime
