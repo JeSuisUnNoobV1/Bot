@@ -712,31 +712,6 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 		});
 	}
 
-	if (m.startsWith(prefix+"google ")) {
-		let q = m.replace(prefix+"google ", ""),
-			cx = "017567266544748746605:9-8clqys140",
-			key = "AIzaSyCyZgRt-igTYO05X_8LgDwoOsZgdqf4h3U",
-			path = '/customsearch/v1?cx='+cx+'&key='+key+'&q='+encodeURI(q),
-			rep;
-
-			var options = {
-				host: "www.googleapis.com",
-				port: 80,
-				path: path,
-				method: 'GET'
-			  };
-			  
-			HTTPS.request(options, function(rep) {
-				console.log('STATUS: ' + rep.statusCode);
-				console.log('HEADERS: ' + JSON.stringify(rep.headers));
-				rep.setEncoding('utf8');
-				rep.on('data', function (chunk) {
-				  console.log('BODY: ' + chunk);
-				  msg.channel.send("Gl a trouvé "+rep.searchInformation.totalResults+" résultats en "+rep.searchInformation.searchTime+" secondes.");
-				});
-			}).end();
-	}
-
 	// Roboto guilds
 	if (m.startsWith(prefix+"roles")){
 		let xp;
@@ -1364,7 +1339,7 @@ if ((m.startsWith('bonjour') || m.startsWith('salut') || m.startsWith('hey') ||
 	// Modification des règles du serveur.
 	if (msg.channel.id == "540256081293606915") {
 		for (let i = 0; i<users.length; i++) {
-			client.users.get(users[i].id).createDM().then(channel => {
+			client.users.find(val => val.id == users[i].id).createDM().then(channel => {
 				channel.send({embed: {
 					title: "Modification des règles du serveur",
 					color: 16777215,
