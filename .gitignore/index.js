@@ -728,12 +728,12 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			HTTPS.request(options, function(rep) {
 				console.log('STATUS: ' + rep.statusCode);
 				console.log('HEADERS: ' + JSON.stringify(rep.headers));
-				res.setEncoding('utf8');
-				res.on('data', function (chunk) {
+				rep.setEncoding('utf8');
+				rep.on('data', function (chunk) {
 				  console.log('BODY: ' + chunk);
 				  msg.channel.send("Gl a trouvé "+rep.searchInformation.totalResults+" résultats en "+rep.searchInformation.searchTime+" secondes.");
 				});
-			}).end();
+			}).end()
 	}
 
 	// Roboto guilds
