@@ -5,7 +5,7 @@
 ================================== */
 
 const	Discord = require('discord.js'),
-		HTTP = require('http'),
+		HTTPS = require('https'),
 		goCodes = require('./codes.json'),
 		users = require('./users.json'),
 		config = require('./config.json'),
@@ -717,6 +717,22 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			key = "AIzaSyCyZgRt-igTYO05X_8LgDwoOsZgdqf4h3U",
 			url = 'http://www.googleapis.com/customsearch/v1?cx='+cx+'&key='+key+'&q='+encodeURI(q),
 			rep;
+
+			var options = {
+				host: url,
+				port: 80,
+				path: '/resource?id=foo&bar=baz',
+				method: 'POST'
+			  };
+			  
+			HTTPS.request(options, function(res) {
+				console.log('STATUS: ' + res.statusCode);
+				console.log('HEADERS: ' + JSON.stringify(res.headers));
+				res.setEncoding('utf8');
+				res.on('data', function (chunk) {
+				  console.log('BODY: ' + chunk);
+				});
+			}).end();
 
 		HTTP.get(url, function(res){
 			var body = '';
