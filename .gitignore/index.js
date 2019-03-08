@@ -395,7 +395,7 @@ if(m.includes("fdp")||m.includes("beze")||m.includes("bese")||m.includes("bz")||
 ====================== */
 
 	// Roboto go
-	if (m.startsWith('go')||m.startsWith('#')||m.startsWith(prefix+'go')) {
+	if (m.startsWith('#')||m.startsWith(prefix+'go ')) {
 		let nb = parseInt(m.replace(/[^0-9]/g, "")),
 			msgSend;
 			if (!isNaN(nb) && goCodes[nb] != undefined) {
@@ -412,7 +412,7 @@ if(m.includes("fdp")||m.includes("beze")||m.includes("bese")||m.includes("bz")||
 				msgSend = msg.channel.send({embed: {
 					title: "GO code error",
 					color: 16057630,
-					description: "Mauvais lien. Sachez que tous les liens GO commencent tous par `go ou @` suivis d'un nombre entre 0 et 9999. Donc \""+nb+"\" ne correspond sûrement pas à ces critères"
+					description: "Mauvais lien. Sachez que tous les liens GO commencent tous par `"+prefix+"go ou #` suivis d'un nombre entre 0 et 9999. Donc \""+nb+"\" ne correspond sûrement pas à ces critères"
 				}}).then(msg => {
 					msgSend = msg;
 				});
