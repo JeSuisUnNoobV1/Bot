@@ -1381,7 +1381,7 @@ if ((m.startsWith('bonjour') || m.startsWith('salut') || m.startsWith('hey') ||
 	}, 1800);
 }
 
-// Calcul rapide
+// Calcul rapide +
 if (!isNaN(parseInt(m.split("+")[0])) && !isNaN(parseInt(m.split("+")[1]))) {
 	let result = parseInt(m.split("+")[0]) + parseInt(m.split("+")[1]);
 
@@ -1391,6 +1391,7 @@ if (!isNaN(parseInt(m.split("+")[0])) && !isNaN(parseInt(m.split("+")[1]))) {
 	}});
 }
 
+// Calcul rapide -
 if (!isNaN(parseInt(m.split("-")[0])) && !isNaN(parseInt(m.split("-")[1]))) {
 	let result = parseInt(m.split("-")[0]) - parseInt(m.split("-")[1]);
 
@@ -1400,6 +1401,7 @@ if (!isNaN(parseInt(m.split("-")[0])) && !isNaN(parseInt(m.split("-")[1]))) {
 	}});
 }
 
+// Calcul rapide *
 if (!isNaN(parseInt(m.split("*")[0])) && !isNaN(parseInt(m.split("*")[1]))) {
 	let result = parseInt(m.split("*")[0]) * parseInt(m.split("*")[1]);
 
@@ -1407,7 +1409,10 @@ if (!isNaN(parseInt(m.split("*")[0])) && !isNaN(parseInt(m.split("*")[1]))) {
 		title: "> "+result,
 		color: 16777215,
 	}});
-} if (!isNaN(parseInt(m.split("/")[0])) && !isNaN(parseInt(m.split("/")[1]))) {
+}
+
+// Calcul rapide /
+if (!isNaN(parseInt(m.split("/")[0])) && !isNaN(parseInt(m.split("/")[1]))) {
 	if (m.split("/")[1] == 0) {
 		msg.channel.send({embed: {
 			title: "> ∞",
@@ -1421,10 +1426,9 @@ if (!isNaN(parseInt(m.split("*")[0])) && !isNaN(parseInt(m.split("*")[1]))) {
 			color: 16777215,
 		}});
 	}
+}
 
-	msg.channel.send(m);
-	msg.channel.send(msg.content);
-
+	// Météo
 	if (m.includes(' météo') || m.includes('météo ') || m == 'météo') {
 		let json = JSON.parse(fs.readFileSync('www.prevision-meteo.ch/services/json/paris')),
 			icon = json.current_condition.icon_big,
@@ -1441,8 +1445,6 @@ if (!isNaN(parseInt(m.split("*")[0])) && !isNaN(parseInt(m.split("*")[1]))) {
 				},
 			}});
 	}
-
-}
 
 
 
