@@ -218,7 +218,7 @@ client.on('message', msg => {
 				channel.send({embed: {
 					title: "bruh.",
 					color: 16777215,
-					description: msg.author+", vous venez d'obtenir le rôle de `Bruh.` ! Maintenant, vous pouvez ```- "+prefix+"ban <mention d'utilisateur> [https://theotime.me/disBan]\n- "+prefix+"unban <mention d'utilisateur> [https://theotime.me/disUnban]```"
+					description: msg.author+", vous venez d'obtenir le rôle de `Bruh.` ! Maintenant, vous pouvez ```- "+prefix+"[ban <mention d'utilisateur>](https://theotime.me/disBan)\n- "+prefix+"[unban <mention d'utilisateur>](https://theotime.me/disUnban)```"
 				}});
 			}).catch(console.error);
 		} else if (xp == 8192 && !isHabitué() && !isActif() && !isBruh() && isDivin() && !isNoLife() && !isVIP()) { // Il faut être Divin.
@@ -230,7 +230,7 @@ client.on('message', msg => {
 				channel.send({embed: {
 					title: "NoLife.",
 					color: 16777215,
-					description: "Félicitations, "+msg.author+" ! Vous êtes un NoLife. Non, plus sérieusement, vous commencez à atteindre une place importante dans le serveur avec vos 8192 xp. Alors nous vous confions certaines responsabilités ainsi que quelques privillèges. ```- "+prefix+"get db [https://theotime.me/disGetDB]\n- "+prefix+"get goDB [https://theotime.me/disGetGoDB]\n- le début du style```"
+					description: "Félicitations, "+msg.author+" ! Vous êtes un NoLife. Non, plus sérieusement, vous commencez à atteindre une place importante dans le serveur avec vos 8192 xp. Alors nous vous confions certaines responsabilités ainsi que quelques privillèges. ```- "+prefix+"[get db](https://theotime.me/disGetDB)\n- "+prefix+"[get goDB](https://theotime.me/disGetGoDB)\n- le début du style```"
 				}});
 			}).catch(console.error);
 		} else if (xp == 4096 && !isHabitué() && !isActif() && !isBruh() && !isDivin() && !isNoLife() && isVIP()) { // Il faut être VIP.
@@ -242,7 +242,7 @@ client.on('message', msg => {
 				channel.send({embed: {
 					title: "WAOUH.",
 					color: 16777215,
-					description: "Hey, "+msg.author+" ! Vous êtes un dieu ! Cool, hein. Bon alors comme vous devez déjà le savoir: ici, plus on est là depuis longtemps, plus on a de droits et de privillèges. Alors maintenant vous pouvez: ```- envoyer des messages TTS\n- Mentionner @everyone\n- "+prefix+"purge <nombre> [https://theotime.me/disPurge]\n- rendre muets et sourds les utilisateurs\n- déplacer les membres dans un channel vocal```"
+					description: "Hey, "+msg.author+" ! Vous êtes un dieu ! Cool, hein. Bon alors comme vous devez déjà le savoir: ici, plus on est là depuis longtemps, plus on a de droits et de privillèges. Alors maintenant vous pouvez: ```- envoyer des messages TTS\n- Mentionner @everyone\n- "+prefix+"[purge <nombre>](https://theotime.me/disPurge)\n- rendre muets et sourds les utilisateurs\n- déplacer les membres dans un channel vocal```"
 				}});
 			}).catch(console.error);
 		} else if (xp == 2048 && !isHabitué() && isActif() && !isBruh() && !isDivin() && !isNoLife() && !isVIP()) { // Il faut être Actif.
@@ -527,7 +527,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			} else {
 				channel.send({embed:{
 					title: "Aide du serveur",
-					description: "Bonjour, voici l'aide intégrale du serveur. Tout d'abord, sachez que nous utilisons un système de grades basé sur l'xp. En voici le schéma: ```256          habitué\n512          actif\n1024         VIP\n2048         Divin\n4096         NoLife.\n8192         Bruh.```\n\nAprès, vous pouvez gagner des coins en vendant du code [https://theotime.me/disSell] ou en recevant des dons. Une référence complète de toutes les commandes de "+name+" se trouvent sur https://theotime.me/disCmds.\nNous avons aussi des rêgles. C'est nécessaire pour éviter les remarque racistes, antisémites, etc. Vous pouvez les consulter sur https://theotime.me/disRules ou dans le channel <#540256081293606915>.\nMerci de bien les lire pour que vous ne soyez pas surpris si une sanction vous est donnée.\nEnsuite, sachez que nous organisons régulièrement des évènement, type Giveaway dans un channel dédié qui apparait seulement quand un évènement est en cours.\nMerci de rester sympathique vis-à-vis de l'équipe du serveur car il est en développement. Donc si des bugs, erreurs ou problèmes surviennent, contactez-les dans le channel <#547042040068833300>.\nMaintenant vous savez à peu près tout. Si vous voulez en savoir plus sur une commande, entrez ceci: ```"+prefix+"help <commande>```",
+					description: "Bonjour, voici l'aide intégrale du serveur. Tout d'abord, sachez que nous utilisons un système de grades basé sur l'xp. En voici le schéma: ```256          habitué\n512          actif\n1024         VIP\n2048         Divin\n4096         NoLife.\n8192         Bruh.```\n\nAprès, vous pouvez gagner des coins en (vendant du code)[https://theotime.me/disSell] ou en recevant des dons. Une référence complète de toutes les commandes de "+name+" se trouvent [ici](https://theotime.me/disCmds).\nNous avons aussi des rêgles. C'est nécessaire pour éviter les remarque racistes, antisémites, etc. Vous pouvez les consulter sur notre [plateforme en ligne](https://theotime.me/disRules) ou dans le channel <#540256081293606915>.\nMerci de bien les lire pour que vous ne soyez pas surpris si une sanction vous est donnée.\nEnsuite, sachez que nous organisons régulièrement des évènement, type Giveaway dans un channel dédié qui apparait seulement quand un évènement est en cours.\nMerci de rester sympathique vis-à-vis de l'équipe du serveur car il est en développement. Donc si des bugs, erreurs ou problèmes surviennent, contactez-les dans le channel <#547042040068833300>.\nMaintenant vous savez à peu près tout. Si vous voulez en savoir plus sur une commande, entrez ceci: ```"+prefix+"help <commande>```",
 					color: 16777215
 				}});
 			}
@@ -780,7 +780,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			msg.channel.send({embed: {
 				title: "Erreur d'envoi de code'",
 				color: 16057630,
-				description: "Désolé "+msg.author+", vous devez inclure du code en premier paramètre. [https://theotime.me/disCode] ```ex: "+prefix+"code <mon code>```"
+				description: "Désolé "+msg.author+", vous devez inclure du code en premier paramètre. Pour en savoir plus, consultez [cette page](https://theotime.me/disCode) ```ex: "+prefix+"code <mon code>```"
 			}});
 		}
 	}
