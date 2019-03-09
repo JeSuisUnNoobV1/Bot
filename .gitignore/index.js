@@ -1430,7 +1430,7 @@ if (!isNaN(parseInt(m.split("/")[0])) && !isNaN(parseInt(m.split("/")[1]))) {
 
 	// Météo
 	if (m.includes(' météo') || m.includes('météo ') || m == 'météo') {
-		let json = JSON.parse(fs.readFileSync('www.prevision-meteo.ch/services/json/paris')),
+		let json = JSON.parse(fs.readFileSync('https://www.prevision-meteo.ch/services/json/paris')),
 			icon = json.current_condition.icon_big,
 			temp = json.current_condition.tmp,
 			humd = json.current_condition.humidity,
