@@ -301,12 +301,12 @@ client.on('message', msg => {
 	if (m.startsWith(prefix+"short ")) {
 		msg.delete();
 		msg.channel.send({embed: {
-			title: "Chargement - URL raccourcie",
+			title: "URL raccourcie - Chargement ...",
 			color: 16777215,
-			description: "_L'url ||------------------------------|| a été raccourcie._\n Voici le lien: ```https://sck.pm/```",
+			description: "_L'url "+msg.content.replace(prefix+'short ', "")+" a été raccourcie._\n Voici le lien: ```https://sck.pm/```",
 			footer: {
-				icon_url: "https://www.sck.pm/favicon.ico",
-				text: "SCK.pm - status: ||-----||"
+				icon_url: "https://theotime.me/discord/sck.ico",
+				text: "SCK.pm - status: LOAD"
 			}
 		}}).then(msg2 => {
 			request("https://api.sck.pm/shorten?"+msg.content.replace(prefix+'short ', ""), (error, response, body) => {
@@ -320,7 +320,7 @@ client.on('message', msg => {
 					color: 16777215,
 					description: "_L'url "+url+" a été raccourcie._\n Voici le lien: ```"+short+"```",
 					footer: {
-						icon_url: "https://www.sck.pm/favicon.ico",
+						icon_url: "https://theotime.me/discord/sck.ico",
 						text: "SCK.pm - status: "+status
 					}
 				}});
@@ -600,7 +600,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 						description: txt,
 						footer: {
 							text: "Google",
-							icon_url: "https://www.google.com/favicon.ico"
+							icon_url: "https://theotime.me/discord/google.ico"
 						}
 					}});
 				} else {
@@ -613,7 +613,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 						},
 						footer: {
 							text: "Google",
-							icon_url: "https://www.google.com/favicon.ico"
+							icon_url: "https://theotime.me/discord/google.ico"
 						}
 					}});
 				}
@@ -624,7 +624,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 					description: "Désolé, aucun résultat n'a été trouvé pour **"+m.replace(prefix+'google ', "")+"**,\nveuillez reformuler votre requête.",
 					footer: {
 						text: "Google",
-						icon_url: "https://www.google.com/favicon.ico"
+						icon_url: "https://theotime.me/discord/google.ico"
 					}
 				}});
 			}
@@ -649,8 +649,8 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 					color: 16057630,
 					description: txt,
 					footer: {
-						text: "Youtube",
-						icon_url: "https://cdn2.iconfinder.com/data/icons/on-point-social-media/141/Youtube-512.png"
+						text: "YouTube",
+						icon_url: ""
 					}
 				}});
 			} else {
@@ -659,8 +659,8 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 					color: 16057630,
 					description: "Désolé, aucun résultat n'a été trouvé pour **"+m.replace(prefix+'youtube ', "")+"**,\nveuillez reformuler votre requête.",
 					footer: {
-						text: "Google",
-						icon_url: "https://www.google.com/favicon.ico"
+						text: "YouTube",
+						icon_url: "https://theotime.me/discord/youtube.ico"
 					}
 				}});
 			}
