@@ -538,14 +538,14 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 	if (m.startsWith(prefix+'google ')) {
 		request("https://www.googleapis.com/customsearch/v1?cx=017567266544748746605:9-8clqys140&key=AIzaSyCyZgRt-igTYO05X_8LgDwoOsZgdqf4h3U&q="+m.replace(prefix+"google "), function(error, response, body) {
 			let json = JSON.parse(body),
-			 	q = json.queries.searchTerms,
+			 	q = json.queries.request[0].searchTerms,
 				time = json.searchInformation.formattedSearchTime,
 				resultsNb = json.searchInformation.formattedTotalResults,
 
 				txt = "_Environ "+resultsNb+" résultats pour **"+q+"** ("+time+" secondes)._\n";
 
-				for (let i = 0; i<5; i++) {
-					txt += "\n**"+i+". ["+json.items[0].title+"]("+json.items[0].link+")**";
+				for (let i = 1; i<6; i++) {
+					txt += "\n**"+i+". ["+json.items[i-1].title+"]("+json.items[0].link+")**";
 				}
 				msg.channel.send({embed: {
 					title: "Recherche google",
