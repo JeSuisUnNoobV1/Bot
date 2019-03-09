@@ -307,7 +307,7 @@ client.on('message', msg => {
 				color: 16777215,
 				description: "_L'url "+url+" a été raccourcie._\n Voici le lien: ```"+short+"```",
 				footer: {
-					thumbnail: "https://www.sck.pm/favicon.ico",
+					icon_url: "https://www.sck.pm/favicon.ico",
 					text: "SCK.pm"
 				}
 			}});
