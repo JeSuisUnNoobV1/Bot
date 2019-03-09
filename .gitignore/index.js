@@ -547,7 +547,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 
 				for (let i = 1; i<6; i++) {
 					txt += "\n**"+i+". ["+json.items[i-1].title+"]("+json.items[0].link+")**";
-					if (json.items[i-1].pagemap.cse_thumbnail != undefined && icon != false) {
+					if (json.items[i-1].pagemap.cse_thumbnail != undefined && icon == false) {
 						icon = json.items[i-1].pagemap.cse_thumbnail[0].src;
 					}
 				}
