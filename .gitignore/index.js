@@ -299,22 +299,32 @@ client.on('message', msg => {
 
 	// Short
 	if (m.startsWith(prefix+"short ")) {
-		msg.edit('::short `chargement...`');
-		request("https://api.sck.pm/shorten?"+msg.content.replace(prefix+'short ', ""), (error, response, body) => {
-			let json = JSON.parse(body),
-				short = json.short_url,
-				url = json.url,
-				status = json.status;
-
-			msg.channel.send({embed: {
-				title: "URL raccourcie",
-				color: 16777215,
-				description: "_L'url "+url+" a été raccourcie._\n Voici le lien: ```"+short+"```",
-				footer: {
-					icon_url: "https://www.sck.pm/favicon.ico",
-					text: "SCK.pm - status: "+status
-				}
-			}});
+		msg.delete();
+		msg.channel.send({embed: {
+			title: "Chargement - URL raccourcie",
+			color: 16777215,
+			description: "_L'url ||------------------------------|| a été raccourcie._\n Voici le lien: ```"+short+"```",
+			footer: {
+				icon_url: "https://www.sck.pm/favicon.ico",
+				text: "SCK.pm - status: ||-----||"
+			}
+		}}).then(msg => {
+			request("https://api.sck.pm/shorten?"+msg.content.replace(prefix+'short ', ""), (error, response, body) => {
+				let json = JSON.parse(body),
+					short = json.short_url,
+					url = json.url,
+					status = json.status;
+	
+				msg.edit({embed: {
+					title: "URL raccourcie",
+					color: 16777215,
+					description: "_L'url "+url+" a été raccourcie._\n Voici le lien: ```"+short+"```",
+					footer: {
+						icon_url: "https://www.sck.pm/favicon.ico",
+						text: "SCK.pm - status: "+status
+					}
+				}});
+			});
 		});
 	}
 
