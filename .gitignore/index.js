@@ -1364,6 +1364,7 @@ if (isBruh() || isAdmin() && (m.startsWith(prefix+"ban") || m.startsWith(prefix
 /* 10 / Instant responses
 ============================= */
 
+// Bonjour
 if ((m.startsWith('bonjour') || m.startsWith('salut') || m.startsWith('hey') || m.startsWith('hello') || m.startsWith('wesh') || m.startsWith('wsh') || m.startsWith('bjr') || m.startsWith('slt') || m.startsWith('coucou') || m.startsWith('cc')) && (msg.author.id != "512326722352578560" && msg.channel.id != "547042040068833300" && msg.channel.id != "547044092878520330" && msg.channel.id != "547044109261471744")) {
 	const destinataire = msg.mentions.users.first() || false,
 		  str = salutations[Math.floor(Math.random() * (salutations.length - 1) + 1)];
@@ -1379,7 +1380,8 @@ if ((m.startsWith('bonjour') || m.startsWith('salut') || m.startsWith('hey') ||
 	}, 1800);
 }
 
-if (!isNan(parseInt(m.split("+")[0])) && !isNan(parseInt(m.split("+")[1]))) {
+// Calcul rapide
+if (!isNaN(parseInt(m.split("+")[0])) && !isNaN(parseInt(m.split("+")[1]))) {
 	let result = parseInt(m.split("+")[0]) + parseInt(m.split("+")[1]);
 
 	msg.channel.send({embed: {
