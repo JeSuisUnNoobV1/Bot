@@ -534,6 +534,32 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 		}).catch(console.error);
 	}
 
+	// Google
+	if (m.startsWith(prefix+'google ')) {
+		request("https://www.googleapis.com/customsearch/v1?cx=017567266544748746605:9-8clqys140&key=AIzaSyCyZgRt-igTYO05X_8LgDwoOsZgdqf4h3U&q="+m.replace(prefix+"google "), function(error, response, body) {
+			let json = JSON.parse(body),
+			 	q = json.queries.searchTerms,
+				time = json.searchInformation.formattedSearchTime,
+				resultsNb = json.searchInformation.formattedTotalResults,
+				icon = json.current_condition.condition,
+
+				txt = "_Environ "+resultsNb+" résultats pour **"+q+"** ("+time+" secondes)._\n";
+
+				for (let i = 0; i<5; i++) {
+					txt += "\n**"+i+". ["+json.items[0].title+"]("+json.items[0].link+")**";
+				}
+				msg.channel.send({embed: {
+					title: "Recherche google",
+					color: 16777215,
+					description: txt,
+					footer: {
+						text: "Google",
+						icon_url: "https://www.google.com/favicon.ico"
+					}
+				}});
+		});
+	}
+
 	// Roboto date
 	if (m==prefix+"date"){
 		const   d = new Date(),
@@ -1435,13 +1461,12 @@ if (!isNaN(parseInt(m.split("/")[0])) && !isNaN(parseInt(m.split("/")[1]))) {
 				temp = json.current_condition.tmp,
 				humd = json.current_condition.humidity,
 				cond = json.current_condition.condition,
-				pres = json.current_condition.pressure,
-				hour = json.current_condition.hour;
+				pres = json.current_condition.pressure;
 
 				msg.channel.send({embed: {
 					title: "Météo",
 					color: 16777215,
-					description: "Il fait **"+temp+"°C** à Paris et il fait **"+cond+"**.\nL'humidité est de **"+humd+"%** et la pression atmosphérique est de **"+pres+"**.\nDonnées datant de "+hour+".",
+					description: "Il fait **"+temp+"°C** à Paris et il fait **"+cond+"**.\nL'humidité est de **"+humd+"%** et la pression atmosphérique est de **"+pres+"**.",
 					thumbnail: {
 						url: icon
 					},
