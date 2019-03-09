@@ -536,7 +536,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 
 	// Google
 	if (m.startsWith(prefix+'google ')) {
-		request("https://www.googleapis.com/customsearch/v1?cx=017567266544748746605:9-8clqys140&key=AIzaSyCyZgRt-igTYO05X_8LgDwoOsZgdqf4h3U&q="+m.replace(prefix+"google ", ""), function(error, response, body) {
+		request("https://www.googleapis.com/customsearch/v1?cx=017567266544748746605:9-8clqys140&key=AIzaSyCyZgRt-igTYO05X_8LgDwoOsZgdqf4h3U&q="+encodeURI(m.replace(prefix+"google ", "")), function(error, response, body) {
 			let json = JSON.parse(body),
 			 	q = json.queries.request[0].searchTerms,
 				time = json.searchInformation.formattedSearchTime,
@@ -586,9 +586,42 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 					title: "Recherche google",
 					color: 16777215,
 					description: "Désolé, aucun résultat n'a été trouvé pour **"+m.replace(prefix+'google ', "")+"**,\nveuillez reformuler votre requête.",
-					thumbnail: {
-						url: "https://i.pinimg.com/originals/8c/03/0b/8c030bd6bd7ee87ad41485e3c7598dd4.png"
-					},
+					footer: {
+						text: "Google",
+						icon_url: "https://www.google.com/favicon.ico"
+					}
+				}});
+			}
+		});
+	}
+
+		// Youtube
+	if (m.startsWith(prefix+'youtube ')) {
+		request("https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&key=AIzaSyCyZgRt-igTYO05X_8LgDwoOsZgdqf4h3U&q="+encodeURI(m.replace(prefix+"youtube ", "")), function(error, response, body) {
+			let json = JSON.parse(body),
+			 	q = m.replace(prefix+"youtube ", ""),
+				resultsNb = json.pageInfo.totalResults,
+				txt = "_"+resultsNb+" vidéos ont été trouvées pour **"+q+"**._\n";
+
+			if (resultsNb != 0) {
+				for (let i = 1; i<6; i++) {
+					txt += "\n**"+i+". ["+json.items[i-1].snippet.title+"](https://www.youtube.com/watch?v="+json.items[0].id.videoId+")**";
+				}
+
+				msg.channel.send({embed: {
+					title: "Recherche youtube",
+					color: 16057630,
+					description: txt,
+					footer: {
+						text: "Youtube",
+						icon_url: "https://cdn2.iconfinder.com/data/icons/on-point-social-media/141/Youtube-512.png"
+					}
+				}});
+			} else {
+				msg.channel.send({embed: {
+					title: "Recherche youtube",
+					color: 16057630,
+					description: "Désolé, aucun résultat n'a été trouvé pour **"+m.replace(prefix+'youtube ', "")+"**,\nveuillez reformuler votre requête.",
 					footer: {
 						text: "Google",
 						icon_url: "https://www.google.com/favicon.ico"
