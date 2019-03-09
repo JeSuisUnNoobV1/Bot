@@ -292,6 +292,28 @@ client.on('message', msg => {
 	}
 
 	if (msg.author.bot) return false; // Pour éviter que le bot ne se réponde tout seul
+
+
+/* 01 / DM commands
+======================= */ 
+
+	// Short
+	if (m.startsWith(prefix+"short ")) {
+		request("https://api.sck.pm/shorten?"+msg.content.replace(prefix+'short ', ""), (error, json) => {
+			let short = json.short_url;
+
+			msg.channel.send({embed: {
+				title: "URL raccourcie",
+				color: 16777215,
+				description: "_L'url "+url+" a été raccourcie._\n Voici le lien: ```"+short+"```",
+				footer: {
+					thumbnail: "https://www.sck.pm/favicon.ico",
+					text: "SCK.pm"
+				}
+			}});
+		});
+	}
+
 	if (msg.channel.type == "dm") return false; // Pour éviter les gains d'XP en messages privés
 
 	if ( msg.member.roles.find(val => val.name === 'Muted')) {
@@ -527,7 +549,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			} else {
 				channel.send({embed:{
 					title: "Aide du serveur",
-					description: "Bonjour, voici l'aide intégrale du serveur. Tout d'abord, sachez que nous utilisons un système de grades basé sur l'xp. En voici le schéma: ```256          habitué\n512          actif\n1024         VIP\n2048         Divin\n4096         NoLife.\n8192         Bruh.```\n\nAprès, vous pouvez gagner des coins en (vendant du code)[https://theotime.me/disSell] ou en recevant des dons. Une référence complète de toutes les commandes de "+name+" se trouvent [ici](https://theotime.me/disCmds).\nNous avons aussi des rêgles. C'est nécessaire pour éviter les remarque racistes, antisémites, etc. Vous pouvez les consulter sur notre [plateforme en ligne](https://theotime.me/disRules) ou dans le channel <#540256081293606915>.\nMerci de bien les lire pour que vous ne soyez pas surpris si une sanction vous est donnée.\nEnsuite, sachez que nous organisons régulièrement des évènement, type Giveaway dans un channel dédié qui apparait seulement quand un évènement est en cours.\nMerci de rester sympathique vis-à-vis de l'équipe du serveur car il est en développement. Donc si des bugs, erreurs ou problèmes surviennent, contactez-les dans le channel <#547042040068833300>.\nMaintenant vous savez à peu près tout. Si vous voulez en savoir plus sur une commande, entrez ceci: ```"+prefix+"help <commande>```",
+					description: "Bonjour, voici l'aide intégrale du serveur. Tout d'abord, sachez que nous utilisons un système de grades basé sur l'xp. En voici le schéma: ```256          habitué\n512          actif\n1024         VIP\n2048         Divin\n4096         NoLife.\n8192         Bruh.```\n\nAprès, vous pouvez gagner des coins en [vendant du code](https://theotime.me/disSell) ou en recevant des dons. Une référence complète de toutes les commandes de "+name+" se trouvent [ici](https://theotime.me/disCmds).\nNous avons aussi des rêgles. C'est nécessaire pour éviter les remarque racistes, antisémites, etc. Vous pouvez les consulter sur notre [plateforme en ligne](https://theotime.me/disRules) ou dans le channel <#540256081293606915>.\nMerci de bien les lire pour que vous ne soyez pas surpris si une sanction vous est donnée.\nEnsuite, sachez que nous organisons régulièrement des évènement, type Giveaway dans un channel dédié qui apparait seulement quand un évènement est en cours.\nMerci de rester sympathique vis-à-vis de l'équipe du serveur car il est en développement. Donc si des bugs, erreurs ou problèmes surviennent, contactez-les dans le channel <#547042040068833300>.\nMaintenant vous savez à peu près tout. Si vous voulez en savoir plus sur une commande, entrez ceci: ```"+prefix+"help <commande>```",
 					color: 16777215
 				}});
 			}
