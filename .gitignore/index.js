@@ -300,7 +300,9 @@ client.on('message', msg => {
 	// Short
 	if (m.startsWith(prefix+"short ")) {
 		request("https://api.sck.pm/shorten?"+msg.content.replace(prefix+'short ', ""), (error, json) => {
-			let short = json.short_url;
+			let short = json.short_url,
+				url = json.url,
+				status = json.status;
 
 			msg.channel.send({embed: {
 				title: "URL raccourcie",
@@ -308,7 +310,7 @@ client.on('message', msg => {
 				description: "_L'url "+url+" a été raccourcie._\n Voici le lien: ```"+short+"```",
 				footer: {
 					icon_url: "https://www.sck.pm/favicon.ico",
-					text: "SCK.pm"
+					text: "SCK.pm - status: "+status
 				}
 			}});
 		});
