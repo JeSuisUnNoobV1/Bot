@@ -541,7 +541,6 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			 	q = json.queries.searchTerms,
 				time = json.searchInformation.formattedSearchTime,
 				resultsNb = json.searchInformation.formattedTotalResults,
-				icon = json.current_condition.condition,
 
 				txt = "_Environ "+resultsNb+" résultats pour **"+q+"** ("+time+" secondes)._\n";
 
