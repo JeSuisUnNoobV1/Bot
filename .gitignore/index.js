@@ -299,31 +299,32 @@ client.on('message', msg => {
 
 	// Short
 	if (m.startsWith(prefix+"short ")) {
-		msg.delete();
-		msg.channel.send({embed: {
-			title: "URL raccourcie - Chargement ...",
-			color: 16777215,
-			description: "_L'url "+msg.content.replace(prefix+'short ', "")+" a été raccourcie._\n Voici le lien: ```https://sck.pm/```",
-			footer: {
-				icon_url: "https://theotime.me/discord/sck.ico",
-				text: "SCK.pm - status: LOAD"
-			}
-		}}).then(msg2 => {
-			request("https://api.sck.pm/shorten?"+msg.content.replace(prefix+'short ', ""), (error, response, body) => {
-				let json = JSON.parse(body),
-					short = json.short_url,
-					url = json.url,
-					status = json.status;
-	
-				msg2.edit({embed: {
-					title: "URL raccourcie",
-					color: 16777215,
-					description: "_L'url "+url+" a été raccourcie._\n Voici le lien: ```"+short+"```",
-					footer: {
-						icon_url: "https://theotime.me/discord/sck.ico",
-						text: "SCK.pm - status: "+status
-					}
-				}});
+		msg.delete().then(() => {
+			msg.channel.send({embed: {
+				title: "URL raccourcie - Chargement ...",
+				color: 16777215,
+				description: "_L'url "+msg.content.replace(prefix+'short ', "")+" a été raccourcie._\n Voici le lien: ```https://sck.pm/```",
+				footer: {
+					icon_url: "https://theotime.me/discord/sck.ico",
+					text: "SCK.pm - status: LOAD"
+				}
+			}}).then(msg2 => {
+				request("https://api.sck.pm/shorten?"+msg.content.replace(prefix+'short ', ""), (error, response, body) => {
+					let json = JSON.parse(body),
+						short = json.short_url,
+						url = json.url,
+						status = json.status;
+		
+					msg2.edit({embed: {
+						title: "URL raccourcie",
+						color: 16777215,
+						description: "_L'url "+url+" a été raccourcie._\n Voici le lien: ```"+short+"```",
+						footer: {
+							icon_url: "https://theotime.me/discord/sck.ico",
+							text: "SCK.pm - status: "+status
+						}
+					}});
+				});
 			});
 		});
 	}
