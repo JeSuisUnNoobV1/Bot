@@ -1422,6 +1422,9 @@ if (!isNaN(parseInt(m.split("*")[0])) && !isNaN(parseInt(m.split("*")[1]))) {
 		}});
 	}
 
+	msg.channel.send(m);
+	msg.channel.send(msg.content);
+
 	if (m.includes(' météo') || m.includes('météo ') || m == 'météo') {
 		let json = JSON.parse(fs.readFileSync('www.prevision-meteo.ch/services/json/paris')),
 			icon = json.current_condition.icon_big,
