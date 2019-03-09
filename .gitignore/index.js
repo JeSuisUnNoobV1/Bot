@@ -1431,18 +1431,24 @@ if (!isNaN(parseInt(m.split("/")[0])) && !isNaN(parseInt(m.split("/")[1]))) {
 	if (m.includes(' météo') || m.includes('météo ') || m == 'météo') {
 		request("https://www.prevision-meteo.ch/services/json/paris", function(error, response, body) {
 			let json = JSON.parse(body),
-			 				icon = json.current_condition.icon_big,
+			 	icon = json.current_condition.icon_big,
 				temp = json.current_condition.tmp,
 				humd = json.current_condition.humidity,
-				cond = json.current_condition.condition;
+				cond = json.current_condition.condition,
+				pres = json.current_condition.pressure,
+				hour = json.current_condition.hour;
 
 				msg.channel.send({embed: {
 					title: "Météo",
 					color: 16777215,
-					description: "Il fait **"+temp+"°C** à Paris et il fait **"+cond+"**. L'humidité est de **"+humd+"%**.",
+					description: "Il fait **"+temp+"°C** à Paris et il fait **"+cond+"**.\nL'humidité est de **"+humd+"%** et la pression atmosphérique est de **"+pres+"**.\nDonnées datant de "+hour+".",
 					thumbnail: {
-					 url: icon
+						url: icon
 					},
+					footer: {
+						text: "www.prevision-meteo.ch",
+						icon_url: "https://www.prevision-meteo.ch/favicon.ico"
+					}
 				}});
 		});
 	}
