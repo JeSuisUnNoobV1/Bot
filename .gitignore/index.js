@@ -307,7 +307,7 @@ client.on('message', msg => {
 					description: "_L'url "+msg.content.replace(prefix+'short ', "")+" a été raccourcie._\n Voici le lien: ```https://sck.pm/```",
 					footer: {
 						icon_url: "https://theotime.me/discord/sck.png",
-						text: "SCK.pm - status: LOAD"
+						text: "SCK.pm - status: KO"
 					}
 				}}).then(msg2 => {
 					request("https://api.sck.pm/shorten?"+msg.content.replace(prefix+'short ', ""), (error, response, body) => {
@@ -335,7 +335,7 @@ client.on('message', msg => {
 				description: "L'url n'est pas valide. Elle doit commencer par http:// ou https://\n```"+prefix+"short <url>```",
 				footer: {
 					icon_url: "https://theotime.me/discord/sck.png",
-					text: "SCK.pm - status: "+status
+					text: "SCK.pm - status: KO"
 				}
 			}});
 		}
