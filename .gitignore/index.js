@@ -527,7 +527,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			} else {
 				channel.send({embed:{
 					title: "Aide du serveur",
-					description: "Bonjour, voici l'aide intégrale du serveur. Tout d'abord, sachez que nous utilisons un système de grades basé sur l'xp. En voici le schéma: ```256          habitué\n512          actif\n1024         VIP\n2048         Divin\n4096         Bruh.\n8192         NoLife.```\n\nAprès, vous pouvez gagner des coins en vendant du code [https://theotime.me/disSell] ou en recevant des dons. Une référence complète de toutes les commandes de "+name+" se trouvent sur https://theotime.me/disCmds.\nNous avons aussi des rêgles. C'est nécessaire pour éviter les remarque racistes, antisémites, etc. Vous pouvez les consulter sur https://theotime.me/disRules ou dans le channel <#540256081293606915>.\nMerci de bien les lire pour que vous ne soyez pas surpris si une sanction vous est donnée.\nEnsuite, sachez que nous organisons régulièrement des évènement, type Giveaway dans un channel dédié qui apparait seulement quand un évènement est en cours.\nMerci de rester sympathique vis-à-vis de l'équipe du serveur car il est en développement. Donc si des bugs, erreurs ou problèmes surviennent, contactez-les dans le channel <#547042040068833300>.\nMaintenant vous savez à peu près tout. Si vous voulez en savoir plus sur une commande, entrez ceci: ```"+prefix+"help <commande>```",
+					description: "Bonjour, voici l'aide intégrale du serveur. Tout d'abord, sachez que nous utilisons un système de grades basé sur l'xp. En voici le schéma: ```256          habitué\n512          actif\n1024         VIP\n2048         Divin\n4096         NoLife.\n8192         Bruh.```\n\nAprès, vous pouvez gagner des coins en vendant du code [https://theotime.me/disSell] ou en recevant des dons. Une référence complète de toutes les commandes de "+name+" se trouvent sur https://theotime.me/disCmds.\nNous avons aussi des rêgles. C'est nécessaire pour éviter les remarque racistes, antisémites, etc. Vous pouvez les consulter sur https://theotime.me/disRules ou dans le channel <#540256081293606915>.\nMerci de bien les lire pour que vous ne soyez pas surpris si une sanction vous est donnée.\nEnsuite, sachez que nous organisons régulièrement des évènement, type Giveaway dans un channel dédié qui apparait seulement quand un évènement est en cours.\nMerci de rester sympathique vis-à-vis de l'équipe du serveur car il est en développement. Donc si des bugs, erreurs ou problèmes surviennent, contactez-les dans le channel <#547042040068833300>.\nMaintenant vous savez à peu près tout. Si vous voulez en savoir plus sur une commande, entrez ceci: ```"+prefix+"help <commande>```",
 					color: 16777215
 				}});
 			}
@@ -1014,7 +1014,7 @@ if (isHabitué() || isActif() || isVIP() || isDivin() || isNoLife() || isBruh()
 				msg.channel.send({embed: {
 					title: "Erreur de report",
 					color: 16057630,
-					description: "Vous n'avez pas correctement utilisé la commande ou oublié de mettre une raison ```!report <utilisateur> <raison>```"
+					description: "Vous n'avez pas correctement utilisé la commande ou oublié de mettre une raison ```"+prefix+"report <utilisateur> <raison>```"
 				}}).then(msg => {
 					setTimeout(function(){
 						msg.delete();
@@ -1389,6 +1389,42 @@ if (!isNaN(parseInt(m.split("+")[0])) && !isNaN(parseInt(m.split("+")[1]))) {
 		color: 16777215,
 	}});
 }
+
+if (!isNaN(parseInt(m.split("-")[0])) && !isNaN(parseInt(m.split("-")[1]))) {
+	let result = parseInt(m.split("-")[0]) + parseInt(m.split("-")[1]);
+
+	msg.channel.send({embed: {
+		title: "> "+result,
+		color: 16777215,
+	}});
+}
+
+if (!isNaN(parseInt(m.split("*")[0])) && !isNaN(parseInt(m.split("*")[1]))) {
+	let result = parseInt(m.split("*")[0]) + parseInt(m.split("*")[1]);
+
+	msg.channel.send({embed: {
+		title: "> "+result,
+		color: 16777215,
+	}});
+}
+
+if (!isNaN(parseInt(m.split("/")[0])) && !isNaN(parseInt(m.split("/")[1]))) {
+	if (m.split("/")[1] == 0) {
+		msg.channel.send({embed: {
+			title: "> ∞",
+			color: 16777215,
+		}});
+	} else {
+		let result = parseInt(m.split("/")[0]) + parseInt(m.split("/")[1]);
+
+		msg.channel.send({embed: {
+			title: "> "+result,
+			color: 16777215,
+		}});
+	}
+
+}
+
 
 
 /* 11 / Privates messages
