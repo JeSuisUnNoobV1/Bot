@@ -308,14 +308,14 @@ client.on('message', msg => {
 				icon_url: "https://www.sck.pm/favicon.ico",
 				text: "SCK.pm - status: ||-----||"
 			}
-		}}).then(msg => {
+		}}).then(msg2 => {
 			request("https://api.sck.pm/shorten?"+msg.content.replace(prefix+'short ', ""), (error, response, body) => {
 				let json = JSON.parse(body),
 					short = json.short_url,
 					url = json.url,
 					status = json.status;
 	
-				msg.edit({embed: {
+				msg2.edit({embed: {
 					title: "URL raccourcie",
 					color: 16777215,
 					description: "_L'url "+url+" a été raccourcie._\n Voici le lien: ```"+short+"```",
