@@ -548,9 +548,11 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			if (resultsNb != 0) {
 				for (let i = 1; i<6; i++) {
 					txt += "\n**"+i+". ["+json.items[i-1].title+"]("+json.items[0].link+")**";
-					if (json.items[i-1].pagemap.hasOwnProperty("cse_thumbnail") && icon == false) {
-						if (json.items[i-1].pagemap.cse_thumbnail[0].height == json.items[i-1].pagemap.cse_thumbnail[0].width) {
-							icon = json.items[i-1].pagemap.cse_thumbnail[0].src;
+					if (json.items[i-1].hasOwnProperty("pagemap")) {
+						if (json.items[i-1].pagemap.hasOwnProperty("cse_thumbnail") && icon == false) {
+							if (json.items[i-1].pagemap.cse_thumbnail[0].height == json.items[i-1].pagemap.cse_thumbnail[0].width) {
+								icon = json.items[i-1].pagemap.cse_thumbnail[0].src;
+							}
 						}
 					}
 				}
