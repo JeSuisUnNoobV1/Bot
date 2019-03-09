@@ -269,7 +269,7 @@ client.on('message', msg => {
 					description: "Ben alors là chapeau, étant donné de votre grande participation dans le serveur, vous avez eu le grade \"actifs\" ! Cela dit, vous aurez donc divers avantages: ```- changer de pseudo\n- "+prefix+"set go <url>\n- "+prefix+"embed <title> <message>```"
 				}});
 			}).catch(console.error);
-		} else if (xp == 256) { // Il faut que la personne ne soit pas gradée.
+		} else if (xp == 256 && !isHabitué() && !isActif() && !isBruh() && !isDivin() && !isNoLife() && !isVIP()) { // Il faut que la personne ne soit pas gradée.
 			let role = msg.member.guild.roles.find(role => role.name == "Habitués");
 
 				msg.member.addRole(role); // Ajoute le rôle "Habitués".
@@ -291,7 +291,7 @@ client.on('message', msg => {
 		}
 	}
 
-	if (msg.author.bot) return false; // Pour éviter que le bot se réponde tout seul
+	if (msg.author.bot) return false; // Pour éviter que le bot ne se réponde tout seul
 	if (msg.channel.type == "dm") return false; // Pour éviter les gains d'XP en messages privés
 
 	if ( msg.member.roles.find(val => val.name === 'Muted')) {
