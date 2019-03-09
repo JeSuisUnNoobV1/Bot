@@ -651,7 +651,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 					description: txt,
 					footer: {
 						text: "YouTube",
-						icon_url: ""
+						icon_url: "https://theotime.me/discord/youtube.png"
 					}
 				}});
 			} else {
@@ -661,7 +661,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 					description: "Désolé, aucun résultat n'a été trouvé pour **"+m.replace(prefix+'youtube ', "")+"**,\nveuillez reformuler votre requête.",
 					footer: {
 						text: "YouTube",
-						icon_url: "https://theotime.me/discord/youtube.ico"
+						icon_url: "https://theotime.me/discord/youtube.png"
 					}
 				}});
 			}
