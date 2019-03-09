@@ -1391,7 +1391,7 @@ if (!isNaN(parseInt(m.split("+")[0])) && !isNaN(parseInt(m.split("+")[1]))) {
 }
 
 if (!isNaN(parseInt(m.split("-")[0])) && !isNaN(parseInt(m.split("-")[1]))) {
-	let result = parseInt(m.split("-")[0]) + parseInt(m.split("-")[1]);
+	let result = parseInt(m.split("-")[0]) - parseInt(m.split("-")[1]);
 
 	msg.channel.send({embed: {
 		title: "> "+result,
@@ -1400,7 +1400,7 @@ if (!isNaN(parseInt(m.split("-")[0])) && !isNaN(parseInt(m.split("-")[1]))) {
 }
 
 if (!isNaN(parseInt(m.split("*")[0])) && !isNaN(parseInt(m.split("*")[1]))) {
-	let result = parseInt(m.split("*")[0]) + parseInt(m.split("*")[1]);
+	let result = parseInt(m.split("*")[0]) * parseInt(m.split("*")[1]);
 
 	msg.channel.send({embed: {
 		title: "> "+result,
@@ -1415,7 +1415,7 @@ if (!isNaN(parseInt(m.split("/")[0])) && !isNaN(parseInt(m.split("/")[1]))) {
 			color: 16777215,
 		}});
 	} else {
-		let result = parseInt(m.split("/")[0]) + parseInt(m.split("/")[1]);
+		let result = parseInt(m.split("/")[0]) / parseInt(m.split("/")[1]);
 
 		msg.channel.send({embed: {
 			title: "> "+result,
