@@ -1379,6 +1379,15 @@ if ((m.startsWith('bonjour') || m.startsWith('salut') || m.startsWith('hey') ||
 	}, 1800);
 }
 
+if (!isNan(parseInt(m.split("+")[0])) && !isNan(parseInt(m.split("+")[1]))) {
+	let result = parseInt(m.split("+")[0]) + parseInt(m.split("+")[1]);
+
+	msg.channel.send({embed: {
+		title: "> "+result,
+		color: 16777215,
+	}});
+}
+
 
 /* 11 / Privates messages
 ============================= */
