@@ -299,6 +299,7 @@ client.on('message', msg => {
 
 	// Short
 	if (m.startsWith(prefix+"short ")) {
+		msg.edit('::short `chargement...`');
 		request("https://api.sck.pm/shorten?"+msg.content.replace(prefix+'short ', ""), (error, response, body) => {
 			let json = JSON.parse(body),
 				short = json.short_url,
