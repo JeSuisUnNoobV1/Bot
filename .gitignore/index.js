@@ -536,26 +536,47 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 
 	// Google
 	if (m.startsWith(prefix+'google ')) {
-		request("https://www.googleapis.com/customsearch/v1?cx=017567266544748746605:9-8clqys140&key=AIzaSyCyZgRt-igTYO05X_8LgDwoOsZgdqf4h3U&q="+m.replace(prefix+"google "), function(error, response, body) {
+		request("https://www.googleapis.com/customsearch/v1?cx=017567266544748746605:9-8clqys140&key=AIzaSyCyZgRt-igTYO05X_8LgDwoOsZgdqf4h3U&q="+m.replace(prefix+"google ", ""), function(error, response, body) {
 			let json = JSON.parse(body),
 			 	q = json.queries.request[0].searchTerms,
 				time = json.searchInformation.formattedSearchTime,
 				resultsNb = json.searchInformation.formattedTotalResults,
+				icon = false,
 
 				txt = "_Environ "+resultsNb+" résultats pour **"+q+"** ("+time+" secondes)._\n";
 
 				for (let i = 1; i<6; i++) {
 					txt += "\n**"+i+". ["+json.items[i-1].title+"]("+json.items[0].link+")**";
-				}
-				msg.channel.send({embed: {
-					title: "Recherche google",
-					color: 16777215,
-					description: txt,
-					footer: {
-						text: "Google",
-						icon_url: "https://www.google.com/favicon.ico"
+					if (json.items[i-1].pagemap.cse_thumbnail[0].src && icon != false) {
+						icon = json.items[i-1].pagemap.cse_thumbnail[0].src;
 					}
-				}});
+				}
+
+				if (icon == false) {
+					msg.channel.send({embed: {
+						title: "Recherche google",
+						color: 16777215,
+						description: txt,
+						footer: {
+							text: "Google",
+							icon_url: "https://www.google.com/favicon.ico"
+						}
+					}});
+				} else {
+					msg.channel.send({embed: {
+						title: "Recherche google",
+						color: 16777215,
+						description: txt,
+						thumbnail: {
+							url: icon
+						},
+						footer: {
+							text: "Google",
+							icon_url: "https://www.google.com/favicon.ico"
+						}
+					}});
+				}
+
 		});
 	}
 
