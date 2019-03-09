@@ -597,7 +597,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 
 		// Youtube
 	if (m.startsWith(prefix+'youtube ')) {
-		request("https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&key=AIzaSyCyZgRt-igTYO05X_8LgDwoOsZgdqf4h3U&q="+encodeURI(m.replace(prefix+"youtube ", "")), function(error, response, body) {
+		request("https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&key=AIzaSyCyZgRt-igTYO05X_8LgDwoOsZgdqf4h3U&relevanceLanguage=fr&q="+encodeURI(m.replace(prefix+"youtube ", "")), function(error, response, body) {
 			let json = JSON.parse(body),
 			 	q = m.replace(prefix+"youtube ", ""),
 				resultsNb = json.pageInfo.totalResults,
