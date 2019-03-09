@@ -5,8 +5,7 @@
 ================================== */
 
 const	Discord = require('discord.js'),
-		fs = require('fs'),
-		HTTPS = require('https'),
+		request = require('request'),
 		goCodes = require('./codes.json'),
 		users = require('./users.json'),
 		config = require('./config.json'),
@@ -1430,8 +1429,13 @@ if (!isNaN(parseInt(m.split("/")[0])) && !isNaN(parseInt(m.split("/")[1]))) {
 
 	// Météo
 	if (m.includes(' météo') || m.includes('météo ') || m == 'météo') {
-		let json = JSON.parse(fs.readFileSync('https://www.prevision-meteo.ch/services/json/paris')),
-			icon = json.current_condition.icon_big,
+		let json;
+
+		request("https://www.prevision-meteo.ch/services/json/paris", function(error, response, body) {
+ 			json = JSON.parse(response);
+		});
+
+		let	icon = json.current_condition.icon_big,
 			temp = json.current_condition.tmp,
 			humd = json.current_condition.humidity,
 			cond = json.current_condition.condition;
