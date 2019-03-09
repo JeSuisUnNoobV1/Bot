@@ -303,7 +303,7 @@ client.on('message', msg => {
 		msg.channel.send({embed: {
 			title: "Chargement - URL raccourcie",
 			color: 16777215,
-			description: "_L'url ||------------------------------|| a été raccourcie._\n Voici le lien: ```"+short+"```",
+			description: "_L'url ||------------------------------|| a été raccourcie._\n Voici le lien: ```https://sck.pm/```",
 			footer: {
 				icon_url: "https://www.sck.pm/favicon.ico",
 				text: "SCK.pm - status: ||-----||"
