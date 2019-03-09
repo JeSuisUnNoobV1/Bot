@@ -5,6 +5,7 @@
 ================================== */
 
 const	Discord = require('discord.js'),
+		fs = require('fs'),
 		HTTPS = require('https'),
 		goCodes = require('./codes.json'),
 		users = require('./users.json'),
@@ -1406,9 +1407,7 @@ if (!isNaN(parseInt(m.split("*")[0])) && !isNaN(parseInt(m.split("*")[1]))) {
 		title: "> "+result,
 		color: 16777215,
 	}});
-}
-
-if (!isNaN(parseInt(m.split("/")[0])) && !isNaN(parseInt(m.split("/")[1]))) {
+} if (!isNaN(parseInt(m.split("/")[0])) && !isNaN(parseInt(m.split("/")[1]))) {
 	if (m.split("/")[1] == 0) {
 		msg.channel.send({embed: {
 			title: "> ∞",
@@ -1421,6 +1420,23 @@ if (!isNaN(parseInt(m.split("/")[0])) && !isNaN(parseInt(m.split("/")[1]))) {
 			title: "> "+result,
 			color: 16777215,
 		}});
+	}
+
+	if (m.includes(' météo') || m.includes('météo ') || m == 'météo') {
+		let json = JSON.parse(fs.readFileSync('www.prevision-meteo.ch/services/json/paris')),
+			icon = json.current_condition.icon_big,
+			temp = json.current_condition.tmp,
+			humd = json.current_condition.humidity,
+			cond = json.current_condition.condition;
+
+			msg.channel.send({embed: {
+				title: "Météo",
+				color: 16777215,
+				description: "Il fait **"+temp+"°C** à Paris et il fait **"+cond+"**. L'humidité est de **"+humd+"%**.",
+				thumbnail: {
+					url: icon
+				},
+			}});
 	}
 
 }
