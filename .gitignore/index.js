@@ -686,11 +686,11 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 					client.on('messageReactionAdd', (reaction, user) => {
 						if (!user.bot && reaction.message.id == msg.id) {
 							switch(reaction.emoji.name) {
-								case "🇦": msg.edit(a); break;
-								case "🇧": msg.edit(b); break;
-								case "🇨": msg.edit(c); break;
-								case "🇩": msg.edit(d); break;
-								case "🇪": msg.edit(e); break;
+								case "🇦": msg.send(a); break;
+								case "🇧": msg.send(b); break;
+								case "🇨": msg.send(c); break;
+								case "🇩": msg.send(d); break;
+								case "🇪": msg.send(e); break;
 							}
 						}
 					});
