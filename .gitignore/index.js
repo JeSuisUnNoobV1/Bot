@@ -8,6 +8,7 @@ const	Discord = require('discord.js'),
 		entities = require('entities'),
 		request = require('request'),
 		ytdl = require('ytdl-core'),
+		fs = require('fs');
 		goCodes = require('./codes.json'),
 		users = require('./users.json'),
 		config = require('./config.json'),
