@@ -1550,7 +1550,7 @@ if (isDJ() || isAdmin()){
 	if (m.startsWith(prefix+"play")) {
 		if (msg.member.voiceChannel != undefined) {
 			const streamOptions = { seek: 0, volume: 1 };
-			voiceChannel.join().then(connection => {
+			msg.member.voiceChannel.join().then(connection => {
 				const stream = ytdl('https://www.youtube.com/watch?v=XAWgeLF9EVQ', { filter : 'audioonly' });
 				const dispatcher = connection.playStream(stream, streamOptions);
 			  }).catch(console.error);
