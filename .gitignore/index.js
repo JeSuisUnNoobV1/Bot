@@ -723,10 +723,8 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 	if (m.startsWith(prefix+'github ')) {
 		let q = msg.content.replace(prefix+'github ');
 
-		request("https://api.github.com/search/repositories?q="+q, (error, response, body) => {
-			console.log(response);
-			let json = response,
-				name = json.items[0].name,
+		request("https://api.github.com/search/repositories?q="+q, (error, json, body) => {
+			let name = json.items[0].name,
 				apiUrl = json.items[0].url,
 				url = json.items[0].html_url,
 				owner = json.items[0].owner.login,
@@ -737,13 +735,13 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 				open_issues = json.items[0].hasIssues ? json.items[0].open_issues_count : 0,
 				createdAt;
 
-				request(apiUrl, (error, response, body) => {
-					let json = response;
-						createdAt = json.createdAt;
+				//request(apiUrl, (error, response, body) => {
+				//	let json = response;
+				//		createdAt = json.createdAt;
 
 						msg.channel.send({embed: {
 							color: 15343673,
-							timestamp: createdAt,
+			//				timestamp: createdAt,
 							footer: {
 							  text: "Repo. crée le"
 							},
