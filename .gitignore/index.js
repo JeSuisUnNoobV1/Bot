@@ -5,6 +5,7 @@
 ================================== */
 
 const	Discord = require('discord.js'),
+		entities = require('entities'),
 		request = require('request'),
 		goCodes = require('./codes.json'),
 		users = require('./users.json'),
@@ -585,7 +586,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 
 	// Google
 	if (m.startsWith(prefix+'google ')) {
-		request("https://www.googleapis.com/customsearch/v1?cx=017567266544748746605:9-8clqys140&key=AIzaSyCyZgRt-igTYO05X_8LgDwoOsZgdqf4h3U&q="+encodeURI(m.replace(prefix+"google ", "")), function(error, response, body) {
+		request("https://www.googleapis.com/customsearch/v1?cx=017567266544748746605:9-8clqys140&key=AIzaSyCyZgRt-igTYO05X_8LgDwoOsZgdqf4h3U&q="+encodeURI(msg.content.replace(prefix+"google ", "")), function(error, response, body) {
 			let json = JSON.parse(body),
 			 	q = json.queries.request[0].searchTerms,
 				time = json.searchInformation.formattedSearchTime,
@@ -634,7 +635,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 				msg.channel.send({embed: {
 					title: "Recherche google",
 					color: 16777215,
-					description: "Désolé, aucun résultat n'a été trouvé pour **"+m.replace(prefix+'google ', "")+"**,\nveuillez reformuler votre requête.",
+					description: "Désolé, aucun résultat n'a été trouvé pour **"+msg.content.replace(prefix+'google ', "")+"**,\nveuillez reformuler votre requête.",
 					footer: {
 						text: "Google",
 						icon_url: "https://theotime.me/discord/google.ico"
@@ -646,15 +647,16 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 
 		// Youtube
 	if (m.startsWith(prefix+'youtube ')) {
-		request("https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&key=AIzaSyCyZgRt-igTYO05X_8LgDwoOsZgdqf4h3U&relevanceLanguage=fr&q="+encodeURI(m.replace(prefix+"youtube ", "")), function(error, response, body) {
+		request("https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&key=AIzaSyCyZgRt-igTYO05X_8LgDwoOsZgdqf4h3U&relevanceLanguage=fr&q="+encodeURI(msg.content.replace(prefix+"youtube ", "")), function(error, response, body) {
 			let json = JSON.parse(body),
 			 	q = m.replace(prefix+"youtube ", ""),
 				resultsNb = json.pageInfo.totalResults,
 				txt = "_"+resultsNb+" vidéos ont été trouvées pour **"+q+"**._\n";
 
 			if (resultsNb != 0) {
+				let title = entities.decodeHTML(json.items[i-1].snippet.title);
 				for (let i = 1; i<6; i++) {
-					txt += "\n**"+i+". ["+json.items[i-1].snippet.title+"](https://www.youtube.com/watch?v="+json.items[i-1].id.videoId+")**";
+					txt += "\n**"+i+". ["+title+"](https://www.youtube.com/watch?v="+json.items[i-1].id.videoId+")**";
 				}
 
 				msg.channel.send({embed: {
