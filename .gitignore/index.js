@@ -1549,14 +1549,10 @@ if (isBruh() || isAdmin() && (m.startsWith(prefix+"ban") || m.startsWith(prefix
 if (isDJ() || isAdmin()){
 	if (m.startsWith(prefix+"play")) {
 		if (msg.member.voiceChannel != undefined) {
-			msg.member.voiceChannel.join().then(connection => {
-				request("https://www.convertmp3.io/fetch/?format=JSON&video=https://www.youtube.com/watch?v=i62Zjga8JOM", (error, response, body) => {
-					let json = JSON.parse(body),
-						streamOptions = { seek: 0, volume: 1 };
-						dispatcher = connection.playFile(json.link, streamOptions);
-
-				});
-			}).catch(console.error);
+			request("https://www.convertmp3.io/fetch/?format=JSON&video=https://www.youtube.com/watch?v=i62Zjga8JOM", (error, response, body) => {
+				let json = JSON.parse(body);
+					msg.channel.send(json.link);
+			});
 		} else { // No connected to a voice channel
 			msg.channel.send({embed: {
 				title: "Erreur de connexion",
