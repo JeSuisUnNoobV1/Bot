@@ -1548,7 +1548,7 @@ if (isBruh() || isAdmin() && (m.startsWith(prefix+"ban") || m.startsWith(prefix
 if (isDJ() || isAdmin()){
 	if (m.startsWith(prefix+"play")) {
 		let streamOptions = { seek: 0, volume: 1 };
-		let voiceChannel = message.member.voiceChannel;
+		let voiceChannel = msg.member.voiceChannel;
 			voiceChannel.join().then(connection => {
 				let stream = ytdl('https://www.youtube.com/watch?v=gOMhN-hfMtY', { filter : 'audioonly' });
 				let dispatcher = connection.playStream(stream, streamOptions);
