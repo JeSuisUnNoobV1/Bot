@@ -1547,15 +1547,24 @@ if (isBruh() || isAdmin() && (m.startsWith(prefix+"ban") || m.startsWith(prefix
 
 if (isDJ() || isAdmin()){
 	if (m.startsWith(prefix+"play")) {
-		let streamOptions = { seek: 0, volume: 1 };
-		let voiceChannel = msg.member.voiceChannel;
-			voiceChannel.join().then(connection => {
-				let stream = ytdl('https://www.youtube.com/watch?v=gOMhN-hfMtY', { filter : 'audioonly' });
-				let dispatcher = connection.playStream(stream, streamOptions);
-				dispatcher.on("end", end => {
-					voiceChannel.leave();
-				});
-			}).catch(err => console.log(err));
+		if (msg.member.voiceChannel != undefined) {
+			let streamOptions = { seek: 0, volume: 1 };
+			let voiceChannel = msg.member.voiceChannel;
+				voiceChannel.join().then(connection => {
+					let stream = ytdl('https://www.youtube.com/watch?v=gOMhN-hfMtY', { filter : 'audioonly' });
+					let dispatcher = connection.playStream(stream, streamOptions);
+					dispatcher.on("end", end => {
+						voiceChannel.leave();
+					});
+				}).catch(err => console.log(err));
+		} else { // No connected to a voice channel
+			msg.channel.send({embed: {
+				title: "Erreur de connexion",
+				color: 16057630,
+				description: "Merci de vous connecter à un channel vocal."
+			}});
+		}
+
 	}
 } else if (m=="play") {
 	noRight();
