@@ -780,29 +780,29 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 					author: {
 					  name: "Erreur",
 					  url: "https://github.com/"+q,
-					  icon_url: "https://www.iconsdb.com/icons/preview/white/github-6-xxl.png"
+					  icon_url: "https://github.com/fluidicon.png"
 					},
 					thumbnail: {
 						url: "https://github.com/fluidicon.png"
-					}
+					},
 					fields: [
 					  {
-						name: "Sorry",
+						name: "Désolé,",
 						value: "["+q+"](https://github.com/"+q+")",
 						inline: true
 					  },
 					  {
-						name: "Forks",
+						name: "aucun",
 						value: 0,
 						inline: true
 					  },
 					  {
-						name: "Watchers",
+						name: "repos n'a",
 						value: 0,
 						inline: true
 					  },
 					  {
-						name: "Open issues",
+						name: "été trouvé.",
 						value: 0,
 						inline: true
 					  }
