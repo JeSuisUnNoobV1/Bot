@@ -722,9 +722,9 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 
 	if (m.startsWith(prefix+'github ')) {
 		let q = msg.content.replace(prefix+'github ', "");
+		msg.channel.send(q);
 
-		request({url: "https://api.github.com/search/repositories?q="+q, headers: {'User-Agent': 'request'}}, (error, request, body) => {
-		msg.channel.send(body);
+		request({url: "https://api.github.com/search/repositories?q="+q, headers: {'User-Agent': '*'}}, (error, request, body) => {
 		/*let json = JSON.parse(body),
 				name = json.items[0].name,
 				apiUrl = json.items[0].url,
