@@ -652,12 +652,14 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			 	q = m.replace(prefix+"youtube ", ""),
 				resultsNb = json.pageInfo.totalResults,
 				txt = "_"+resultsNb+" vidéos ont été trouvées pour **"+q+"**._\n",
-				on, tw, th, fo, fi;
+				abcde = ["A", "B", "C", "D", "E"],
+				a,b,c,d,e;
 
 			if (resultsNb != 0) {
 				for (let i = 1; i<6; i++) {
 					let title = entities.decodeHTML(json.items[i-1].snippet.title);
-					txt += "\n**"+i+". ["+title+"](https://www.youtube.com/watch?v="+json.items[i-1].id.videoId+")**";
+					txt += "\n**"+abcde[i-1]+". ["+title+"](https://www.youtube.com/watch?v="+json.items[i-1].id.videoId+")**";
+					window[abcde[i-1].toLowerCase()] = "https://www.youtube.com/watch?v="+json.items[i-1].id.videoId;
 				}
 
 				msg.channel.send({embed: {
@@ -669,16 +671,20 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 						icon_url: "https://theotime.me/discord/youtube.png"
 					}
 				}}).then(msg => {
-					msg.react(msg.guild.emojis.find(val => val.name == "one"));
-					msg.react(msg.guild.emojis.find(val => val.name == "two"));
-					msg.react(msg.guild.emojis.find(val => val.name == "three"));
-					msg.react(msg.guild.emojis.find(val => val.name == "four"));
-					msg.react(msg.guild.emojis.find(val => val.name == "five"));
+					msg.react("🇦");
+					msg.react("🇧");
+					msg.react("🇨");
+					msg.react("🇩");
+					msg.react("🇪");
 
 					client.on('messageReactionAdd', (reaction, user) => {
 						if (!user.bot && reaction.message.id == msg.id) {
 							switch(reaction.emoji.name) {
-								case msg.guild.emojis.find(val => val.name == "five"): 
+								case "🇦": msg.edit(a); break;
+								case "🇧": msg.edit(b); break;
+								case "🇨": msg.edit(c); break;
+								case "🇩": msg.edit(d); break;
+								case "🇪": msg.edit(e); break;
 							}
 						}
 					});
