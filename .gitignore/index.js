@@ -1548,19 +1548,7 @@ if (isBruh() || isAdmin() && (m.startsWith(prefix+"ban") || m.startsWith(prefix
 
 if (isDJ() || isAdmin()){
 	if (m.startsWith(prefix+"play")) {
-		if (msg.member.voiceChannel != undefined) {
-			request("https://www.convertmp3.io/fetch/?format=JSON&video=https://www.youtube.com/watch?v=i62Zjga8JOM", (error, response, body) => {
-				let json = JSON.parse(body);
-					msg.channel.send(json.link);
-			});
-		} else { // No connected to a voice channel
-			msg.channel.send({embed: {
-				title: "Erreur de connexion",
-				color: 16057630,
-				description: "Merci de vous connecter à un channel vocal."
-			}});
-		}
-
+		msg.channel.send("https://www.convertmp3.io/download/get/?i=w5DEfbHYlsy1o6URUK51bapWQ1QHdqQX&e=15&v=BqO0dFxUMtI");
 	}
 } else if (m=="play") {
 	noRight();
