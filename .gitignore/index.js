@@ -651,7 +651,8 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			let json = JSON.parse(body),
 			 	q = m.replace(prefix+"youtube ", ""),
 				resultsNb = json.pageInfo.totalResults,
-				txt = "_"+resultsNb+" vidéos ont été trouvées pour **"+q+"**._\n";
+				txt = "_"+resultsNb+" vidéos ont été trouvées pour **"+q+"**._\n",
+				on, tw, th, fo, fi;
 
 			if (resultsNb != 0) {
 				for (let i = 1; i<6; i++) {
@@ -667,7 +668,21 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 						text: "YouTube",
 						icon_url: "https://theotime.me/discord/youtube.png"
 					}
-				}});
+				}}).then(msg => {
+					msg.react(msg.guild.emojis.find(val => val.name == "one"));
+					msg.react(msg.guild.emojis.find(val => val.name == "two"));
+					msg.react(msg.guild.emojis.find(val => val.name == "three"));
+					msg.react(msg.guild.emojis.find(val => val.name == "four"));
+					msg.react(msg.guild.emojis.find(val => val.name == "five"));
+
+					client.on('messageReactionAdd', (reaction, user) => {
+						if (!user.bot && reaction.message.id == msg.id) {
+							switch(reaction.emoji.name) {
+								case msg.guild.emojis.find(val => val.name == "five"): 
+							}
+						}
+					});
+				});
 			} else {
 				msg.channel.send({embed: {
 					title: "Recherche youtube",
