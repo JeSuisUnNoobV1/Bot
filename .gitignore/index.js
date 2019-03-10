@@ -768,7 +768,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 							  }
 							]
 						}
-					});*/
+					});
 				});
 	}
 
