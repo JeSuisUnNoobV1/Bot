@@ -728,8 +728,8 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 				request({url: "https://api.github.com/repos/"+q, headers: {'User-Agent': '*'}}, (error, request, body) => {
 					let json = JSON.parse(body);
 
-			if (!json.message) {
-				let	name = json.name,
+			if (json.message == undefined) {
+				let	name = json.full_name,
 					apiUrl = json.url,
 					url = json.html_url,
 					owner = json.owner.login,
