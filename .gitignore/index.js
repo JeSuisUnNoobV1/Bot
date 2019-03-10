@@ -600,11 +600,12 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			 	q = json.queries.request[0].searchTerms,
 				time = json.searchInformation.formattedSearchTime,
 				resultsNb = json.searchInformation.formattedTotalResults,
+				resultsNbNoFormatted = json.searchInformation.totalResults,
 				icon = false,
 
 				txt = "_Environ "+resultsNb+" résultats pour **"+q+"** ("+time+" secondes)._\n";
 
-			if (resultsNb >= 5) {
+			if (resultsNbNoFormatted >= 5) {
 				for (let i = 1; i<6; i++) {
 					txt += "\n**"+i+". ["+json.items[i-1].title+"]("+json.items[i-1].link+")**";
 					if (json.items[i-1].hasOwnProperty("pagemap")) {
@@ -776,9 +777,6 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			} else {
 				msg.channel.send({embed: {
 					color: 15343673,
-					thumbnail: {
-					  url: ownerAvatar
-					},
 					author: {
 					  name: "Erreur",
 					  url: "https://github.com/"+q,
@@ -786,23 +784,23 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 					},
 					fields: [
 					  {
-						name: "Repository",
-						value: "["+name+"]("+url+")",
+						name: "Sorry",
+						value: "["+q+"](https://github.com/"+q+")",
 						inline: true
 					  },
 					  {
 						name: "Forks",
-						value: forks,
+						value: 0,
 						inline: true
 					  },
 					  {
 						name: "Watchers",
-						value: watchers,
+						value: 0,
 						inline: true
 					  },
 					  {
 						name: "Open issues",
-						value: open_issues,
+						value: 0,
 						inline: true
 					  }
 					]
