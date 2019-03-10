@@ -659,7 +659,13 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 				for (let i = 1; i<6; i++) {
 					let title = entities.decodeHTML(json.items[i-1].snippet.title);
 					txt += "\n**"+abcde[i-1]+". ["+title+"](https://www.youtube.com/watch?v="+json.items[i-1].id.videoId+")**";
-					window[abcde[i-1].toLowerCase()] = "https://www.youtube.com/watch?v="+json.items[i-1].id.videoId;
+					switch (i) {
+						case 1: a = "https://www.youtube.com/watch?v="+json.items[i-1].id.videoId; break;
+						case 2: b = "https://www.youtube.com/watch?v="+json.items[i-1].id.videoId; break;
+						case 3: c = "https://www.youtube.com/watch?v="+json.items[i-1].id.videoId; break;
+						case 4: d = "https://www.youtube.com/watch?v="+json.items[i-1].id.videoId; break;
+						case 5: e = "https://www.youtube.com/watch?v="+json.items[i-1].id.videoId; break;
+					}
 				}
 
 				msg.channel.send({embed: {
