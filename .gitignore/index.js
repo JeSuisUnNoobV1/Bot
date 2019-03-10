@@ -7,6 +7,7 @@
 const	Discord = require('discord.js'),
 		entities = require('entities'),
 		request = require('request'),
+		ytdl = require('ytdl-core'),
 		goCodes = require('./codes.json'),
 		users = require('./users.json'),
 		config = require('./config.json'),
@@ -412,6 +413,14 @@ function isBruh(){
 	}
 }
 
+function isDJ(){
+	if (msg.member.roles.find(val => val.name === 'DJ')) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
 /* 05 / Auto moderation
 =========================== */
 if(m.includes("fdp")||m.includes("beze")||m.includes("bese")||m.includes("bz")||m.includes("salop")||m.includes("pute")||m === "con"||m.includes("connard")||m.includes("tg")||m.includes("batard")||m.includes("putain")||m.includes("tes morts")||m.includes("merde")||m.includes("merd")||m.includes("couilles")||m.includes("abruti")||m.startsWith("nique ")||m===("nique")) {
@@ -595,7 +604,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 
 				txt = "_Environ "+resultsNb+" résultats pour **"+q+"** ("+time+" secondes)._\n";
 
-			if (resultsNb != 0) {
+			if (resultsNb >= 5) {
 				for (let i = 1; i<6; i++) {
 					txt += "\n**"+i+". ["+json.items[i-1].title+"]("+json.items[i-1].link+")**";
 					if (json.items[i-1].hasOwnProperty("pagemap")) {
@@ -651,11 +660,11 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			let json = JSON.parse(body),
 			 	q = m.replace(prefix+"youtube ", ""),
 				resultsNb = json.pageInfo.totalResults,
-				txt = "_"+resultsNb+" vidéos ont été trouvées pour **"+q+"**._\n",
+				txt = "*"+resultsNb+" vidéos ont été trouvées pour **"+q+"**.*\n",
 				abcde = ["A", "B", "C", "D", "E"],
 				a,b,c,d,e;
 
-			if (resultsNb != 0) {
+			if (resultsNb >= 5) {
 				for (let i = 1; i<6; i++) {
 					let title = entities.decodeHTML(json.items[i-1].snippet.title);
 					txt += "\n**"+abcde[i-1]+". ["+title+"](https://www.youtube.com/watch?v="+json.items[i-1].id.videoId+")**";
@@ -1533,6 +1542,22 @@ if (isBruh() || isAdmin() && (m.startsWith(prefix+"ban") || m.startsWith(prefix
 			}
 	}
 } else if (m.startsWith(prefix+"ban") || m.startsWith(prefix+"unban")){
+	noRight();
+}
+
+if (isDJ() || isAdmin()){
+	if (m.startsWith(prefix+"play")) {
+		let streamOptions = { seek: 0, volume: 1 };
+		let voiceChannel = message.member.voiceChannel;
+			voiceChannel.join().then(connection => {
+				let stream = ytdl('https://www.youtube.com/watch?v=gOMhN-hfMtY', { filter : 'audioonly' });
+				let dispatcher = connection.playStream(stream, streamOptions);
+				dispatcher.on("end", end => {
+					voiceChannel.leave();
+				});
+			}).catch(err => console.log(err));
+	}
+} else if (m=="play") {
 	noRight();
 }
 
