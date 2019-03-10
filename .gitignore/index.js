@@ -724,8 +724,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 		let q = msg.content.replace(prefix+'github ');
 
 		request("https://api.github.com/search/repositories?q="+q, (error, json, body) => {
-			console.log(error);
-			console.log(json);
+			console.log(body);
 			let name = json.items[0].name,
 				apiUrl = json.items[0].url,
 				url = json.items[0].html_url,
