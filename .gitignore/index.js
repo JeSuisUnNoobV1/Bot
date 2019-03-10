@@ -738,7 +738,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 					ownerAvatar = json.owner.avatar_url,
 					forks = json.forks_count,
 					watchers = json.watchers,
-					open_issues = json.hasIssues ? json.open_issues_count : 0;
+					open_issues = json.open_issues_count;
 	
 						msg.channel.send({embed: {
 								color: 15343673,
@@ -782,6 +782,9 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 					  url: "https://github.com/"+q,
 					  icon_url: "https://www.iconsdb.com/icons/preview/white/github-6-xxl.png"
 					},
+					thumbnail: {
+						url: "https://github.com/fluidicon.png"
+					}
 					fields: [
 					  {
 						name: "Sorry",
@@ -814,7 +817,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 
 		request({url: "https://api.github.com/search/repositories?q="+q, headers: {'User-Agent': '*'}}, (error, request, body) => {
 			let json = JSON.parse(body),
-				name = json.items[0].name,
+				name = json.items[0].full_name,
 				apiUrl = json.items[0].url,
 				url = json.items[0].html_url,
 				owner = json.items[0].owner.login,
@@ -822,7 +825,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 				ownerAvatar = json.items[0].owner.avatar_url,
 				forks = json.items[0].forks_count,
 				watchers = json.items[0].watchers,
-				open_issues = json.items[0].hasIssues ? json.items[0].open_issues_count : 0;
+				open_issues = json.items[0].open_issues_count;
 
 					msg.channel.send({embed: {
 							color: 15343673,
