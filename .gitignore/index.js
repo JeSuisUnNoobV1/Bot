@@ -7,7 +7,6 @@
 const	Discord = require('discord.js'),
 		entities = require('entities'),
 		request = require('request'),
-		ytdl = require('ytdl-core'),
 		fs = require('fs');
 		goCodes = require('./codes.json'),
 		users = require('./users.json'),
@@ -725,9 +724,8 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 		let q = msg.content.replace(prefix+'github ');
 
 		request("https://api.github.com/search/repositories?q="+q, (error, response, body) => {
-			console.log("response: "+response);
-			console.log("body: "+body);
-			let json = JSON.parse(response),
+			console.log(response);
+			let json = response,
 				name = json.items[0].name,
 				apiUrl = json.items[0].url,
 				url = json.items[0].html_url,
@@ -740,7 +738,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 				createdAt;
 
 				request(apiUrl, (error, response, body) => {
-					let json = JSON.parse(response);
+					let json = response;
 						createdAt = json.createdAt;
 
 						msg.channel.send({embed: {
