@@ -723,6 +723,97 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 	if (m.startsWith(prefix+'github ')) {
 		let q = msg.content.replace(prefix+'github ', "");
 
+		if (q.includes('/')) {
+
+				request({url: "https://api.github.com/repos/"+q, headers: {'User-Agent': '*'}}, (error, request, body) => {
+					let json = JSON.parse(body);
+
+			if (!json.message) {
+				let	name = json.name,
+					apiUrl = json.url,
+					url = json.html_url,
+					owner = json.owner.login,
+					ownerUrl = json.html_url,
+					ownerAvatar = json.owner.avatar_url,
+					forks = json.forks_count,
+					watchers = json.watchers,
+					open_issues = json.hasIssues ? json.open_issues_count : 0;
+	
+						msg.channel.send({embed: {
+								color: 15343673,
+								thumbnail: {
+								  url: ownerAvatar
+								},
+								author: {
+								  name: owner,
+								  url: ownerUrl,
+								  icon_url: ownerAvatar
+								},
+								fields: [
+								  {
+									name: "Repository",
+									value: "["+name+"]("+url+")",
+									inline: true
+								  },
+								  {
+									name: "Forks",
+									value: forks,
+									inline: true
+								  },
+								  {
+									name: "Watchers",
+									value: watchers,
+									inline: true
+								  },
+								  {
+									name: "Open issues",
+									value: open_issues,
+									inline: true
+								  }
+								]
+							}
+						});
+			} else {
+				msg.channel.send({embed: {
+					color: 15343673,
+					thumbnail: {
+					  url: ownerAvatar
+					},
+					author: {
+					  name: "Erreur",
+					  url: "https://github.com/"+q,
+					  icon_url: "https://www.iconsdb.com/icons/preview/white/github-6-xxl.png"
+					},
+					fields: [
+					  {
+						name: "Repository",
+						value: "["+name+"]("+url+")",
+						inline: true
+					  },
+					  {
+						name: "Forks",
+						value: forks,
+						inline: true
+					  },
+					  {
+						name: "Watchers",
+						value: watchers,
+						inline: true
+					  },
+					  {
+						name: "Open issues",
+						value: open_issues,
+						inline: true
+					  }
+					]
+				}
+			});
+			}
+				});
+			
+			return;
+		}
+
 		request({url: "https://api.github.com/search/repositories?q="+q, headers: {'User-Agent': '*'}}, (error, request, body) => {
 			let json = JSON.parse(body),
 				name = json.items[0].name,
@@ -769,7 +860,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 							]
 						}
 					});
-				});
+			});
 	}
 
 	// Roboto date
