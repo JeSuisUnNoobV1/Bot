@@ -654,8 +654,8 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 				txt = "_"+resultsNb+" vidéos ont été trouvées pour **"+q+"**._\n";
 
 			if (resultsNb != 0) {
-				let title = entities.decodeHTML(json.items[i-1].snippet.title);
 				for (let i = 1; i<6; i++) {
+					let title = entities.decodeHTML(json.items[i-1].snippet.title);
 					txt += "\n**"+i+". ["+title+"](https://www.youtube.com/watch?v="+json.items[i-1].id.videoId+")**";
 				}
 
