@@ -721,6 +721,68 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 		});
 	}
 
+	if (m.startsWith(prefix+'github ')) {
+		let q = msg.content.replace(prefix+'github ');
+
+		request("https://api.github.com/search/repositories?q="+q, (error, response, body) => {
+			let json = JSON.parse(body),
+				name = json.items[0].name,
+				apiUrl = json.items[0].url,
+				url = json.items[0].html_url,
+				owner = json.items[0].owner.login,
+				ownerUrl = json.items[0].html_url,
+				ownerAvatar = json.items[0].owner.avatar_url,
+				forks = json.items[0].forks_count,
+				watchers = json.items[0].watchers,
+				open_issues = json.items[0].hasIssues ? json.items[0].open_issues_count : 0,
+				createdAt;
+
+				request(apiUrl, (error, response, body) => {
+					let json = JSON.parse(body);
+						createdAt = json.createdAt;
+
+						msg.channel.send({embed: {
+							color: 15343673,
+							timestamp: createdAt,
+							footer: {
+							  text: "Repo. crée le"
+							},
+							thumbnail: {
+							  url: ownerAvatar
+							},
+							author: {
+							  name: owner,
+							  url: ownerUrl,
+							  icon_url: ownerAvatar
+							},
+							fields: [
+							  {
+								name: "Repository",
+								value: "["+name+"]("+url+")",
+								inline: true
+							  },
+							  {
+								name: "Forks",
+								value: forks,
+								inline: true
+							  },
+							  {
+								name: "Watchers",
+								value: watchers,
+								inline: true
+							  },
+							  {
+								name: "Open issues",
+								value: open_issues,
+								inline: true
+							  }
+							]
+						  }
+					  });
+				});
+		});
+	}
+
 	// Roboto date
 	if (m==prefix+"date"){
 		const   d = new Date(),
@@ -1543,14 +1605,6 @@ if (isBruh() || isAdmin() && (m.startsWith(prefix+"ban") || m.startsWith(prefix
 			}
 	}
 } else if (m.startsWith(prefix+"ban") || m.startsWith(prefix+"unban")){
-	noRight();
-}
-
-if (isDJ() || isAdmin()){
-	if (m.startsWith(prefix+"play")) {
-		msg.channel.send("https://www.convertmp3.io/download/get/?i=w5DEfbHYlsy1o6URUK51bapWQ1QHdqQX&e=15&v=BqO0dFxUMtI");
-	}
-} else if (m=="play") {
 	noRight();
 }
 
