@@ -732,16 +732,10 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 				ownerAvatar = json.items[0].owner.avatar_url,
 				forks = json.items[0].forks_count,
 				watchers = json.items[0].watchers,
-				open_issues = json.items[0].hasIssues ? json.items[0].open_issues_count : 0,
-				createdAt;
+				open_issues = json.items[0].hasIssues ? json.items[0].open_issues_count : 0;
 
-				//request(apiUrl, (error, response, body) => {
-				//	let json = response;
-				//		createdAt = json.createdAt;
-
-						msg.channel.send({embed: {
+					msg.channel.send({embed: {
 							color: 15343673,
-			//				timestamp: createdAt,
 							footer: {
 							  text: "Repo. crée le"
 							},
@@ -775,10 +769,9 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 								inline: true
 							  }
 							]
-						  }
-					  });
+						}
+					});
 				});
-		});
 	}
 
 	// Roboto date
