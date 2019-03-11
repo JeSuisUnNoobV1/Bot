@@ -916,9 +916,16 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 
 	// Roboto profile/money/xp
 	if (m.startsWith(prefix+"money")||m.startsWith(prefix+"xp")||m.startsWith(prefix+"profile")||m.startsWith(prefix+"profil")){
-		let member = ![prefix+"money", prefix+"xp", prefix+"profile", prefix+"profil"].includes(m) ? msg.mentions.users.first() : msg.author,
-			dispo = msg.author.presence.status == "online" ? "est disponible" : msg.author.presence.status == "idle" ? "est inactif" : msg.author.presence.status == "dnd" ? "ne veut pas être dérangé" : "est invisible",
-			money, xp;
+		let member = msg.mentions.members.first() || msg.author,
+			money, xp, dispo;
+
+			switch (member.presence.status) {
+				case "online": dispo = "est disponible"; break;
+				case "idle": dispo = "est inactif"; break;
+				case "dnd": dispo = "ne veut pas être dérangé"; break;
+				default: dispo = "est invisible";
+			}
+
 		for (let i = 0; i<users.length; i++) {
 			if (users[i].id == member.id){
 				xp = users[i].xp;
