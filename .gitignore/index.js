@@ -720,7 +720,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 		});
 	}
 
-	if (m.startsWith(prefix+'github ') || m.match(/https:\/\/github\.com\/[A-z0-9-]+\/[A-z-]+/g)) {
+	if (m.startsWith(prefix+'github ') || m.match(/https:\/\/github\.com\/[A-z0-9-]+\/[A-z-]+/)) {
 		let q = msg.content.replace(prefix+'github ', "");
 			q = q.replace('https://github.com/', "");
 
