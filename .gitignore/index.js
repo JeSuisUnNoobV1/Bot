@@ -723,7 +723,6 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 	if (m.startsWith(prefix+'github ') || m.startsWith("https://github.com/")) {
 		let q = msg.content.replace(prefix+'github ', "");
 			q = q.replace('https://github.com/', "");
-			q = q.split("/")[0]+q.split("/")[1].split('/')[0];
 
 		msg.delete();
 		if (q.includes('/')) {
