@@ -721,9 +721,11 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 		});
 	}
 
-	if (m.startsWith(prefix+'github ')) {
+	if (m.startsWith(prefix+'github ') || m.startsWith("https://github.com/")) {
 		let q = msg.content.replace(prefix+'github ', "");
+			q = msg.content.replace('https://github.com/', "");
 
+		msg.delete();
 		if (q.includes('/')) {
 
 				request({url: "https://api.github.com/repos/"+q, headers: {'User-Agent': '*'}}, (error, request, body) => {
