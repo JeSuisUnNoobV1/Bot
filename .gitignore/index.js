@@ -100,6 +100,16 @@ var globalInterval = false,
 	devMode = config.devMode,
 	acceptedRules = 0;
 
+
+	function sleep(milliseconds) {
+		var start = new Date().getTime();
+		for (var i = 0; i < 1e7; i++) {
+		  if ((new Date().getTime() - start) > milliseconds){
+			break;
+		  }
+		}
+	}
+
 /* 02 / init
 ================ */
 
@@ -905,21 +915,11 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 		msg.channel.send("Vous êtes sur le salon `"+msg.channel.name+"`");	
 	}
 
-	function sleep(milliseconds) {
-		var start = new Date().getTime();
-		for (var i = 0; i < 1e7; i++) {
-		  if ((new Date().getTime() - start) > milliseconds){
-			break;
-		  }
-		}
-	}
-
 	if (m==prefix+"shop" || m==prefix+"store") {
 		let items = StoreItems,
 			toDisplay = "_Pour acheter un produit, cliquez sur la réaction qui lui est associé._\n```js\n",
 			letters = ["🇦", "🇧", "🇨", "🇩", "🇪", "🇫", "🇬", "🇭", "🇮", "🇯", "🇰", "🇱", "🇲", "🇳", "🇴", "🇵", "🇶", "🇷", "🇸", "🇹", "🇺", "🇻", "🇼", "🇽", "🇾", "🇿"],
-			alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"],
-			itemsCount = items.length -1;
+			alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 
 		for (let i = 0; i<items.length; i++) {
 			toDisplay += alphabet[i]+". "+items[i].split("|")[0]+" @ "+items[i].split("|")[1]+"\n";
@@ -935,7 +935,53 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 		}}).then(msg => {
 			for (let i = 0; i<items.length; i++) {
 				msg.react(letters[i]);
-				sleep(200);
+				sleep(500);
+			}
+		});
+
+		client.on('messageReactionAdd', (reaction , user) => {
+			if (!user.bot && reaction.message.id == msg.id && letters.includes(reaction.emoji.name)) {
+				let itemID = items.indexOf(reaction.emoji.name),
+					item = items[itemID],
+					itemName = item.split('|')[0],
+					from = reaction.author,
+					to = client.users.find(val => val.id == "483335511159865347");
+
+					bank.transfert({
+						from: from,
+						to: to,
+						price: items[itemID].split('|')[1],
+						desc: "acheter un produit",
+						cb(){
+							let id = Math.floor(Math.random() * 9999999999999999999999999);
+
+							from.createDM().then(channel => {
+								channel.send({embed: {
+									title: "achat au shop",
+									description: "Vous avez acheté **/nick**. Vous pouvez donc désormais utiliser cette commande dans tous les channels textuels.",
+									color: 16777215,
+									footer: {
+										"text": "aucun achat n'est remboursé"
+									}, fields: [{
+										name: "Preuve d'achat",
+										value: "```"+id+"```",
+										inline: true
+									}]
+									}
+								});
+							});
+
+							client.channels.find(val => val.id === "554734296636719116").send({embed: {
+								title: from.username,
+								color: 16777215,
+								description: "Achat de la commande `"+itemName+"`",
+								fields: [{
+									name: "Preuve d'achat",
+									value: "```"+id+"```"
+								}]
+							}});
+						}
+					})
 			}
 		});
 	}
