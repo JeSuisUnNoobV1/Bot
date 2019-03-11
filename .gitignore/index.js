@@ -941,8 +941,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			client.on('messageReactionAdd', (reaction , user) => {
 				if (!user.bot && reaction.message.id == msg.id && letters.includes(reaction.emoji.name)) {
 					let itemID = items.indexOf(reaction.emoji.name),
-						item = items[itemID],
-						itemName = item.split('|')[0],
+						itemName = StoreItems[itemID].split('|')[0],
 						from = reaction.author,
 						to = client.users.find(val => val.id == "483335511159865347");
 	
