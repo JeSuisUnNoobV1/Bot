@@ -937,52 +937,52 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 				msg.react(letters[i]);
 				sleep(500);
 			}
-		});
 
-		client.on('messageReactionAdd', (reaction , user) => {
-			if (!user.bot && reaction.message.id == msg.id && letters.includes(reaction.emoji.name)) {
-				let itemID = items.indexOf(reaction.emoji.name),
-					item = items[itemID],
-					itemName = item.split('|')[0],
-					from = reaction.author,
-					to = client.users.find(val => val.id == "483335511159865347");
-
-					bank.transfert({
-						from: from,
-						to: to,
-						price: items[itemID].split('|')[1],
-						desc: "acheter un produit",
-						cb(){
-							let id = Math.floor(Math.random() * 9999999999999999999999999);
-
-							from.createDM().then(channel => {
-								channel.send({embed: {
-									title: "achat au shop",
-									description: "Vous avez acheté **/nick**. Vous pouvez donc désormais utiliser cette commande dans tous les channels textuels.",
-									color: 16777215,
-									footer: {
-										"text": "aucun achat n'est remboursé"
-									}, fields: [{
-										name: "Preuve d'achat",
-										value: "```"+id+"```",
-										inline: true
-									}]
-									}
+			client.on('messageReactionAdd', (reaction , user) => {
+				if (!user.bot && reaction.message.id == msg.id && letters.includes(reaction.emoji.name)) {
+					let itemID = items.indexOf(reaction.emoji.name),
+						item = items[itemID],
+						itemName = item.split('|')[0],
+						from = reaction.author,
+						to = client.users.find(val => val.id == "483335511159865347");
+	
+						bank.transfert({
+							from: from,
+							to: to,
+							price: items[itemID].split('|')[1],
+							desc: "acheter un produit",
+							cb(){
+								let id = Math.floor(Math.random() * 9999999999999999999999999);
+	
+								from.createDM().then(channel => {
+									channel.send({embed: {
+										title: "achat au shop",
+										description: "Vous avez acheté **/nick**. Vous pouvez donc désormais utiliser cette commande dans tous les channels textuels.",
+										color: 16777215,
+										footer: {
+											"text": "aucun achat n'est remboursé"
+										}, fields: [{
+											name: "Preuve d'achat",
+											value: "```"+id+"```",
+											inline: true
+										}]
+										}
+									});
 								});
-							});
-
-							client.channels.find(val => val.id === "554734296636719116").send({embed: {
-								title: from.username,
-								color: 16777215,
-								description: "Achat de la commande `"+itemName+"`",
-								fields: [{
-									name: "Preuve d'achat",
-									value: "```"+id+"```"
-								}]
-							}});
-						}
-					})
-			}
+	
+								client.channels.find(val => val.id === "554734296636719116").send({embed: {
+									title: from.username,
+									color: 16777215,
+									description: "Achat de la commande `"+itemName+"`",
+									fields: [{
+										name: "Preuve d'achat",
+										value: "```"+id+"```"
+									}]
+								}});
+							}
+						})
+				}
+			});
 		});
 	}
 
