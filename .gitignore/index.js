@@ -88,7 +88,6 @@ captcha_questions = [
 ],
 
 StoreItems = [
-	"",
 	"set go|20",
 	"short|180",
 	"/nick|300"
@@ -913,7 +912,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			itemsCount = items.length -1;
 
 		for (let i = 0; i<items.length; i++) {
-			toDisplay += items[i].split("|")[0]+" | "+items[i].split("|")[1];
+			toDisplay += "**"+items[i].split("|")[0]+"** @ *"+items[i].split("|")[1]+"*\n";
 			msg.react(letters[i]);
 		}
 
