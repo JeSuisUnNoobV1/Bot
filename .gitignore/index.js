@@ -907,23 +907,27 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 
 	if (m==prefix+"shop" || m==prefix+"store") {
 		let items = StoreItems,
-			toDisplay = "_Pour acheter un produit, cliquez sur la réaction qui lui est associé._\n",
+			toDisplay = "_Pour acheter un produit, cliquez sur la réaction qui lui est associé._\n```js\n",
 			letters = ["🇦", "🇧", "🇨", "🇩", "🇪", "🇫", "🇬", "🇭", "🇮", "🇯", "🇰", "🇱", "🇲", "🇳", "🇴", "🇵", "🇶", "🇷", "🇸", "🇹", "🇺", "🇻", "🇼", "🇽", "🇾", "🇿"],
+			alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"],
 			itemsCount = items.length -1;
 
 		for (let i = 0; i<items.length; i++) {
-			toDisplay += "**"+items[i].split("|")[0]+"** @ *"+items[i].split("|")[1]+"*\n";
-			msg.react(letters[i]);
+			toDisplay += alphabet[i]+". "+items[i].split("|")[0]+" @ "+items[i].split("|")[1]+"\n";
 		}
 
 		msg.channel.send({"embed":{
 			title:"Shop du serveur",
-			description: toDisplay,
+			description: toDisplay+"```",
 			color: 16777215,
 			footer: {
 				text: "aucun achat n'est remboursé"
 			}
-		}});
+		}}).then(msg => {
+			for (let i = 0; i<items.length; i++) {
+				msg.react(letters[i]);
+			}
+		});
 	}
 
 	if (m==prefix+"stats"){
