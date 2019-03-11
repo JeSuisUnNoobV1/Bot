@@ -725,7 +725,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			q = q.replace('https://github.com/', "");
 
 			if (q.endsWith("/")) {
-				q = q.substring(0, str.length - 1);
+				q = q.substring(0, q.length - 1);
 			}
 
 		msg.delete();
