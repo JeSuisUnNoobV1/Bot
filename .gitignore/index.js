@@ -85,6 +85,13 @@ captcha_questions = [
 	"Combien y a t-il d'heures en un jour ?|24",
 	"Combien de secondes y a t-il dans une minute ?|60",
 	"Combien y a t-il de couleurs dans un arc en ciel ?|7"
+],
+
+StoreItems = [
+	"",
+	"set go|20",
+	"short|180",
+	"/nick|300"
 ];
 
 var globalInterval = false,
@@ -897,6 +904,27 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 	// Roboto channel
 	if (m==prefix+"channel"){
 		msg.channel.send("Vous êtes sur le salon `"+msg.channel.name+"`");	
+	}
+
+	if (m==prefix+"shop" || m==prefix+"store") {
+		let items = StoreItems,
+			toDisplay = "_Pour acheter un produit, cliquez sur la réaction qui lui est associé._\n",
+			letters = ["🇦", "🇧", "🇨", "🇩", "🇪", "🇫", "🇬", "🇭", "🇮", "🇯", "🇰", "🇱", "🇲", "🇳", "🇴", "🇵", "🇶", "🇷", "🇸", "🇹", "🇺", "🇻", "🇼", "🇽", "🇾", "🇿"],
+			itemsCount = items.length -1;
+
+		for (let i = 0; i<items.length; i++) {
+			toDisplay += items[i].split("|")[0]+" | "+items[i].split("|")[1];
+			msg.react(letters[i]);
+		}
+
+		msg.channel.send({"embed":{
+			title:"Shop du serveur",
+			description: toDisplay,
+			color: 16777215,
+			footer: {
+				text: "aucun achat n'est remboursé"
+			}
+		}});
 	}
 
 	if (m==prefix+"stats"){
