@@ -905,6 +905,15 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 		msg.channel.send("Vous êtes sur le salon `"+msg.channel.name+"`");	
 	}
 
+	function sleep(milliseconds) {
+		var start = new Date().getTime();
+		for (var i = 0; i < 1e7; i++) {
+		  if ((new Date().getTime() - start) > milliseconds){
+			break;
+		  }
+		}
+	}
+
 	if (m==prefix+"shop" || m==prefix+"store") {
 		let items = StoreItems,
 			toDisplay = "_Pour acheter un produit, cliquez sur la réaction qui lui est associé._\n```js\n",
@@ -926,6 +935,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 		}}).then(msg => {
 			for (let i = 0; i<items.length; i++) {
 				msg.react(letters[i]);
+				sleep(200);
 			}
 		});
 	}
