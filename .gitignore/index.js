@@ -81,7 +81,7 @@ captcha_questions = [
 	"Écrivez \"1\" en lettres.|un",
 	"De quelle couleur sont les carottes ?|orange",
 	"Peut-on utiliser un stylo pour écrire sur une feuille blanche ?|oui",
-	"Poursuivez en un mot: Petit papa noêl, quand tu descendra du [---]|ciel",
+	"Poursuivez en un mot: Petit papa noêl, quand tu descendra du [----]|ciel",
 	"Combien y a t-il d'heures en un jour ?|24",
 	"Combien de secondes y a t-il dans une minute ?|60",
 	"Combien y a t-il de couleurs dans un arc en ciel ?|7"
@@ -494,7 +494,6 @@ if(m.includes("fdp")||m.includes("beze")||m.includes("bese")||m.includes("bz")||
 
 /* 06 / Utilities
 =========================== */
-if (m.startsWith(prefix)){ // Si le msg commence par le préfix contenu dans `config.json`
 if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 
 	// Roboto
@@ -1690,8 +1689,6 @@ if (isBruh() || isAdmin() && (m.startsWith(prefix+"ban") || m.startsWith(prefix
 } else if (m.startsWith(prefix+"ban") || m.startsWith(prefix+"unban")){
 	noRight();
 }
-
-} /* Fin de prefix check */
 
 /* 10 / Instant responses
 ============================= */
