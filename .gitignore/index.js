@@ -98,7 +98,7 @@ var globalInterval = false,
 ================ */
 
 client.on('ready', () => {
-	client.channels.find(val => val.id === "539847850666885131").send(readyMessages[Math.floor(Math.random() * (readyMessages.length - 1) + 1)]);
+	client.channels.find(val => val.id === "554712145527439377").send(readyMessages[Math.floor(Math.random() * (readyMessages.length - 1) + 1)]);
 	if (devMode == false) client.channels.find(val => val.id === "539847850666885131").send("Roboto vient d'être réinitialisé. Vos coins et votre xp ont été tranférés dans la nouvelle base de donnée. Si cela viendrait à re mettre à zéro vos comptes, merci de contacter un <#547042040068833300>. Pour cette procédure nous aurons besoin de captures d'écran prouvant l'erreur.\n\namicalement, \n\n_-- Le staff_");
     client.user.setAvatar('https://theotime.me/discord/roboto.png');
 	client.user.setActivity("la console", { type: 'WATCHING' });
@@ -723,6 +723,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 	if (m.startsWith(prefix+'github ') || m.match(/https:\/\/github\.com\/[A-z0-9-]+\/[A-z-]+/)) {
 		let q = msg.content.replace(prefix+'github ', "");
 			q = q.replace('https://github.com/', "");
+			q = q.replace(/https:\/\/github\.com\/[A-z0-9-]+\/[A-z-]+/, "");
 
 		msg.delete();
 		if (q.includes('/')) {
