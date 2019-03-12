@@ -933,10 +933,18 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 				text: "aucun achat n'est remboursé"
 			}
 		}}).then(msg => {
-			for (let i = 0; i<items.length; i++) {
-				msg.react(letters[i]);
-				sleep(1000);
-			}
+				msg.react(letters[0]).then(() => { // a
+				msg.react(letters[1]).then(() => { // b
+				msg.react(letters[2])/*.then(() => {*/; // c
+			//	msg.react(letters[3]).then(() => { // d
+			//	msg.react(letters[4]).then(() => { // e
+			//	msg.react(letters[5]).then(() => { // f
+			//	msg.react(letters[6]).then(() => { // g
+			//	msg.react(letters[7]).then(() => { // h
+			//	msg.react(letters[8]).then(() => { // i
+			//	msg.react(letters[9]).then(() => { // j
+			//	msg.react(letters[10]);
+				});});//});});});});});});
 
 			client.on('messageReactionAdd', (reaction , user) => {
 				if (!user.bot && reaction.message.id == msg.id) {
