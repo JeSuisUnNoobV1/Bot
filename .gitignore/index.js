@@ -1121,7 +1121,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 
 	// Roboto code
 	if (m.startsWith(prefix+"code")){
-		if (m.replace(prefix+"code") != (" " || "")) {
+		if (!(" " || "").includes(m.replace(prefix+"code"))) {
 			msg.delete().then(() => {
 				if (isBruh() || isAdmin()){
 					msg.channel.send("```"+msg.content.replace(prefix+"code", '')+"```");
