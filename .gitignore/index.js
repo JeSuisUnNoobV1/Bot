@@ -942,7 +942,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 				if (!user.bot && reaction.message.id == msg.id) {
 					let itemID = letters.indexOf(reaction.emoji.name),
 						itemName = StoreItems[itemID].split('|')[0],
-						from = reaction.author,
+						from = user,
 						to = client.users.find(val => val.id == "483335511159865347");
 	
 						bank.transfert({
