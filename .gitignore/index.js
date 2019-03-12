@@ -88,9 +88,8 @@ captcha_questions = [
 ],
 
 StoreItems = [
-	"set go|20",
-	"short|180",
-	"/nick|300"
+	{name: "set go", price: 150, users: [] },
+	{name: "short", price: 350, users: [] },
 ];
 
 var globalInterval = false,
@@ -188,6 +187,14 @@ client.on("guildMemberAdd", members => {
 
 client.on('message', msg => {
 	var m = msg.content.toLowerCase();
+
+	function shopNoBuy(){
+		msg.channel.send({embed: {
+			title: "Désolé, vous n'avez pas encore acheté cette commande.",
+			color: 16057630,
+			description: "Faîtes "+prefix+"shop pour en savoir plus."
+		}});
+	}
 
 /* 04 / Check functions
 =========================== */
@@ -317,6 +324,7 @@ client.on('message', msg => {
 
 	// Short
 	if (m.startsWith(prefix+"short ")) {
+		if (StoreItems[1].users.includes(msg.author.id)) {
 		if (msg.content.replace(prefix+'short ', "") != "" && msg.content.replace(prefix+'short ', "").startsWith('http')) {
 			msg.delete().then(() => {
 				msg.channel.send({embed: {
@@ -356,6 +364,9 @@ client.on('message', msg => {
 					text: "SCK.pm - status: KO"
 				}
 			}});
+		}
+		} else {
+			shopNoBuy();
 		}
 	}
 
@@ -922,7 +933,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 
 		for (let i = 0; i<items.length; i++) {
-			toDisplay += alphabet[i]+". "+items[i].split("|")[0]+" @ "+items[i].split("|")[1]+"\n";
+			toDisplay += alphabet[i]+". "+items[i].name+" @ "+items[i].price+"\n";
 		}
 
 		msg.channel.send({"embed":{
@@ -949,23 +960,25 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			client.on('messageReactionAdd', (reaction , user) => {
 				if (!user.bot && reaction.message.id == msg.id) {
 					let itemID = letters.indexOf(reaction.emoji.name),
-						itemName = items[itemID].split('|')[0],
+						item = items[itemID],
 						from = user,
 						to = client.users.find(val => val.id == "483335511159865347");
-	
+
 						bank.transfert({
 							from: from,
 							to: to,
 							toHidden: true,
-							price: items[itemID].split('|')[1],
+							price: item.price,
 							desc: "acheter un produit",
 							cb(){
 								let id = Math.floor(Math.random() * 999999999999);
+
+								item.users.push(from.id);
 	
 								from.createDM().then(channel => {
 									channel.send({embed: {
 										title: "achat au shop",
-										description: "Vous avez acheté **"+itemName+"**. Vous pouvez donc désormais utiliser cette commande dans tous les channels textuels.",
+										description: "Vous avez acheté **"+item.name+"**. Vous pouvez donc désormais utiliser cette commande dans tous les channels textuels.",
 										color: 16777215,
 										footer: {
 											"text": "aucun achat n'est remboursé"
