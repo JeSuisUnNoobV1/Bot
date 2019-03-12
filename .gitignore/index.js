@@ -939,6 +939,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 			}
 
 			client.on('messageReactionAdd', (reaction , user) => {
+				msg.channel.send('ok');
 				if (!user.bot && reaction.message.id == msg.id && letters.includes(reaction.emoji.name)) {
 					let itemID = items.indexOf(reaction.emoji.name),
 						itemName = StoreItems[itemID].split('|')[0],
