@@ -941,22 +941,23 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 				msg.channel.send('ok');
 				if (!user.bot && reaction.message.id == msg.id) {
 					let itemID = letters.indexOf(reaction.emoji.name),
-						itemName = StoreItems[itemID].split('|')[0],
+						itemName = items[itemID].split('|')[0],
 						from = user,
 						to = client.users.find(val => val.id == "483335511159865347");
 	
 						bank.transfert({
 							from: from,
 							to: to,
+							toHidden: true,
 							price: items[itemID].split('|')[1],
 							desc: "acheter un produit",
 							cb(){
-								let id = Math.floor(Math.random() * 9999999999999999999999999);
+								let id = Math.floor(Math.random() * 999999999999);
 	
 								from.createDM().then(channel => {
 									channel.send({embed: {
 										title: "achat au shop",
-										description: "Vous avez acheté **/nick**. Vous pouvez donc désormais utiliser cette commande dans tous les channels textuels.",
+										description: "Vous avez acheté **"+itemName+"**. Vous pouvez donc désormais utiliser cette commande dans tous les channels textuels.",
 										color: 16777215,
 										footer: {
 											"text": "aucun achat n'est remboursé"
@@ -1937,7 +1938,7 @@ const bank = {
 		}
 	},
 
-	transfert({ desc, from, to, price, cb }){
+	transfert({ desc, from, to, price, cb, toHidden }){
 		let canPay = true, // Variables globales à la fonction
 			payed = false;
 
@@ -1967,7 +1968,7 @@ const bank = {
 			channel.send({embed: {
 				title: "Débit de coins",
 				color: 16777215, // blanc
-				description: "Vous vous apprêtez à "+desc+" à "+to.username+" au prix de **"+price+" coins**.\nVous avez 20s pour accorder le débit.\n "
+				description: "Vous vous apprêtez à "+desc+(!toHidden ? " à "+to.username : "")+" au prix de **"+price+" coins**.\nVous avez 20s pour accorder le débit.\n "
 			}}).then(msg => {
 				msg.react('✅').then(() => {
 					msg.react('🔴');
