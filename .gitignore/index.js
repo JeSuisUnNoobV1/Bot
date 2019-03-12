@@ -992,7 +992,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 								});
 	
 								client.channels.find(val => val.id === "554734296636719116").send({embed: {
-									title: from.username,
+									title: from.tag,
 									color: 16777215,
 									description: "Achat de la commande `"+item.name+"`",
 									fields: [{
@@ -1481,16 +1481,20 @@ if (isActif() || isVIP() || isDivin() || isNoLife() || isBruh() || isAdmin() &&
 
 	// Roboto set go
 	if (m.startsWith(prefix+'set go')) {
-		let lk = msg.content.replace(prefix+"set go", ""),
-			cd = goCodes.length < 1000 ? goCodes.length < 100 ? goCodes.length < 10 ? "000"+goCodes.length : "00"+goCodes.length : "0"+goCodes.length : goCodes.length;
+		if (StoreItems[0].users.includes(msg.author.id)) {
+				let lk = msg.content.replace(prefix+"set go", ""),
+				cd = goCodes.length < 1000 ? goCodes.length < 100 ? goCodes.length < 10 ? "000"+goCodes.length : "00"+goCodes.length : "0"+goCodes.length : goCodes.length;
 
-		goCodes.push({lk: lk});
-			
-		msg.channel.send({embed: {
-			title: "GO code ajouté",
-			color: 16777215,
-			description: "Voici le code de votre lien: ```go "+cd+"```"
-		}});
+			goCodes.push({lk: lk});
+
+			msg.channel.send({embed: {
+				title: "GO code ajouté",
+				color: 16777215,
+				description: "Voici le code de votre lien: ```go "+cd+"```"
+			}});
+		} else {
+			shopNoBuy();
+		}
 	}
 
 	// Roboto embed
