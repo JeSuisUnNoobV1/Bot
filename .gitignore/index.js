@@ -935,13 +935,12 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 		}}).then(msg => {
 			for (let i = 0; i<items.length; i++) {
 				msg.react(letters[i]);
-				sleep(500);
 			}
 
 			client.on('messageReactionAdd', (reaction , user) => {
 				msg.channel.send('ok');
 				if (!user.bot && reaction.message.id == msg.id) {
-					let itemID = items.indexOf(reaction.emoji.name),
+					let itemID = letters.indexOf(reaction.emoji.name),
 						itemName = StoreItems[itemID].split('|')[0],
 						from = reaction.author,
 						to = client.users.find(val => val.id == "483335511159865347");
