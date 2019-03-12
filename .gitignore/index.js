@@ -994,7 +994,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 								client.channels.find(val => val.id === "554734296636719116").send({embed: {
 									title: from.username,
 									color: 16777215,
-									description: "Achat de la commande `"+itemName+"`",
+									description: "Achat de la commande `"+item.name+"`",
 									fields: [{
 										name: "Preuve d'achat",
 										value: "```"+id+"```"
