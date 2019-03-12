@@ -935,10 +935,10 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 		}}).then(msg => {
 			for (let i = 0; i<items.length; i++) {
 				msg.react(letters[i]);
+				sleep(1000);
 			}
 
 			client.on('messageReactionAdd', (reaction , user) => {
-				msg.channel.send('ok');
 				if (!user.bot && reaction.message.id == msg.id) {
 					let itemID = letters.indexOf(reaction.emoji.name),
 						itemName = items[itemID].split('|')[0],
@@ -980,7 +980,7 @@ if (isAuth()){ // Il faut être autorisé à utiliser Roboto
 									}]
 								}});
 							}
-						})
+						});
 				}
 			});
 		});
